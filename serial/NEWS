@@ -1,0 +1,15 @@
+Summary of important user-visible changes for serial 0.1.0:
+-------------------------------------------------------------------
+
+ ** Initial release
+
+ ** The following functions are new:
+        serial
+        srl_write
+        srl_baudrate
+        srl_bytesize
+        srl_flush
+        srl_parity
+        srl_stopbits
+        srl_close
+        srl_read
