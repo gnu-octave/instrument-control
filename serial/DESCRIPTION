@@ -8,4 +8,4 @@ Description: Serial functions for communicating from within octave.
 Categories: Serial
 Depends: octave (>= 3.6.2)
 Autoload: no
-License: GPLv3+
+License: LGPLv3+

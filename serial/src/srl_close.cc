@@ -62,5 +62,6 @@ DEFUN_DLD (srl_close, args, nargout, "Hello World Help String")
 
 int octave_serial::srl_close()
 {
+    this->fd = -1;
     return ::close(this->srl_get_fd());
 }
