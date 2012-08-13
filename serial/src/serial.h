@@ -49,6 +49,7 @@ public:
 
     int srl_flush(unsigned short);
 
+    int srl_timeout(short);
     int srl_baudrate(unsigned int);
     int srl_bytesize(unsigned short);
     int srl_parity(string);
@@ -77,6 +78,8 @@ public:
 private:
     int fd;
     struct termios config;
+    
+    bool blocking_read;
 
     DECLARE_OCTAVE_ALLOCATOR
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA

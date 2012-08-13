@@ -13,9 +13,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
-// TODO: Include more detailed error messages
+// TODO: Include more detailed error messages (perror?)
 // TODO: Implement Flow Control
+// TODO: Implement H/W handshaking
 // TODO: Implement read timeout
+// TODO: Check if interface is opened first
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
@@ -53,6 +55,7 @@ octave_serial::octave_serial(string path, int flags)
 {
     this->fd = open(path.c_str(), flags, 0);
     tcgetattr(this->fd, &this->config);
+    this->blocking_read = true;
 }
 
 octave_serial::~octave_serial()
@@ -67,8 +70,8 @@ int octave_serial::srl_get_fd()
 
 void octave_serial::print (std::ostream& os, bool pr_as_read_syntax ) const
 {
-    print_raw (os, pr_as_read_syntax);
-    newline (os);
+    print_raw(os, pr_as_read_syntax);
+    newline(os);
 }
 
 void octave_serial::print_raw (std::ostream& os, bool pr_as_read_syntax) const
@@ -97,6 +100,8 @@ DEFUN_DLD (serial, args, nargout, "Hello World Help String")
     // Default values
     string path("/dev/ttyUSB0");
     unsigned int baud_rate = 115200;
+    short timeout = -1;
+    
     unsigned short bytesize = 8;
     string parity("N");
     unsigned short stopbits = 1;
@@ -143,11 +148,11 @@ DEFUN_DLD (serial, args, nargout, "Hello World Help String")
     {
         if (args(2).is_integer_type() || args(2).is_float_type())
         {
-            oflags = args(2).int_value();
+            timeout = args(2).int_value();
         }
         else
         {
-            error("serial: 3rd argument must be an interface flags of type integer...");
+            error("serial: 3rd argument must be an timeout of type integer...");
             return octave_value();
         }
     }
@@ -162,9 +167,14 @@ DEFUN_DLD (serial, args, nargout, "Hello World Help String")
     }
 
     retval->srl_baudrate(baud_rate);
+    
+    if (timeout >= 0) {
+        retval->srl_timeout(timeout);
+    }
+    
     retval->srl_parity(parity);
     retval->srl_bytesize(bytesize);
     retval->srl_stopbits(stopbits);
-
+    
     return octave_value(retval);
 }

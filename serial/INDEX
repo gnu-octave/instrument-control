@@ -9,3 +9,4 @@ Serial
   srl_stopbits
   srl_close
   srl_read
+  srl_timeout

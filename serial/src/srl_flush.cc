@@ -38,19 +38,19 @@ using std::string;
 // PKG_ADD: autoload ("srl_flush", "serial.oct");
 int octave_serial::srl_flush(unsigned short queue_selector)
 {
-
-    // TCIFLUSH Flush pending input.
-    // TCIOFLUSH Flush both pending input and untransmitted output.
-    // TCOFLUSH Flush untransmitted output.
-
+    /*
+     * TCIOFLUSH Flush both pending input and untransmitted output.
+     * TCOFLUSH Flush untransmitted output.
+     * TCIFLUSH Flush pending input.
+     */
 
     int flag;
 
     switch (queue_selector)
     {
-    case 0: flag = TCIFLUSH; break;
-    case 1: flag = TCIOFLUSH; break;
-    case 2: flag = TCOFLUSH; break;
+    case 0: flag = TCOFLUSH; break;
+    case 1: flag = TCIFLUSH; break;
+    case 2: flag = TCIOFLUSH; break;
     default:
         error("srl_flush: only [0..2] values are accepted...");
         return false;
@@ -62,7 +62,7 @@ int octave_serial::srl_flush(unsigned short queue_selector)
 // PKG_ADD: autoload ("srl_flush", "serial.oct");
 DEFUN_DLD (srl_flush, args, nargout, "Hello World Help String")
 {
-    int queue_selector = 1;
+    int queue_selector = 2; // Input and Output
 
     if (args.length() < 1 || args.length() > 2) 
     {

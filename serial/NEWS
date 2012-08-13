@@ -13,3 +13,4 @@ Summary of important user-visible changes for serial 0.1.0:
         srl_stopbits
         srl_close
         srl_read
+        srl_timeout

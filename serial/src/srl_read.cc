@@ -78,26 +78,26 @@ DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
     const octave_base_value& rep = args(0).get_rep();
     serial = &((octave_serial &)rep);
 
-    int retval = 0;
+    int buffer_read = 0, read_retval = -1;
 
-    while (retval < buffer_len)
+    // While buffer not full and not timeout
+    while (buffer_read < buffer_len && read_retval != 0) 
     {
-        retval += serial->srl_read(buffer + retval, buffer_len - retval);
+        read_retval = serial->srl_read(buffer + buffer_read, buffer_len - buffer_read);
+        buffer_read += read_retval;
     }
-
-    //buffer[retval] = '\0';
-
+    
     octave_value_list return_list;
     uint8NDArray data;
-    data.resize(retval);
+    data.resize(buffer_read);
 
     // TODO: clean this up
-    for (int i = 0; i < retval; i++)
+    for (int i = 0; i < buffer_read; i++)
     {
         data(i) = buffer[i];
     }
 
-    return_list(1) = retval; 
+    return_list(1) = buffer_read; 
     return_list(0) = data;
 
     delete[] buffer;
