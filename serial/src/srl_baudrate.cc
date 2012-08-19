@@ -38,16 +38,10 @@ using std::string;
 // PKG_ADD: autoload ("srl_baudrate", "serial.oct");
 DEFUN_DLD (srl_baudrate, args, nargout, "Hello World Help String")
 {
-    if (args.length() < 1 || args.length() > 2)
+    if (args.length() < 1 || args.length() > 2 ||
+        args(0).type_id() != octave_serial::static_type_id())
     {
-        error("srl_baudrate: expecting one or two arguments...");
-        return octave_value(-1);
-    }
-
-
-    if (args(0).type_id() != octave_serial::static_type_id())
-    {
-        error("srl_baudrate: expecting first argument of type octave_serial...");
+        print_usage();
         return octave_value(-1);
     }
 

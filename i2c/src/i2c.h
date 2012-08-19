@@ -13,45 +13,36 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
-#ifndef SERIAL_H
-#define SERIAL_H
+#ifndef i2c_H
+#define i2c_H
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
 #include <string>
 
-#define BITMASK_SET(x,y) ((x) |= (y))
-#define BITMASK_CLEAR(x,y) ((x) &= (~(y)))
-#define BITMASK_TOGGLE(x,y) ((x) ^= (y))
-#define BITMASK_CHECK(x,y) ((x) & (y))
+using std::string;
 
-class octave_serial : public octave_base_value 
+class octave_i2c : public octave_base_value 
 {
 public:
-    octave_serial();
-    octave_serial(string, int);
-    ~octave_serial();
+    octave_i2c();
+    octave_i2c(string, int);
+    ~octave_i2c();
 
-    int srl_get_fd();
+    int i2c_get_fd();
+    int i2c_close();
 
-    int srl_write(string);
-    int srl_read(char *, unsigned int);
-    int srl_close();
-
-    int srl_flush(unsigned short);
-
-    int srl_timeout(short);
-    int srl_baudrate(unsigned int);
-    int srl_bytesize(unsigned short);
-    int srl_parity(string);
-    int srl_stopbits(unsigned short);
-
-
+    int i2c_set_addr(int);
+    int i2c_get_addr();
+    
+    // Simple i2c commands
+    int i2c_write(unsigned char*, int);
+    int i2c_read(char*, unsigned int);
+    
+    
     // Overloaded base functions
-    double serial_value() const
+    double i2c_value() const
     {
         return (double)this->fd;
     }
@@ -71,9 +62,7 @@ public:
 
 private:
     int fd;
-    struct termios config;
-    
-    bool blocking_read;
+    int addr;
 
     DECLARE_OCTAVE_ALLOCATOR
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA

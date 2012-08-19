@@ -1,0 +1,11 @@
+Name: i2c
+Version: 0.1.0
+Date: 2012-08-19
+Author: Andrius Sutas <andrius.sutas@gmail.com>
+Maintainer: Andrius Sutas <andrius.sutas@gmail.com>
+Title: i2c
+Description: i2c functions for communicating from within octave.
+Categories: i2c
+Depends: octave (>= 3.4.0)
+Autoload: no
+License: LGPLv3+

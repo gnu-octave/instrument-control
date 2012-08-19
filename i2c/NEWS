@@ -1,0 +1,12 @@
+Summary of important user-visible changes for i2c 0.1.0:
+-------------------------------------------------------------------
+
+ ** Initial release
+
+ ** The following functions are new:
+        i2c
+	i2c_addr
+	i2c_read
+	i2c_write
+	i2c_close
+        

@@ -15,39 +15,33 @@
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
-#include <octave/ov-uint8.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
 #include <iostream>
 #include <string>
 #include <algorithm>
 
 #ifndef __WIN32__
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
 #include <errno.h>
-#include <termios.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #endif
 
-using std::string;
 
-#include "serial.h"
+#include "i2c.h"
 
-// PKG_ADD: autoload ("srl_read", "serial.oct");
-DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
+// PKG_ADD: autoload ("i2c_read", "i2c.oct");
+DEFUN_DLD (i2c_read, args, nargout, "Hello World Help String")
 {
-    if (args.length() < 1 || args.length() > 2)
+    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_i2c::static_type_id())
     {
-        error("srl_read: expecting one or two arguments...");
-        return octave_value(-1);
-    }
-
-    if (args(0).type_id() != octave_serial::static_type_id())
-    {
-        error("srl_read: expecting first argument of type octave_serial...");
+        print_usage();
         return octave_value(-1);
     }
 
@@ -58,45 +52,37 @@ DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
     {
         if ( !(args(1).is_integer_type() || args(1).is_float_type()) )
         {
-            error("srl_read: expecting second argument of type integer...");
+            print_usage();
             return octave_value(-1);
         }
 
         buffer_len = args(1).int_value();
     }
 
-    buffer = new char[buffer_len+1];
+    buffer = new char [buffer_len + 1];
 
     if (buffer == NULL)
     {
-        error("srl_read: cannot allocate requested memory...");
+        error("i2c_read: cannot allocate requested memory...");
         return octave_value(-1);  
     }
 
-    octave_serial* serial = NULL;
+    octave_i2c* i2c = NULL;
 
     const octave_base_value& rep = args(0).get_rep();
-    serial = &((octave_serial &)rep);
+    i2c = &((octave_i2c &)rep);
 
-    int buffer_read = 0, read_retval = -1;
-
-    // While buffer not full and not timeout
-    while (buffer_read < buffer_len && read_retval != 0) 
-    {
-        read_retval = serial->srl_read(buffer + buffer_read, buffer_len - buffer_read);
-        buffer_read += read_retval;
-    }
+    int retval;
+    
+    retval = i2c->i2c_read(buffer, buffer_len);
     
     octave_value_list return_list;
-    uint8NDArray data(buffer_read);
+    uint8NDArray data(retval);
     
-    // TODO: clean this up
-    for (int i = 0; i < buffer_read; i++)
-    {
+    for (int i = 0; i < retval; i++)
         data(i) = buffer[i];
-    }
 
-    return_list(1) = buffer_read; 
+    return_list(1) = retval; 
     return_list(0) = data;
 
     delete[] buffer;
@@ -104,7 +90,12 @@ DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
     return return_list;
 }
 
-int octave_serial::srl_read(char *buf, unsigned int len)
-{
-    return ::read(srl_get_fd(), buf, len);
+int octave_i2c::i2c_read(char *buf, unsigned int len)
+{   
+    int retval = ::read(i2c_get_fd(), buf, len);
+    
+    if (retval != len)
+        error("i2c: Failed to read from the i2c bus: %s\n", strerror(errno));
+                    
+    return retval;
 }

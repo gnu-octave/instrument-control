@@ -23,41 +23,44 @@
 #include <algorithm>
 
 #ifndef __WIN32__
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
 #include <errno.h>
-#include <termios.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #endif
 
 using std::string;
 
-#include "serial.h"
+#include "i2c.h"
 
-// TODO: implement uint8 array as input type
-// PKG_ADD: autoload ("srl_write", "serial.oct");
-DEFUN_DLD (srl_write, args, nargout, "Hello World Help String")
+// PKG_ADD: autoload ("i2c_close", "i2c.oct");
+DEFUN_DLD (i2c_close, args, nargout, "Hello World Help String")
 {
-    if (args.length() != 2) || 
-        args(0).type_id() != octave_serial::static_type_id() || 
-        !args(1).is_string())
+    if (args.length() != 1 || args(0).type_id() != octave_i2c::static_type_id())
     {
         print_usage();
         return octave_value(-1);
     }
-    
-    octave_serial* serial = NULL;
+
+    octave_i2c* i2c = NULL;
 
     const octave_base_value& rep = args(0).get_rep();
-    serial = &((octave_serial &)rep);
+    i2c = &((octave_i2c &)rep);
 
-    serial->srl_write(args(1).string_value());
+    i2c->i2c_close();
 
     return octave_value();
 }
 
-int octave_serial::srl_write(string str)
+int octave_i2c::i2c_close()
 {
-    return ::write(srl_get_fd(), str.c_str(), str.length());
+    int retval = ::close(this->i2c_get_fd());
+    this->fd = -1;
+    return retval;
 }
