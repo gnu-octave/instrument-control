@@ -179,5 +179,7 @@ DEFUN_DLD (serial, args, nargout, "Hello World Help String")
     retval->srl_bytesize(bytesize);
     retval->srl_stopbits(stopbits);
     
+    retval->srl_flush();
+    
     return octave_value(retval);
 }

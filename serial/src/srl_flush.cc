@@ -89,3 +89,8 @@ int octave_serial::srl_flush(unsigned short queue_selector)
 
     return ::tcflush(this->srl_get_fd(), flag);
 }
+
+int octave_serial::srl_flush()
+{
+    return srl_flush(2);
+}

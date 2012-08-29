@@ -35,29 +35,53 @@ using std::string;
 
 #include "serial.h"
 
-// TODO: implement uint8 array as input type
 // PKG_ADD: autoload ("srl_write", "serial.oct");
 DEFUN_DLD (srl_write, args, nargout, "Hello World Help String")
 {
-    if (args.length() != 2 || 
-        args(0).type_id() != octave_serial::static_type_id() || 
-        !args(1).is_string())
+    if (args.length() != 2 || args(0).type_id() != octave_serial::static_type_id())
     {
         print_usage();
         return octave_value(-1);
     }
-    
+
     octave_serial* serial = NULL;
+    int retval;
 
     const octave_base_value& rep = args(0).get_rep();
     serial = &((octave_serial &)rep);
 
-    serial->srl_write(args(1).string_value());
+    if (args(1).is_string()) // String
+    {
+        retval = serial->srl_write(args(1).string_value());
+    }
+    else if (args(1).byte_size() == args(1).numel()) // uint8_t
+    {
+        NDArray data = args(1).array_value();
+        unsigned char* buf = new unsigned char[data.length()];
+        
+        // memcpy?
+        for (int i = 0; i < data.length(); i++)
+            buf[i] = (unsigned char)data(i);
+        
+        retval = serial->srl_write(buf, data.length());
+        
+        delete[] buf;
+    }
+    else
+    {
+        print_usage();
+        return octave_value(-1);
+    }
 
-    return octave_value();
+    return octave_value(retval);
 }
 
 int octave_serial::srl_write(string str)
 {
     return ::write(srl_get_fd(), str.c_str(), str.length());
+}
+
+int octave_serial::srl_write(unsigned char *buf, int len)
+{
+    return ::write(srl_get_fd(), buf, len);
 }

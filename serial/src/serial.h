@@ -38,10 +38,12 @@ public:
     int srl_get_fd();
 
     int srl_write(string);
+    int srl_write(unsigned char*, int);
     int srl_read(char *, unsigned int);
     int srl_close();
 
     int srl_flush(unsigned short);
+    int srl_flush();
 
     int srl_timeout(short);
     int srl_baudrate(unsigned int);
