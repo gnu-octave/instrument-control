@@ -54,8 +54,12 @@ octave_serial::octave_serial()
 octave_serial::octave_serial(string path, int flags)
 {
     this->fd = open(path.c_str(), flags, 0);
-    tcgetattr(this->fd, &this->config);
-    this->blocking_read = true;
+    
+    if (this->fd > 0)
+    {
+        tcgetattr(this->fd, &this->config);
+        this->blocking_read = true;
+    }
 }
 
 octave_serial::~octave_serial()
@@ -82,21 +86,20 @@ void octave_serial::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 // PKG_ADD: autoload ("serial", "serial.oct");
 DEFUN_DLD (serial, args, nargout, "Hello World Help String")
 {
-    int nargin = args.length();
-
-    // Do not open interface if return value is not assigned
-    if (nargout != 1)
-    {
-        error("serial: serial() function has one mandatory output argument");
-        return octave_value();
-    }
-
-
 #ifdef __WIN32__
     error("serial: Windows platform support is not yet implemented, go away...");
     return octave_value();
 #endif
 
+    int nargin = args.length();
+
+    // Do not open interface if return value is not assigned
+    if (nargout != 1)
+    {
+        print_usage();
+        return octave_value();
+    }
+    
     // Default values
     string path("/dev/ttyUSB0");
     unsigned int baud_rate = 115200;
@@ -123,7 +126,7 @@ DEFUN_DLD (serial, args, nargout, "Hello World Help String")
         }
         else
         {
-            error("serial: 1st argument must be an interface path of type string...");
+            print_usage();
             return octave_value();
         }
 
@@ -139,7 +142,7 @@ DEFUN_DLD (serial, args, nargout, "Hello World Help String")
         }
         else
         {
-            error("serial: 2nd argument must be an interface baud rate of type integer...");
+            print_usage();
             return octave_value();
         }
     }
@@ -152,7 +155,7 @@ DEFUN_DLD (serial, args, nargout, "Hello World Help String")
         }
         else
         {
-            error("serial: 3rd argument must be an timeout of type integer...");
+            print_usage();
             return octave_value();
         }
     }
@@ -162,10 +165,10 @@ DEFUN_DLD (serial, args, nargout, "Hello World Help String")
 
     if (retval->srl_get_fd() < 0)
     {
-        error("serial: Error opening the interface...");
+        error("serial: Error opening the interface: %s\n", strerror(errno));
         return octave_value();
     }
-
+    
     retval->srl_baudrate(baud_rate);
     
     if (timeout >= 0) {

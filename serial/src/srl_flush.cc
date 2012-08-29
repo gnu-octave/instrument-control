@@ -36,6 +36,37 @@ using std::string;
 #include "serial.h"
 
 // PKG_ADD: autoload ("srl_flush", "serial.oct");
+DEFUN_DLD (srl_flush, args, nargout, "Hello World Help String")
+{
+    int queue_selector = 2; // Input and Output
+
+    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_serial::static_type_id()) 
+    {
+        print_usage();
+        return octave_value(-1);
+    }
+
+    if (args.length() > 1)
+    {
+        if (!(args(1).is_integer_type() || args(1).is_float_type()))
+        {
+            print_usage();
+            return octave_value(-1);
+        }
+
+        queue_selector = args(1).int_value();
+    }
+
+    octave_serial* serial = NULL;
+
+    const octave_base_value& rep = args(0).get_rep();
+    serial = &((octave_serial &)rep);
+
+    serial->srl_flush(queue_selector);
+
+    return octave_value();
+}
+
 int octave_serial::srl_flush(unsigned short queue_selector)
 {
     /*
@@ -57,43 +88,4 @@ int octave_serial::srl_flush(unsigned short queue_selector)
     }
 
     return ::tcflush(this->srl_get_fd(), flag);
-}
-
-// PKG_ADD: autoload ("srl_flush", "serial.oct");
-DEFUN_DLD (srl_flush, args, nargout, "Hello World Help String")
-{
-    int queue_selector = 2; // Input and Output
-
-    if (args.length() < 1 || args.length() > 2) 
-    {
-        error("srl_write: expecting one or two arguments...");
-        return octave_value(-1);
-    }
-
-    if (args(0).type_id() != octave_serial::static_type_id())
-    {
-        error("srl_write: expecting first argument of type octave_serial...");
-        return octave_value(-1);
-    }
-
-
-    if (args.length() > 1)
-    {
-        if (!(args(1).is_integer_type() || args(1).is_float_type()))
-        {
-            error("srl_write: expecting second argument of type integer...");
-            return octave_value(-1);
-        }
-
-        queue_selector = args(1).int_value();
-    }
-
-    octave_serial* serial = NULL;
-
-    const octave_base_value& rep = args(0).get_rep();
-    serial = &((octave_serial &)rep);
-
-    serial->srl_flush(queue_selector);
-
-    return octave_value();
 }

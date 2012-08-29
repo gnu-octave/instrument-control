@@ -115,7 +115,9 @@ int octave_serial::srl_baudrate(unsigned int baud)
     case 230400:
         baud_rate = B230400; break;
     default:
-        error("srl_baudrate: currently only standard baud rates are supported...");
+        error("srl_baudrate: currently only 0, 50, 75, 110, \
+                134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, \
+                9600 19200, 38400, 5760, 115200 and 230400 baud rates are supported...");
         return false;
     }
 
@@ -123,7 +125,7 @@ int octave_serial::srl_baudrate(unsigned int baud)
     cfsetospeed(&this->config, baud_rate);
 
     if (tcsetattr(this->srl_get_fd(), TCSANOW, &this->config) < 0) {
-        error("srl_baudrate: error setting baud rate...");
+        error("srl_baudrate: error setting baud rate: %s\n", strerror(errno));
         return false;
     }
 

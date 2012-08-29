@@ -38,18 +38,12 @@ using std::string;
 // PKG_ADD: autoload ("srl_close", "serial.oct");
 DEFUN_DLD (srl_close, args, nargout, "Hello World Help String")
 {
-    if (args.length() != 1)
+    if (args.length() != 1 || args(0).type_id() != octave_serial::static_type_id())
     {
-        error("srl_close: expecting one argument...");
+        print_usage();
         return octave_value(-1);
     }
-
-    if (args(0).type_id() != octave_serial::static_type_id())
-    {
-        error("srl_close: expecting first argument of type octave_serial...");
-        return octave_value(-1);
-    }
-
+    
     octave_serial* serial = NULL;
 
     const octave_base_value& rep = args(0).get_rep();

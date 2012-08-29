@@ -39,15 +39,9 @@ using std::string;
 // PKG_ADD: autoload ("srl_read", "serial.oct");
 DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
 {
-    if (args.length() < 1 || args.length() > 2)
+    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_serial::static_type_id())
     {
-        error("srl_read: expecting one or two arguments...");
-        return octave_value(-1);
-    }
-
-    if (args(0).type_id() != octave_serial::static_type_id())
-    {
-        error("srl_read: expecting first argument of type octave_serial...");
+        print_usage();
         return octave_value(-1);
     }
 
@@ -58,7 +52,7 @@ DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
     {
         if ( !(args(1).is_integer_type() || args(1).is_float_type()) )
         {
-            error("srl_read: expecting second argument of type integer...");
+            print_usage();
             return octave_value(-1);
         }
 
@@ -69,7 +63,7 @@ DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
 
     if (buffer == NULL)
     {
-        error("srl_read: cannot allocate requested memory...");
+        error("srl_read: cannot allocate requested memory: %s\n", strerror(errno));
         return octave_value(-1);  
     }
 

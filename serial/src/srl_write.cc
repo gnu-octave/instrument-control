@@ -39,7 +39,7 @@ using std::string;
 // PKG_ADD: autoload ("srl_write", "serial.oct");
 DEFUN_DLD (srl_write, args, nargout, "Hello World Help String")
 {
-    if (args.length() != 2) || 
+    if (args.length() != 2 || 
         args(0).type_id() != octave_serial::static_type_id() || 
         !args(1).is_string())
     {

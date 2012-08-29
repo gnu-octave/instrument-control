@@ -38,15 +38,9 @@ using std::string;
 // PKG_ADD: autoload ("srl_timeout", "serial.oct");
 DEFUN_DLD (srl_timeout, args, nargout, "Hello World Help String")
 {
-    if (args.length() < 1 || args.length() > 2)
+    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_serial::static_type_id())
     {
-        error("srl_timeout: expecting one or two arguments...");
-        return octave_value(-1);
-    }
-
-    if (args(0).type_id() != octave_serial::static_type_id())
-    {
-        error("srl_timeout: expecting first argument of type octave_serial...");
+        print_usage();
         return octave_value(-1);
     }
 
@@ -55,7 +49,7 @@ DEFUN_DLD (srl_timeout, args, nargout, "Hello World Help String")
     {
         if ( !(args(1).is_integer_type() || args(1).is_float_type()) )
         {
-            error("srl_timeout: expecting second argument of type integer...");
+            print_usage();
             return octave_value(-1);
         }
 
