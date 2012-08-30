@@ -15,8 +15,6 @@
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
 #include <iostream>
 #include <string>
@@ -36,7 +34,17 @@ using std::string;
 #include "serial.h"
 
 // PKG_ADD: autoload ("srl_write", "serial.oct");
-DEFUN_DLD (srl_write, args, nargout, "Hello World Help String")
+DEFUN_DLD (srl_write, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {@var{n} = } srl_write (@var{serial}, @var{data})\n \
+\n\
+Write data to a serial interface.\n \
+\n\
+@var{serial} - instance of @var{octave_serial} class.@*\
+@var{data} - data to be written to the serial interface. Can be either of String or uint8 type.\n \
+\n\
+Upon successful completion, srl_write() shall return the number of bytes written as the result @var{n}.\n \
+@end deftypefn")
 {
     if (args.length() != 2 || args(0).type_id() != octave_serial::static_type_id())
     {
@@ -52,7 +60,7 @@ DEFUN_DLD (srl_write, args, nargout, "Hello World Help String")
 
     if (args(1).is_string()) // String
     {
-        retval = serial->srl_write(args(1).string_value());
+        retval = serial->write(args(1).string_value());
     }
     else if (args(1).byte_size() == args(1).numel()) // uint8_t
     {
@@ -63,7 +71,7 @@ DEFUN_DLD (srl_write, args, nargout, "Hello World Help String")
         for (int i = 0; i < data.length(); i++)
             buf[i] = (unsigned char)data(i);
         
-        retval = serial->srl_write(buf, data.length());
+        retval = serial->write(buf, data.length());
         
         delete[] buf;
     }
@@ -76,12 +84,12 @@ DEFUN_DLD (srl_write, args, nargout, "Hello World Help String")
     return octave_value(retval);
 }
 
-int octave_serial::srl_write(string str)
+int octave_serial::write(string str)
 {
-    return ::write(srl_get_fd(), str.c_str(), str.length());
+    return ::write(get_fd(), str.c_str(), str.length());
 }
 
-int octave_serial::srl_write(unsigned char *buf, int len)
+int octave_serial::write(unsigned char *buf, int len)
 {
-    return ::write(srl_get_fd(), buf, len);
+    return ::write(get_fd(), buf, len);
 }

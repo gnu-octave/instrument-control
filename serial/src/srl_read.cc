@@ -16,8 +16,6 @@
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
 #include <octave/ov-uint8.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
 #include <iostream>
 #include <string>
@@ -37,7 +35,17 @@ using std::string;
 #include "serial.h"
 
 // PKG_ADD: autoload ("srl_read", "serial.oct");
-DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
+DEFUN_DLD (srl_read, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } srl_read (@var{serial}, @var{n})\n \
+\n\
+Read from serial interface.\n \
+\n\
+@var{serial} - instance of @var{octave_serial} class.@*\
+@var{n} - number of bytes to attempt to read of type Integer.\n \
+\n\
+The srl_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
+@end deftypefn")
 {
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_serial::static_type_id())
     {
@@ -77,7 +85,7 @@ DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
     // While buffer not full and not timeout
     while (buffer_read < buffer_len && read_retval != 0) 
     {
-        read_retval = serial->srl_read(buffer + buffer_read, buffer_len - buffer_read);
+        read_retval = serial->read(buffer + buffer_read, buffer_len - buffer_read);
         buffer_read += read_retval;
     }
     
@@ -86,9 +94,7 @@ DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
     
     // TODO: clean this up
     for (int i = 0; i < buffer_read; i++)
-    {
         data(i) = buffer[i];
-    }
 
     return_list(1) = buffer_read; 
     return_list(0) = data;
@@ -98,7 +104,7 @@ DEFUN_DLD (srl_read, args, nargout, "Hello World Help String")
     return return_list;
 }
 
-int octave_serial::srl_read(char *buf, unsigned int len)
+int octave_serial::read(char *buf, unsigned int len)
 {
-    return ::read(srl_get_fd(), buf, len);
+    return ::read(get_fd(), buf, len);
 }

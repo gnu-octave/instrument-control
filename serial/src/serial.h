@@ -18,8 +18,6 @@
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
 #include <string>
 
@@ -35,30 +33,36 @@ public:
     octave_serial(string, int);
     ~octave_serial();
 
-    int srl_get_fd();
+    int write(string);
+    int write(unsigned char*, int);
+    
+    int read(char *, unsigned int);
+    
+    int close();
 
-    int srl_write(string);
-    int srl_write(unsigned char*, int);
-    int srl_read(char *, unsigned int);
-    int srl_close();
+    int flush(unsigned short);
 
-    int srl_flush(unsigned short);
-    int srl_flush();
+    int set_timeout(short);
+    int get_timeout();
+    
+    int set_baudrate(unsigned int);
+    int get_baudrate();
+    
+    int set_bytesize(unsigned short);
+    int get_bytesize();
+    
+    int set_parity(string);
+    string get_parity();
+    
+    int set_stopbits(unsigned short);
+    int get_stopbits();
 
-    int srl_timeout(short);
-    int srl_baudrate(unsigned int);
-    int srl_bytesize(unsigned short);
-    int srl_parity(string);
-    int srl_stopbits(unsigned short);
-
+    int get_fd() { return this->fd; }
 
     // Overloaded base functions
-    double serial_value() const
-    {
-        return (double)this->fd;
-    }
+    double serial_value() const { return (double)this->fd; }
 
-    virtual double scalar_value (bool frc_str_conv = false) const
+    virtual double scalar_value (bool frc_str_conv = false) const 
     {
         return (double)this->fd;
     }

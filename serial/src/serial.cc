@@ -13,16 +13,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
-// TODO: Include more detailed error messages (perror?)
 // TODO: Implement Flow Control
 // TODO: Implement H/W handshaking
-// TODO: Implement read timeout
 // TODO: Check if interface is opened first
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
 #include <iostream>
 #include <string>
@@ -64,12 +60,7 @@ octave_serial::octave_serial(string path, int flags)
 
 octave_serial::~octave_serial()
 {
-    this->srl_close();
-}
-
-int octave_serial::srl_get_fd()
-{
-    return this->fd;
+    this->close();
 }
 
 void octave_serial::print (std::ostream& os, bool pr_as_read_syntax ) const
@@ -84,7 +75,18 @@ void octave_serial::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 }
 
 // PKG_ADD: autoload ("serial", "serial.oct");
-DEFUN_DLD (serial, args, nargout, "Hello World Help String")
+DEFUN_DLD (serial, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {@var{serial} = } serial ([@var{path}], [@var{baudrate}], [@var{timeout}])\n \
+\n\
+Open serial interface.\n \
+\n\
+@var{path} - the interface path of type String. If omitted defaults to '/dev/ttyUSB0'. @*\
+@var{baudrate} - the baudrate of interface. If omitted defaults to 115200. @*\
+@var{timeout} - the interface timeout value. If omitted defaults to blocking call.\n \
+\n\
+The serial() shall return instance of @var{octave_serial} class as the result @var{serial}.\n \
+@end deftypefn")
 {
 #ifdef __WIN32__
     error("serial: Windows platform support is not yet implemented, go away...");
@@ -163,23 +165,23 @@ DEFUN_DLD (serial, args, nargout, "Hello World Help String")
     // Open the interface
     octave_serial* retval = new octave_serial(path, oflags);
 
-    if (retval->srl_get_fd() < 0)
+    if (retval->get_fd() < 0)
     {
         error("serial: Error opening the interface: %s\n", strerror(errno));
         return octave_value();
     }
     
-    retval->srl_baudrate(baud_rate);
+    retval->set_baudrate(baud_rate);
     
     if (timeout >= 0) {
-        retval->srl_timeout(timeout);
+        retval->set_timeout(timeout);
     }
     
-    retval->srl_parity(parity);
-    retval->srl_bytesize(bytesize);
-    retval->srl_stopbits(stopbits);
+    retval->set_parity(parity);
+    retval->set_bytesize(bytesize);
+    retval->set_stopbits(stopbits);
     
-    retval->srl_flush();
+    //retval->flush(2);
     
     return octave_value(retval);
 }

@@ -15,8 +15,6 @@
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
 #include <iostream>
 #include <string>
@@ -36,7 +34,14 @@ using std::string;
 #include "serial.h"
 
 // PKG_ADD: autoload ("srl_close", "serial.oct");
-DEFUN_DLD (srl_close, args, nargout, "Hello World Help String")
+DEFUN_DLD (srl_close, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {} srl_close (@var{serial})\n \
+\n\
+Close the interface and release a file descriptor.\n \
+\n\
+@var{serial} - instance of @var{octave_serial} class.@*\
+@end deftypefn")
 {
     if (args.length() != 1 || args(0).type_id() != octave_serial::static_type_id())
     {
@@ -49,14 +54,14 @@ DEFUN_DLD (srl_close, args, nargout, "Hello World Help String")
     const octave_base_value& rep = args(0).get_rep();
     serial = &((octave_serial &)rep);
 
-    serial->srl_close();
+    serial->close();
 
     return octave_value();
 }
 
-int octave_serial::srl_close()
+int octave_serial::close()
 {
-    int retval = ::close(this->srl_get_fd());
+    int retval = ::close(this->get_fd());
     this->fd = -1;
     return retval;
 }

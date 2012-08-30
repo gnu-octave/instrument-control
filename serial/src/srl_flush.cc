@@ -15,8 +15,6 @@
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
 #include <iostream>
 #include <string>
@@ -36,7 +34,18 @@ using std::string;
 #include "serial.h"
 
 // PKG_ADD: autoload ("srl_flush", "serial.oct");
-DEFUN_DLD (srl_flush, args, nargout, "Hello World Help String")
+DEFUN_DLD (srl_flush, args, nargout,
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {} srl_flush (@var{serial}, [@var{q}])\n \
+\n\
+Flush the pending input/output.\n \
+\n\
+@var{serial} - instance of @var{octave_serial} class.@*\
+@var{q} - queue selector of type Integer. Supported values: 0 - flush untransmitted output, \
+1 - flush pending input, 2 - flush both pending input and untransmitted output.\n \
+\n\
+If @var{q} parameter is omitted, the srl_flush() shall flush both, input and output buffers.\n \
+@end deftypefn")
 {
     int queue_selector = 2; // Input and Output
 
@@ -62,12 +71,12 @@ DEFUN_DLD (srl_flush, args, nargout, "Hello World Help String")
     const octave_base_value& rep = args(0).get_rep();
     serial = &((octave_serial &)rep);
 
-    serial->srl_flush(queue_selector);
+    serial->flush(queue_selector);
 
     return octave_value();
 }
 
-int octave_serial::srl_flush(unsigned short queue_selector)
+int octave_serial::flush(unsigned short queue_selector)
 {
     /*
      * TCIOFLUSH Flush both pending input and untransmitted output.
@@ -87,10 +96,5 @@ int octave_serial::srl_flush(unsigned short queue_selector)
         return false;
     }
 
-    return ::tcflush(this->srl_get_fd(), flag);
-}
-
-int octave_serial::srl_flush()
-{
-    return srl_flush(2);
+    return ::tcflush(this->get_fd(), flag);
 }

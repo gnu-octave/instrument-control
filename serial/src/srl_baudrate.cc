@@ -36,7 +36,20 @@ using std::string;
 #include "serial.h"
 
 // PKG_ADD: autoload ("srl_baudrate", "serial.oct");
-DEFUN_DLD (srl_baudrate, args, nargout, "Hello World Help String")
+DEFUN_DLD (srl_baudrate, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {} srl_baudrate (@var{serial}, @var{baudrate})\n \
+@deftypefnx {Loadable Function} {@var{br} = } srl_baudrate (@var{serial})\n \
+\n\
+Set new or get existing serial interface baudrate parameter. Only standard values are supported.\n \
+\n\
+@var{serial} - instance of @var{octave_serial} class.@*\
+@var{baudrate} - the baudrate value used. Supported values: 0, 50, 75, 110, \
+134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, 9600 19200, 38400, 57600, \
+115200 and 230400.\n \
+\n\
+If @var{baudrate} parameter is omitted, the srl_baudrate() shall return current baudrate value as the result @var{br}.\n \
+@end deftypefn")
 {
     if (args.length() < 1 || args.length() > 2 ||
         args(0).type_id() != octave_serial::static_type_id())
@@ -44,6 +57,11 @@ DEFUN_DLD (srl_baudrate, args, nargout, "Hello World Help String")
         print_usage();
         return octave_value(-1);
     }
+    
+    octave_serial* serial = NULL;
+
+    const octave_base_value& rep = args(0).get_rep();
+    serial = &((octave_serial &)rep);
 
     // Setting new baudrate
     if (args.length() > 1)
@@ -54,23 +72,16 @@ DEFUN_DLD (srl_baudrate, args, nargout, "Hello World Help String")
             return octave_value(-1);
         }
 
-        octave_serial* serial = NULL;
-
-        const octave_base_value& rep = args(0).get_rep();
-        serial = &((octave_serial &)rep);
-
-        serial->srl_baudrate(args(1).int_value());
+        serial->set_baudrate(args(1).int_value());
 
         return octave_value();
     }
 
     // Returning current baud rate
-    // TODO: return current baudrate
-
-    return octave_value(-115200);
+    return octave_value(serial->get_baudrate());
 }
 
-int octave_serial::srl_baudrate(unsigned int baud) 
+int octave_serial::set_baudrate(unsigned int baud) 
 {
     speed_t baud_rate = 0;
 
@@ -117,17 +128,66 @@ int octave_serial::srl_baudrate(unsigned int baud)
     default:
         error("srl_baudrate: currently only 0, 50, 75, 110, \
                 134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, \
-                9600 19200, 38400, 5760, 115200 and 230400 baud rates are supported...");
+                9600 19200, 38400, 57600, 115200 and 230400 baud rates are supported...");
         return false;
     }
 
     cfsetispeed(&this->config, baud_rate);
     cfsetospeed(&this->config, baud_rate);
 
-    if (tcsetattr(this->srl_get_fd(), TCSANOW, &this->config) < 0) {
+    if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
         error("srl_baudrate: error setting baud rate: %s\n", strerror(errno));
         return false;
     }
 
     return true;
+}
+
+int octave_serial::get_baudrate()
+{
+    int retval = -1;
+    
+    speed_t baudrate = cfgetispeed(&this->config);
+    
+    if (baudrate == B0)
+        retval = 0;
+    else if (baudrate == B50)
+        retval = 50;
+    else if (baudrate == B75)
+        retval = 75;
+    else if (baudrate == B110)
+        retval = 110;
+    else if (baudrate == B134)
+        retval = 134;
+    else if (baudrate == B150)
+        retval = 150;
+    else if (baudrate == B200)
+        retval = 200;
+    else if (baudrate == B300)
+        retval = 300;
+    else if (baudrate == B600)
+        retval = 600;
+    else if (baudrate == B1200)
+        retval = 1200;
+    else if (baudrate == B1800)
+        retval = 1800;
+    else if (baudrate == B2400)
+        retval = 2400;
+    else if (baudrate == B4800)
+        retval = 4800;
+    else if (baudrate == B9600)
+        retval = 9600;
+    else if (baudrate == B19200)
+        retval = 19200;
+    else if (baudrate == B38400)
+        retval = 38400;
+    else if (baudrate == B57600)
+        retval = 57600;
+    else if (baudrate == B115200)
+        retval = 115200;
+    else if (baudrate == B230400)
+        retval = 230400;
+    
+    return retval;
+    
 }
