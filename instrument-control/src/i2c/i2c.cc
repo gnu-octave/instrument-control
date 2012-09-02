@@ -44,6 +44,19 @@ DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_i2c, "octave_i2c", "octave_i2c");
 
 static bool type_loaded = false;
 
+
+
+DEFUN_DLD (helloworld, args, nargout,
+       "Hello World Help String")
+     {
+       int nargin = args.length ();
+       octave_stdout << "Hello World has " << nargin
+             << " input arguments and "
+             << nargout << " output arguments.\n";
+       return octave_value_list ();
+     }
+
+
 octave_i2c::octave_i2c()
 {
     this->fd = -1;
@@ -75,7 +88,7 @@ void octave_i2c::print_raw (std::ostream& os, bool pr_as_read_syntax) const
     os << this->fd;
 }
 
-// PKG_ADD: autoload ("i2c", "i2c.oct");
+// PKG_ADD: autoload ("i2c", "instrument-control.oct");
 DEFUN_DLD (i2c, args, nargout, "i2c() function has one mandatory output argument")
 {
 #ifdef __WIN32__

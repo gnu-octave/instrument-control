@@ -1,8 +1,0 @@
-i2c >> i2c
-i2c
-  i2c
-  i2c_addr
-  i2c_read
-  i2c_write
-  i2c_close
-  

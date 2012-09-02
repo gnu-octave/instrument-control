@@ -35,7 +35,7 @@ using std::string;
 
 #include "serial.h"
 
-// PKG_ADD: autoload ("srl_bytesize", "serial.oct");
+// PKG_ADD: autoload ("srl_bytesize", "instrument-control.oct");
 DEFUN_DLD (srl_bytesize, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_bytesize (@var{serial}, @var{bsize})\n \

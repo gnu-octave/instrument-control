@@ -33,7 +33,7 @@ using std::string;
 
 #include "serial.h"
 
-// PKG_ADD: autoload ("srl_timeout", "serial.oct");
+// PKG_ADD: autoload ("srl_timeout", "instrument-control.oct");
 DEFUN_DLD (srl_timeout, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_timeout (@var{serial}, @var{timeout})\n \

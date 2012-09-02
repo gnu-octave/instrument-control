@@ -35,7 +35,7 @@ using std::string;
 
 #include "serial.h"
 
-// PKG_ADD: autoload ("srl_parity", "serial.oct");
+// PKG_ADD: autoload ("srl_parity", "instrument-control.oct");
 DEFUN_DLD (srl_parity, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_parity (@var{serial}, @var{parity})\n \

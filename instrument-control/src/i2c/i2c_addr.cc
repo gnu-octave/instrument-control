@@ -37,7 +37,7 @@
 
 #include "i2c.h"
 
-// PKG_ADD: autoload ("i2c_addr", "i2c.oct");
+// PKG_ADD: autoload ("i2c_addr", "instrument-control.oct");
 DEFUN_DLD (i2c_addr, args, nargout, "Hello World Help String")
 {
     if (args.length() > 2 || 

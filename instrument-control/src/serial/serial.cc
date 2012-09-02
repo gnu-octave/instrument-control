@@ -74,7 +74,7 @@ void octave_serial::print_raw (std::ostream& os, bool pr_as_read_syntax) const
     os << this->fd;
 }
 
-// PKG_ADD: autoload ("serial", "serial.oct");
+// PKG_ADD: autoload ("serial", "instrument-control.oct");
 DEFUN_DLD (serial, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{serial} = } serial ([@var{path}], [@var{baudrate}], [@var{timeout}])\n \

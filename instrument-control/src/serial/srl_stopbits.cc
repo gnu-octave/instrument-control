@@ -33,7 +33,7 @@ using std::string;
 
 #include "serial.h"
 
-// PKG_ADD: autoload ("srl_stopbits", "serial.oct");
+// PKG_ADD: autoload ("srl_stopbits", "instrument-control.oct");
 DEFUN_DLD (srl_stopbits, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_stopbits (@var{serial}, @var{stopb})\n \

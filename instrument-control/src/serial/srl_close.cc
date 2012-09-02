@@ -15,52 +15,53 @@
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
 #include <iostream>
 #include <string>
 #include <algorithm>
 
 #ifndef __WIN32__
-#include <errno.h>
-#include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <string.h>
 #include <fcntl.h>
+#include <errno.h>
+#include <termios.h>
+#include <unistd.h>
 #endif
 
 using std::string;
 
-#include "i2c.h"
+#include "serial.h"
 
-// PKG_ADD: autoload ("i2c_close", "i2c.oct");
-DEFUN_DLD (i2c_close, args, nargout, "Hello World Help String")
+// PKG_ADD: autoload ("srl_close", "instrument-control.oct");
+DEFUN_DLD (srl_close, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {} srl_close (@var{serial})\n \
+\n\
+Close the interface and release a file descriptor.\n \
+\n\
+@var{serial} - instance of @var{octave_serial} class.@*\
+@end deftypefn")
 {
-    if (args.length() != 1 || args(0).type_id() != octave_i2c::static_type_id())
+    if (args.length() != 1 || args(0).type_id() != octave_serial::static_type_id())
     {
         print_usage();
         return octave_value(-1);
     }
-
-    octave_i2c* i2c = NULL;
+    
+    octave_serial* serial = NULL;
 
     const octave_base_value& rep = args(0).get_rep();
-    i2c = &((octave_i2c &)rep);
+    serial = &((octave_serial &)rep);
 
-    i2c->i2c_close();
+    serial->close();
 
     return octave_value();
 }
 
-int octave_i2c::i2c_close()
+int octave_serial::close()
 {
-    int retval = ::close(this->i2c_get_fd());
+    int retval = ::close(this->get_fd());
     this->fd = -1;
     return retval;
 }

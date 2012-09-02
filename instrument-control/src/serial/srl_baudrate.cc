@@ -35,7 +35,7 @@ using std::string;
 
 #include "serial.h"
 
-// PKG_ADD: autoload ("srl_baudrate", "serial.oct");
+// PKG_ADD: autoload ("srl_baudrate", "instrument-control.oct");
 DEFUN_DLD (srl_baudrate, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_baudrate (@var{serial}, @var{baudrate})\n \

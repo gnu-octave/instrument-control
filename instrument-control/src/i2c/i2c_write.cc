@@ -36,7 +36,7 @@
 
 #include "i2c.h"
 
-// PKG_ADD: autoload ("i2c_write", "i2c.oct");
+// PKG_ADD: autoload ("i2c_write", "instrument-control.oct");
 DEFUN_DLD (i2c_write, args, nargout, "Hello World Help String")
 {
     if (args.length() != 2 || args(0).type_id() != octave_i2c::static_type_id()) 
