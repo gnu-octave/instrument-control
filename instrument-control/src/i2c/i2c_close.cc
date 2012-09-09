@@ -14,33 +14,18 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifndef __WIN32__
 #include <errno.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #endif
-
-using std::string;
 
 #include "i2c.h"
 
-// PKG_ADD: autoload ("i2c_close", "instrument-control.oct");
-DEFUN_DLD (i2c_close, args, nargout, "Hello World Help String")
+DEFUN_DLD (i2c_close, args, nargout, "")
 {
     if (args.length() != 1 || args(0).type_id() != octave_i2c::static_type_id())
     {
@@ -53,14 +38,15 @@ DEFUN_DLD (i2c_close, args, nargout, "Hello World Help String")
     const octave_base_value& rep = args(0).get_rep();
     i2c = &((octave_i2c &)rep);
 
-    i2c->i2c_close();
+    i2c->close();
 
     return octave_value();
 }
 
-int octave_i2c::i2c_close()
+int octave_i2c::close()
 {
-    int retval = ::close(this->i2c_get_fd());
+    int retval = ::close(this->get_fd());
     this->fd = -1;
+    
     return retval;
 }

@@ -14,24 +14,15 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
+//#include <octave/ov-int32.h>
 
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string>
-#include <algorithm>
 
 #ifndef __WIN32__
 #include <errno.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #endif
 
@@ -43,19 +34,6 @@ DEFINE_OCTAVE_ALLOCATOR (octave_i2c);
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_i2c, "octave_i2c", "octave_i2c");
 
 static bool type_loaded = false;
-
-
-
-DEFUN_DLD (helloworld, args, nargout,
-       "Hello World Help String")
-     {
-       int nargin = args.length ();
-       octave_stdout << "Hello World has " << nargin
-             << " input arguments and "
-             << nargout << " output arguments.\n";
-       return octave_value_list ();
-     }
-
 
 octave_i2c::octave_i2c()
 {
@@ -69,10 +47,10 @@ octave_i2c::octave_i2c(string path, int flags)
 
 octave_i2c::~octave_i2c()
 {
-    this->i2c_close();
+    this->close();
 }
 
-int octave_i2c::i2c_get_fd()
+int octave_i2c::get_fd()
 {
     return this->fd;
 }
@@ -88,8 +66,7 @@ void octave_i2c::print_raw (std::ostream& os, bool pr_as_read_syntax) const
     os << this->fd;
 }
 
-// PKG_ADD: autoload ("i2c", "instrument-control.oct");
-DEFUN_DLD (i2c, args, nargout, "i2c() function has one mandatory output argument")
+DEFUN_DLD (i2c, args, nargout, "")
 {
 #ifdef __WIN32__
     error("i2c: Windows platform support is not yet implemented, go away...");
@@ -112,7 +89,7 @@ DEFUN_DLD (i2c, args, nargout, "i2c() function has one mandatory output argument
     // Open the interface
     octave_i2c* retval = new octave_i2c(path, oflags);
 
-    if (retval->i2c_get_fd() < 0)
+    if (retval->get_fd() < 0)
     {
         error("i2c: Error opening the interface: %s\n", strerror(errno));
         return octave_value();

@@ -17,7 +17,6 @@
 #define i2c_H
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
 
 #include <string>
 
@@ -30,15 +29,15 @@ public:
     octave_i2c(string, int);
     ~octave_i2c();
 
-    int i2c_get_fd();
-    int i2c_close();
+    int get_fd();
+    int close();
 
-    int i2c_set_addr(int);
-    int i2c_get_addr();
+    int set_addr(int);
+    int get_addr();
     
     // Simple i2c commands
-    int i2c_write(unsigned char*, int);
-    int i2c_read(char*, unsigned int);
+    int write(unsigned char*, int);
+    int read(char*, unsigned int);
     
     
     // Overloaded base functions

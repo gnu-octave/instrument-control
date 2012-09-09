@@ -14,30 +14,18 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifndef __WIN32__
 #include <errno.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #endif
-
 
 #include "i2c.h"
 
-// PKG_ADD: autoload ("i2c_read", "instrument-control.oct");
-DEFUN_DLD (i2c_read, args, nargout, "Hello World Help String")
+DEFUN_DLD (i2c_read, args, nargout, "")
 {
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_i2c::static_type_id())
     {
@@ -74,7 +62,7 @@ DEFUN_DLD (i2c_read, args, nargout, "Hello World Help String")
 
     int retval;
     
-    retval = i2c->i2c_read(buffer, buffer_len);
+    retval = i2c->read(buffer, buffer_len);
     
     octave_value_list return_list;
     uint8NDArray data(retval);
@@ -90,9 +78,9 @@ DEFUN_DLD (i2c_read, args, nargout, "Hello World Help String")
     return return_list;
 }
 
-int octave_i2c::i2c_read(char *buf, unsigned int len)
+int octave_i2c::read(char *buf, unsigned int len)
 {   
-    int retval = ::read(i2c_get_fd(), buf, len);
+    int retval = ::read(this->get_fd(), buf, len);
     
     if (retval != len)
         error("i2c: Failed to read from the i2c bus: %s\n", strerror(errno));

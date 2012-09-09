@@ -14,31 +14,19 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
-//#include <octave/ops.h>
-//#include <octave/ov-typeinfo.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
-
-#ifndef __WIN32__
-#include <errno.h>
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+
+#ifndef __WIN32__
 #include <linux/i2c-dev.h>
+#include <errno.h>
 #include <sys/ioctl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #endif
 
 #include "i2c.h"
 
-// PKG_ADD: autoload ("i2c_addr", "instrument-control.oct");
-DEFUN_DLD (i2c_addr, args, nargout, "Hello World Help String")
+DEFUN_DLD (i2c_addr, args, nargout, "")
 {
     if (args.length() > 2 || 
         args(0).type_id() != octave_i2c::static_type_id()) 
@@ -62,28 +50,28 @@ DEFUN_DLD (i2c_addr, args, nargout, "Hello World Help String")
             return octave_value(-1);
         }
 
-        i2c->i2c_set_addr(args(1).int_value());
+        i2c->set_addr(args(1).int_value());
 
         return octave_value();
     }
 
     // Returning current slave address
-    return octave_value(i2c->i2c_get_addr());
+    return octave_value(i2c->get_addr());
 }
 
-int octave_i2c::i2c_set_addr(int addr)
+int octave_i2c::set_addr(int addr)
 {
     
-    if (::ioctl(i2c_get_fd(), I2C_SLAVE, addr) < 0)
+    if (::ioctl(this->get_fd(), I2C_SLAVE, addr) < 0)
     {
         error("i2c: Error setting slave address: %s\n", strerror(errno));
-        return false;
+        return -1;
     }
     
-    return true;
+    return 1;
 }
 
-int octave_i2c::i2c_get_addr()
+int octave_i2c::get_addr()
 {
     return this->addr;
 }
