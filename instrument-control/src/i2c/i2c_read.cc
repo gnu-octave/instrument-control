@@ -80,6 +80,12 @@ DEFUN_DLD (i2c_read, args, nargout, "")
 
 int octave_i2c::read(char *buf, unsigned int len)
 {   
+    if (this->get_fd() < 0)
+    {
+        error("i2c: Interface must be open first...");
+        return -1;
+    }
+    
     int retval = ::read(this->get_fd(), buf, len);
     
     if (retval != len)

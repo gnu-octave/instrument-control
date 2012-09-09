@@ -72,6 +72,12 @@ DEFUN_DLD (i2c_write, args, nargout, "")
 
 int octave_i2c::write(unsigned char *buf, int len)
 {
+    if (this->get_fd() < 0)
+    {
+        error("i2c: Interface must be open first...");
+        return -1;
+    }
+    
     int retval = ::write(this->get_fd(), buf, len);
     
     if (retval < 0)

@@ -45,6 +45,12 @@ DEFUN_DLD (i2c_close, args, nargout, "")
 
 int octave_i2c::close()
 {
+    if (this->get_fd() < 0)
+    {
+        error("i2c: Interface must be open first...");
+        return -1;
+    }
+    
     int retval = ::close(this->get_fd());
     this->fd = -1;
     

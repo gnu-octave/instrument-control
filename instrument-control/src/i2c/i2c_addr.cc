@@ -61,6 +61,11 @@ DEFUN_DLD (i2c_addr, args, nargout, "")
 
 int octave_i2c::set_addr(int addr)
 {
+    if (this->get_fd() < 0)
+    {
+        error("i2c: Interface must be open first...");
+        return -1;
+    }
     
     if (::ioctl(this->get_fd(), I2C_SLAVE, addr) < 0)
     {
@@ -73,5 +78,11 @@ int octave_i2c::set_addr(int addr)
 
 int octave_i2c::get_addr()
 {
+    if (this->get_fd() < 0)
+    {
+        error("i2c: Interface must be open first...");
+        return -1;
+    }
+    
     return this->addr;
 }
