@@ -33,7 +33,6 @@ using std::string;
 
 #include "serial.h"
 
-// PKG_ADD: autoload ("srl_stopbits", "instrument-control.oct");
 DEFUN_DLD (srl_stopbits, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_stopbits (@var{serial}, @var{stopb})\n \
@@ -78,6 +77,12 @@ If @var{stopb} parameter is omitted, the srl_stopbits() shall return current sto
 
 int octave_serial::set_stopbits(unsigned short stopbits)
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     /*
      * CSTOPB Send two stop bits, else one.
      */
@@ -108,6 +113,12 @@ int octave_serial::set_stopbits(unsigned short stopbits)
 
 int octave_serial::get_stopbits()
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     if (BITMASK_CHECK(this->config.c_cflag, CSTOPB))
         return 2;
     else

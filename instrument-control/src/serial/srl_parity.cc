@@ -80,6 +80,12 @@ If @var{parity} parameter is omitted, the srl_parity() shall return current pari
 
 int octave_serial::set_parity(string parity)
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     // Convert string to lowercase
     std::transform(parity.begin(), parity.end(), parity.begin(), ::tolower);
 

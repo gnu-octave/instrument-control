@@ -33,7 +33,6 @@ using std::string;
 
 #include "serial.h"
 
-// PKG_ADD: autoload ("srl_write", "instrument-control.oct");
 DEFUN_DLD (srl_write, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{n} = } srl_write (@var{serial}, @var{data})\n \
@@ -86,10 +85,22 @@ Upon successful completion, srl_write() shall return the number of bytes written
 
 int octave_serial::write(string str)
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     return ::write(get_fd(), str.c_str(), str.length());
 }
 
 int octave_serial::write(unsigned char *buf, int len)
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     return ::write(get_fd(), buf, len);
 }

@@ -78,6 +78,12 @@ If @var{q} parameter is omitted, the srl_flush() shall flush both, input and out
 
 int octave_serial::flush(unsigned short queue_selector)
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     /*
      * TCIOFLUSH Flush both pending input and untransmitted output.
      * TCOFLUSH Flush untransmitted output.

@@ -80,6 +80,12 @@ If @var{bsize} parameter is omitted, the srl_bytesize() shall return current byt
 
 int octave_serial::set_bytesize(unsigned short bytesize)
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     tcflag_t c_bytesize = 0;
 
     switch (bytesize) 
@@ -110,6 +116,12 @@ int octave_serial::set_bytesize(unsigned short bytesize)
 
 int octave_serial::get_bytesize()
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     int retval = -1;
     
     if (BITMASK_CHECK(this->config.c_cflag, CS5))

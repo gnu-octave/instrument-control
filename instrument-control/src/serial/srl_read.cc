@@ -34,7 +34,6 @@ using std::string;
 
 #include "serial.h"
 
-// PKG_ADD: autoload ("srl_read", "instrument-control.oct");
 DEFUN_DLD (srl_read, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {[@var{data}, @var{count}] = } srl_read (@var{serial}, @var{n})\n \
@@ -106,5 +105,11 @@ The srl_read() shall return number of bytes successfully read in @var{count} as 
 
 int octave_serial::read(char *buf, unsigned int len)
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     return ::read(get_fd(), buf, len);
 }

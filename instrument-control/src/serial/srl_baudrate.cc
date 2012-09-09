@@ -83,6 +83,12 @@ If @var{baudrate} parameter is omitted, the srl_baudrate() shall return current 
 
 int octave_serial::set_baudrate(unsigned int baud) 
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     speed_t baud_rate = 0;
 
     switch (baud) 
@@ -145,6 +151,12 @@ int octave_serial::set_baudrate(unsigned int baud)
 
 int octave_serial::get_baudrate()
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     int retval = -1;
     
     speed_t baudrate = cfgetispeed(&this->config);

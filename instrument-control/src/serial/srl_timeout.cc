@@ -33,7 +33,6 @@ using std::string;
 
 #include "serial.h"
 
-// PKG_ADD: autoload ("srl_timeout", "instrument-control.oct");
 DEFUN_DLD (srl_timeout, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_timeout (@var{serial}, @var{timeout})\n \
@@ -78,6 +77,12 @@ If @var{timeout} parameter is omitted, the srl_timeout() shall return current ti
 
 int octave_serial::set_timeout(short timeout)
 {
+    if (this->get_fd() < 0)
+    {
+        error("serial: Interface must be opened first...");
+        return -1;
+    }
+    
     if (timeout < 0 || timeout > 255)
     {
         error("srl_timeout: timeout value must be between [0..255]...");
