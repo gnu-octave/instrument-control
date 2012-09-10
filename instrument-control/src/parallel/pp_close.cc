@@ -38,7 +38,14 @@ using std::string;
 #include "parallel.h"
 
 // PKG_ADD: autoload ("pp_close", "instrument-control.oct");
-DEFUN_DLD (pp_close, args, nargout, "")
+DEFUN_DLD (pp_close, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {} pp_close (@var{parallel})\n \
+\n\
+Close the interface and release a file descriptor.\n \
+\n\
+@var{parallel} - instance of @var{octave_serial} class.@*\
+@end deftypefn")
 {
     if (args.length() != 1 || args(0).type_id() != octave_parallel::static_type_id())
     {

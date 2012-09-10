@@ -38,7 +38,18 @@ using std::string;
 #include "parallel.h"
 
 // PKG_ADD: autoload ("pp_data", "instrument-control.oct");
-DEFUN_DLD (pp_data, args, nargout, "")
+DEFUN_DLD (pp_data, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {} pp_data (@var{parallel}, @var{data})\n \
+@deftypefnx {Loadable Function} {@var{d} = } pp_data (@var{parallel})\n \
+\n\
+Sets or Read the Data lines.\
+\n\
+@var{parallel} - instance of @var{octave_parallel} class.@*\
+@var{data} - data parameter to be set of type Byte.\n \
+\n\
+If @var{data} parameter is omitted, the pp_data() shall return current Data lines state as the result @var{d}.\n \
+@end deftypefn")
 {
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_parallel::static_type_id())
     {

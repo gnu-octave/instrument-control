@@ -92,13 +92,23 @@ void octave_parallel::print_raw(std::ostream& os, bool pr_as_read_syntax) const
 }
 
 // PKG_ADD: autoload ("parallel", "instrument-control.oct");
-DEFUN_DLD (parallel, args, nargout, "")
+DEFUN_DLD (parallel, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {@var{parallel} = } parallel ([@var{path}], [@var{direction})\n \
+\n\
+Open Parallel interface.\n \
+\n\
+@var{path} - the interface path of type String. If omitted defaults to '/dev/parport0'.@*\
+@var{direction} - the direction of interface drivers of type Integer, see: @seealso{pp_datadir} for more info.\n \
+\n\
+The parallel() shall return instance of @var{octave_parallel} class as the result @var{parallel}.\n \
+@end deftypefn")
 {
 #ifdef __WIN32__
     error("parallel: Windows platform support is not yet implemented, go away...");
     return octave_value();
-#endif
-
+#endif   
+    
     int nargin = args.length();
 
     // Default values

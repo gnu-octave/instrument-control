@@ -38,7 +38,16 @@ using std::string;
 #include "parallel.h"
 
 // PKG_ADD: autoload ("pp_stat", "instrument-control.oct");
-DEFUN_DLD (pp_stat, args, nargout, "")
+DEFUN_DLD (pp_stat, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {@var{stat} = } pp_stat (@var{parallel})\n \
+\n\
+Reads the Status lines.\n \
+\n\
+@var{parallel} - instance of @var{octave_parallel} class.@*\
+\n\
+The pp_stat() shall return current Status lines state as the result @var{stat}.\n \
+@end deftypefn")
 {
     if (args.length() != 1 || args(0).type_id() != octave_parallel::static_type_id())
     {
