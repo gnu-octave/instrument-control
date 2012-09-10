@@ -99,7 +99,8 @@ DEFUN_DLD (parallel, args, nargout,
 Open Parallel interface.\n \
 \n\
 @var{path} - the interface path of type String. If omitted defaults to '/dev/parport0'.@*\
-@var{direction} - the direction of interface drivers of type Integer, see: @seealso{pp_datadir} for more info.\n \
+@var{direction} - the direction of interface drivers of type Integer, see: @seealso{pp_datadir} for more info.\
+If omitted defaults to 1 (Input).\n \
 \n\
 The parallel() shall return instance of @var{octave_parallel} class as the result @var{parallel}.\n \
 @end deftypefn")
@@ -108,12 +109,8 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
     error("parallel: Windows platform support is not yet implemented, go away...");
     return octave_value();
 #endif   
-    
-    int nargin = args.length();
 
-    // Default values
-    int oflags = O_RDWR;
-    string path("/dev/parport0");
+    int nargin = args.length();
 
     // Do not open interface if return value is not assigned
     if (nargout != 1)
@@ -122,14 +119,56 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
         return octave_value();
     }
 
+    // Default values
+    int oflags = O_RDWR;
+    int dir = 1; // Input
+    string path("/dev/parport0");
+
+
+    if (!type_loaded)
+    {
+        octave_parallel::register_type();
+        type_loaded = true;
+    }
+
+    // Parse the function arguments
+    if (args.length() > 0)
+    {
+        if (args(0).is_string())
+        {
+            path = args(0).string_value();
+        }
+        else
+        {
+            print_usage();
+            return octave_value();
+        }
+
+    }
+
+    // is_float_type() is or'ed to allow expression like ("", 123), without user
+    // having to use ("", int32(123)), as we still only take "int_value"
+    if (args.length() > 1)
+    {
+        if (args(1).is_integer_type() || args(1).is_float_type())
+        {
+            dir = args(1).int_value();
+        }
+        else
+        {
+            print_usage();
+            return octave_value();
+        }
+    }
+
     // Open the interface
     octave_parallel* retval = new octave_parallel();
 
     if (retval->open(path, oflags) < 0)
         return octave_value();
-    
-    // Set direction to Input
-    retval->set_datadir(1);
+
+    // Set direction
+    retval->set_datadir(dir);
 
     return octave_value(retval);
 }
