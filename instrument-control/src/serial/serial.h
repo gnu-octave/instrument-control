@@ -37,7 +37,7 @@ public:
     int write(unsigned char*, int);
     
     int read(char *, unsigned int);
-    
+
     int close();
 
     int flush(unsigned short);
@@ -79,7 +79,7 @@ private:
     int fd;
     struct termios config;
     
-    bool blocking_read;
+    volatile bool blocking_read;
 
     DECLARE_OCTAVE_ALLOCATOR
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA

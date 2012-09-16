@@ -34,14 +34,14 @@ using std::string;
 #include "serial.h"
 
 DEFUN_DLD (srl_timeout, args, nargout, 
-"-*- texinfo -*-\n\
+        "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_timeout (@var{serial}, @var{timeout})\n \
 @deftypefnx {Loadable Function} {@var{t} = } srl_timeout (@var{serial})\n \
 \n\
 Set new or get existing serial interface timeout parameter used for srl_read() requests. The timeout value is specified in tenths of a second.\n \
 \n\
 @var{serial} - instance of @var{octave_serial} class.@*\
-@var{timeout} - srl_read() timeout value in tenths of a second. Maximum value of 255 (i.e. 25.5 seconds).\n \
+@var{timeout} - srl_read() timeout value in tenths of a second. Value of -1 means a blocking call. Maximum value of 255 (i.e. 25.5 seconds).\n \
 \n\
 If @var{timeout} parameter is omitted, the srl_timeout() shall return current timeout value as the result @var{t}.\n \
 @end deftypefn")
@@ -51,7 +51,7 @@ If @var{timeout} parameter is omitted, the srl_timeout() shall return current ti
         print_usage();
         return octave_value(-1);
     }
-    
+
     octave_serial* serial = NULL;
 
     const octave_base_value& rep = args(0).get_rep();
@@ -82,36 +82,35 @@ int octave_serial::set_timeout(short timeout)
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
-    if (timeout < 0 || timeout > 255)
+
+    if (timeout < -1 || timeout > 255)
     {
-        error("srl_timeout: timeout value must be between [0..255]...");
-        return false;
+        error("srl_timeout: timeout value must be between [-1..255]...");
+        return -1;
     }
 
-    /*
-    // Disable timeout, enable blocking read
+    // Disable custom timeout, enable blocking read
     if (timeout < 0)
     {
         this->blocking_read = true;
-        BITMASK_SET(this->config.c_lflag, ICANON); // Set canonical mode
-        this->config.c_cc[VMIN] = 1;
-        this->config.c_cc[VTIME] = 0;
+        timeout = 5;
+    } 
+    // Enable custom timeout, disable blocking read
+    else 
+    {
+        this->blocking_read = false;
     }
-     */
 
-    // Enable timeout, disable blocking read
-    this->blocking_read = false;
     BITMASK_CLEAR(this->config.c_lflag, ICANON); // Set non-canonical mode
     this->config.c_cc[VMIN] = 0;
     this->config.c_cc[VTIME] = (unsigned) timeout; // Set timeout of 'timeout * 10' seconds
 
     if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
         error("srl_timeout: error setting stop bits...");
-        return false;
+        return -1;
     }
 
-    return true;
+    return 1;
 }
 
 int octave_serial::get_timeout()

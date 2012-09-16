@@ -112,6 +112,7 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     unsigned short stopbits = 1;
     int oflags = O_RDWR | O_NOCTTY | O_SYNC; 
     // O_SYNC - All writes immediately effective, no buffering
+    // O_NOCTTY - Don't make serial terminal the controlling terminal for the process
 
     if (!type_loaded)
     {
@@ -172,11 +173,7 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     }
     
     retval->set_baudrate(baud_rate);
-    
-    if (timeout >= 0) {
-        retval->set_timeout(timeout);
-    }
-    
+    retval->set_timeout(timeout);
     retval->set_parity(parity);
     retval->set_bytesize(bytesize);
     retval->set_stopbits(stopbits);

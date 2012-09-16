@@ -61,11 +61,11 @@ Close the interface and release a file descriptor.\n \
 
 int octave_serial::close()
 {
-    if (this->get_fd() < 0)
+    /*if (this->get_fd() < 0)
     {
         error("serial: Interface must be opened first...");
         return -1;
-    }
+    }*/
     
     int retval = ::close(this->get_fd());
     this->fd = -1;
