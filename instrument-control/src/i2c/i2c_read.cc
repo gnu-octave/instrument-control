@@ -14,6 +14,7 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
+#include <octave/uint8NDArray.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -64,15 +65,15 @@ DEFUN_DLD (i2c_read, args, nargout, "")
     
     retval = i2c->read(buffer, buffer_len);
     
-    octave_value_list return_list;
-    uint8NDArray data(retval);
+    octave_value_list return_list(2);
+    uint8NDArray data( dim_vector(1, retval) );
     
     for (int i = 0; i < retval; i++)
         data(i) = buffer[i];
 
-    return_list(1) = retval; 
     return_list(0) = data;
-
+    return_list(1) = retval; 
+        
     delete[] buffer;
 
     return return_list;
