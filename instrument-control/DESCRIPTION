@@ -8,4 +8,4 @@ Description: Low level I/O functions for serial, i2c and parallel interfaces.
 Categories: instrument-control
 Depends: octave (>= 3.2.0)
 Autoload: no
-License: LGPLv3+
+License: GPLv3+
