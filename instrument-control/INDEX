@@ -1,12 +1,25 @@
 instrument-control >> Low level I/O functions
-
 Serial
   serial
   srl_read
   srl_write
+  srl_baudrate
+  srl_bytesize
+  srl_flush
+  srl_parity
+  srl_stopbits
+  srl_timeout
   srl_close
-
 I2C
   i2c
+  i2c_addr
   i2c_read
   i2c_write
+  i2c_close
+Parallel
+  parallel
+  pp_datadir
+  pp_data
+  pp_ctrl
+  pp_stat
+  pp_close
