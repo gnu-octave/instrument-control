@@ -67,7 +67,7 @@ void octave_i2c::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 }
 
 DEFUN_DLD (i2c, args, nargout, 
-"-*- texinfo -*-\n\
+        "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{i2c} = } i2c ([@var{path}], [@var{address}])\n \
 \n\
 Open i2c interface.\n \
@@ -84,16 +84,53 @@ The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c
 #endif
 
     int nargin = args.length();
-    
-    // Default values
-    int oflags = O_RDWR;
-    string path("/dev/i2c-0");
 
     // Do not open interface if return value is not assigned
     if (nargout != 1)
     {
         print_usage();
         return octave_value();
+    }
+
+    // Default values
+    int oflags = O_RDWR;
+    string path("/dev/i2c-0");
+    int addr = -1;
+
+    if (!type_loaded)
+    {
+        octave_i2c::register_type();
+        type_loaded = true;
+    }
+
+    // Parse the function arguments
+    if (args.length() > 0)
+    {
+        if (args(0).is_string())
+        {
+            path = args(0).string_value();
+        }
+        else
+        {
+            print_usage();
+            return octave_value();
+        }
+
+    }
+
+    // is_float_type() is or'ed to allow expression like ("", 123), without user
+    // having to use ("", int32(123)), as we still only take "int_value"
+    if (args.length() > 1)
+    {
+        if (args(1).is_integer_type() || args(1).is_float_type())
+        {
+            addr = args(1).int_value();
+        }
+        else
+        {
+            print_usage();
+            return octave_value();
+        }
     }
 
     // Open the interface
@@ -104,6 +141,9 @@ The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c
         error("i2c: Error opening the interface: %s\n", strerror(errno));
         return octave_value();
     }
+
+    if (addr > 0)
+        retval->set_addr(addr);
 
     return octave_value(retval);
 }
