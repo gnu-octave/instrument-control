@@ -26,7 +26,17 @@
 
 #include "i2c.h"
 
-DEFUN_DLD (i2c_read, args, nargout, "")
+DEFUN_DLD (i2c_read, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } i2c_read (@var{i2c}, @var{n})\n \
+\n\
+Read from i2c slave device.\n \
+\n\
+@var{i2c} - instance of @var{octave_i2c} class.@*\
+@var{n} - number of bytes to attempt to read of type Integer.\n \
+\n\
+The i2c_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
+@end deftypefn")
 {
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_i2c::static_type_id())
     {

@@ -26,7 +26,20 @@
 
 #include "i2c.h"
 
-DEFUN_DLD (i2c_addr, args, nargout, "")
+DEFUN_DLD (i2c_addr, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {} i2c_addr (@var{i2c}, @var{address})\n \
+@deftypefnx {Loadable Function} {@var{addr} = } i2c_addr (@var{i2c})\n \
+\n\
+Set new or get existing i2c slave device address.\n \
+\n\
+@var{i2c} - instance of @var{octave_i2c} class.@*\
+@var{address} - i2c slave device address of type Integer. \
+The address is passed in the 7 or 10 lower bits of the argument.\n \
+\n\
+If @var{address} parameter is omitted, the i2c_addr() shall return \
+current i2c slave device address as the result @var{addr}.\n \
+@end deftypefn")
 {
     if (args.length() > 2 || 
         args(0).type_id() != octave_i2c::static_type_id()) 

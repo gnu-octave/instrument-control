@@ -25,7 +25,14 @@
 
 #include "i2c.h"
 
-DEFUN_DLD (i2c_close, args, nargout, "")
+DEFUN_DLD (i2c_close, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {} i2c_close (@var{i2c})\n \
+\n\
+Close the interface and release a file descriptor.\n \
+\n\
+@var{i2c} - instance of @var{octave_i2c} class.@*\
+@end deftypefn")
 {
     if (args.length() != 1 || args(0).type_id() != octave_i2c::static_type_id())
     {

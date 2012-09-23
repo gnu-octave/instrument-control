@@ -66,7 +66,17 @@ void octave_i2c::print_raw (std::ostream& os, bool pr_as_read_syntax) const
     os << this->fd;
 }
 
-DEFUN_DLD (i2c, args, nargout, "")
+DEFUN_DLD (i2c, args, nargout, 
+"-*- texinfo -*-\n\
+@deftypefn {Loadable Function} {@var{i2c} = } i2c ([@var{path}], [@var{address}])\n \
+\n\
+Open i2c interface.\n \
+\n\
+@var{path} - the interface path of type String. If omitted defaults to '/dev/i2c-0'. @*\
+@var{address} - the slave device address. If omitted must be set using i2c_addr() call.\n \
+\n\
+The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c}.\n \
+@end deftypefn")
 {
 #ifdef __WIN32__
     error("i2c: Windows platform support is not yet implemented, go away...");
