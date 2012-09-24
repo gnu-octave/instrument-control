@@ -13,13 +13,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
-#ifndef SERIAL_H
-#define SERIAL_H
+#ifndef SERIAL_CLASS_H
+#define SERIAL_CLASS_H
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
 
 #include <string>
+#include <termios.h>
+
+using std::string;
 
 #define BITMASK_SET(x,y) ((x) |= (y))
 #define BITMASK_CLEAR(x,y) ((x) &= (~(y)))
@@ -75,6 +78,7 @@ public:
     bool is_defined (void) const { return true;}
     bool print_as_scalar (void) const { return true;}
 
+   
 private:
     int fd;
     struct termios config;
@@ -84,6 +88,5 @@ private:
     DECLARE_OCTAVE_ALLOCATOR
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
-
 
 #endif

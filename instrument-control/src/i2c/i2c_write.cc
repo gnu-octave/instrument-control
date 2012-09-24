@@ -15,18 +15,9 @@
 
 #include <octave/oct.h>
 
-#include <string>
-#include <stdio.h>
-#include <stdlib.h>
+#include "i2c_class.h"
 
-#ifndef __WIN32__
-#include <errno.h>
-#include <unistd.h>
-#endif
-
-#include "i2c.h"
-
-using std::string;
+static bool type_loaded = false;
 
 DEFUN_DLD (i2c_write, args, nargout, 
 "-*- texinfo -*-\n\
@@ -40,6 +31,13 @@ Write data to a i2c slave device.\n \
 Upon successful completion, i2c_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_i2c::register_type();
+        type_loaded = true;
+    }
+
+    
     if (args.length() != 2 || args(0).type_id() != octave_i2c::static_type_id()) 
     {
         print_usage();
@@ -78,20 +76,4 @@ Upon successful completion, i2c_write() shall return the number of bytes written
     }
 
     return octave_value(retval);
-}
-
-int octave_i2c::write(unsigned char *buf, int len)
-{
-    if (this->get_fd() < 0)
-    {
-        error("i2c: Interface must be open first...");
-        return -1;
-    }
-    
-    int retval = ::write(this->get_fd(), buf, len);
-    
-    if (retval < 0)
-        error("i2c: Failed to write to the i2c bus: %s\n", strerror(errno));
-    
-    return retval;
 }

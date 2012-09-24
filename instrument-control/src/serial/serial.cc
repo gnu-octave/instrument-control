@@ -15,66 +15,18 @@
 
 // TODO: Implement Flow Control
 // TODO: Implement H/W handshaking
-// TODO: Check if interface is opened first
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
-
-#include <iostream>
-#include <string>
-#include <algorithm>
 
 #ifndef __WIN32__
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
 #include <errno.h>
-#include <termios.h>
-#include <unistd.h>
+#include <fcntl.h>
 #endif
 
-using std::string;
-
-#include "serial.h"
-
-DEFINE_OCTAVE_ALLOCATOR (octave_serial);
-DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_serial, "octave_serial", "octave_serial");
+#include "serial_class.h"
 
 static bool type_loaded = false;
 
-octave_serial::octave_serial()
-{
-    this->fd = -1;
-}
-
-octave_serial::octave_serial(string path, int flags)
-{
-    this->fd = open(path.c_str(), flags, 0);
-    
-    if (this->fd > 0)
-    {
-        tcgetattr(this->fd, &this->config);
-        this->blocking_read = true;
-    }
-}
-
-octave_serial::~octave_serial()
-{
-    this->close();
-}
-
-void octave_serial::print (std::ostream& os, bool pr_as_read_syntax ) const
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_serial::print_raw (std::ostream& os, bool pr_as_read_syntax) const
-{
-    os << this->fd;
-}
-
-// PKG_ADD: autoload ("serial", "instrument-control.oct");
 DEFUN_DLD (serial, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{serial} = } serial ([@var{path}], [@var{baudrate}], [@var{timeout}])\n \
@@ -92,8 +44,12 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     error("serial: Windows platform support is not yet implemented, go away...");
     return octave_value();
 #endif
-
-    int nargin = args.length();
+    
+    if (!type_loaded)
+    {
+        octave_serial::register_type();
+        type_loaded = true;
+    }
 
     // Do not open interface if return value is not assigned
     if (nargout != 1)
@@ -113,12 +69,6 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     int oflags = O_RDWR | O_NOCTTY | O_SYNC; 
     // O_SYNC - All writes immediately effective, no buffering
     // O_NOCTTY - Don't make serial terminal the controlling terminal for the process
-
-    if (!type_loaded)
-    {
-        octave_serial::register_type();
-        type_loaded = true;
-    }
 
     // Parse the function arguments
     if (args.length() > 0)

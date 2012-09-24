@@ -15,16 +15,13 @@
 
 #include <octave/oct.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #ifndef __WIN32__
-#include <linux/i2c-dev.h>
 #include <errno.h>
-#include <sys/ioctl.h>
 #endif
 
-#include "i2c.h"
+#include "i2c_class.h"
+
+static bool type_loaded = false;
 
 DEFUN_DLD (i2c_addr, args, nargout, 
 "-*- texinfo -*-\n\
@@ -41,8 +38,13 @@ If @var{address} parameter is omitted, the i2c_addr() shall return \
 current i2c slave device address as the result @var{addr}.\n \
 @end deftypefn")
 {
-    if (args.length() > 2 || 
-        args(0).type_id() != octave_i2c::static_type_id()) 
+    if (!type_loaded)
+    {
+        octave_i2c::register_type();
+        type_loaded = true;
+    }
+    
+    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_i2c::static_type_id()) 
     {
         print_usage();
         return octave_value(-1);
@@ -70,32 +72,4 @@ current i2c slave device address as the result @var{addr}.\n \
 
     // Returning current slave address
     return octave_value(i2c->get_addr());
-}
-
-int octave_i2c::set_addr(int addr)
-{
-    if (this->get_fd() < 0)
-    {
-        error("i2c: Interface must be open first...");
-        return -1;
-    }
-    
-    if (::ioctl(this->get_fd(), I2C_SLAVE, addr) < 0)
-    {
-        error("i2c: Error setting slave address: %s\n", strerror(errno));
-        return -1;
-    }
-    
-    return 1;
-}
-
-int octave_i2c::get_addr()
-{
-    if (this->get_fd() < 0)
-    {
-        error("i2c: Interface must be open first...");
-        return -1;
-    }
-    
-    return this->addr;
 }

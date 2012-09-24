@@ -17,24 +17,14 @@
 #include <octave/uint8NDArray.h>
 #include <octave/sighandlers.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
-
 #ifndef __WIN32__
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
 #include <errno.h>
-#include <termios.h>
-#include <unistd.h>
 #endif
 
-using std::string;
+#include "serial_class.h"
 
-#include "serial.h"
-
-volatile bool read_interrupt = false;
+extern bool read_interrupt;
+static bool type_loaded = false;
 
 void read_sighandler(int sig)
 {
@@ -54,6 +44,12 @@ Read from serial interface.\n \
 The srl_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_serial::register_type();
+        type_loaded = true;
+    }
+    
     if (args.length() != 2 || args(0).type_id() != octave_serial::static_type_id())
     {
         print_usage();
@@ -109,43 +105,3 @@ The srl_read() shall return number of bytes successfully read in @var{count} as 
 
     return return_list;
 }
-
-int octave_serial::read(char *buf, unsigned int len)
-{
-    if (this->get_fd() < 0)
-    {
-        error("srl_read: Interface must be opened first...");
-        return 0;
-    }
-
-    int bytes_read = 0, read_retval = -1;
-
-    // While not interrupted in blocking mode
-    while (!read_interrupt) 
-    {
-        read_retval = ::read(this->get_fd(), (void *)(buf + bytes_read), len - bytes_read);
-        //printf("read_retval: %d\n\r", read_retval);
-
-        if (read_retval < 0)
-        {
-            error("srl_read: Error while reading: %s\n", strerror(errno));
-            break;
-        }
-
-        bytes_read += read_retval;
-
-        // Required number of bytes read
-        if (bytes_read >= len)
-            break;
-
-        // Timeout while in non-blocking mode
-        if (read_retval == 0 && !this->blocking_read)
-            break;
-    }
-
-    return bytes_read;
-}
-
-/*int octave_serial::readline(char *buf, unsigned int len)
-{
-}*/

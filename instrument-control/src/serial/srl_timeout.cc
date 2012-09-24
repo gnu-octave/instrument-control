@@ -14,24 +14,10 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include "serial_class.h"
 
-#ifndef __WIN32__
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <termios.h>
-#include <unistd.h>
-#endif
-
-using std::string;
-
-#include "serial.h"
+static bool type_loaded = false;
 
 DEFUN_DLD (srl_timeout, args, nargout, 
         "-*- texinfo -*-\n\
@@ -46,6 +32,12 @@ Set new or get existing serial interface timeout parameter used for srl_read() r
 If @var{timeout} parameter is omitted, the srl_timeout() shall return current timeout value as the result @var{t}.\n \
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_serial::register_type();
+        type_loaded = true;
+    }
+    
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_serial::static_type_id())
     {
         print_usage();
@@ -73,50 +65,4 @@ If @var{timeout} parameter is omitted, the srl_timeout() shall return current ti
 
     // Returning current timeout
     return octave_value(serial->get_timeout());
-}
-
-int octave_serial::set_timeout(short timeout)
-{
-    if (this->get_fd() < 0)
-    {
-        error("serial: Interface must be opened first...");
-        return -1;
-    }
-
-    if (timeout < -1 || timeout > 255)
-    {
-        error("srl_timeout: timeout value must be between [-1..255]...");
-        return -1;
-    }
-
-    // Disable custom timeout, enable blocking read
-    if (timeout < 0)
-    {
-        this->blocking_read = true;
-        timeout = 5;
-    } 
-    // Enable custom timeout, disable blocking read
-    else 
-    {
-        this->blocking_read = false;
-    }
-
-    BITMASK_CLEAR(this->config.c_lflag, ICANON); // Set non-canonical mode
-    this->config.c_cc[VMIN] = 0;
-    this->config.c_cc[VTIME] = (unsigned) timeout; // Set timeout of 'timeout * 10' seconds
-
-    if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
-        error("srl_timeout: error setting stop bits...");
-        return -1;
-    }
-
-    return 1;
-}
-
-int octave_serial::get_timeout()
-{
-    if (blocking_read)
-        return -1;
-    else
-        return this->config.c_cc[VTIME];
 }

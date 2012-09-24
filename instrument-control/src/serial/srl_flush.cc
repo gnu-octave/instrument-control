@@ -14,26 +14,11 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include "serial_class.h"
 
-#ifndef __WIN32__
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <termios.h>
-#include <unistd.h>
-#endif
+static bool type_loaded = false;
 
-using std::string;
-
-#include "serial.h"
-
-// PKG_ADD: autoload ("srl_flush", "instrument-control.oct");
 DEFUN_DLD (srl_flush, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_flush (@var{serial}, [@var{q}])\n \
@@ -47,14 +32,21 @@ Flush the pending input/output.\n \
 If @var{q} parameter is omitted, the srl_flush() shall flush both, input and output buffers.\n \
 @end deftypefn")
 {
-    int queue_selector = 2; // Input and Output
+    if (!type_loaded)
+    {
+        octave_serial::register_type();
+        type_loaded = true;
+    }
 
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_serial::static_type_id()) 
     {
         print_usage();
         return octave_value(-1);
     }
-
+    
+    // Default arguments
+    int queue_selector = 2; // Input and Output
+    
     if (args.length() > 1)
     {
         if (!(args(1).is_integer_type() || args(1).is_float_type()))
@@ -74,33 +66,4 @@ If @var{q} parameter is omitted, the srl_flush() shall flush both, input and out
     serial->flush(queue_selector);
 
     return octave_value();
-}
-
-int octave_serial::flush(unsigned short queue_selector)
-{
-    if (this->get_fd() < 0)
-    {
-        error("serial: Interface must be opened first...");
-        return -1;
-    }
-    
-    /*
-     * TCIOFLUSH Flush both pending input and untransmitted output.
-     * TCOFLUSH Flush untransmitted output.
-     * TCIFLUSH Flush pending input.
-     */
-
-    int flag;
-
-    switch (queue_selector)
-    {
-    case 0: flag = TCOFLUSH; break;
-    case 1: flag = TCIFLUSH; break;
-    case 2: flag = TCIOFLUSH; break;
-    default:
-        error("srl_flush: only [0..2] values are accepted...");
-        return false;
-    }
-
-    return ::tcflush(this->get_fd(), flag);
 }

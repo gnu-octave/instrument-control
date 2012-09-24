@@ -14,57 +14,17 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
-//#include <octave/ov-int32.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string>
 
 #ifndef __WIN32__
 #include <errno.h>
-#include <unistd.h>
 #include <fcntl.h>
 #endif
 
 using std::string;
 
-#include "i2c.h"
-
-DEFINE_OCTAVE_ALLOCATOR (octave_i2c);
-DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_i2c, "octave_i2c", "octave_i2c");
+#include "i2c_class.h"
 
 static bool type_loaded = false;
-
-octave_i2c::octave_i2c()
-{
-    this->fd = -1;
-}
-
-octave_i2c::octave_i2c(string path, int flags)
-{
-    this->fd = open(path.c_str(), flags, 0);
-}
-
-octave_i2c::~octave_i2c()
-{
-    this->close();
-}
-
-int octave_i2c::get_fd()
-{
-    return this->fd;
-}
-
-void octave_i2c::print (std::ostream& os, bool pr_as_read_syntax ) const
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_i2c::print_raw (std::ostream& os, bool pr_as_read_syntax) const
-{
-    os << this->fd;
-}
 
 DEFUN_DLD (i2c, args, nargout, 
         "-*- texinfo -*-\n\
@@ -83,8 +43,12 @@ The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c
     return octave_value();
 #endif
 
-    int nargin = args.length();
-
+    if (!type_loaded)
+    {
+        octave_i2c::register_type();
+        type_loaded = true;
+    }
+    
     // Do not open interface if return value is not assigned
     if (nargout != 1)
     {
@@ -96,12 +60,6 @@ The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c
     int oflags = O_RDWR;
     string path("/dev/i2c-0");
     int addr = -1;
-
-    if (!type_loaded)
-    {
-        octave_i2c::register_type();
-        type_loaded = true;
-    }
 
     // Parse the function arguments
     if (args.length() > 0)

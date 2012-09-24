@@ -15,29 +15,10 @@
 
 #include <octave/oct.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include "parallel_class.h"
 
-#ifndef __WIN32__
-#include <errno.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <linux/parport.h>
-#include <linux/ppdev.h>
-#endif
+static bool type_loaded = false;
 
-using std::string;
-
-#include "parallel.h"
-
-// PKG_ADD: autoload ("pp_data", "instrument-control.oct");
 DEFUN_DLD (pp_data, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} pp_data (@var{parallel}, @var{data})\n \
@@ -51,6 +32,13 @@ Sets or Read the Data lines.\
 If @var{data} parameter is omitted, the pp_data() shall return current Data lines state as the result @var{d}.\n \
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_parallel::register_type();
+        type_loaded = true;
+    }
+
+    
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_parallel::static_type_id())
     {
         print_usage();
@@ -79,49 +67,3 @@ If @var{data} parameter is omitted, the pp_data() shall return current Data line
     // Return current Data register value on port
     return octave_value(parallel->get_data());
 }
-
-int octave_parallel::set_data(uint8_t data)
-{
-    if (this->get_fd() < 0)
-    {
-        error("parallel: Open the interface first...");
-        return -1;
-    }
-
-    /*
-    if (this->get_dir() == 1)
-    {
-        error("parallel: Trying to output data while in Input mode, this can result in hardware damage! \
-                   Use override if you know what you are doing...");
-        return false;
-    }  
-     */
-
-    if (ioctl(this->get_fd(), PPWDATA, &data) < 0) 
-    {
-        error("parallel: Error while writing to Data register: %s\n", strerror(errno));
-        return -1;
-    }
-
-    return 1;
-}
-
-int octave_parallel::get_data()
-{
-    if (this->get_fd() < 0)
-    {
-        error("parallel: Open the interface first...");
-        return -1;
-    }
-
-    uint8_t data;
-
-    if (ioctl(this->get_fd(), PPRDATA, &data) < 0)    
-    {
-        error("parallel: Error while reading from Data register: %s\n", strerror(errno));
-        return -1;
-    }
-
-    return data;
-}
-

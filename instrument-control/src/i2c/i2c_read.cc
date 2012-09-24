@@ -16,15 +16,9 @@
 #include <octave/oct.h>
 #include <octave/uint8NDArray.h>
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "i2c_class.h"
 
-#ifndef __WIN32__
-#include <errno.h>
-#include <unistd.h>
-#endif
-
-#include "i2c.h"
+static bool type_loaded = false;
 
 DEFUN_DLD (i2c_read, args, nargout, 
 "-*- texinfo -*-\n\
@@ -38,6 +32,13 @@ Read from i2c slave device.\n \
 The i2c_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_i2c::register_type();
+        type_loaded = true;
+    }
+
+    
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_i2c::static_type_id())
     {
         print_usage();
@@ -87,20 +88,4 @@ The i2c_read() shall return number of bytes successfully read in @var{count} as 
     delete[] buffer;
 
     return return_list;
-}
-
-int octave_i2c::read(char *buf, unsigned int len)
-{   
-    if (this->get_fd() < 0)
-    {
-        error("i2c: Interface must be open first...");
-        return -1;
-    }
-    
-    int retval = ::read(this->get_fd(), buf, len);
-    
-    if (retval != len)
-        error("i2c: Failed to read from the i2c bus: %s\n", strerror(errno));
-                    
-    return retval;
 }

@@ -1,21 +1,17 @@
-OCT := i2c.oct
-OBJ := i2c.o i2c_close.o i2c_addr.o i2c_write.o i2c_read.o
+OCT := i2c.oct i2c_close.oct i2c_addr.oct i2c_write.oct i2c_read.oct
+OBJ := i2c_class.o
 
 MKOCTFILE ?= mkoctfile
 
-all: $(OBJ)
-
-oct: $(OCT)
-
-%.oct: $(OBJ)
-	$(MKOCTFILE) $^
+all: $(OBJ) $(OCT)
 
 %.o: %.cc
-	$(MKOCTFILE) -c -s $<
+	$(MKOCTFILE) -c $^
 
+%.oct: %.o
+	$(MKOCTFILE) $^ $(OBJ) -o ../$@
 
 clean:
 	rm -f *.oct *.o
-
 
 .PHONY: all clean

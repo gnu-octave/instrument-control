@@ -15,29 +15,10 @@
 
 #include <octave/oct.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include "parallel_class.h"
 
-#ifndef __WIN32__
-#include <errno.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <linux/parport.h>
-#include <linux/ppdev.h>
-#endif
+static bool type_loaded = false;
 
-using std::string;
-
-#include "parallel.h"
-
-// PKG_ADD: autoload ("pp_stat", "instrument-control.oct");
 DEFUN_DLD (pp_stat, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{stat} = } pp_stat (@var{parallel})\n \
@@ -49,6 +30,13 @@ Reads the Status lines.\n \
 The pp_stat() shall return current Status lines state as the result @var{stat}.\n \
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_parallel::register_type();
+        type_loaded = true;
+    }
+
+    
     if (args.length() != 1 || args(0).type_id() != octave_parallel::static_type_id())
     {
         print_usage();
@@ -62,24 +50,4 @@ The pp_stat() shall return current Status lines state as the result @var{stat}.\
 
     // Return current Status register value on port
     return octave_value(parallel->get_stat());
-}
-
-
-int octave_parallel::get_stat()
-{
-    if (this->get_fd() < 0)
-    {
-        error("parallel: Open the interface first...");
-        return -1;
-    }
-
-    uint8_t status;
-
-    if (ioctl(this->get_fd(), PPRSTATUS, &status) < 0)
-    {
-        error("parallel: Error while reading from Status register: %s\n", strerror(errno));
-        return -1;
-    }
-
-    return status;
 }

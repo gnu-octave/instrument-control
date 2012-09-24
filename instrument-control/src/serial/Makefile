@@ -1,21 +1,18 @@
-OCT := serial.oct
-OBJ := serial.o srl_baudrate.o srl_timeout.o srl_bytesize.o srl_flush.o \
-	srl_parity.o srl_stopbits.o srl_write.o srl_close.o srl_read.o
+OCT := serial.oct srl_baudrate.oct srl_timeout.oct srl_bytesize.oct srl_flush.oct \
+	srl_parity.oct srl_stopbits.oct srl_write.oct srl_close.oct srl_read.oct
+OBJ := serial_class.o
 
 MKOCTFILE ?= mkoctfile
 
-all: $(OBJ)
-
-oct: $(OCT)
-
-%.oct: $(OBJ)
-	$(MKOCTFILE) $^
+all: $(OBJ) $(OCT)
 
 %.o: %.cc
-	$(MKOCTFILE) -c -s $<
+	$(MKOCTFILE) -c $^
+
+%.oct: %.o
+	$(MKOCTFILE) $^ $(OBJ) -o ../$@
 
 clean:
 	rm -f *.oct *.o
-
 
 .PHONY: all clean

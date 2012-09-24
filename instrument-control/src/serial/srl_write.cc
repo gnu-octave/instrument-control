@@ -14,24 +14,10 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include "serial_class.h"
 
-#ifndef __WIN32__
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <termios.h>
-#include <unistd.h>
-#endif
-
-using std::string;
-
-#include "serial.h"
+static bool type_loaded = false;
 
 DEFUN_DLD (srl_write, args, nargout, 
 "-*- texinfo -*-\n\
@@ -45,6 +31,12 @@ Write data to a serial interface.\n \
 Upon successful completion, srl_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_serial::register_type();
+        type_loaded = true;
+    }
+    
     if (args.length() != 2 || args(0).type_id() != octave_serial::static_type_id())
     {
         print_usage();
@@ -81,26 +73,4 @@ Upon successful completion, srl_write() shall return the number of bytes written
     }
 
     return octave_value(retval);
-}
-
-int octave_serial::write(string str)
-{
-    if (this->get_fd() < 0)
-    {
-        error("serial: Interface must be opened first...");
-        return -1;
-    }
-    
-    return ::write(get_fd(), str.c_str(), str.length());
-}
-
-int octave_serial::write(unsigned char *buf, int len)
-{
-    if (this->get_fd() < 0)
-    {
-        error("serial: Interface must be opened first...");
-        return -1;
-    }
-    
-    return ::write(get_fd(), buf, len);
 }

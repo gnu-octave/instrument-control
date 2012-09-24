@@ -14,25 +14,11 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
-#include <octave/ov-int32.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include "serial_class.h"
 
-#ifndef __WIN32__
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <termios.h>
-#include <unistd.h>
-#endif
-
-using std::string;
-
-#include "serial.h"
-
+static bool type_loaded = false;
+   
 DEFUN_DLD (srl_stopbits, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_stopbits (@var{serial}, @var{stopb})\n \
@@ -46,6 +32,12 @@ Set new or get existing serial interface stop bits parameter. Only 1 or 2 stop b
 If @var{stopb} parameter is omitted, the srl_stopbits() shall return current stop bits value as the result @var{sb}.\n \
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_serial::register_type();
+        type_loaded = true;
+    }
+    
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_serial::static_type_id())
     {
         print_usage();
@@ -73,54 +65,4 @@ If @var{stopb} parameter is omitted, the srl_stopbits() shall return current sto
 
     // Returning current stop bits
     return octave_value(serial->get_stopbits());
-}
-
-int octave_serial::set_stopbits(unsigned short stopbits)
-{
-    if (this->get_fd() < 0)
-    {
-        error("serial: Interface must be opened first...");
-        return -1;
-    }
-    
-    /*
-     * CSTOPB Send two stop bits, else one.
-     */
-
-    if (stopbits == 1)
-    {
-        // Set to one stop bit
-        BITMASK_CLEAR(this->config.c_cflag, CSTOPB);
-    }
-    else if (stopbits == 2)
-    {
-        // Set to two stop bits
-        BITMASK_SET(this->config.c_cflag, CSTOPB);
-    }
-    else
-    {
-        error("srl_stopbits: Only 1 or 2 stop bits are supported...");
-        return false;
-    }
-
-    if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
-        error("srl_stopbits: error setting stop bits: %s\n", strerror(errno));
-        return false;
-    }
-
-    return true;
-}
-
-int octave_serial::get_stopbits()
-{
-    if (this->get_fd() < 0)
-    {
-        error("serial: Interface must be opened first...");
-        return -1;
-    }
-    
-    if (BITMASK_CHECK(this->config.c_cflag, CSTOPB))
-        return 2;
-    else
-        return 1;
 }

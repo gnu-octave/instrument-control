@@ -15,29 +15,11 @@
 
 #include <octave/oct.h>
 
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include "parallel_class.h"
 
-#ifndef __WIN32__
-#include <errno.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <linux/parport.h>
-#include <linux/ppdev.h>
-#endif
+static bool type_loaded = false;
 
-using std::string;
 
-#include "parallel.h"
-
-// PKG_ADD: autoload ("pp_ctrl", "instrument-control.oct");
 DEFUN_DLD (pp_ctrl, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} pp_ctrl (@var{parallel}, @var{ctrl})\n \
@@ -51,6 +33,12 @@ Sets or Read the Control lines.\
 If @var{ctrl} parameter is omitted, the pp_ctrl() shall return current Control lines state as the result @var{c}.\n \
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_parallel::register_type();
+        type_loaded = true;
+    }
+    
     if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_parallel::static_type_id())
     {
         print_usage();
@@ -79,40 +67,3 @@ If @var{ctrl} parameter is omitted, the pp_ctrl() shall return current Control l
     // Return current Control register value on port
     return octave_value(parallel->get_ctrl());
 }
-
-int octave_parallel::set_ctrl(uint8_t ctrl)
-{
-    if (this->get_fd() < 0)
-    {
-        error("parallel: Open the interface first...");
-        return -1;
-    }
-
-    if (ioctl(this->get_fd(), PPWCONTROL, &ctrl) < 0)
-    {
-        error("parallel: Error while writing to Control register: %s\n", strerror(errno));
-        return -1;
-    }
-
-    return 1;
-}
-
-int octave_parallel::get_ctrl()
-{
-    if (this->get_fd() < 0)
-    {
-        error("parallel: Open the interface first...");
-        return -1;
-    }
-
-    uint8_t ctrl;
-
-    if (ioctl(this->get_fd(), PPRCONTROL, &ctrl) < 0)
-    {
-        error("parallel: Error while reading from Control register: %s\n", strerror(errno));
-        return -1;
-    }
-
-    return ctrl;
-}
-

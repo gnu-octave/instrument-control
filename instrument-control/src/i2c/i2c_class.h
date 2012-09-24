@@ -13,8 +13,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
-#ifndef i2c_H
-#define i2c_H
+#ifndef I2C_CLASS_H
+#define I2C_CLASS_H
 
 #include <octave/oct.h>
 

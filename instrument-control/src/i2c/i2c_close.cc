@@ -15,15 +15,9 @@
 
 #include <octave/oct.h>
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "i2c_class.h"
 
-#ifndef __WIN32__
-#include <errno.h>
-#include <unistd.h>
-#endif
-
-#include "i2c.h"
+static bool type_loaded = false;
 
 DEFUN_DLD (i2c_close, args, nargout, 
 "-*- texinfo -*-\n\
@@ -34,6 +28,13 @@ Close the interface and release a file descriptor.\n \
 @var{i2c} - instance of @var{octave_i2c} class.@*\
 @end deftypefn")
 {
+    if (!type_loaded)
+    {
+        octave_i2c::register_type();
+        type_loaded = true;
+    }
+
+    
     if (args.length() != 1 || args(0).type_id() != octave_i2c::static_type_id())
     {
         print_usage();
@@ -48,18 +49,4 @@ Close the interface and release a file descriptor.\n \
     i2c->close();
 
     return octave_value();
-}
-
-int octave_i2c::close()
-{
-    if (this->get_fd() < 0)
-    {
-        error("i2c: Interface must be open first...");
-        return -1;
-    }
-    
-    int retval = ::close(this->get_fd());
-    this->fd = -1;
-    
-    return retval;
 }

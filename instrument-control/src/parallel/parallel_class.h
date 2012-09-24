@@ -13,8 +13,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
-#ifndef parallel_H
-#define parallel_H
+#ifndef PARALLEL_CLASS_H
+#define PARALLEL_CLASS_H
 
 #include <octave/oct.h>
 #include <octave/ov-int32.h>

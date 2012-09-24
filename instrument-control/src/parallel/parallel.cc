@@ -37,69 +37,18 @@
 
 using std::string;
 
-#include "parallel.h"
-
-DEFINE_OCTAVE_ALLOCATOR (octave_parallel);
-DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_parallel, "octave_parallel", "octave_parallel");
+#include "parallel_class.h"
 
 static bool type_loaded = false;
 
-octave_parallel::octave_parallel()
-{
-    this->fd = -1;
-}
-
-int octave_parallel::open(string path, int flags)
-{
-    this->fd = ::open(path.c_str(), flags, 0);
-
-    if (this->fd < 0)
-    {
-        error("parallel: Error opening the interface: %s\n", strerror(errno));
-        return -1;
-    }
-
-    // Claim control of parallel port
-    if (ioctl(this->get_fd(), PPCLAIM) < 0)
-    {
-        error("parallel: Error when claiming the interface: %s\n", strerror(errno));
-        ::close(this->get_fd());
-        return -1;
-    }
-
-    return 1;
-}
-
-octave_parallel::~octave_parallel()
-{
-    this->close();
-}
-
-int octave_parallel::get_fd()
-{
-    return this->fd;
-}
-
-void octave_parallel::print(std::ostream& os, bool pr_as_read_syntax ) const
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_parallel::print_raw(std::ostream& os, bool pr_as_read_syntax) const
-{
-    os << this->fd;
-}
-
-// PKG_ADD: autoload ("parallel", "instrument-control.oct");
 DEFUN_DLD (parallel, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{parallel} = } parallel ([@var{path}], [@var{direction})\n \
+@deftypefn {Loadable Function} {@var{parallel} = } parallel ([@var{path}], [@var{direction}])\n \
 \n\
 Open Parallel interface.\n \
 \n\
 @var{path} - the interface path of type String. If omitted defaults to '/dev/parport0'.@*\
-@var{direction} - the direction of interface drivers of type Integer, see: @seealso{pp_datadir} for more info.\
+@var{direction} - the direction of interface drivers of type Integer, see: PP_DATADIR for more info. \
 If omitted defaults to 1 (Input).\n \
 \n\
 The parallel() shall return instance of @var{octave_parallel} class as the result @var{parallel}.\n \
@@ -110,7 +59,11 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
     return octave_value();
 #endif   
 
-    int nargin = args.length();
+    if (!type_loaded)
+    {
+        octave_parallel::register_type();
+        type_loaded = true;
+    }
 
     // Do not open interface if return value is not assigned
     if (nargout != 1)
@@ -124,13 +77,6 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
     int dir = 1; // Input
     string path("/dev/parport0");
 
-
-    if (!type_loaded)
-    {
-        octave_parallel::register_type();
-        type_loaded = true;
-    }
-
     // Parse the function arguments
     if (args.length() > 0)
     {
@@ -143,7 +89,6 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
             print_usage();
             return octave_value();
         }
-
     }
 
     // is_float_type() is or'ed to allow expression like ("", 123), without user
