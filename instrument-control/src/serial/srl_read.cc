@@ -92,7 +92,7 @@ The srl_read() shall return number of bytes successfully read in @var{count} as 
     install_signal_handlers();
     
     // Convert data to octave type variables
-    octave_value_list return_list(2);
+    octave_value_list return_list;
     uint8NDArray data( dim_vector(1, bytes_read) );
 
     for (int i = 0; i < bytes_read; i++)

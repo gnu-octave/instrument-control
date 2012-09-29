@@ -76,7 +76,7 @@ The i2c_read() shall return number of bytes successfully read in @var{count} as 
     
     retval = i2c->read(buffer, buffer_len);
     
-    octave_value_list return_list(2);
+    octave_value_list return_list;
     uint8NDArray data( dim_vector(1, retval) );
     
     for (int i = 0; i < retval; i++)
