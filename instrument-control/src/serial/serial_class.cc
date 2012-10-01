@@ -499,9 +499,11 @@ string octave_serial::get_parity()
 
 int octave_serial::close()
 {
+    int retval = -1;
+    
     if (this->get_fd() > 0)
     {
-        int retval = ::close(this->get_fd());
+        retval = ::close(this->get_fd());
         this->fd = -1;
     }
 

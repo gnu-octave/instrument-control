@@ -127,10 +127,11 @@ int octave_i2c::write(unsigned char *buf, int len)
 
 int octave_i2c::close()
 {
+    int retval = -1;
 
     if (this->get_fd() > 0)
     {
-        int retval = ::close(this->get_fd());
+        retval = ::close(this->get_fd());
         this->fd = -1;
     }
 
