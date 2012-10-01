@@ -72,13 +72,13 @@ int octave_i2c::set_addr(int addr)
         error("i2c: Interface must be open first...");
         return -1;
     }
-    
+
     if (::ioctl(this->get_fd(), I2C_SLAVE, addr) < 0)
     {
         error("i2c: Error setting slave address: %s\n", strerror(errno));
         return -1;
     }
-    
+
     return 1;
 }
 
@@ -89,7 +89,7 @@ int octave_i2c::get_addr()
         error("i2c: Interface must be open first...");
         return -1;
     }
-    
+
     return this->addr;
 }
 
@@ -100,12 +100,12 @@ int octave_i2c::read(char *buf, unsigned int len)
         error("i2c: Interface must be open first...");
         return -1;
     }
-    
+
     int retval = ::read(this->get_fd(), buf, len);
-    
+
     if (retval != len)
         error("i2c: Failed to read from the i2c bus: %s\n", strerror(errno));
-                    
+
     return retval;
 }
 
@@ -116,27 +116,23 @@ int octave_i2c::write(unsigned char *buf, int len)
         error("i2c: Interface must be open first...");
         return -1;
     }
-    
+
     int retval = ::write(this->get_fd(), buf, len);
-    
+
     if (retval < 0)
         error("i2c: Failed to write to the i2c bus: %s\n", strerror(errno));
-    
+
     return retval;
 }
 
 int octave_i2c::close()
 {
-    /*
-    if (this->get_fd() < 0)
+
+    if (this->get_fd() > 0)
     {
-        error("i2c: Interface must be open first...");
-        return -1;
+        int retval = ::close(this->get_fd());
+        this->fd = -1;
     }
-    */
-    
-    int retval = ::close(this->get_fd());
-    this->fd = -1;
-    
+
     return retval;
 }

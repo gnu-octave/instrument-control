@@ -45,7 +45,7 @@ octave_serial::octave_serial()
 octave_serial::octave_serial(string path, int flags)
 {
     this->fd = open(path.c_str(), flags, 0);
-    
+
     if (this->fd > 0)
     {
         tcgetattr(this->fd, &this->config);
@@ -112,7 +112,7 @@ int octave_serial::write(string str)
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     return ::write(get_fd(), str.c_str(), str.length());
 }
 
@@ -123,7 +123,7 @@ int octave_serial::write(unsigned char *buf, int len)
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     return ::write(get_fd(), buf, len);
 }
 
@@ -180,7 +180,7 @@ int octave_serial::set_stopbits(unsigned short stopbits)
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     /*
      * CSTOPB Send two stop bits, else one.
      */
@@ -216,7 +216,7 @@ int octave_serial::get_stopbits()
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     if (BITMASK_CHECK(this->config.c_cflag, CSTOPB))
         return 2;
     else
@@ -230,7 +230,7 @@ int octave_serial::set_bytesize(unsigned short bytesize)
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     tcflag_t c_bytesize = 0;
 
     switch (bytesize) 
@@ -266,9 +266,9 @@ int octave_serial::get_bytesize()
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     int retval = -1;
-    
+
     if (BITMASK_CHECK(this->config.c_cflag, CS5))
         retval = 5;
     else if (BITMASK_CHECK(this->config.c_cflag, CS6))
@@ -277,7 +277,7 @@ int octave_serial::get_bytesize()
         retval = 7;
     else if (BITMASK_CHECK(this->config.c_cflag, CS8))
         retval = 8;
-    
+
     return retval;
 }
 
@@ -288,7 +288,7 @@ int octave_serial::set_baudrate(unsigned int baud)
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     speed_t baud_rate = 0;
 
     switch (baud) 
@@ -356,11 +356,11 @@ int octave_serial::get_baudrate()
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     int retval = -1;
-    
+
     speed_t baudrate = cfgetispeed(&this->config);
-    
+
     if (baudrate == B0)
         retval = 0;
     else if (baudrate == B50)
@@ -399,9 +399,9 @@ int octave_serial::get_baudrate()
         retval = 115200;
     else if (baudrate == B230400)
         retval = 230400;
-    
+
     return retval;
-    
+
 }
 
 int octave_serial::flush(unsigned short queue_selector)
@@ -411,7 +411,7 @@ int octave_serial::flush(unsigned short queue_selector)
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     /*
      * TCIOFLUSH Flush both pending input and untransmitted output.
      * TCOFLUSH Flush untransmitted output.
@@ -441,7 +441,7 @@ int octave_serial::set_parity(string parity)
         error("serial: Interface must be opened first...");
         return -1;
     }
-    
+
     // Convert string to lowercase
     std::transform(parity.begin(), parity.end(), parity.begin(), ::tolower);
 
@@ -499,14 +499,11 @@ string octave_serial::get_parity()
 
 int octave_serial::close()
 {
-    /*if (this->get_fd() < 0)
+    if (this->get_fd() > 0)
     {
-        error("serial: Interface must be opened first...");
-        return -1;
-    }*/
-    
-    int retval = ::close(this->get_fd());
-    this->fd = -1;
-    
+        int retval = ::close(this->get_fd());
+        this->fd = -1;
+    }
+
     return retval;
 }
