@@ -59,7 +59,7 @@ If @var{data} parameter is omitted, the pp_data() shall return current Data line
             return octave_value(-1);
         }
 
-        parallel->set_datadir(args(1).int_value());
+        parallel->set_data(args(1).int_value());
 
         return octave_value();
     }

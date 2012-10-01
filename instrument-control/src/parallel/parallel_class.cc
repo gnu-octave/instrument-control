@@ -61,11 +61,14 @@ int octave_parallel::open(string path, int flags)
     if (ioctl(this->get_fd(), PPCLAIM) < 0)
     {
         error("parallel: Error when claiming the interface: %s\n", strerror(errno));
-        ::close(this->get_fd());
+
+        ::close(this->fd);
+        this->fd = -1;
+
         return -1;
     }
 
-    return 1;
+    return this->fd;
 }
 
 octave_parallel::~octave_parallel()
@@ -113,8 +116,8 @@ int octave_parallel::set_datadir(int dir)
         error("parallel: Open the interface first...");
         return -1;
     }
-    
-    if (dir != 1 || dir != 0)
+
+    if (dir < 0 || 1 < dir)
     {
         error("parallel: Unsupported data direction...");
         return -1;
@@ -128,9 +131,9 @@ int octave_parallel::set_datadir(int dir)
         error("pp_datadir: error setting data direction: %s\n", strerror(errno));
         return false;
     }
-    
+
     this->dir = dir;
-    
+
     return 1;
 }
 
@@ -141,7 +144,7 @@ int octave_parallel::get_datadir()
         error("parallel: Open the interface first...");
         return false;
     }
-    
+
     return this->dir;
 }
 
@@ -230,21 +233,18 @@ int octave_parallel::get_ctrl()
 
 int octave_parallel::close()
 {
-    /*
-    if (this->get_fd() < 0)
+    if (this->get_fd() > 0)
     {
-        error("parallel: port must be open first...");
-        return -1;
+        // Release parallel port
+        if (ioctl(this->get_fd(), PPRELEASE) < 0)
+            error("parallel: error releasing parallel port: %s\n", strerror(errno));
+
+        int retval = ::close(this->get_fd());
+
+        this->fd = -1;
+
+        return retval;
     }
-    */
-
-    // Release parallel port
-    if (ioctl(this->get_fd(), PPRELEASE) < 0)
-        error("parallel: error releasing parallel port: %s\n", strerror(errno));
-
-    int retval = ::close(this->get_fd());
-
-    this->fd = -1;
-
-    return retval;
+    
+    return -1;
 }
