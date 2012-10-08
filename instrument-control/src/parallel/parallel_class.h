@@ -40,6 +40,7 @@ public:
     int set_data(uint8_t);
     
     int get_stat();
+    //int set_stat(uint8_t);
     
     int get_ctrl();
     int set_ctrl(uint8_t);

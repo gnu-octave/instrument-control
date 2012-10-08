@@ -31,8 +31,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <linux/parport.h>
-#include <linux/ppdev.h>
 #endif
 
 using std::string;

@@ -20,7 +20,6 @@
 #include <string>
 #include <algorithm>
 
-#ifndef __WIN32__
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
@@ -31,8 +30,24 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+#if defined (__linux__)
 #include <linux/parport.h>
 #include <linux/ppdev.h>
+#endif
+
+// Platform specific header files
+#if defined (__FreeBSD__)
+#include <dev/ppbus/ppi.h>
+#include <dev/ppbus/ppbconf.h>
+
+// And constants
+#define PPWCONTROL PPISCTRL
+#define PPRCONTROL PPIGCTRL
+#define PPWSTATUS PPISSTATUS
+#define PPRSTATUS PPIGSTATUS
+#define PPWDATA PPISDATA
+#define PPRDATA PPIGDATA
 #endif
 
 using std::string;
@@ -57,7 +72,10 @@ int octave_parallel::open(string path, int flags)
         return -1;
     }
 
-    // Claim control of parallel port
+    // Claim control of parallel port 
+    // Not used with FreeBSD
+#if !defined(__FreeBSD__)
+
     if (ioctl(this->get_fd(), PPCLAIM) < 0)
     {
         error("parallel: Error when claiming the interface: %s\n", strerror(errno));
@@ -67,6 +85,8 @@ int octave_parallel::open(string path, int flags)
 
         return -1;
     }
+
+#endif
 
     return this->fd;
 }
@@ -92,23 +112,6 @@ void octave_parallel::print_raw(std::ostream& os, bool pr_as_read_syntax) const
     os << this->fd;
 }
 
-int octave_parallel::set_ctrl(uint8_t ctrl)
-{
-    if (this->get_fd() < 0)
-    {
-        error("parallel: Open the interface first...");
-        return -1;
-    }
-
-    if (ioctl(this->get_fd(), PPWCONTROL, &ctrl) < 0)
-    {
-        error("parallel: Error while writing to Control register: %s\n", strerror(errno));
-        return -1;
-    }
-
-    return 1;
-}
-
 int octave_parallel::set_datadir(int dir)
 {
     if (this->get_fd() < 0)
@@ -126,11 +129,16 @@ int octave_parallel::set_datadir(int dir)
     // The ioctl parameter is a pointer to an int. 
     // If the int is zero, the drivers are turned on (forward/output direction); 
     // if non-zero, the drivers are turned off (reverse/input direction).
+    // Not used with FreeBSD
+#if !defined(__FreeBSD__)
+
     if (ioctl(this->get_fd(), PPDATADIR, &dir) < 0) 
     {
         error("pp_datadir: error setting data direction: %s\n", strerror(errno));
         return false;
     }
+
+#endif
 
     this->dir = dir;
 
@@ -212,6 +220,23 @@ int octave_parallel::get_data()
     return data;
 }
 
+int octave_parallel::set_ctrl(uint8_t ctrl)
+{
+    if (this->get_fd() < 0)
+    {
+        error("parallel: Open the interface first...");
+        return -1;
+    }
+
+    if (ioctl(this->get_fd(), PPWCONTROL, &ctrl) < 0)
+    {
+        error("parallel: Error while writing to Control register: %s\n", strerror(errno));
+        return -1;
+    }
+
+    return 1;
+}
+
 int octave_parallel::get_ctrl()
 {
     if (this->get_fd() < 0)
@@ -236,8 +261,13 @@ int octave_parallel::close()
     if (this->get_fd() > 0)
     {
         // Release parallel port
+        // Not used with FreeBSD
+#if !defined(__FreeBSD__)
+
         if (ioctl(this->get_fd(), PPRELEASE) < 0)
             error("parallel: error releasing parallel port: %s\n", strerror(errno));
+
+#endif
 
         int retval = ::close(this->get_fd());
 
@@ -245,6 +275,6 @@ int octave_parallel::close()
 
         return retval;
     }
-    
+
     return -1;
 }

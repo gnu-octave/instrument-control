@@ -1,11 +1,10 @@
-#OCT = instrument-control.oct
 SUBDIRS = i2c serial parallel
 
 MKOCTFILE ?= mkoctfile
 
 all:
-	@for dir in $(SUBDIRS); do $(MAKE) -C $$dir; done
-#	$(MKOCTFILE) i2c/*.o serial/*.o parallel/*.o -o $(OCT)
+	# -i - ignore errors
+	@for dir in $(SUBDIRS); do $(MAKE) -i -C $$dir; done
 	
 clean:
 	 @for dir in $(SUBDIRS); do $(MAKE) -C $$dir clean; done
