@@ -19,13 +19,21 @@
 #include <stdlib.h>
 #include <string>
 
-#ifndef __WIN32__
 #include <errno.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
+
+
+#if defined (__linux__)
+#include <linux/i2c-dev.h>
 #endif
+
+// Platform specific header files
+#if defined (__FreeBSD__)
+#include <dev/iicbus/iic.h>
+#endif
+
 
 using std::string;
 
@@ -73,11 +81,13 @@ int octave_i2c::set_addr(int addr)
         return -1;
     }
 
+#if defined (__linux__)
     if (::ioctl(this->get_fd(), I2C_SLAVE, addr) < 0)
     {
         error("i2c: Error setting slave address: %s\n", strerror(errno));
         return -1;
     }
+#endif
 
     return 1;
 }
@@ -100,10 +110,28 @@ int octave_i2c::read(char *buf, unsigned int len)
         error("i2c: Interface must be open first...");
         return -1;
     }
-
-    int retval = ::read(this->get_fd(), buf, len);
-
-    if (retval != len)
+    
+    int retval = -1;
+    
+#if defined (__linux__)
+    retval = ::read(this->get_fd(), buf, len);
+#endif
+    
+#if defined (__FreeBSD__)
+    // Populate FreeBSD-specific structure
+    struct iiccmd i2c_slave;
+    
+    i2c_slave.slave = (unsigned char)this->get_addr();
+    i2c_slave.count = len;
+    i2c_slave.last = 0; // No additional reads will follow for this transaction
+    i2c_slave.buf = buf;
+    
+    ::ioctl(this->get_fd(), I2CSTART, &i2c_slave);
+    retval = ::ioctl(this->get_fd(), I2CREAD, &i2c_slave);
+    ::ioctl(this->get_fd(), I2CSTOP);
+#endif
+    
+    if (retval < 0)
         error("i2c: Failed to read from the i2c bus: %s\n", strerror(errno));
 
     return retval;
@@ -116,9 +144,26 @@ int octave_i2c::write(unsigned char *buf, int len)
         error("i2c: Interface must be open first...");
         return -1;
     }
+    int retval = -1;
 
-    int retval = ::write(this->get_fd(), buf, len);
-
+#if defined (__linux__)
+    retval = ::write(this->get_fd(), buf, len);
+#endif
+    
+#if defined (__FreeBSD__)
+    // Populate FreeBSD-specific structure
+    struct iiccmd i2c_slave;
+    
+    i2c_slave.slave = (unsigned char)this->get_addr();
+    i2c_slave.count = len;
+    i2c_slave.last = 0; // No additional writes will follow for this transaction
+    i2c_slave.buf = (char*)buf;
+    
+    ::ioctl(this->get_fd(), I2CSTART, &i2c_slave);
+    retval = ::ioctl(this->get_fd(), I2CWRITE, &i2c_slave);
+    ::ioctl(this->get_fd(), I2CSTOP);
+#endif
+    
     if (retval < 0)
         error("i2c: Failed to write to the i2c bus: %s\n", strerror(errno));
 
