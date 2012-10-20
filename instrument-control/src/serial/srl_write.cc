@@ -20,7 +20,7 @@
 static bool type_loaded = false;
 
 DEFUN_DLD (srl_write, args, nargout, 
-"-*- texinfo -*-\n\
+        "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{n} = } srl_write (@var{serial}, @var{data})\n \
 \n\
 Write data to a serial interface.\n \
@@ -36,7 +36,7 @@ Upon successful completion, srl_write() shall return the number of bytes written
         octave_serial::register_type();
         type_loaded = true;
     }
-    
+
     if (args.length() != 2 || args(0).type_id() != octave_serial::static_type_id())
     {
         print_usage();
@@ -56,14 +56,20 @@ Upon successful completion, srl_write() shall return the number of bytes written
     else if (args(1).byte_size() == args(1).numel()) // uint8_t
     {
         NDArray data = args(1).array_value();
-        uint8_t *buf = new uint8_t[data.length()]; //TODO: check for NULL
-        
-        // memcpy?
+        uint8_t *buf = NULL; 
+        buf = new uint8_t[data.length()];
+
+        if (buf == NULL)
+        {
+            error("srl_write: cannot allocate requested memory");
+            return octave_value(-1);  
+        }
+
         for (int i = 0; i < data.length(); i++)
             buf[i] =  static_cast<uint8_t>(data(i));
-        
+
         retval = serial->write(buf, data.length());
-        
+
         delete[] buf;
     }
     else

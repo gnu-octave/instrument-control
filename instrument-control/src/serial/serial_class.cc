@@ -42,15 +42,22 @@ octave_serial::octave_serial()
     this->fd = -1;
 }
 
-octave_serial::octave_serial(string path, int flags)
+int octave_serial::open(string path, int flags)
 {
-    this->fd = open(path.c_str(), flags, 0);
+    this->fd = ::open(path.c_str(), flags, 0);
 
-    if (this->fd > 0)
+    if (this->get_fd() > 0)
     {
         tcgetattr(this->fd, &this->config);
         this->blocking_read = true;
+    } 
+    else
+    {
+        error("serial: Error opening the interface: %s\n", strerror(errno));
+        return -1;
     }
+
+    return this->get_fd();
 }
 
 octave_serial::~octave_serial()
@@ -116,7 +123,7 @@ int octave_serial::write(string str)
     return ::write(get_fd(), str.c_str(), str.length());
 }
 
-int octave_serial::write(uint8_t *buf, int len)
+int octave_serial::write(uint8_t *buf, unsigned int len)
 {
     if (this->get_fd() < 0)
     {
@@ -158,7 +165,7 @@ int octave_serial::set_timeout(short timeout)
     this->config.c_cc[VTIME] = (unsigned) timeout; // Set timeout of 'timeout * 10' seconds
 
     if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
-        error("srl_timeout: error setting stop bits...");
+        error("srl_timeout: error setting timeout...");
         return -1;
     }
 
@@ -497,10 +504,15 @@ string octave_serial::get_parity()
         return "Even";
 }
 
+int octave_serial::get_fd()
+{
+    return this->fd;
+}
+
 int octave_serial::close()
 {
     int retval = -1;
-    
+
     if (this->get_fd() > 0)
     {
         retval = ::close(this->get_fd());

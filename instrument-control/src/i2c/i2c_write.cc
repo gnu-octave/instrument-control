@@ -15,18 +15,20 @@
 
 #include <octave/oct.h>
 
+#include <errno.h>
+
 #include "i2c_class.h"
 
 static bool type_loaded = false;
 
 DEFUN_DLD (i2c_write, args, nargout, 
-"-*- texinfo -*-\n\
+        "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{n} = } i2c_write (@var{i2c}, @var{data})\n \
 \n\
 Write data to a i2c slave device.\n \
 \n\
 @var{i2c} - instance of @var{octave_i2c} class.@*\
-@var{data} - data to be written to the slave device. Can be either of String or uint8 type.\n \
+@var{data} - data, of type uint8, to be written to the slave device.\n \
 \n\
 Upon successful completion, i2c_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
@@ -37,38 +39,37 @@ Upon successful completion, i2c_write() shall return the number of bytes written
         type_loaded = true;
     }
 
-    
     if (args.length() != 2 || args(0).type_id() != octave_i2c::static_type_id()) 
     {
         print_usage();
         return octave_value(-1);
     }
-    
+
     octave_i2c* i2c = NULL;
+    int retval;
 
     const octave_base_value& rep = args(0).get_rep();
     i2c = &((octave_i2c &)rep);
 
-    const octave_base_value& data = args(1).get_rep();
-    int retval;
-    
-    if (data.is_string())
-    {
-        string buf = data.string_value();
-        retval = i2c->write((unsigned char*)buf.c_str(), buf.length());
-    }
-    else if (data.byte_size() == data.numel())
-    {
-        NDArray dtmp = data.array_value();
-        unsigned char* buf = new unsigned char [dtmp.length()];
-        
-        for (int i = 0; i < dtmp.length(); i++)
-            buf[i] = (unsigned char)dtmp(i);
-        
-        retval = i2c->write(buf, data.byte_size());
-        
+    if (args(1).byte_size() == args(1).numel()) // uint8_t
+            {
+        NDArray data = args(1).array_value();
+        uint8_t *buf = NULL; 
+        buf = new uint8_t[data.length()];
+
+        if (buf == NULL)
+        {
+            error("i2c_write: cannot allocate requested memory: %s\n", strerror(errno));
+            return octave_value(-1);  
+        }
+
+        for (int i = 0; i < data.length(); i++)
+            buf[i] =  static_cast<uint8_t>(data(i));
+
+        retval = i2c->write(buf, data.length());
+
         delete[] buf;
-    }
+            }
     else
     {
         print_usage();

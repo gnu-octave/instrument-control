@@ -1,10 +1,9 @@
-SUBDIRS = i2c serial parallel
+SUBDIRS = serial parallel i2c
 
 MKOCTFILE ?= mkoctfile
 
 all:
-	# -i - ignore errors
-	@for dir in $(SUBDIRS); do $(MAKE) -i -C $$dir; done
+	@for dir in $(SUBDIRS); do $(MAKE) -i -C $$dir; done # -i - ignore errors
 	
 clean:
 	 @for dir in $(SUBDIRS); do $(MAKE) -C $$dir clean; done

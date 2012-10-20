@@ -29,22 +29,22 @@ public:
     octave_parallel();
     ~octave_parallel();
 
-    int open(string, int);
+    int open(string /* path */, int /* open flags */);
     int close();
     int get_fd();
-        
+
     int get_datadir();
-    int set_datadir(int);
-    
+    int set_datadir(int /* direction */);
+
     int get_data();
-    int set_data(uint8_t);
-    
+    int set_data(uint8_t /* value */);
+
     int get_stat();
     //int set_stat(uint8_t);
-    
+
     int get_ctrl();
-    int set_ctrl(uint8_t);
-    
+    int set_ctrl(uint8_t /* value */);
+
     // Overloaded base functions
     double parallel_value() const
     {
@@ -66,11 +66,11 @@ public:
 
 private:
     int fd;
-    
+
     // 1 - Input
     // 0 - Output
     int dir;
-    
+
     DECLARE_OCTAVE_ALLOCATOR
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };

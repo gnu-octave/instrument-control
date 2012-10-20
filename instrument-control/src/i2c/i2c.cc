@@ -91,14 +91,11 @@ The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c
         }
     }
 
-    // Open the interface
-    octave_i2c* retval = new octave_i2c(path, oflags);
+    octave_i2c* retval = new octave_i2c();
 
-    if (retval->get_fd() < 0)
-    {
-        error("i2c: Error opening the interface: %s\n", strerror(errno));
+    // Open the interface
+    if (retval->open(path, oflags) < 0)
         return octave_value();
-    }
 
     if (addr > 0)
         retval->set_addr(addr);

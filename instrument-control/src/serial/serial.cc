@@ -113,14 +113,12 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
         }
     }
 
+    
+    octave_serial* retval = new octave_serial();
+    
     // Open the interface
-    octave_serial* retval = new octave_serial(path, oflags);
-
-    if (retval->get_fd() < 0)
-    {
-        error("serial: Error opening the interface: %s\n", strerror(errno));
+    if (retval->open(path, oflags) < 0)
         return octave_value();
-    }
     
     retval->set_baudrate(baud_rate);
     retval->set_timeout(timeout);

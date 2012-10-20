@@ -26,20 +26,20 @@ class octave_i2c : public octave_base_value
 {
 public:
     octave_i2c();
-    octave_i2c(string, int);
     ~octave_i2c();
 
+    int open(string /* path */, int /* open flags */);
+    int close();    
     int get_fd();
-    int close();
 
-    int set_addr(int);
+    int set_addr(int /* slave ddress */);
     int get_addr();
-    
+
     // Simple i2c commands
-    int write(unsigned char*, int);
-    int read(char*, unsigned int);
-    
-    
+    int write(uint8_t* /* buffer */, unsigned int /* buffer size */);
+    int read(uint8_t* /* buffer */, unsigned int /* buffer size */);
+
+
     // Overloaded base functions
     double i2c_value() const
     {

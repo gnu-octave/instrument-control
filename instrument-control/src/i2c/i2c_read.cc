@@ -16,6 +16,8 @@
 #include <octave/oct.h>
 #include <octave/uint8NDArray.h>
 
+#include <errno.h>
+
 #include "i2c_class.h"
 
 static bool type_loaded = false;
@@ -45,7 +47,7 @@ The i2c_read() shall return number of bytes successfully read in @var{count} as 
         return octave_value(-1);
     }
 
-    char *buffer = NULL;
+    uint8_t *buffer = NULL;
     unsigned int buffer_len = 1;
 
     if (args.length() > 1)
@@ -59,11 +61,11 @@ The i2c_read() shall return number of bytes successfully read in @var{count} as 
         buffer_len = args(1).int_value();
     }
 
-    buffer = new char [buffer_len + 1];
+    buffer = new uint8_t [buffer_len + 1];
 
     if (buffer == NULL)
     {
-        error("i2c_read: cannot allocate requested memory...");
+        error("i2c_read: cannot allocate requested memory: %s\n", strerror(errno));
         return octave_value(-1);  
     }
 

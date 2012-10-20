@@ -62,11 +62,16 @@ octave_parallel::octave_parallel()
     this->fd = -1;
 }
 
+octave_parallel::~octave_parallel()
+{
+    this->close();
+}
+
 int octave_parallel::open(string path, int flags)
 {
     this->fd = ::open(path.c_str(), flags, 0);
 
-    if (this->fd < 0)
+    if (this->get_fd() < 0)
     {
         error("parallel: Error opening the interface: %s\n", strerror(errno));
         return -1;
@@ -80,7 +85,7 @@ int octave_parallel::open(string path, int flags)
     {
         error("parallel: Error when claiming the interface: %s\n", strerror(errno));
 
-        ::close(this->fd);
+        ::close(this->get_fd());
         this->fd = -1;
 
         return -1;
@@ -88,12 +93,7 @@ int octave_parallel::open(string path, int flags)
 
 #endif
 
-    return this->fd;
-}
-
-octave_parallel::~octave_parallel()
-{
-    this->close();
+    return this->get_fd();
 }
 
 int octave_parallel::get_fd()
@@ -270,7 +270,6 @@ int octave_parallel::close()
 #endif
 
         int retval = ::close(this->get_fd());
-
         this->fd = -1;
 
         return retval;

@@ -33,34 +33,34 @@ class octave_serial : public octave_base_value
 {
 public:
     octave_serial();
-    octave_serial(string, int);
     ~octave_serial();
 
-    int write(string);
-    int write(uint8_t*, int);
-    
-    int read(uint8_t*, unsigned int);
+    int write(string /* buffer */);
+    int write(uint8_t* /* buffer */, unsigned int /* buffer size */);
 
+    int read(uint8_t* /* buffer */, unsigned int /* buffer size */);
+
+    int open(string /* path */, int /* open flags */);
     int close();
+    int get_fd();
 
-    int flush(unsigned short);
+    int flush(unsigned short /* stream select */);
 
-    int set_timeout(short);
+    int set_timeout(short /* timeout */);
     int get_timeout();
-    
-    int set_baudrate(unsigned int);
+
+    int set_baudrate(unsigned int /* baudrate */);
     int get_baudrate();
-    
-    int set_bytesize(unsigned short);
+
+    int set_bytesize(unsigned short /* bytesize */);
     int get_bytesize();
-    
-    int set_parity(string);
+
+    int set_parity(string /* parity */);
     string get_parity();
-    
-    int set_stopbits(unsigned short);
+
+    int set_stopbits(unsigned short /* stop bits */);
     int get_stopbits();
 
-    int get_fd() { return this->fd; }
 
     // Overloaded base functions
     double serial_value() const { return (double)this->fd; }
@@ -78,11 +78,11 @@ public:
     bool is_defined (void) const { return true;}
     bool print_as_scalar (void) const { return true;}
 
-   
+
 private:
     int fd;
     struct termios config;
-    
+
     volatile bool blocking_read;
 
     DECLARE_OCTAVE_ALLOCATOR

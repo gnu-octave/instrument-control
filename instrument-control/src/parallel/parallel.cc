@@ -104,9 +104,9 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
         }
     }
 
-    // Open the interface
     octave_parallel* retval = new octave_parallel();
 
+    // Open the interface
     if (retval->open(path, oflags) < 0)
         return octave_value();
 
