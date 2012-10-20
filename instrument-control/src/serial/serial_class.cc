@@ -69,7 +69,7 @@ void octave_serial::print_raw (std::ostream& os, bool pr_as_read_syntax) const
     os << this->fd;
 }
 
-int octave_serial::read(char *buf, unsigned int len)
+int octave_serial::read(uint8_t *buf, unsigned int len)
 {
     if (this->get_fd() < 0)
     {
@@ -116,7 +116,7 @@ int octave_serial::write(string str)
     return ::write(get_fd(), str.c_str(), str.length());
 }
 
-int octave_serial::write(unsigned char *buf, int len)
+int octave_serial::write(uint8_t *buf, int len)
 {
     if (this->get_fd() < 0)
     {

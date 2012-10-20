@@ -37,9 +37,9 @@ public:
     ~octave_serial();
 
     int write(string);
-    int write(unsigned char*, int);
+    int write(uint8_t*, int);
     
-    int read(char *, unsigned int);
+    int read(uint8_t*, unsigned int);
 
     int close();
 
