@@ -47,8 +47,39 @@ int octave_serial::open(string path, int flags)
     this->fd = ::open(path.c_str(), flags, 0);
 
     if (this->get_fd() > 0)
-    {
-        tcgetattr(this->fd, &this->config);
+    {   
+        // Check whether fd is an open file descriptor referring to a terminal 
+        if(!isatty(fd)) 
+        { 
+            error("serial: Interface does not refer to a terminal: %s\n", strerror(errno));
+            this->close();
+            return -1;
+        }
+
+        if (tcgetattr(this->fd, &this->config) < 0)
+        {
+            error("serial: Failed to get terminal attributes: %s\n", strerror(errno));
+            this->close();
+            return -1;
+        }
+
+        // Clear all settings
+        memset(&this->config, 0, sizeof(this->config));
+        this->config.c_iflag = 0;
+        this->config.c_oflag = 0;
+        this->config.c_cflag = CS8 | CREAD | CLOCAL; // 8n1
+        this->config.c_lflag = 0;
+        this->config.c_cc[VMIN] = 1;
+        this->config.c_cc[VTIME] = 0;
+        //tcsetattr(this->get_fd(), TCSANOW, &this->config);
+
+        if (tcsetattr(this->get_fd(), TCSAFLUSH, &this->config) < 0)
+        {
+            error("serial: Failed to set default terminal attributes: %s\n", strerror(errno));
+            this->close();
+            return -1; 
+        }
+
         this->blocking_read = true;
     } 
     else
