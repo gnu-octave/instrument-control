@@ -44,7 +44,7 @@ octave_serial::octave_serial()
 
 int octave_serial::open(string path, int flags)
 {
-    this->fd = ::open(path.c_str(), flags, 0);
+    this->fd = ::open(path.c_str(), flags);
 
     if (this->get_fd() > 0)
     {   
@@ -64,18 +64,23 @@ int octave_serial::open(string path, int flags)
         }
 
         // Clear all settings
-        memset(&this->config, 0, sizeof(this->config));
-        this->config.c_iflag = 0;
-        this->config.c_oflag = 0;
-        this->config.c_cflag = CS8 | CREAD | CLOCAL; // 8n1
-        this->config.c_lflag = 0;
+        this->config.c_iflag = 0; // Input modes
+        this->config.c_oflag = 0; // Output modes
+        this->config.c_cflag = CS8 | CREAD | CLOCAL; // Control modes, 8n1
+        this->config.c_lflag = 0; // Local modes
         this->config.c_cc[VMIN] = 1;
-        this->config.c_cc[VTIME] = 0;
-        //tcsetattr(this->get_fd(), TCSANOW, &this->config);
 
-        if (tcsetattr(this->get_fd(), TCSAFLUSH, &this->config) < 0)
+        if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0)
         {
             error("serial: Failed to set default terminal attributes: %s\n", strerror(errno));
+            this->close();
+            return -1; 
+        }
+
+        // Disable NDELAY
+        if (fcntl(this->get_fd(), F_SETFL, 0) < 0)
+        {
+            error("serial: Failed to disable NDELAY flag: %s\n", strerror(errno));
             this->close();
             return -1; 
         }

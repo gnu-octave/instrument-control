@@ -28,7 +28,7 @@
 static bool type_loaded = false;
 
 DEFUN_DLD (serial, args, nargout, 
-"-*- texinfo -*-\n\
+        "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{serial} = } serial ([@var{path}], [@var{baudrate}], [@var{timeout}])\n \
 \n\
 Open serial interface.\n \
@@ -44,7 +44,7 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     error("serial: Windows platform support is not yet implemented, go away...");
     return octave_value();
 #endif
-    
+
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -57,18 +57,19 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
         print_usage();
         return octave_value();
     }
-    
+
     // Default values
     string path("/dev/ttyUSB0");
     unsigned int baud_rate = 115200;
     short timeout = -1;
-    
+
     unsigned short bytesize = 8;
     string parity("N");
     unsigned short stopbits = 1;
-    int oflags = O_RDWR | O_NOCTTY | O_SYNC; 
+    int oflags = O_RDWR | O_NOCTTY | O_SYNC | O_NDELAY; 
     // O_SYNC - All writes immediately effective, no buffering
-    // O_NOCTTY - Don't make serial terminal the controlling terminal for the process
+    // O_NOCTTY - Do not make serial terminal the controlling terminal for the process
+    // O_NDELAY - Do not care what state the DCD signal line is in. Used for open only, later disabled.
 
     // Parse the function arguments
     if (args.length() > 0)
@@ -113,20 +114,20 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
         }
     }
 
-    
+
     octave_serial* retval = new octave_serial();
-    
+
     // Open the interface
     if (retval->open(path, oflags) < 0)
         return octave_value();
-    
+
     retval->set_baudrate(baud_rate);
     retval->set_timeout(timeout);
     retval->set_parity(parity);
     retval->set_bytesize(bytesize);
     retval->set_stopbits(stopbits);
-    
+
     //retval->flush(2);
-    
+
     return octave_value(retval);
 }
