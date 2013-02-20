@@ -1,0 +1,32 @@
+#OCT = instrument-control.oct
+TOBUILD = @TOBUILD@
+SUBDIRS = serial parallel i2c usbtmc tcp $(TOBUILD)
+
+GPIBLIBS    = @GPIBLIBS@
+RPCLIBS     = @RPCLIBS@
+RPCINCLUDE  = @RPCINCLUDE@
+VISALIBS    = @VISALIBS@
+
+export GPIBLIBS
+export RPCLIBS
+export RPCINCLUDE
+export VISALIBS
+
+MKOCTFILE ?= mkoctfile
+
+.PHONY: clean
+.PHONY: realclean
+.PHONY: distclean
+
+all:
+	@for dir in $(SUBDIRS); do $(MAKE) -i -C $$dir; done
+	
+clean:
+	 @for dir in $(SUBDIRS); do $(MAKE) -i -C $$dir clean; done
+
+realclean: clean
+	 rm -f *.oct
+
+distclean: realclean
+	 rm -rf autom4te.cache
+	 rm -f Makefile config.status config.log config.h configure

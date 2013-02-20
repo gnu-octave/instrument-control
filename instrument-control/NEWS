@@ -1,6 +1,34 @@
 Summary of important user-visible changes for instrument-control 0.2.0:
 -------------------------------------------------------------------
 
+ ** Support for TCP interface I/O
+
+ ** Support for USBTMC interface I/O
+
+ ** Support for GPIB interface I/O
+
+ ** Support for VXI11 interface I/O
+
+ ** The following functions are new:
+        tcp
+        tcp_read
+        tcp_write
+        tcp_timeout
+        tcp_close
+        usbtmc
+        usbtmc_read
+        usbtmc_write
+        usbtmc_close
+        gpib
+        gpib_read
+        gpib_write
+        gpib_timeout
+        gpib_close
+        vxi11
+        vxi11_read
+        vxi11_write
+        vxi11_close
+
  ** Interfaces are now compiled seperately (i.e. failed compilation of one
     interface does not mean fail of whole package)
 
