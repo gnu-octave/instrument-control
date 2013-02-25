@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.67])
-AC_INIT([octave instrument control package], [0.0.0+])
+AC_INIT([Octave-Forge instrument-control package], [0.2.0])
 #AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
