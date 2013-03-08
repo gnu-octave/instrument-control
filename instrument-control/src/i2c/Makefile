@@ -14,4 +14,6 @@ all: $(OBJ) $(OCT)
 clean:
 	rm -f *.oct *.o
 
+distclean: clean
+
 .PHONY: all clean
