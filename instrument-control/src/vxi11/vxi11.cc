@@ -16,16 +16,19 @@
 
 #include <octave/oct.h>
 
-#ifndef __WIN32__
-#include <errno.h>
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
 #endif
+
+#ifdef BUILD_VXI11
+#include <errno.h>
 
 using std::string;
 
 #include "vxi11_class.h"
 
-
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (vxi11, args, nargout,
         "-*- texinfo -*-\n\
@@ -38,11 +41,10 @@ Open vxi11 interface.\n \
 The vxi11() shall return instance of @var{octave_vxi11} class as the result @var{vxi11}.\n \
 @end deftypefn")
 {
-#ifdef __WIN32__
-    error("vxi11: Windows platform support is not yet implemented, go away...");
+#ifndef BUILD_VXI11
+    error("usbtmc: Your system doesn't support the USBTMC interface");
     return octave_value();
-#endif
-
+#else
     if (!type_loaded)
     {
         octave_vxi11::register_type();
@@ -84,4 +86,5 @@ The vxi11() shall return instance of @var{octave_vxi11} class as the result @var
     }
 
     return octave_value(retval);
+#endif
 }

@@ -1,3 +1,12 @@
+/* build SERIAL interface functions */
+#undef BUILD_SERIAL
+
+/* build I2C interface functions */
+#undef BUILD_I2C
+
+/* build PARALLEL interface functions */
+#undef BUILD_PARALLEL
+
 /* build GPIB interface functions */
 #undef BUILD_GPIB
 

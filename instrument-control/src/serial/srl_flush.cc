@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include "serial_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (srl_flush, args, nargout,
 "-*- texinfo -*-\n\
@@ -32,6 +38,10 @@ Flush the pending input/output.\n \
 If @var{q} parameter is omitted, the srl_flush() shall flush both, input and output buffers.\n \
 @end deftypefn")
 {
+#ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -66,4 +76,5 @@ If @var{q} parameter is omitted, the srl_flush() shall flush both, input and out
     serial->flush(queue_selector);
 
     return octave_value();
+#endif
 }

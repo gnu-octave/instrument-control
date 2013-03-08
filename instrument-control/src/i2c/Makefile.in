@@ -3,10 +3,12 @@ OBJ := i2c_class.o
 
 MKOCTFILE ?= mkoctfile
 
+CFLAGS     = @DEFS@
+
 all: $(OBJ) $(OCT)
 
 %.o: %.cc
-	$(MKOCTFILE) -c $^
+	$(MKOCTFILE) $(CFLAGS) -c $^
 
 %.oct: %.o
 	$(MKOCTFILE) $^ $(OBJ) -o ../$@

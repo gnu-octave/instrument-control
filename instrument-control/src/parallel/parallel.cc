@@ -14,6 +14,12 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
+
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_PARALLEL
 #include <octave/ov-int32.h>
 
 #include <iostream>
@@ -38,6 +44,7 @@ using std::string;
 #include "parallel_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (parallel, args, nargout, 
 "-*- texinfo -*-\n\
@@ -52,11 +59,10 @@ If omitted defaults to 1 (Input).\n \
 The parallel() shall return instance of @var{octave_parallel} class as the result @var{parallel}.\n \
 @end deftypefn")
 {
-#ifdef __WIN32__
-    error("parallel: Windows platform support is not yet implemented, go away...");
+#ifndef BUILD_PARALLEL
+    error("parallel: Your system doesn't support the GPIB interface");
     return octave_value();
-#endif   
-
+#else
     if (!type_loaded)
     {
         octave_parallel::register_type();
@@ -114,4 +120,5 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
     retval->set_datadir(dir);
 
     return octave_value(retval);
+#endif
 }

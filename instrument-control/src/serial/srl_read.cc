@@ -14,6 +14,12 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
+
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include <octave/uint8NDArray.h>
 #include <octave/sighandlers.h>
 
@@ -29,6 +35,7 @@ void read_sighandler(int sig)
     printf("srl_read: Interrupting...\n\r");
     read_interrupt = true;
 }
+#endif
 
 DEFUN_DLD (srl_read, args, nargout, 
         "-*- texinfo -*-\n\
@@ -42,6 +49,10 @@ Read from serial interface.\n \
 The srl_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
 @end deftypefn")
 {
+#ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -102,4 +113,5 @@ The srl_read() shall return number of bytes successfully read in @var{count} as 
     delete[] buffer;
 
     return return_list;
+#endif
 }

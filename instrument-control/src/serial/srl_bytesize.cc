@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include "serial_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (srl_bytesize, args, nargout, 
 "-*- texinfo -*-\n\
@@ -32,6 +38,10 @@ Set new or get existing serial interface byte size parameter.\n \
 If @var{bsize} parameter is omitted, the srl_bytesize() shall return current byte size value or in case of unsupported setting -1, as the result @var{bs}.\n \
 @end deftypefn")
 {
+    #ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -65,4 +75,5 @@ If @var{bsize} parameter is omitted, the srl_bytesize() shall return current byt
 
     // Returning current byte size 
     return octave_value(serial->get_bytesize());
+#endif
 }

@@ -16,11 +16,17 @@
 #include <octave/oct.h>
 #include <octave/uint8NDArray.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_I2C
 #include <errno.h>
 
 #include "i2c_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (i2c_read, args, nargout, 
 "-*- texinfo -*-\n\
@@ -34,6 +40,10 @@ Read from i2c slave device.\n \
 The i2c_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
 @end deftypefn")
 {
+#ifndef BUILD_I2C
+    error("i2c: Your system doesn't support the I2C interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_i2c::register_type();
@@ -90,4 +100,5 @@ The i2c_read() shall return number of bytes successfully read in @var{count} as 
     delete[] buffer;
 
     return return_list;
+#endif
 }

@@ -20,7 +20,7 @@
 #include "../config.h"
 #endif
 
-#ifdef BUILD_TCP
+#ifdef BUILD_USBTMC
 #include "usbtmc_class.h"
 
 static bool type_loaded = false;

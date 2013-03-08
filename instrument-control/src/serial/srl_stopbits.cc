@@ -15,10 +15,16 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include "serial_class.h"
 
 static bool type_loaded = false;
-   
+#endif
+
 DEFUN_DLD (srl_stopbits, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} srl_stopbits (@var{serial}, @var{stopb})\n \
@@ -32,6 +38,10 @@ Set new or get existing serial interface stop bits parameter. Only 1 or 2 stop b
 If @var{stopb} parameter is omitted, the srl_stopbits() shall return current stop bits value as the result @var{sb}.\n \
 @end deftypefn")
 {
+#ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -65,4 +75,5 @@ If @var{stopb} parameter is omitted, the srl_stopbits() shall return current sto
 
     // Returning current stop bits
     return octave_value(serial->get_stopbits());
+#endif
 }

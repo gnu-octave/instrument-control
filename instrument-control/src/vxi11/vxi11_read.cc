@@ -15,11 +15,18 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
+
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_VXI11
 #include <octave/uint8NDArray.h>
 
 #include "vxi11_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (vxi11_read, args, nargout,
 "-*- texinfo -*-\n\
@@ -33,6 +40,10 @@ Read from vxi11 slave device.\n \
 The vxi11_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
 @end deftypefn")
 {
+#ifndef BUILD_VXI11
+    error("usbtmc: Your system doesn't support the USBTMC interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_vxi11::register_type();
@@ -91,4 +102,5 @@ The vxi11_read() shall return number of bytes successfully read in @var{count} a
     delete[] buffer;
 
     return return_list;
+#endif
 }

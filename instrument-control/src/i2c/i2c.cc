@@ -15,16 +15,19 @@
 
 #include <octave/oct.h>
 
-#ifndef __WIN32__
-#include <errno.h>
-#include <fcntl.h>
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
 #endif
+
+#ifdef BUILD_I2C
+#include <fcntl.h>
 
 using std::string;
 
 #include "i2c_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (i2c, args, nargout, 
         "-*- texinfo -*-\n\
@@ -38,11 +41,10 @@ Open i2c interface.\n \
 The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c}.\n \
 @end deftypefn")
 {
-#ifdef __WIN32__
-    error("i2c: Windows platform support is not yet implemented, go away...");
+#ifndef BUILD_I2C
+    error("i2c: Your system doesn't support the I2C interface");
     return octave_value();
-#endif
-
+#else
     if (!type_loaded)
     {
         octave_i2c::register_type();
@@ -101,4 +103,5 @@ The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c
         retval->set_addr(addr);
 
     return octave_value(retval);
+#endif
 }

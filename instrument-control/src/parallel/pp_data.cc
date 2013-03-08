@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_PARALLEL
 #include "parallel_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (pp_data, args, nargout, 
 "-*- texinfo -*-\n\
@@ -32,6 +38,10 @@ Sets or Read the Data lines.\
 If @var{data} parameter is omitted, the pp_data() shall return current Data lines state as the result @var{d}.\n \
 @end deftypefn")
 {
+#ifndef BUILD_PARALLEL
+    error("parallel: Your system doesn't support the GPIB interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_parallel::register_type();
@@ -66,4 +76,5 @@ If @var{data} parameter is omitted, the pp_data() shall return current Data line
 
     // Return current Data register value on port
     return octave_value(parallel->get_data());
+#endif
 }

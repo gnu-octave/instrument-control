@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include "serial_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (srl_baudrate, args, nargout, 
 "-*- texinfo -*-\n\
@@ -34,6 +40,10 @@ Set new or get existing serial interface baudrate parameter. Only standard value
 If @var{baudrate} parameter is omitted, the srl_baudrate() shall return current baudrate value as the result @var{br}.\n \
 @end deftypefn")
 {
+#ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -68,4 +78,5 @@ If @var{baudrate} parameter is omitted, the srl_baudrate() shall return current 
 
     // Returning current baud rate
     return octave_value(serial->get_baudrate());
+#endif
 }

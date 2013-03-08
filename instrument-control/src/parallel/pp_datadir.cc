@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_PARALLEL
 #include "parallel_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (pp_datadir, args, nargout, 
 "-*- texinfo -*-\n\
@@ -36,6 +42,10 @@ on when this happens, the port might be damaged.)\n \
 If @var{direction} parameter is omitted, the pp_datadir() shall return current Data direction as the result @var{dir}.\n \
 @end deftypefn")
 {
+#ifndef BUILD_PARALLEL
+    error("parallel: Your system doesn't support the GPIB interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_parallel::register_type();
@@ -70,4 +80,5 @@ If @var{direction} parameter is omitted, the pp_datadir() shall return current D
 
     // Return current direction
     return octave_value(parallel->get_datadir());
+#endif
 }

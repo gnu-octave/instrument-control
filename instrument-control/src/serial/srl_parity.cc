@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include "serial_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (srl_parity, args, nargout,
 "-*- texinfo -*-\n\
@@ -32,6 +38,10 @@ Set new or get existing serial interface parity parameter. Even/Odd/None values 
 If @var{parity} parameter is omitted, the srl_parity() shall return current parity value as the result @var{p}.\n \
 @end deftypefn")
 {
+#ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -65,4 +75,5 @@ If @var{parity} parameter is omitted, the srl_parity() shall return current pari
 
     // Returning current parity
     return octave_value(serial->get_parity());
+#endif
 }

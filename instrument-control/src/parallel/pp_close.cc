@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_PARALLEL
 #include "parallel_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (pp_close, args, nargout, 
 "-*- texinfo -*-\n\
@@ -28,6 +34,10 @@ Close the interface and release a file descriptor.\n \
 @var{parallel} - instance of @var{octave_serial} class.@*\
 @end deftypefn")
 {
+#ifndef BUILD_PARALLEL
+    error("parallel: Your system doesn't support the GPIB interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_parallel::register_type();
@@ -48,4 +58,5 @@ Close the interface and release a file descriptor.\n \
     parallel->close();
 
     return octave_value();
+#endif
 }

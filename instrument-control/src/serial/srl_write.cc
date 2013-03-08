@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include "serial_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (srl_write, args, nargout, 
         "-*- texinfo -*-\n\
@@ -31,6 +37,10 @@ Write data to a serial interface.\n \
 Upon successful completion, srl_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {
+#ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -79,4 +89,5 @@ Upon successful completion, srl_write() shall return the number of bytes written
     }
 
     return octave_value(retval);
+#endif
 }

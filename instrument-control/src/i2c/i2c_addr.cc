@@ -15,13 +15,15 @@
 
 #include <octave/oct.h>
 
-#ifndef __WIN32__
-#include <errno.h>
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
 #endif
 
+#ifdef BUILD_I2C
 #include "i2c_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (i2c_addr, args, nargout, 
 "-*- texinfo -*-\n\
@@ -38,6 +40,10 @@ If @var{address} parameter is omitted, the i2c_addr() shall return \
 current i2c slave device address as the result @var{addr}.\n \
 @end deftypefn")
 {
+#ifndef BUILD_I2C
+    error("i2c: Your system doesn't support the I2C interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_i2c::register_type();
@@ -72,4 +78,5 @@ current i2c slave device address as the result @var{addr}.\n \
 
     // Returning current slave address
     return octave_value(i2c->get_addr());
+#endif
 }

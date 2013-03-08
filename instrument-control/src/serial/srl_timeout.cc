@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include "serial_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (srl_timeout, args, nargout, 
         "-*- texinfo -*-\n\
@@ -32,6 +38,10 @@ Set new or get existing serial interface timeout parameter used for srl_read() r
 If @var{timeout} parameter is omitted, the srl_timeout() shall return current timeout value as the result @var{t}.\n \
 @end deftypefn")
 {
+#ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -65,4 +75,5 @@ If @var{timeout} parameter is omitted, the srl_timeout() shall return current ti
 
     // Returning current timeout
     return octave_value(serial->get_timeout());
+#endif
 }

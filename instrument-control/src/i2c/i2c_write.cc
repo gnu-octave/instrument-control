@@ -15,11 +15,17 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_I2C
 #include <errno.h>
 
 #include "i2c_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (i2c_write, args, nargout, 
         "-*- texinfo -*-\n\
@@ -33,6 +39,10 @@ Write data to a i2c slave device.\n \
 Upon successful completion, i2c_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {
+#ifndef BUILD_I2C
+    error("i2c: Your system doesn't support the I2C interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_i2c::register_type();
@@ -77,4 +87,5 @@ Upon successful completion, i2c_write() shall return the number of bytes written
     }
 
     return octave_value(retval);
+#endif
 }

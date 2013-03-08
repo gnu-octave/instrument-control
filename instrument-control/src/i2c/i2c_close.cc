@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_I2C
 #include "i2c_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (i2c_close, args, nargout, 
 "-*- texinfo -*-\n\
@@ -28,6 +34,10 @@ Close the interface and release a file descriptor.\n \
 @var{i2c} - instance of @var{octave_i2c} class.@*\
 @end deftypefn")
 {
+#ifndef BUILD_I2C
+    error("i2c: Your system doesn't support the I2C interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_i2c::register_type();
@@ -49,4 +59,5 @@ Close the interface and release a file descriptor.\n \
     i2c->close();
 
     return octave_value();
+#endif
 }

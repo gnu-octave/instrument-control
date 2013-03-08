@@ -18,14 +18,18 @@
 
 #include <octave/oct.h>
 
-#ifndef __WIN32__
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include <errno.h>
 #include <fcntl.h>
-#endif
 
 #include "serial_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (serial, args, nargout, 
         "-*- texinfo -*-\n\
@@ -40,11 +44,10 @@ Open serial interface.\n \
 The serial() shall return instance of @var{octave_serial} class as the result @var{serial}.\n \
 @end deftypefn")
 {
-#ifdef __WIN32__
-    error("serial: Windows platform support is not yet implemented, go away...");
+#ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
     return octave_value();
-#endif
-
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -130,4 +133,5 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     //retval->flush(2);
 
     return octave_value(retval);
+#endif
 }

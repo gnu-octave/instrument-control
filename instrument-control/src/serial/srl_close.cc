@@ -15,9 +15,15 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_SERIAL
 #include "serial_class.h"
 
 static bool type_loaded = false;
+#endif
 
 DEFUN_DLD (srl_close, args, nargout, 
 "-*- texinfo -*-\n\
@@ -28,6 +34,10 @@ Close the interface and release a file descriptor.\n \
 @var{serial} - instance of @var{octave_serial} class.@*\
 @end deftypefn")
 {
+#ifndef BUILD_SERIAL
+    error("serial: Your system doesn't support the SERIAL interface");
+    return octave_value();
+#else
     if (!type_loaded)
     {
         octave_serial::register_type();
@@ -48,4 +58,5 @@ Close the interface and release a file descriptor.\n \
     serial->close();
 
     return octave_value();
+#endif
 }

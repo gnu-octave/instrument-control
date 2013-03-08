@@ -15,6 +15,11 @@
 
 #include <octave/oct.h>
 
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
+
+#ifdef BUILD_I2C
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
@@ -192,3 +197,4 @@ int octave_i2c::close()
 
     return retval;
 }
+#endif
