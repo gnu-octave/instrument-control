@@ -34,7 +34,7 @@ DEFUN_DLD (gpib_timeout, args, nargout,
 \n\
 Set new or get existing gpib interface timeout parameter. The timeout value is valid from 0 to 17.\n \
 \n\
-@var{gpib} - instance of @var{octave_gpib} class.\n \
+@var{gpib} - instance of @var{octave_gpib} class.@* \
 @var{timeout} - Value of 0 means never timeout, 11 means one second and 17 means 1000 seconds (see GPIB documentation (ibtmo) for further details)\n \
 \n\
 If @var{timeout} parameter is omitted, the gpib_timeout() shall return current timeout value as the result @var{t}.\n \
