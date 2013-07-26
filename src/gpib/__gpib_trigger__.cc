@@ -30,16 +30,14 @@ static bool type_loaded = false;
 #endif
 
 
-DEFUN_DLD (gpib_write, args, nargout,
+DEFUN_DLD (__gpib_trigger__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } gpib_write (@var{gpib}, @var{data})\n \
+@deftypefn {Loadable Function} {} __gpib_trigger__ (@var{gpib})\n \
 \n\
-Write data to a gpib interface.\n \
+triggers gpib device.\n \
 \n\
-@var{gpib} - instance of @var{octave_gpib} class.@* \
-@var{data} - data to be written to the gpib interface. Can be either of String or uint8 type.\n \
+@var{gpib} - instance of @var{octave_gpib} class.@*\
 \n\
-Upon successful completion, gpib_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {
 #ifndef BUILD_GPIB
@@ -52,7 +50,7 @@ Upon successful completion, gpib_write() shall return the number of bytes writte
         type_loaded = true;
     }
 
-    if (args.length() != 2 || args(0).type_id() != octave_gpib::static_type_id())
+    if (args.length() != 1 || args(0).type_id() != octave_gpib::static_type_id())
     {
         print_usage();
         return octave_value(-1);
@@ -64,35 +62,8 @@ Upon successful completion, gpib_write() shall return the number of bytes writte
     const octave_base_value& rep = args(0).get_rep();
     gpib = &((octave_gpib &)rep);
 
-    if (args(1).is_string()) // String
-    {
-        retval = gpib->write(args(1).string_value());
-    }
-    else if (args(1).is_uint8_type ()) // uint8_t
-    {
-        NDArray data = args(1).array_value();
-        uint8_t* buf = NULL;
-        buf = new uint8_t[data.length()];
+    retval = gpib->trigger ();
 
-        if (buf == NULL)
-        {
-            error("gpib_write: cannot allocate requested memory: %s\n", strerror(errno));
-            return octave_value(-1);
-        }
-
-        for (int i = 0; i < data.length(); i++)
-            buf[i] = static_cast<uint8_t>(data(i));
-
-        retval = gpib->write(buf, data.length());
-
-        delete[] buf;
-    }
-    else
-    {
-        print_usage();
-        return octave_value(-1);
-    }
-
-    return octave_value(retval);
+    return octave_value();
 #endif
 }
