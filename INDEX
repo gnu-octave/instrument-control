@@ -1,23 +1,23 @@
 instrument-control >> Low level I/O functions
 Serial
   serial
-  fopen
-  fclose
-  get
-  set
+  @octave_serial/fopen
+  @octave_serial/fclose
+  @octave_serial/get
+  @octave_serial/set
   srl_read
   srl_write
-  srl_baudrate
-  srl_bytesize
-  srl_flush
-  srl_parity
-  srl_stopbits
-  srl_timeout
-  srl_close
+  @octave_serial/srl_baudrate
+  @octave_serial/srl_bytesize
+  @octave_serial/srl_flush
+  @octave_serial/srl_parity
+  @octave_serial/srl_stopbits
+  @octave_serial/srl_timeout
+  @octave_serial/srl_close
 I2C
   i2c
-  fopen
-  fclose
+  @octave_i2c/fopen
+  @octave_i2c/fclose
   i2c_addr
   i2c_read
   i2c_write
@@ -31,16 +31,16 @@ Parallel
   pp_close
 TCP
   tcp
-  fopen
-  fclose
+  @octave_tcpip/fopen
+  @octave_tcpip/fclose
   tcp_read
   tcp_write
   tcp_timeout
   tcp_close
 USBTMC
   usbtmc
-  fopen
-  fclose
+  @octave_usbtmc/fopen
+  @octave_usbtmc/fclose
   usbtmc_read
   usbtmc_write
   usbtmc_close
@@ -50,18 +50,18 @@ GPIB
   gpib_write
   gpib_timeout
   gpib_close
-  fopen
-  fclose
-  fwrite
-  fprintf
-  fscanf
+  @octave_gpib/fopen
+  @octave_gpib/fclose
+  @octave_gpib/fwrite
+  @octave_gpib/fprintf
+  @octave_gpib/fscanf
   spoll
   trigger
   clrdevice
 VXI11
   vxi11
-  fopen
-  fclose
+  @octave_vxi11/fopen
+  @octave_vxi11/fclose
   vxi11_read
   vxi11_write
   vxi11_close
