@@ -44,7 +44,6 @@ using std::string;
 
 #include "i2c_class.h"
 
-DEFINE_OCTAVE_ALLOCATOR (octave_i2c);
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_i2c, "octave_i2c", "octave_i2c");
 
 octave_i2c::octave_i2c()

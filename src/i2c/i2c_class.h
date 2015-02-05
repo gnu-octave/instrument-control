@@ -22,14 +22,14 @@
 
 using std::string;
 
-class octave_i2c : public octave_base_value 
+class octave_i2c : public octave_base_value
 {
 public:
     octave_i2c();
     ~octave_i2c();
 
     int open(string /* path */, int /* open flags */);
-    int close();    
+    int close();
     int get_fd();
 
     int set_addr(int /* slave ddress */);
@@ -63,7 +63,6 @@ private:
     int fd;
     int addr;
 
-    DECLARE_OCTAVE_ALLOCATOR
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 

@@ -23,7 +23,7 @@
 
 using std::string;
 
-class octave_parallel : public octave_base_value 
+class octave_parallel : public octave_base_value
 {
 public:
     octave_parallel();
@@ -71,7 +71,6 @@ private:
     // 0 - Output
     int dir;
 
-    DECLARE_OCTAVE_ALLOCATOR
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 

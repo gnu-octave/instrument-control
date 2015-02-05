@@ -49,7 +49,6 @@ char * winerror(int err)
   return errstring;
 }
 
-DEFINE_OCTAVE_ALLOCATOR (octave_serial);
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_serial, "octave_serial", "octave_serial");
 
 octave_serial::octave_serial()

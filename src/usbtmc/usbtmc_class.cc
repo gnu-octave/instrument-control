@@ -31,7 +31,6 @@ using std::string;
 
 #include "usbtmc_class.h"
 
-DEFINE_OCTAVE_ALLOCATOR (octave_usbtmc);
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_usbtmc, "octave_usbtmc", "octave_usbtmc");
 
 octave_usbtmc::octave_usbtmc()

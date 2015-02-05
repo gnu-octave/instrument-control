@@ -91,7 +91,6 @@ private:
 
     void get_control_line_status(void);
 
-    DECLARE_OCTAVE_ALLOCATOR
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 

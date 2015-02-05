@@ -37,7 +37,6 @@ using std::string;
 
 volatile bool read_interrupt = false;
 
-DEFINE_OCTAVE_ALLOCATOR (octave_gpib);
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_gpib, "octave_gpib", "octave_gpib");
 
 octave_gpib::octave_gpib()

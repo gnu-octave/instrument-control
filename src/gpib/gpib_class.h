@@ -74,7 +74,6 @@ private:
     int send_eoi;
     int eos_mode;
 
-    DECLARE_OCTAVE_ALLOCATOR
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 

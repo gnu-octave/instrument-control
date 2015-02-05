@@ -30,7 +30,6 @@ using std::string;
 
 #include "vxi11_class.h"
 
-DEFINE_OCTAVE_ALLOCATOR (octave_vxi11);
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_vxi11, "octave_vxi11", "octave_vxi11");
 
 
