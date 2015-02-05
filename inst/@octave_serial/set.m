@@ -15,14 +15,45 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {Function File} set (@var{obj}, @var{property},@var{value})
-## @deftypefnx {Function File} set (@var{obj}, @var{property},@var{value},@dots)
-## Get the properties of serial object.
+## @deftypefnx {Function File} set (@var{obj}, @var{property},@var{value},@dots{})
+## Set the properties of serial object.
 ##
 ## If @var{property} is a cell so must be @var{value}, it sets the values of
 ## all matching properties.
 ##
 ## The function also accepts property-value pairs.
 ##
+## @table @var
+## @item 'baudrate'
+## Set the baudrate of serial port. Supported values by instrument-control:
+## 0, 50, 75, 110, 134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, 9600,
+## 19200, 38400, 57600, 115200 and 230400. The supported baudrate of your
+## serial port may be different.
+##
+## @item 'bytesize'
+## Set the bytesize. Supported values: 5, 6, 7 and 8.
+##
+## @item 'parity'
+## Set the parity value. Supported values: Even/Odd/None. This Parameter
+## must be of type string. It is case insensitive and can be abbreviated
+## to the first letter only
+##
+## @item 'stopbits'
+## Set the number of stopbits. Supported values: 1, 2.
+##
+## @item 'timeout'
+## Set the timeout value in tenths of a second. Value of -1 means a
+## blocking call. Maximum value of 255 (i.e. 25.5 seconds).
+##
+## @item 'requesttosend'
+## Set the requesttosend (RTS) line.
+##
+## @item 'dataterminalready'
+## Set the dataterminalready (DTR) line.
+##
+## @end table
+##
+## @seealso{@@octave_serial/get}
 ## @end deftypefn
 
 function set (serial, varargin)

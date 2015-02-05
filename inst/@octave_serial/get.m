@@ -14,9 +14,11 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{field} = } get (@var{serial}, @var{property})
+## @deftypefn {Function File} {@var{struct} = } get (@var{serial})
+## @deftypefnx {Function File} {@var{field} = } get (@var{serial}, @var{property})
 ## Get the properties of serial object.
 ##
+## @seealso{@@octave_serial/set}
 ## @end deftypefn
 
 function retval = get (serial, property)
