@@ -23,8 +23,9 @@
 
 function retval = get (serial, property)
 
-  properties = {'baudrate','bytesize','parity','stopbits','timeout', ...
-                'requesttosend','dataterminalready'};
+  properties = {'baudrate', 'bytesize', 'parity', 'stopbits', ...
+                'timeout', 'requesttosend', 'dataterminalready', ...
+                'pinstatus'};
 
   if (nargin == 1)
     property = properties;

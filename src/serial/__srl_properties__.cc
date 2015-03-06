@@ -15,6 +15,7 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
+#include <octave/ov-struct.h>
 
 #ifdef HAVE_CONFIG_H
 #include "../config.h"
@@ -178,7 +179,7 @@ octave_value_list srl_requesttosend (octave_serial* serial, const octave_value_l
         (*current_liboctave_error_handler) ("wrong argument");
     }
 
-  // Returning current parity
+  // Returning RTS
   if (serial->get_control_line("RTS"))
     return octave_value("on");
 
@@ -192,7 +193,7 @@ octave_value_list srl_dataterminalready (octave_serial* serial, const octave_val
 
   string onoff = "";
 
-  // Setting RTS
+  // Setting DTR
   if (args.length () > 0)
     {
       if ( !(args(0).is_string ()) )
@@ -208,11 +209,37 @@ octave_value_list srl_dataterminalready (octave_serial* serial, const octave_val
         (*current_liboctave_error_handler) ("wrong argument");
     }
 
-  // Returning current parity
+  // Returning DTR
   if (serial->get_control_line("DTR"))
     return octave_value("on");
 
   return octave_value("off");
+}
+
+octave_value_list srl_pinstatus (octave_serial* serial, const octave_value_list& args, int nargout)
+{
+  if (args.length () > 0)
+    (*current_liboctave_error_handler) ("wrong number of arguments");
+
+  octave_scalar_map res;
+
+  res.assign ("CarrierDetect", serial->get_control_line ("CD") ?
+                               octave_value ("on") :
+                               octave_value ("off"));
+
+  res.assign ("ClearToSend", serial->get_control_line ("CTS") ?
+                               octave_value ("on") :
+                               octave_value ("off"));
+
+  res.assign ("DataSetReady", serial->get_control_line ("DSR") ?
+                               octave_value ("on") :
+                               octave_value ("off"));
+
+  res.assign ("RingIndicator", serial->get_control_line ("RI") ?
+                               octave_value ("on") :
+                               octave_value ("off"));
+
+  return octave_value (res);
 }
 #endif
 
@@ -250,6 +277,8 @@ Undocumented internal function.\n\
     return srl_flush (serial, args2, nargout);
   else if (property == "parity")
     return srl_parity (serial, args2, nargout);
+  else if (property == "pinstatus")
+    return srl_pinstatus (serial, args2, nargout);
   else if (property == "requesttosend")
     return srl_requesttosend (serial, args2, nargout);
   else if (property == "stopbits")

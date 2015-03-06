@@ -489,7 +489,8 @@ void octave_serial::get_control_line_status(void)
       return;
     }
 
-    GetCommState(this->fd, &this->config);
+    GetCommState (this->fd, &this->config);
+    GetCommModemStatus (this->fd, &this->status);
 }
 
 bool octave_serial::get_control_line(string control_signal)
@@ -500,6 +501,14 @@ bool octave_serial::get_control_line(string control_signal)
         return (this->config.fDtrControl == DTR_CONTROL_ENABLE);
     else if (control_signal == "RTS")
         return (this->config.fRtsControl == RTS_CONTROL_ENABLE);
+    else if (control_signal == "CTS")
+        return (this->status & MS_CTS_ON);
+    else if (control_signal == "DSR")
+        return (this->status & MS_DSR_ON);
+    else if (control_signal == "CD")
+        return (this->status & MS_RLSD_ON);
+    else if (control_signal == "RI")
+        return (this->status & MS_RING_ON);
     else
         error("serial: Unknown control signal...");
     return false;

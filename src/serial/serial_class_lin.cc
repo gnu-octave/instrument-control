@@ -578,6 +578,14 @@ bool octave_serial::get_control_line(string control_signal)
     return (this->status & TIOCM_DTR);
   else if (control_signal == "RTS")
     return (this->status & TIOCM_RTS);
+  else if (control_signal == "CTS")
+    return (this->status & TIOCM_CTS);
+  else if (control_signal == "DSR")
+    return (this->status & TIOCM_DSR);
+  else if (control_signal == "CD")
+    return (this->status & TIOCM_CD);
+  else if (control_signal == "RI")
+    return (this->status & TIOCM_RI);
 
   error("serial: Unknown control signal...");
   return false;
