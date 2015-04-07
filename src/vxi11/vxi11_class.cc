@@ -54,6 +54,12 @@ octave_vxi11::~octave_vxi11()
     this->close();
 }
 
+void octave_vxi11::print (std::ostream& os, bool pr_as_read_syntax)
+{
+    print_raw(os, pr_as_read_syntax);
+    newline(os);
+}
+
 void octave_vxi11::print (std::ostream& os, bool pr_as_read_syntax ) const
 {
     print_raw(os, pr_as_read_syntax);

@@ -104,6 +104,12 @@ octave_tcp::~octave_tcp()
     this->close();
 }
 
+void octave_tcp::print (std::ostream& os, bool pr_as_read_syntax)
+{
+    print_raw(os, pr_as_read_syntax);
+    newline(os);
+}
+
 void octave_tcp::print (std::ostream& os, bool pr_as_read_syntax ) const
 {
     print_raw(os, pr_as_read_syntax);

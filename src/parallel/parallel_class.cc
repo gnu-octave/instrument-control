@@ -105,6 +105,12 @@ int octave_parallel::get_fd()
     return this->fd;
 }
 
+void octave_parallel::print(std::ostream& os, bool pr_as_read_syntax)
+{
+    print_raw(os, pr_as_read_syntax);
+    newline(os);
+}
+
 void octave_parallel::print(std::ostream& os, bool pr_as_read_syntax ) const
 {
     print_raw(os, pr_as_read_syntax);

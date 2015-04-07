@@ -61,6 +61,12 @@ int octave_i2c::get_fd()
     return this->fd;
 }
 
+void octave_i2c::print (std::ostream& os, bool pr_as_read_syntax)
+{
+    print_raw(os, pr_as_read_syntax);
+    newline(os);
+}
+
 void octave_i2c::print (std::ostream& os, bool pr_as_read_syntax ) const
 {
     print_raw(os, pr_as_read_syntax);
