@@ -65,13 +65,14 @@ public:
 
   void print_raw (std::ostream& os, bool pr_as_read_syntax) const
   {
-    os << "isOpen:   " << this->fd_is_valid(); newline(os);
-    os << "Port:     " << this->portPath; newline(os);
-    os << "Baudrate: " << this->get_baudrate(); newline(os);
-    os << "Parity:   " << this->get_parity(); newline(os);
-    os << "Bytesize: " << this->get_bytesize(); newline(os);
-    os << "stopbits: " << this->get_stopbits(); newline(os);
-    os << "Timeout:  " << this->get_timeout(); newline(os);
+    os << "  Serial Port Object"; newline(os);
+    os << "    open:     " << this->fd_is_valid(); newline(os);
+    os << "    port:     " << this->portPath; newline(os);
+    os << "    baudrate: " << this->get_baudrate(); newline(os);
+    os << "    parity:   " << this->get_parity(); newline(os);
+    os << "    bytesize: " << this->get_bytesize(); newline(os);
+    os << "    stopbits: " << this->get_stopbits(); newline(os);
+    os << "    timeout:  " << this->get_timeout(); newline(os);
     //os << "Mode:     " << blockmode; newline(os);
   }
 
