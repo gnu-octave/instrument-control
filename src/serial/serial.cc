@@ -29,6 +29,13 @@
 #include "serial_class.h"
 
 static bool type_loaded = false;
+
+void
+install_serial_ops (void)
+{
+  INSTALL_BINOP (op_eq, octave_serial, octave_serial, eq_serial_serial);
+  INSTALL_BINOP (op_ne, octave_serial, octave_serial, ne_serial_serial);
+}
 #endif
 
 DEFUN_DLD (serial, args, nargout, 
@@ -51,6 +58,7 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     if (!type_loaded)
     {
         octave_serial::register_type();
+        install_serial_ops ();
         type_loaded = true;
     }
 
@@ -116,8 +124,7 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     octave_serial* retval = new octave_serial();
 
     // Open the interface
-    if (retval->open(path) < 0)
-        return octave_value();
+    retval->open(path);
 
     retval->set_baudrate(baud_rate);
     retval->set_timeout(timeout);

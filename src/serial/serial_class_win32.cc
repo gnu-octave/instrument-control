@@ -56,14 +56,15 @@ octave_serial::octave_serial()
     this->fd = INVALID_HANDLE_VALUE;
 }
 
-int octave_serial::open(string path)
+void octave_serial::open(string path)
 {
    this->fd = CreateFile(path.c_str(), GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+   this->portPath = path;
 
-   if (this->fd == INVALID_HANDLE_VALUE)
+   if (!this->fd_is_valid())
    {
        error("serial: Error opening the interface: %s\n", winerror(errno));
-       return -1;
+       return;
    }
 
    // clear any errors that may be on the port
@@ -77,7 +78,7 @@ int octave_serial::open(string path)
    {
        error("serial: Failed to get terminal attributes: %s\n", winerror(errno));
        this->close();
-       return -1;
+       return;
    }
 
    this->timeouts.ReadIntervalTimeout = MAXDWORD;
@@ -90,10 +91,10 @@ int octave_serial::open(string path)
    {
        error("serial: Failed to disable timeouts: %s\n", winerror(errno));
        this->close();
-       return -1;
+       return;
    }
 
-   return this->get_fd();
+   return;
 }
 
 octave_serial::~octave_serial()
@@ -101,26 +102,9 @@ octave_serial::~octave_serial()
     this->close();
 }
 
-void octave_serial::print (std::ostream& os, bool pr_as_read_syntax )
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_serial::print (std::ostream& os, bool pr_as_read_syntax ) const
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_serial::print_raw (std::ostream& os, bool pr_as_read_syntax) const
-{
-    os << this->fd;
-}
-
 int octave_serial::read(uint8_t *buf, unsigned int len)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("srl_read: Interface must be opened first...");
         return 0;
@@ -161,7 +145,7 @@ int octave_serial::read(uint8_t *buf, unsigned int len)
 
 int octave_serial::write(string str)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -177,7 +161,7 @@ int octave_serial::write(string str)
 
 int octave_serial::write(uint8_t *buf, unsigned int len)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -193,7 +177,7 @@ int octave_serial::write(uint8_t *buf, unsigned int len)
 
 int octave_serial::set_timeout(short timeout)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -232,7 +216,7 @@ int octave_serial::set_timeout(short timeout)
     return 1;
 }
 
-int octave_serial::get_timeout()
+int octave_serial::get_timeout() const
 {
     if (blocking_read)
         return -1;
@@ -242,7 +226,7 @@ int octave_serial::get_timeout()
 
 int octave_serial::set_stopbits(unsigned short stopbits)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -273,9 +257,9 @@ int octave_serial::set_stopbits(unsigned short stopbits)
     return true;
 }
 
-int octave_serial::get_stopbits()
+int octave_serial::get_stopbits() const
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -288,7 +272,7 @@ int octave_serial::get_stopbits()
 
 int octave_serial::set_bytesize(unsigned short bytesize)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -310,9 +294,9 @@ int octave_serial::set_bytesize(unsigned short bytesize)
     return true;
 }
 
-int octave_serial::get_bytesize()
+int octave_serial::get_bytesize() const
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -323,7 +307,7 @@ int octave_serial::get_bytesize()
 
 int octave_serial::set_baudrate(unsigned int baud)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -388,9 +372,9 @@ int octave_serial::set_baudrate(unsigned int baud)
     return true;
 }
 
-int octave_serial::get_baudrate()
+int octave_serial::get_baudrate() const
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -401,7 +385,7 @@ int octave_serial::get_baudrate()
 
 int octave_serial::flush(unsigned short queue_selector)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -428,7 +412,7 @@ int octave_serial::flush(unsigned short queue_selector)
 
 int octave_serial::set_parity(string parity)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -471,7 +455,7 @@ int octave_serial::set_parity(string parity)
     return true;
 }
 
-string octave_serial::get_parity()
+string octave_serial::get_parity() const
 {
     if(this->config.Parity == NOPARITY)
         return "None";
@@ -483,7 +467,7 @@ string octave_serial::get_parity()
 
 void octave_serial::get_control_line_status(void)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
       error("serial: Interface must be opened first...");
       return;
@@ -545,24 +529,17 @@ void octave_serial::set_control_line(string control_signal, bool set)
     SetCommState(this->fd,&this->config);
 }
 
-int octave_serial::get_fd() const
+bool octave_serial::fd_is_valid() const
 {
-    if(this->fd == INVALID_HANDLE_VALUE) return -1;
-    return (int)this->fd;
+  return (this->fd != INVALID_HANDLE_VALUE);
 }
 
-int octave_serial::close()
+void octave_serial::close()
 {
-    int retval = -1;
-
-    if (this->fd != INVALID_HANDLE_VALUE)
+  if (this->fd_is_valid())
     {
-        if(CloseHandle(this->fd))
-           retval = 0;
-
-        this->fd = INVALID_HANDLE_VALUE;
+      CloseHandle(this->fd);
+      this->fd = INVALID_HANDLE_VALUE;
     }
-
-    return retval;
 }
 #endif

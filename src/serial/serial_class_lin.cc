@@ -50,7 +50,7 @@ octave_serial::octave_serial()
     this->fd = -1;
 }
 
-int octave_serial::open(string path)
+void octave_serial::open(string path)
 {
     int flags = O_RDWR | O_NOCTTY | O_SYNC | O_NDELAY;
     // O_SYNC - All writes immediately effective, no buffering
@@ -58,22 +58,23 @@ int octave_serial::open(string path)
     // O_NDELAY - Do not care what state the DCD signal line is in. Used for open only, later disabled.
 
     this->fd = ::open(path.c_str(), flags);
+    this->portPath = path;
 
-    if (this->get_fd() > 0)
+    if (this->fd_is_valid())
     {
         // Check whether fd is an open file descriptor referring to a terminal
         if(!isatty(fd))
         {
             error("serial: Interface does not refer to a terminal: %s\n", strerror(errno));
             this->close();
-            return -1;
+            return;
         }
 
         if (tcgetattr(this->fd, &this->config) < 0)
         {
             error("serial: Failed to get terminal attributes: %s\n", strerror(errno));
             this->close();
-            return -1;
+            return;
         }
 
         // Clear all settings
@@ -83,19 +84,19 @@ int octave_serial::open(string path)
         this->config.c_lflag = 0; // Local modes
         this->config.c_cc[VMIN] = 1;
 
-        if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0)
+        if (tcsetattr(this->fd, TCSANOW, &this->config) < 0)
         {
             error("serial: Failed to set default terminal attributes: %s\n", strerror(errno));
             this->close();
-            return -1;
+            return;
         }
 
         // Disable NDELAY
-        if (fcntl(this->get_fd(), F_SETFL, 0) < 0)
+        if (fcntl(this->fd, F_SETFL, 0) < 0)
         {
             error("serial: Failed to disable NDELAY flag: %s\n", strerror(errno));
             this->close();
-            return -1;
+            return;
         }
 
         this->blocking_read = true;
@@ -103,10 +104,8 @@ int octave_serial::open(string path)
     else
     {
         error("serial: Error opening the interface: %s\n", strerror(errno));
-        return -1;
+        return;
     }
-
-    return this->get_fd();
 }
 
 octave_serial::~octave_serial()
@@ -114,26 +113,9 @@ octave_serial::~octave_serial()
     this->close();
 }
 
-void octave_serial::print (std::ostream& os, bool pr_as_read_syntax )
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_serial::print (std::ostream& os, bool pr_as_read_syntax ) const
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_serial::print_raw (std::ostream& os, bool pr_as_read_syntax) const
-{
-    os << this->fd;
-}
-
 int octave_serial::read(uint8_t *buf, unsigned int len)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("srl_read: Interface must be opened first...");
         return 0;
@@ -145,7 +127,7 @@ int octave_serial::read(uint8_t *buf, unsigned int len)
     // While not interrupted in blocking mode
     while (!read_interrupt)
     {
-        read_retval = ::read(this->get_fd(), (void *)(buf + bytes_read), len - bytes_read);
+        read_retval = ::read(this->fd, (void *)(buf + bytes_read), len - bytes_read);
         //printf("read_retval: %d\n\r", read_retval);
 
         if (read_retval < 0)
@@ -170,29 +152,29 @@ int octave_serial::read(uint8_t *buf, unsigned int len)
 
 int octave_serial::write(string str)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
     }
 
-    return ::write(get_fd(), str.c_str(), str.length());
+    return ::write(this->fd, str.c_str(), str.length());
 }
 
 int octave_serial::write(uint8_t *buf, unsigned int len)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
     }
 
-    return ::write(get_fd(), buf, len);
+    return ::write(this->fd, buf, len);
 }
 
 int octave_serial::set_timeout(short timeout)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -220,7 +202,7 @@ int octave_serial::set_timeout(short timeout)
     this->config.c_cc[VMIN] = 0;
     this->config.c_cc[VTIME] = (unsigned) timeout; // Set timeout of 'timeout * 10' seconds
 
-    if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
+    if (tcsetattr(this->fd, TCSANOW, &this->config) < 0) {
         error("srl_timeout: error setting timeout...");
         return -1;
     }
@@ -228,7 +210,7 @@ int octave_serial::set_timeout(short timeout)
     return 1;
 }
 
-int octave_serial::get_timeout()
+int octave_serial::get_timeout() const
 {
     if (blocking_read)
         return -1;
@@ -238,7 +220,7 @@ int octave_serial::get_timeout()
 
 int octave_serial::set_stopbits(unsigned short stopbits)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -264,7 +246,7 @@ int octave_serial::set_stopbits(unsigned short stopbits)
         return false;
     }
 
-    if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
+    if (tcsetattr(this->fd, TCSANOW, &this->config) < 0) {
         error("srl_stopbits: error setting stop bits: %s\n", strerror(errno));
         return false;
     }
@@ -272,9 +254,9 @@ int octave_serial::set_stopbits(unsigned short stopbits)
     return true;
 }
 
-int octave_serial::get_stopbits()
+int octave_serial::get_stopbits() const
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -288,7 +270,7 @@ int octave_serial::get_stopbits()
 
 int octave_serial::set_bytesize(unsigned short bytesize)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -314,7 +296,7 @@ int octave_serial::set_bytesize(unsigned short bytesize)
     // Apply new
     BITMASK_SET(this->config.c_cflag, c_bytesize);
 
-    if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
+    if (tcsetattr(this->fd, TCSANOW, &this->config) < 0) {
         error("srl_bytesize: error setting byte size: %s\n", strerror(errno));
         return false;
     }
@@ -322,9 +304,9 @@ int octave_serial::set_bytesize(unsigned short bytesize)
     return true;
 }
 
-int octave_serial::get_bytesize()
+int octave_serial::get_bytesize() const
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -346,7 +328,7 @@ int octave_serial::get_bytesize()
 
 int octave_serial::set_baudrate(unsigned int baud)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -404,7 +386,7 @@ int octave_serial::set_baudrate(unsigned int baud)
     cfsetispeed(&this->config, baud_rate);
     cfsetospeed(&this->config, baud_rate);
 
-    if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
+    if (tcsetattr(this->fd, TCSANOW, &this->config) < 0) {
         error("srl_baudrate: error setting baud rate: %s\n", strerror(errno));
         return false;
     }
@@ -412,9 +394,9 @@ int octave_serial::set_baudrate(unsigned int baud)
     return true;
 }
 
-int octave_serial::get_baudrate()
+int octave_serial::get_baudrate() const
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -469,7 +451,7 @@ int octave_serial::get_baudrate()
 
 int octave_serial::flush(unsigned short queue_selector)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -493,13 +475,13 @@ int octave_serial::flush(unsigned short queue_selector)
         return false;
     }
 
-    return ::tcflush(this->get_fd(), flag);
+    return ::tcflush(this->fd, flag);
 }
 
 
 int octave_serial::set_parity(string parity)
 {
-    if (this->get_fd() < 0)
+    if (!this->fd_is_valid())
     {
         error("serial: Interface must be opened first...");
         return -1;
@@ -542,7 +524,7 @@ int octave_serial::set_parity(string parity)
         return false;
     }
 
-    if (tcsetattr(this->get_fd(), TCSANOW, &this->config) < 0) {
+    if (tcsetattr(this->fd, TCSANOW, &this->config) < 0) {
         error("srl_parity: error setting parity: %s\n", strerror(errno));
         return false;
     }
@@ -550,7 +532,7 @@ int octave_serial::set_parity(string parity)
     return true;
 }
 
-string octave_serial::get_parity()
+string octave_serial::get_parity() const
 {
     if (!BITMASK_CHECK(this->config.c_cflag, PARENB))
         return "None";
@@ -562,12 +544,12 @@ string octave_serial::get_parity()
 
 void octave_serial::get_control_line_status(void)
 {
-  if (this->get_fd() < 0)
+  if (!this->fd_is_valid())
     {
       error("serial: Interface must be opened first...");
       return;
     }
-  ioctl(this->get_fd(), TIOCMGET, &this->status);
+  ioctl(this->fd, TIOCMGET, &this->status);
 }
 
 bool octave_serial::get_control_line(string control_signal)
@@ -614,25 +596,21 @@ void octave_serial::set_control_line(string control_signal, bool set)
   else
     this->status &= ~signal;
 
-  ioctl(this->get_fd(), TIOCMSET, &this->status);
+  ioctl(this->fd, TIOCMSET, &this->status);
 
 }
 
-int octave_serial::get_fd()
+bool octave_serial::fd_is_valid() const
 {
-    return this->fd;
+  return (this->fd >= 0);
 }
 
-int octave_serial::close()
+void octave_serial::close()
 {
-    int retval = -1;
-
-    if (this->get_fd() > 0)
+  if (this->fd_is_valid())
     {
-        retval = ::close(this->get_fd());
-        this->fd = -1;
+      ::close(this->fd);
+      this->fd = -1;
     }
-
-    return retval;
 }
 #endif

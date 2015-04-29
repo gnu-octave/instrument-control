@@ -16,16 +16,12 @@
 #ifndef SERIAL_CLASS_WIN32_H
 #define SERIAL_CLASS_WIN32_H
 
-#include <octave/oct.h>
-#include <octave/ov-int32.h>
-
 #include <windows.h>
-
 #include <string>
 
 using std::string;
 
-class octave_serial : public octave_base_value
+class octave_serial : public octave_serial_common
 {
 public:
     octave_serial();
@@ -36,47 +32,28 @@ public:
 
     int read(uint8_t* /* buffer */, unsigned int /* buffer size */);
 
-    int open(string /* path */);
-    int close();
-    int get_fd() const;
+    void open(string /* path */);
+    void close();
 
     int flush(unsigned short /* stream select */);
 
     int set_timeout(short /* timeout */);
-    int get_timeout();
+    int get_timeout() const;
 
     int set_baudrate(unsigned int /* baudrate */);
-    int get_baudrate();
+    int get_baudrate() const;
 
     int set_bytesize(unsigned short /* bytesize */);
-    int get_bytesize();
+    int get_bytesize() const;
 
     int set_parity(string /* parity */);
-    string get_parity();
+    string get_parity() const;
 
     int set_stopbits(unsigned short /* stop bits */);
-    int get_stopbits();
+    int get_stopbits() const;
 
     bool get_control_line(string);
     void set_control_line(string, bool);
-
-    // Overloaded base functions
-    double serial_value() const { return (double)get_fd(); }
-
-    virtual double scalar_value (bool frc_str_conv = false) const
-    {
-        return (double)get_fd();
-    }
-
-    void print (std::ostream& os, bool pr_as_read_syntax = false);
-    void print (std::ostream& os, bool pr_as_read_syntax = false) const;
-    void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
-
-    // Properties
-    bool is_constant (void) const { return true;}
-    bool is_defined (void) const { return true;}
-    bool print_as_scalar (void) const { return true;}
-
 
 private:
     HANDLE fd;
@@ -87,6 +64,8 @@ private:
     volatile bool blocking_read;
 
     void get_control_line_status(void);
+
+    bool fd_is_valid() const;
 
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
