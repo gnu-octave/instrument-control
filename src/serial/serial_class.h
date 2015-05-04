@@ -67,13 +67,16 @@ public:
   {
     os << "  Serial Port Object"; newline(os);
     os << "    open:     " << this->fd_is_valid(); newline(os);
-    os << "    port:     " << this->portPath; newline(os);
-    os << "    baudrate: " << this->get_baudrate(); newline(os);
-    os << "    parity:   " << this->get_parity(); newline(os);
-    os << "    bytesize: " << this->get_bytesize(); newline(os);
-    os << "    stopbits: " << this->get_stopbits(); newline(os);
-    os << "    timeout:  " << this->get_timeout(); newline(os);
-    //os << "Mode:     " << blockmode; newline(os);
+    if (this->fd_is_valid())
+      {
+        os << "    port:     " << this->portPath; newline(os);
+        os << "    baudrate: " << this->get_baudrate(); newline(os);
+        os << "    parity:   " << this->get_parity(); newline(os);
+        os << "    bytesize: " << this->get_bytesize(); newline(os);
+        os << "    stopbits: " << this->get_stopbits(); newline(os);
+        os << "    timeout:  " << this->get_timeout(); newline(os);
+        //os << "Mode:     " << blockmode; newline(os);
+      }
   }
 
   bool operator==(octave_serial_common& other) const

@@ -19,8 +19,11 @@
 ## @end deftypefn
 
 ## TODO: 
-function fclose(fd)
+function fclose(serial)
 
-srl_close(fd);
-
+  if (nargin == 1)
+    __srl_properties__ (serial, 'close');
+  else
+    print_usage();
+  end  
 end
