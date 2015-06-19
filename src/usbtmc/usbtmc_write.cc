@@ -73,7 +73,7 @@ Upon successful completion, usbtmc_write() shall return the number of bytes writ
     {
         NDArray dtmp = data.array_value();
         uint8_t *buf = NULL;
-        buf = new uint8_t[dtmp.length()];
+        buf = new uint8_t[dtmp.numel()];
 
         if (buf == NULL)
         {
@@ -81,10 +81,10 @@ Upon successful completion, usbtmc_write() shall return the number of bytes writ
             return octave_value(-1);
         }
 
-        for (int i = 0; i < dtmp.length(); i++)
+        for (int i = 0; i < dtmp.numel(); i++)
             buf[i] = static_cast<uint8_t>(dtmp(i));
 
-        retval = usbtmc->write(buf, dtmp.length());
+        retval = usbtmc->write(buf, dtmp.numel());
 
         delete[] buf;
     }

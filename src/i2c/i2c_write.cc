@@ -65,7 +65,7 @@ Upon successful completion, i2c_write() shall return the number of bytes written
             {
         NDArray data = args(1).array_value();
         uint8_t *buf = NULL; 
-        buf = new uint8_t[data.length()];
+        buf = new uint8_t[data.numel()];
 
         if (buf == NULL)
         {
@@ -73,10 +73,10 @@ Upon successful completion, i2c_write() shall return the number of bytes written
             return octave_value(-1);  
         }
 
-        for (int i = 0; i < data.length(); i++)
+        for (int i = 0; i < data.numel(); i++)
             buf[i] =  static_cast<uint8_t>(data(i));
 
-        retval = i2c->write(buf, data.length());
+        retval = i2c->write(buf, data.numel());
 
         delete[] buf;
             }
