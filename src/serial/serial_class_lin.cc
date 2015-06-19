@@ -24,18 +24,13 @@
 #include <string>
 #include <algorithm>
 
-#ifndef __WIN32__
 #include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
 #include <errno.h>
-#ifdef __linux__
-#include <termio.h>
-#else
 #include <termios.h>
-#endif
+#include <sys/ioctl.h>
 #include <unistd.h>
-#endif
 
 using std::string;
 
