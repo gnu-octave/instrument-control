@@ -72,6 +72,8 @@ void octave_serial::open(string path)
    DWORD err;
    ClearCommError(this->fd, &err, &stats);
 
+   // Clean the configuration struct (DCB)
+   memset (&this->config, 0, sizeof (this->config));
    // set up device settings
    this->config.DCBlength = sizeof(this->config);
    if(GetCommState(this->fd,&this->config) == FALSE)
@@ -287,7 +289,7 @@ int octave_serial::set_bytesize(unsigned short bytesize)
 
     if(SetCommState(this->fd,&this->config) == FALSE)
     {
-        error("srl_stopbits: error setting byte size: %s\n", winerror(errno));
+        error ("serial: error setting byte size: %s\n", winerror(errno));
         return false;
     }
 
@@ -314,58 +316,53 @@ int octave_serial::set_baudrate(unsigned int baud)
     }
 
     DWORD baud_rate;
+    // Set a valid baudrate as default
+    baud_rate = this->config.BaudRate;
+    // List of valid baudrates from 
+    // https://msdn.microsoft.com/en-us/library/windows/desktop/aa363214%28v=vs.85%29.aspx
     switch (baud)
     {
-    case 0:
-        baud_rate = baud; break;
-    case 50:
-        baud_rate = baud; break;
-    case 75:
-        baud_rate = baud; break;
-    case 110:
-        baud_rate = baud; break;
-    case 134:
-        baud_rate = baud; break;
-    case 150:
-        baud_rate = baud; break;
-    case 200:
-        baud_rate = baud; break;
-    case 300:
-        baud_rate = baud; break;
-    case 600:
-        baud_rate = baud; break;
-    case 1200:
-        baud_rate = baud; break;
-    case 1800:
-        baud_rate = baud; break;
-    case 2400:
-        baud_rate = baud; break;
-    case 4800:
-        baud_rate = baud; break;
-    case 9600:
-        baud_rate = baud; break;
-    case 19200:
-        baud_rate = baud; break;
-    case 38400:
-        baud_rate = baud; break;
-    case 57600:
-        baud_rate = baud; break;
-    case 115200:
-        baud_rate = baud; break;
-    case 230400:
-        baud_rate = baud; break;
-    default:
-        error("srl_baudrate: currently only 0, 50, 75, 110, \
-                134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, \
-                9600 19200, 38400, 57600, 115200 and 230400 baud rates are supported...");
+      case 110:
+        baud_rate = CBR_110; break;
+      case 300:
+        baud_rate = CBR_300; break;
+      case 600:
+        baud_rate = CBR_600; break;
+      case 1200:
+        baud_rate = CBR_1200; break;
+      case 2400:
+        baud_rate = CBR_2400; break;
+      case 4800:
+        baud_rate = CBR_4800; break;
+      case 9600:
+        baud_rate = CBR_9600; break;
+      case 14400:
+        baud_rate = CBR_14400; break;
+      case 19200:
+        baud_rate = CBR_19200; break;
+      case 38400:
+        baud_rate = CBR_38400; break;
+      case 57600:
+        baud_rate = CBR_57600; break;
+      case 115200:
+        baud_rate = CBR_115200; break;
+      case 128000:
+        baud_rate = CBR_128000; break;
+      case 256000:
+        baud_rate = CBR_256000; break;
+      default:
+        error ("serial: currently only \
+                110, 300, 600, 1200, 2400, 4800, \
+                9600, 19200, 38400, 57600, 115200, 128000 \
+                and 256000 baud rates are supported...");
         return false;
     }
 
-    this->config.BaudRate = baud;
+    this->config.BaudRate = baud_rate;
 
     if(SetCommState(this->fd,&this->config) == FALSE)
     {
-        error("srl_stopbits: error setting baud rate: %s\n", winerror(errno));
+        error ("serial: error setting baud rate: %s\n", winerror(errno));
         return false;
     }
 
