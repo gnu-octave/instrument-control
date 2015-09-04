@@ -44,7 +44,7 @@ DEFUN_DLD (serial, args, nargout,
 \n\
 Open serial interface.\n \
 \n\
-@var{path} - the interface path of type String. If omitted defaults to '/dev/ttyUSB0'. @*\
+@var{path} - the interface path of type String. @*\
 @var{baudrate} - the baudrate of interface. If omitted defaults to 115200. @*\
 @var{timeout} - the interface timeout value. If omitted defaults to blocking call.\n \
 \n\
@@ -70,7 +70,7 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     }
 
     // Default values
-    string path("/dev/ttyUSB0");
+    string path;
     unsigned int baud_rate = 115200;
     short timeout = -1;
 
@@ -78,19 +78,13 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
     string parity("N");
     unsigned short stopbits = 1;
     // Parse the function arguments
-    if (args.length() > 0)
+    if ((args.length () == 0) || !args(0).is_string ())
     {
-        if (args(0).is_string())
-        {
-            path = args(0).string_value();
-        }
-        else
-        {
-            print_usage();
-            return octave_value();
-        }
-
+        print_usage ();
+        return octave_value();
     }
+
+    path = args(0).string_value ();
 
     // is_float_type() is or'ed to allow expression like ("", 123), without user
     // having to use ("", int32(123)), as we still only take "int_value"
