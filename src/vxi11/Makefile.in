@@ -15,7 +15,7 @@ VXI =
 OBJ =
 endif
 
-all: $(VXI) $(OBJ) $(OCT) 
+all: $(OCT) 
 
 ifeq ($(BUILD_VXI11),1)
 vxi11.h vxi11_clnt.c vxi11_xdr.c : vxi11.x
@@ -28,8 +28,8 @@ endif
 %.o: %.cc
 	$(MKOCTFILE) $(CFLAGS) $(RPCINCLUDE) -c $^
 
-%.oct: %.o $(OBJ)
-	$(MKOCTFILE) $^ $(VXI) $(LFLAGS) -o ../$@
+%.oct: %.o $(OBJ) $(VXI)
+	$(MKOCTFILE) $^ $(LFLAGS) -o ../$@
 
 clean:
 	rm -f *.oct *.o
