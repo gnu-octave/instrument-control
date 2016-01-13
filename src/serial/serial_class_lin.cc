@@ -365,25 +365,60 @@ int octave_serial::set_baudrate(unsigned int baud)
         baud_rate = B19200; break;
     case 38400:
         baud_rate = B38400; break;
+#ifdef B57600
     case 57600:
         baud_rate = B57600; break;
+#endif
+#ifdef B115200
     case 115200:
         baud_rate = B115200; break;
+#endif
+#ifdef B230400
     case 230400:
         baud_rate = B230400; break;
+#endif
+#ifdef B460800
     case 460800:
         baud_rate = B460800; break;
+#endif
+#ifdef B500000
     case 500000:
         baud_rate = B500000; break;
+#endif
+#ifdef B576000
     case 576000:
         baud_rate = B576000; break;
+#endif
+#ifdef B921600
     case 921600:
         baud_rate = B921600; break;
+#endif
+#ifdef B1000000
+    case 1000000:
+        baud_rate = B1000000; break;
+#endif
+#ifdef B1152000
+    case 1152000:
+        baud_rate = B1152000; break;
+#endif
+#ifdef B2000000
+    case 2000000:
+        baud_rate = B2000000; break;
+#endif
+#ifdef B3000000
+    case 3000000:
+        baud_rate = B3000000; break;
+#endif
+#ifdef B3500000
+    case 3500000:
+        baud_rate = B3500000; break;
+#endif
+#ifdef B4000000
+    case 4000000:
+        baud_rate = B4000000; break;
+#endif
     default:
-        error("srl_baudrate: currently only 0, 50, 75, 110, \
-                134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, \
-                9600 19200, 38400, 57600, 115200, 230400, 460800, \
-                500000, 576000 and  921600 baud rates are supported...");
+        error("serial: baud rate not supported...");
         return false;
     }
 
