@@ -52,6 +52,7 @@ GPIB
   gpib_close
   @octave_gpib/fopen
   @octave_gpib/fclose
+  @octave_gpib/fread
   @octave_gpib/fwrite
   @octave_gpib/fprintf
   @octave_gpib/fscanf
