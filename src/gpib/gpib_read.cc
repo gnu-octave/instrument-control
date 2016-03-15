@@ -112,7 +112,7 @@ The gpib_read() shall return number of bytes successfully read in @var{count} as
 
     return_list(0) = data;
     return_list(1) = bytes_read;
-    return_list(1) = eoi;
+    return_list(2) = eoi;
 
     delete[] buffer;
 

@@ -157,6 +157,7 @@ int octave_gpib::read(uint8_t *buf, unsigned int len, bool *eoi)
 #endif
 
     bytes_read = ThreadIbcnt();
+    *eoi = (ThreadIbsta() & 0x2000) ? true : false;
 
     ibonl(fd,0);
 

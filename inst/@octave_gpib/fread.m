@@ -89,7 +89,7 @@ while ((!eoi) && (toread > 0))
   %% if successful tmp is never negative (uint8)
   count = count + wasread;
   toread = toread - wasread;
-  if ((!eoi) || (tmp1 < 0))
+  if ((eoi) || (tmp1 < 0))
     break;
   end
   tmp = [tmp tmp1];
@@ -99,6 +99,8 @@ end
 errmsg = '';
 
 data = typecast(tmp,toclass);
-data = reshape(data,size);
+if (numel(size) > 1)
+  data = reshape(data,size);
+end
 
 endfunction
