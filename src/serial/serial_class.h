@@ -17,7 +17,7 @@
 #define SERIAL_CLASS_H
 
 #include <octave/oct.h>
-#include <octave/ops.h>
+//#include <octave/ops.h>
 
 #include <string>
 
@@ -26,6 +26,18 @@
 #define BITMASK_TOGGLE(x,y) ((x) ^= (y))
 #define BITMASK_CHECK(x,y) ((x) & (y))
 
+#define CONCAT2X(x,y) x ## y
+#define CONCAT2(x,y) CONCAT2X(x,y)
+
+#define BINOPDECL(name, a1, a2) \
+  static octave_value \
+  CONCAT2(oct_binop_, name) (const octave_base_value& a1, const octave_base_value& a2)
+
+#define CAST_BINOP_ARGS(t1, t2) \
+  t1 v1 = dynamic_cast<t1> (a1);                \
+  t2 v2 = dynamic_cast<t2> (a2)
+
+
 #define DEFBINOP_CLASS_OP(name, t1, t2, op) \
   BINOPDECL (name, a1, a2) \
   { \
@@ -33,6 +45,12 @@
     return octave_value \
       (&v1 op &v2); \
   }
+
+#define INSTALL_BINOP(op, t1, t2, f) \
+  octave_value_typeinfo::register_binary_op \
+    (octave_value::op, t1::static_type_id (), t2::static_type_id (), \
+     CONCAT2(oct_binop_, f));
+
 
 class octave_serial_common : public octave_base_value
 {
