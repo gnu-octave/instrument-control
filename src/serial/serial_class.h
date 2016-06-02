@@ -25,6 +25,7 @@
 #define BITMASK_CLEAR(x,y) ((x) &= (~(y)))
 #define BITMASK_TOGGLE(x,y) ((x) ^= (y))
 #define BITMASK_CHECK(x,y) ((x) & (y))
+#define BITMASK_CHECK_VALUE(x,y,z) (((x) & (y)) == (z))
 
 #define CONCAT2X(x,y) x ## y
 #define CONCAT2(x,y) CONCAT2X(x,y)

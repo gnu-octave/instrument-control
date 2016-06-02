@@ -309,13 +309,13 @@ int octave_serial::get_bytesize() const
 
     int retval = -1;
 
-    if (BITMASK_CHECK(this->config.c_cflag, CS5))
+    if (BITMASK_CHECK_VALUE(this->config.c_cflag, CSIZE, CS5))
         retval = 5;
-    else if (BITMASK_CHECK(this->config.c_cflag, CS6))
+    else if (BITMASK_CHECK_VALUE(this->config.c_cflag, CSIZE, CS6))
         retval = 6;
-    else if (BITMASK_CHECK(this->config.c_cflag, CS7))
+    else if (BITMASK_CHECK_VALUE(this->config.c_cflag, CSIZE, CS7))
         retval = 7;
-    else if (BITMASK_CHECK(this->config.c_cflag, CS8))
+    else if (BITMASK_CHECK_VALUE(this->config.c_cflag, CSIZE, CS8))
         retval = 8;
 
     return retval;
