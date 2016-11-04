@@ -120,7 +120,7 @@ int octave_serial::read(uint8_t *buf, unsigned int len)
     {
         DWORD readsz;
         read_retval = -1;
-        if(ReadFile(this->fd, buf, len, &readsz, NULL) == TRUE)
+        if(ReadFile(this->fd, (buf + bytes_read), len - bytes_read, &readsz, NULL) == TRUE)
         {
            read_retval = readsz;
         }
