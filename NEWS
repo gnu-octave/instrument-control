@@ -1,3 +1,18 @@
+Summary of important user-visible changes for instrument-control 0.2.3:
+-------------------------------------------------------------------
+
+  ** New function:
+        instrhwinfo
+
+  ** GPIB: Fix EOI handling
+
+  ** SERIAL: Fix display of bytesize setting
+  
+  ** SERIAL: Win32: Fix srl_read
+  
+  ** TCP: Fix infinite loop on connection lost
+
+
 Summary of important user-visible changes for instrument-control 0.2.2:
 -------------------------------------------------------------------
 

@@ -1,5 +1,6 @@
 devel/testtcp.m                     GPLv3+
 inst/clrdevice.m                    GPLv3+
+inst/instrhwinfo.m                  GPLv3+
 inst/@octave_gpib/fclose.m          GPLv3+
 inst/@octave_gpib/fopen.m           GPLv3+
 inst/@octave_gpib/fprintf.m         GPLv3+
