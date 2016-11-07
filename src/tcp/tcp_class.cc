@@ -170,6 +170,10 @@ int octave_tcp::read(uint8_t *buf, unsigned int len, int timeout)
             {
                 error("tcp_read: Error while reading: %d - %s\n", SOCKETERR, STRSOCKETERR);
                 break;
+            } else if (read_retval == 0)
+            {
+                error("tcp_read: Connection lost: %d - %s\n", SOCKETERR, STRSOCKETERR);
+                break;
             }
         } else {
             // Timeout
