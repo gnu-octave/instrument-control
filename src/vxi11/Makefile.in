@@ -5,28 +5,31 @@ OBJ := vxi11_class.o
 MKOCTFILE  ?= mkoctfile
 RPCGEN     ?= rpcgen
 
-CFLAGS      = @RPCINCLUDE@ @DEFS@
-LFLAGS      = @RPCLIBS@
+CFLAGS      = @DEFS@
+LFLAGS      = 
 
 BUILD_VXI11 = @BUILD_VXI11@
 
 ifneq ($(BUILD_VXI11),1)
 VXI =
 OBJ =
-endif
+else
 
-all: $(OCT) 
+CFLAGS      += @RPCINCLUDE@
+LFLAGS      += @RPCLIBS@
 
-ifeq ($(BUILD_VXI11),1)
 vxi11.h vxi11_clnt.c vxi11_xdr.c : vxi11.x
 	$(RPCGEN) -M vxi11.x
+
 endif
 
+all: $(OCT)
+
 %.o: %.c
-	$(MKOCTFILE) $(CFLAGS) $(RPCINCLUDE) -c $^
+	$(MKOCTFILE) $(CFLAGS) -c $^
 	
 %.o: %.cc
-	$(MKOCTFILE) $(CFLAGS) $(RPCINCLUDE) -c $^
+	$(MKOCTFILE) $(CFLAGS) -c $^
 
 %.oct: %.o $(OBJ) $(VXI)
 	$(MKOCTFILE) $^ $(LFLAGS) -o ../$@

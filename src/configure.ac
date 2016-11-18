@@ -81,8 +81,8 @@ fi
 AC_CHECK_HEADERS([gpib/ib.h],
   [AC_SEARCH_LIBS([ibrd], [gpib], [build_gpib=yes], [])] , [] )
 
-if test "x$ac_cv_search_ibrd" != "xnone required"; then
-  AC_SUBST(GPIBLIBS, [$ac_cv_search_ibrd])
+if test "x$ac_cv_search_ibrd" != "xno"; then
+  test "x$ac_cv_search_ibrd" = "xnone required" || AC_SUBST(GPIBLIBS, [$ac_cv_search_ibrd])
 fi
 
 
@@ -100,8 +100,8 @@ if test "x$HAVE_RPCGEN" = "xyes"; then
     [AC_CHECK_HEADERS([${tirpc_header_dir}/netconfig.h],
       [AC_SUBST([RPCINCLUDE], ["-I${tirpc_header_dir}"])],[build_vxi11=no])])
 
-  if test "x$ac_cv_search_clnt_create" != "xnone required"; then
-    AC_SUBST(RPCLIBS, [$ac_cv_search_clnt_create])
+  if test "x$ac_cv_search_clnt_create" != "xno"; then
+    test "x$ac_cv_search_clnt_create" = "xnone required" || AC_SUBST(RPCLIBS, [$ac_cv_search_clnt_create])
   fi
 
 fi
@@ -111,8 +111,8 @@ fi
 AC_CHECK_HEADERS([visa/visa.h],
   [AC_SEARCH_LIBS([viOpenDefaultRM], [openvisa], [build_vxi11=yes], [])] , [] )
 
-if test "x$ac_cv_search_viOpenDefaultRM" != "xnone required"; then
-  AC_SUBST(VISALIBS, [$ac_cv_search_viOpenDefaultRM])
+if test "x$ac_cv_search_viOpenDefaultRM" != "xno"; then
+  test "x$ac_cv_search_viOpenDefaultRM" = "xnone required" || AC_SUBST(VISALIBS, [$ac_cv_search_viOpenDefaultRM])
 fi
 
 
