@@ -1,0 +1,23 @@
+OCT := udp.oct udp_timeout.oct udp_write.oct udp_close.oct udp_read.oct __udp_properties__.oct
+OBJ := udp_class.o
+
+MKOCTFILE ?= mkoctfile
+
+CFLAGS     = @DEFS@
+LFLAGS     = @TCPLIBS@
+
+all: $(OBJ) $(OCT)
+
+%.o: %.cc
+	$(MKOCTFILE) $(CFLAGS) -c $^
+
+%.oct: %.o $(OBJ)
+	$(MKOCTFILE) $^ $(LFLAGS) $(TCPLIBS) -o ../$@
+
+clean:
+	rm -f *.oct *.o
+
+distclean: clean
+	rm Makefile
+
+.PHONY: all clean

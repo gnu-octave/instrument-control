@@ -59,6 +59,17 @@ GPIB
   spoll
   trigger
   clrdevice
+UDP
+  udp
+  @octave_udp/fopen
+  @octave_udp/fclose
+  @octave_udp/get
+  @octave_udp/set
+  udp_read
+  udp_write
+  udp_timeout
+  udp_close
+  udp_demo
 VXI11
   vxi11
   @octave_vxi11/fopen

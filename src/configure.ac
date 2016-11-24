@@ -22,6 +22,7 @@ build_serial=no
 build_i2c=no
 build_usbtmc=no
 build_tcp=no
+build_udp=no
 build_gpib=no
 build_vxi11=no
 build_visa=no
@@ -76,6 +77,12 @@ if test $have_winsock2 = yes; then
   AC_SUBST(TCPLIBS, ["-lws2_32"])
   build_tcp=yes
 fi
+
+# if can build tcp, can build udp
+if test $build_tcp = yes; then
+  build_udp=yes
+fi
+
 
 # Checks for GPIB
 AC_CHECK_HEADERS([gpib/ib.h],
@@ -138,6 +145,10 @@ if test $build_tcp = yes; then
   AC_DEFINE([BUILD_TCP], [], [build TCP interface functions])
 fi
 
+if test $build_udp = yes; then
+  AC_DEFINE([BUILD_UDP], [], [build UDP interface functions])
+fi
+
 if test $build_gpib = yes; then
   AC_DEFINE([BUILD_GPIB], [], [build GPIB interface functions]) 
 fi
@@ -154,7 +165,7 @@ fi
 
 # all done
 
-AC_CONFIG_FILES([Makefile gpib/Makefile tcp/Makefile vxi11/Makefile usbtmc/Makefile serial/Makefile parallel/Makefile i2c/Makefile])
+AC_CONFIG_FILES([Makefile gpib/Makefile tcp/Makefile udp/Makefile vxi11/Makefile usbtmc/Makefile serial/Makefile parallel/Makefile i2c/Makefile])
 AC_OUTPUT
 
 AC_MSG_NOTICE([
@@ -165,6 +176,7 @@ $PACKAGE_NAME is now configured with
    BUILD PARALLEL:    $build_parallel
    BUILD I2C:         $build_i2c
    BUILD TCP:         $build_tcp
+   BUILD UDP:         $build_udp
    BUILD USBTMC:      $build_usbtmc
    BUILD GPIB:        $build_gpib
    BUILD VXI11:       $build_vxi11

@@ -1,10 +1,10 @@
 Name: instrument-control
 Version: 0.2.3
 Date: 2016-11-07
-Author: Andrius Sutas <andrius.sutas@gmail.com>, Stefan Mahr <dac922@gmx.de>
+Author: Andrius Sutas <andrius.sutas@gmail.com>, Stefan Mahr <dac922@gmx.de>, John Donoghue <john.donoghue@ieee.org>
 Maintainer: Stefan Mahr <dac922@gmx.de>
 Title: Instrument Control
-Description: Low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11 and usbtmc interfaces.
+Description: Low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
 Categories: instrument-control
 Depends: octave (>= 3.2.0)
 Autoload: no

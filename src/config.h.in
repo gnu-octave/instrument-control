@@ -13,6 +13,9 @@
 /* build TCP interface functions */
 #undef BUILD_TCP
 
+/* build UDP interface functions */
+#undef BUILD_UDP
+
 /* build USBTMC interface functions */
 #undef BUILD_USBTMC
 
