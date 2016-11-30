@@ -1,0 +1,23 @@
+OCT := resolvehost.oct
+OBJ := 
+
+MKOCTFILE ?= mkoctfile
+
+CFLAGS     = @DEFS@
+LFLAGS     = @TCPLIBS@
+
+all: $(OBJ) $(OCT)
+
+%.o: %.cc
+	$(MKOCTFILE) $(CFLAGS) -c $^
+
+%.oct: %.o $(OBJ)
+	$(MKOCTFILE) $^ $(LFLAGS) $(TCPLIBS) -o ../$@
+
+clean:
+	rm -f *.oct *.o
+
+distclean: clean
+	rm Makefile
+
+.PHONY: all clean
