@@ -314,55 +314,15 @@ int octave_serial::set_baudrate(unsigned int baud)
         error("serial: Interface must be opened first...");
         return -1;
     }
+ 
+    DWORD old_baud = this->config.BaudRate;
 
-    DWORD baud_rate;
-    // Set a valid baudrate as default
-    baud_rate = this->config.BaudRate;
-    // List of valid baudrates from 
-    // https://msdn.microsoft.com/en-us/library/windows/desktop/aa363214%28v=vs.85%29.aspx
-    switch (baud)
-    {
-      case 110:
-        baud_rate = CBR_110; break;
-      case 300:
-        baud_rate = CBR_300; break;
-      case 600:
-        baud_rate = CBR_600; break;
-      case 1200:
-        baud_rate = CBR_1200; break;
-      case 2400:
-        baud_rate = CBR_2400; break;
-      case 4800:
-        baud_rate = CBR_4800; break;
-      case 9600:
-        baud_rate = CBR_9600; break;
-      case 14400:
-        baud_rate = CBR_14400; break;
-      case 19200:
-        baud_rate = CBR_19200; break;
-      case 38400:
-        baud_rate = CBR_38400; break;
-      case 57600:
-        baud_rate = CBR_57600; break;
-      case 115200:
-        baud_rate = CBR_115200; break;
-      case 128000:
-        baud_rate = CBR_128000; break;
-      case 256000:
-        baud_rate = CBR_256000; break;
-      default:
-        error ("serial: currently only \
-                110, 300, 600, 1200, 2400, 4800, \
-                9600, 19200, 38400, 57600, 115200, 128000 \
-                and 256000 baud rates are supported...");
-        return false;
-    }
+    this->config.BaudRate = baud;
 
-    this->config.BaudRate = baud_rate;
-
-    if(SetCommState(this->fd,&this->config) == FALSE)
+    if (SetCommState(this->fd,&this->config) == FALSE)
     {
         error ("serial: error setting baud rate: %s\n", winerror(errno));
+        this->config.BaudRate = old_baud;
         return false;
     }
 
