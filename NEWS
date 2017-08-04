@@ -1,3 +1,29 @@
+Summary of important user-visible changes for instrument-control 0.2.3+:
+-------------------------------------------------------------------
+
+  ** SERIAL: allow non standard baudrates in win32
+
+  ** TCP: new functions:
+         resolvehost
+
+  ** UDP: new interface with functions for:
+        udp
+        udp_timeout
+        udp_read
+        udp_write
+        udp_close
+        udp_demo
+
+   ** UDP overload functions for: 
+        fprintf
+        fread
+        fwrite
+        fclose
+        fopen
+        get
+        set
+        close
+
 Summary of important user-visible changes for instrument-control 0.2.3:
 -------------------------------------------------------------------
 
