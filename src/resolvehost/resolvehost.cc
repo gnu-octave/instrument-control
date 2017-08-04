@@ -193,4 +193,24 @@ ipaddress = resolvehost ('www.gnu.org', 'address');\n \
     return return_value;
 #endif
 }
+#if 0
+%!xtest
+%! name = resolvehost("wiki.octave.org")
+%! assert(!isempty(name))
 
+%!xtest
+%! [name, addr] = resolvehost("wiki.octave.org")
+%! assert(!isempty(name))
+%! assert(!isempty(addr))
+%! assert(name, resolvehost("wiki.octave.org", "name")))
+%! assert(addr, resolvehost("wiki.octave.org", "addr")))
+
+%!error <Invalid call to resolvehost> resolvehost()
+
+%!error <Invalid call to resolvehost> resolvehost(1)
+
+%!error <Invalid call to resolvehost> resolvehost("wiki.octave.org", 1)
+
+%!error <Invalid call to resolvehost> resolvehost("wiki.octave.org", "name", 1)
+
+#endif

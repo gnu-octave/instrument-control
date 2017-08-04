@@ -61,3 +61,13 @@ Close the interface and release a file descriptor.\n \
     return octave_value();
 #endif
 }
+#if 0
+%!test
+%! addr = resolvehost('gnu.org', 'address');
+%! a = tcp(addr, 80);;
+%! tcp_close(a);
+
+%!error <Invalid call to tcp_close> tcp_close(1)
+
+%!error <Invalid call to tcp_close> tcp_close()
+#endif

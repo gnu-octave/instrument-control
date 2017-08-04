@@ -78,3 +78,16 @@ If @var{timeout} parameter is omitted, the udp_timeout() shall return current ti
     return octave_value(udp->get_timeout());
 #endif
 }
+
+#if 0
+%!test
+%! a = udp();
+%! assert(udp_timeout(a), -1);
+%! udp_timeout(a, 103);
+%! assert(udp_timeout(a), 103);
+%! close(a);
+
+%!error <Invalid call to udp_timeout> udp_timeout()
+
+%!error <Invalid call to udp_timeout> udp_timeout(1)
+#endif

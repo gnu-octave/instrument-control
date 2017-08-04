@@ -62,3 +62,13 @@ Close the interface and release a file descriptor.\n \
     return octave_value();
 #endif
 }
+
+#if 0
+%!test
+%! a = udp();
+%! udp_close(a);
+
+%!error <Invalid call to udp_close> udp_close(1)
+
+%!error <Invalid call to udp_close> udp_close()
+#endif

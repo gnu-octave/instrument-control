@@ -22,6 +22,9 @@ OCT_FILES   = $(patsubst %.cc,%.oct,$(CC_SOURCES))
 ## they may not exist yet to be grepped.
 PKG_ADD     = $(shell grep -Pho '(?<=// PKG_ADD: ).*' $(CC_SOURCES) $(M_SOURCES))
 
+# other octave packages we depend on in testing
+DEPENDS     =
+
 OCTAVE ?= octave --no-window-system --silent
 
 .PHONY: help dist html release install all check run clean
@@ -77,13 +80,15 @@ install: $(RELEASE_TARBALL)
 	$(OCTAVE) --eval 'pkg ("install", "-verbose", "${RELEASE_TARBALL}")'
 
 all: $(CC_SOURCES)
+	test -e src/configure || (cd "src/" && ./bootstrap && rm -rf "autom4te.cache")
 	cd src/ && ./configure
 	$(MAKE) -C src/
 
 check: all
-	$(OCTAVE) --path "inst/" --path "src/" \
-	  --eval '${PKG_ADD}' \
-	  --eval 'runtests ("inst"); runtests ("src");'
+	$(OCTAVE) --silent --path "inst/" --path "src/" \
+          --eval 'if(!isempty("$(DEPENDS)")); pkg load $(DEPENDS); endif;' \
+          --eval '${PKG_ADD}' \
+          --eval "__run_test_suite__ ({'inst'}, {})"
 
 doctest: all
 	$(OCTAVE) --path "inst/" --path "src/" \
@@ -99,4 +104,5 @@ run: all
 
 clean:
 	rm -rf $(TARGET_DIR)
+	test -e inst/test && rm -rf inst/test
 	test -e src/Makefile && $(MAKE) -C src distclean

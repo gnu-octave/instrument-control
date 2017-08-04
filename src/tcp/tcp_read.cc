@@ -132,3 +132,30 @@ The tcp_read() shall return number of bytes successfully read in @var{count} as 
     return return_list;
 #endif
 }
+
+#if 0
+%!test
+%! addr = resolvehost('gnu.org', 'address');
+%! a = tcp(addr, 80);;
+%! assert(!isnull(a));
+%! # server should be waiting for us to send request
+%! fail ("tcp_read(a, 10, 0, 0)", "Invalid call to tcp_read");
+%!
+%! [d,c] = tcp_read(a, 1, 0);
+%! assert(0, c);
+%! assert(isempty(d));
+%!
+%! tic;
+%! [d,c] = tcp_read(a, 1, 1000);
+%! t = toc;
+%! assert(c, 0);
+%! assert(isempty(d));
+%! assert(t, 1.0, 0.01)
+%!
+%! tcp_close(a);
+
+%!error <Invalid call to tcp_read> tcp_read(1)
+
+%!error <Invalid call to tcp_read> tcp_read(1, 10, 0)
+
+#endif

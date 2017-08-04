@@ -17,6 +17,8 @@ if [test $HAVE_MKOCTFILE = "no"]; then
   AC_MSG_ERROR([mkoctfile required to install $PACKAGE_NAME])
 fi
 
+AC_PROG_GREP
+
 build_parallel=no
 build_serial=no
 build_i2c=no

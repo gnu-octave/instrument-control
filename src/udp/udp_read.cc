@@ -1,3 +1,4 @@
+// Copyright (C) 2016   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -132,3 +133,33 @@ The udp_read() shall return number of bytes successfully read in @var{count} as 
     return return_list;
 #endif
 }
+
+#if 0
+%!test
+%! a = udp();
+%! assert(!isnull(a));
+%! [d,c] = udp_read(a, 1, 0);
+%! assert(c == 0);
+%! assert(isempty(d));
+%! udp_close(a);
+
+%!error <Invalid call to udp_read> udp_read(1, 10, 0)
+
+%!test
+%! a = udp();
+%! fail ("udp_read(a, 10, 0, 0)", "Invalid call to udp_read");
+%! udp_close(a);
+
+%!test
+%! # does read wait
+%! a = udp();
+%! assert(!isnull(a));
+%! tic;
+%! [d,c] = udp_read(a, 1, 1000);
+%! t = toc;
+%! assert(c, 0);
+%! assert(isempty(d));
+%! assert(t, 1.0, 0.01)
+%! udp_close(a);
+
+#endif

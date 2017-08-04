@@ -93,3 +93,34 @@ Upon successful completion, udp_write() shall return the number of bytes written
     return octave_value(retval);
 #endif
 }
+
+#if 0
+%!test
+%! a = udp();
+%! b = udp();
+%! p = get(a, 'localport');
+%! set(b, 'remoteport', p);
+%! p = get(b, 'localport');
+%! set(a, 'remoteport', p);
+%! assert(5, udp_write(a, uint8([104  101  108  108  111])));
+%! [d, c] = udp_read(b, 5, 1000);
+%! assert(c, 5);
+%! assert(d, uint8([104  101  108  108  111]));
+%! udp_close(a);
+%! udp_close(b);
+
+%!error <Invalid call to udp_write> udp_write(1, uint8([104  101  108  108  111]))
+
+%!error <Invalid call to udp_write> udp_write()
+
+%!test
+%! a = udp();
+%! fail ("udp_write(a, uint8([104  101  108  108  111]), 0)", "Invalid call to udp_write")
+%! udp_close(a);
+
+%!test
+%! a = udp();
+%! fail ("udp_write(a)", "Invalid call to udp_write")
+%! udp_close(a);
+#endif
+

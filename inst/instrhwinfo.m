@@ -48,3 +48,10 @@ function out = instrhwinfo (interface)
   endif
 
 endfunction
+
+%!xtest
+%! # could fail if no serial ports
+%! assert(!isempty(instrhwinfo("serial")))
+
+%! # NOTE: is valid in matlab
+%!error <Invalid call to instrhwinfo> instrhwinfo

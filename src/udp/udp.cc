@@ -135,3 +135,20 @@ The udp() shall return instance of @var{octave_udp} class as the result @var{udp
     return octave_value(retval);
 #endif
 }
+#if 0
+%!test
+%! #can create default udp object
+%! a = udp();
+%! assert(!isnull(a));
+%! assert(isa(a, 'octave_udp'));
+%! udp_close(a);
+
+%!error <Invalid call to udp> udp(1)
+
+%!test
+%! a = udp('127.0.0.1', 23, 0, 0);
+%! assert(!isnull(a));
+%! udp_close(a);
+
+%!error <Invalid call to udp> udp('127.0.0.1', 23,0,0,0)
+#endif

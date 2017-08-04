@@ -95,3 +95,35 @@ Undocumented internal function.\n\
     /* never reached in normal operation */
   (*current_liboctave_error_handler) ("Your system doesn't support the UDP interface");
 }
+#if 0
+%!test
+%! # test get
+%! a = udp();
+%! assert(__udp_properties__(a,"type"), "udp");
+%! assert(__udp_properties__(a,"remoteport"), 23);
+%! assert(__udp_properties__(a,"remotehost"), "127.0.0.1");
+%! assert(__udp_properties__(a,"timeout"), -1);
+%! assert(__udp_properties__(a,"status"), "open");
+%! assert(__udp_properties__(a,"name"), "UDP-127.0.0.1");
+%! fail ("__udp_properties__(a,'invalid')", "invalid property name");
+%! udp_close(a);
+%! assert(__udp_properties__(a,"status"), "closed");
+
+%!test
+%! # test set
+%! a = udp();
+%! __udp_properties__(a, 'name', "mytest");
+%! assert(__udp_properties__(a,"name"), "mytest");
+%! fail ("__udp_properties__(a,'invalid', 1)", "invalid property name");
+%! udp_close(a);
+
+%!error <wrong number of arguments> __udp_properties__()
+
+%!error <wrong number of arguments> __udp_properties__(1)
+
+%!test
+%! a = udp();
+%! fail ("__udp_properties__(a, 'name', 'test', 0)", "wrong number of arguments");
+%! udp_close(a);
+
+#endif

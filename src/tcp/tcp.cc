@@ -40,7 +40,7 @@ The tcp() shall return instance of @var{octave_tcp} class as the result @var{tcp
 @end deftypefn")
 {
 #ifndef BUILD_TCP
-    error("tcp: Your system doesn't support the TCO interface");
+    error("tcp: Your system doesn't support the TCP interface");
     return octave_value();
 #else
     if (!type_loaded)
@@ -119,3 +119,17 @@ The tcp() shall return instance of @var{octave_tcp} class as the result @var{tcp
     return octave_value(retval);
 #endif
 }
+
+#if 0
+%!test
+%! addr = resolvehost('gnu.org', 'address');
+%! a = tcp(addr, 80);;
+%! assert(!isnull(a));
+%! assert(isa(a, 'octave_tcp'));
+%! tcp_close(a);
+
+%!error <Invalid call to tcp> tcp(1)
+
+%!error <Invalid call to tcp> tcp(1, 1)
+
+#endif
