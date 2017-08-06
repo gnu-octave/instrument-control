@@ -63,6 +63,9 @@ UDP
   udp
   @octave_udp/fopen
   @octave_udp/fclose
+  @octave_udp/fread
+  @octave_udp/fwrite
+  @octave_udp/fprintf
   @octave_udp/get
   @octave_udp/set
   udp_read
