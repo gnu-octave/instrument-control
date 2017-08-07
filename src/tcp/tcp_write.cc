@@ -105,7 +105,7 @@ Upon successful completion, tcp_write() shall return the number of bytes written
 %! # call HTTP HEAD
 %! req = "HEAD / HTTP/1.1\r\n\r\n";
 %! assert(length(req), tcp_write(a, req));
-%! [d, c] = tcp_read(a, 12, 1000);
+%! [d, c] = tcp_read(a, 12, 5000);
 %! tcp_close(a);
 %! assert(12, c);
 %! assert(c, length(d));
