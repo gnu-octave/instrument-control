@@ -13,7 +13,7 @@ AC_LANG(C++)
 #AC_DEFINE(__STDC_CONSTANT_MACROS, [], [workaround for C++ programs to use C99 macros])
 
 AC_CHECK_PROG([MKOCTFILE], [mkoctfile], [mkoctfile], [none])
-if [test $MKOCTFILE = "none"]; then
+if [test "$MKOCTFILE" = "none"]; then
   AC_MSG_ERROR([mkoctfile required to install $PACKAGE_NAME])
 fi
 
