@@ -12,12 +12,46 @@ AC_LANG(C++)
 # Define macros needed
 #AC_DEFINE(__STDC_CONSTANT_MACROS, [], [workaround for C++ programs to use C99 macros])
 
-AC_CHECK_PROG([HAVE_MKOCTFILE], [mkoctfile], [yes], [no])
-if [test $HAVE_MKOCTFILE = "no"]; then
+AC_CHECK_PROG([MKOCTFILE], [mkoctfile], [mkoctfile], [none])
+if [test $MKOCTFILE = "none"]; then
   AC_MSG_ERROR([mkoctfile required to install $PACKAGE_NAME])
 fi
 
 AC_PROG_GREP
+
+# check for octave namespaces on some changing functions
+
+AC_DEFUN([CHECK_OCTAVE_NAMESPACE], [
+AC_MSG_CHECKING([whether $1 is in the octave namespace])
+save_$1_CXX="$CXX"
+save_$1_CXXFLAGS="$CXXFLAGS"
+CXX=`${MKOCTFILE} -p CXX`
+CXXFLAGS="$CXXFLAGS -I`$MKOCTFILE -p OCTINCLUDEDIR`"
+  AC_COMPILE_IFELSE(
+    [AC_LANG_PROGRAM([[#include <oct.h>]
+                      [#include <octave.h>]
+                      $3],
+                     [octave::$1($2)])],
+    [ac_have_$1_in_octave_namespace=yes],
+    [ac_have_$1_in_octave_namespace=no]
+)
+CC=$save_$1_CXX
+CXXFLAGS=$save_$1_CXXFLAGS
+sub_$1=`echo translit([HAVE_$1_IN_OCTAVE_NAMESPACE],[a-z],[A-Z])`
+if test "$ac_have_$1_in_octave_namespace" = "yes"; then
+   AC_MSG_RESULT(yes)
+   result=1
+   $4
+else
+   AC_MSG_RESULT(no)
+   result=0
+   $5
+fi
+  AC_SUBST(translit([HAVE_$1_IN_OCTAVE_NAMESPACE],[a-z],[A-Z]), $result)
+])
+
+CHECK_OCTAVE_NAMESPACE([install_signal_handlers],[],[#include <sighandlers.h>])
+CHECK_OCTAVE_NAMESPACE([set_signal_handler],[SIGINT, 0],[#include <sighandlers.h>])
 
 build_parallel=no
 build_serial=no
@@ -179,7 +213,7 @@ fi
 
 # all done
 
-AC_CONFIG_FILES([Makefile gpib/Makefile tcp/Makefile udp/Makefile vxi11/Makefile usbtmc/Makefile serial/Makefile parallel/Makefile i2c/Makefile resolvehost/Makefile])
+AC_CONFIG_FILES([octave-wrappers.h Makefile gpib/Makefile tcp/Makefile udp/Makefile vxi11/Makefile usbtmc/Makefile serial/Makefile parallel/Makefile i2c/Makefile resolvehost/Makefile])
 AC_OUTPUT
 
 AC_MSG_NOTICE([

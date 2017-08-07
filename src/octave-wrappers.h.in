@@ -1,0 +1,23 @@
+#include <octave/sighandlers.h>
+
+namespace  instrument_control
+{
+  inline octave::sig_handler * 
+  set_signal_handler(int sig, octave::sig_handler *handler)
+  {
+#if @HAVE_SET_SIGNAL_HANDLER_IN_OCTAVE_NAMESPACE@
+    return octave::set_signal_handler(sig, handler);
+#else
+    return octave_set_signal_handler(sig,handler);
+#endif
+  }
+
+  inline void install_signal_handlers(void)
+  {
+#if @HAVE_INSTALL_SIGNAL_HANDLERS_IN_OCTAVE_NAMESPACE@
+    octave::install_signal_handlers();
+#else
+    octave_install_signal_handlers();
+#endif
+  }
+}
