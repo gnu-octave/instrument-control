@@ -28,6 +28,7 @@ build_udp=no
 build_gpib=no
 build_vxi11=no
 build_visa=no
+build_resolvehost=no
 
 # Check for Windows
 AC_MSG_CHECKING([for windows])
@@ -85,6 +86,13 @@ if test $build_tcp = yes; then
   build_udp=yes
 fi
 
+# checks for resolve host
+if test $build_tcp = yes; then
+  AC_SEARCH_LIBS(getnameinfo, [ws2_32 inet6 socket], [build_resolvehost=yes])
+  if test "x$ac_cv_search_getnameinfo" != "xno"; then
+    test "x$ac_cv_search_getnameinfo" = "xnone required" || AC_SUBST(TCPLIBS, [$ac_cv_search_getnameinfo])
+  fi
+fi
 
 # Checks for GPIB
 AC_CHECK_HEADERS([gpib/ib.h],
@@ -164,6 +172,10 @@ if test $build_visa = yes; then
   AC_DEFINE([BUILD_VISA], [], [build VISA interface functions])
 fi
 
+if test $build_resolvehost = yes; then
+  AC_DEFINE([BUILD_RESOLVEHOST], [], [build resolvehost function])
+fi
+
 
 # all done
 
@@ -182,10 +194,12 @@ $PACKAGE_NAME is now configured with
    BUILD USBTMC:      $build_usbtmc
    BUILD GPIB:        $build_gpib
    BUILD VXI11:       $build_vxi11
+   BUILD RESOLVEHOST: $build_resolvehost
 
    GPIB LIBS:         $GPIBLIBS
    VXI11 LIBS:        $RPCLIBS
    VXI11 INCLUDE:     $RPCINCLUDE
    VISA LIBS:         $VISALIBS
+   TCP LIBS:          $TCPLIBS
 
 ])

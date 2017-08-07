@@ -75,8 +75,8 @@ ipaddress = resolvehost ('www.gnu.org', 'address');\n \
 \n\
 @end deftypefn")
 {
-#ifndef BUILD_TCP
-    error("resolvehost: Your system doesn't support the TCP/UDP interface");
+#ifndef BUILD_RESOLVEHOST
+    error("resolvehost: Your system doesn't support the resolvehost interface");
     return octave_value();
 #else
     octave_value_list return_value;
