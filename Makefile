@@ -69,7 +69,6 @@ html: $(HTML_TARBALL)
 release: dist html
 	md5sum $(RELEASE_TARBALL) $(HTML_TARBALL)
 	@echo "Upload @ https://sourceforge.net/p/octave/package-releases/new/"
-	@echo 'Execute: hg tag "release-${VERSION}"'
 
 ## Note that in development versions this target may fail if we are dependent
 ## on unreleased versions.  This is by design, to force possible developers

@@ -4,7 +4,7 @@ Summary of important user-visible changes for instrument-control 0.3.0:
   ** SERIAL: allow non standard baudrates in win32
 
   ** TCP: new functions:
-         resolvehost
+        resolvehost
 
   ** UDP: new interface with functions for:
         udp
@@ -22,7 +22,6 @@ Summary of important user-visible changes for instrument-control 0.3.0:
         fopen
         get
         set
-        close
 
 Summary of important user-visible changes for instrument-control 0.2.3:
 -------------------------------------------------------------------
