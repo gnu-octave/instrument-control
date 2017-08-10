@@ -16,7 +16,7 @@
 #include <octave/oct.h>
 
 #ifdef HAVE_CONFIG_H
-#include "../config.h"
+#  include "../config.h"
 #endif
 
 #ifdef BUILD_TCP
@@ -24,23 +24,23 @@
 #include <string>
 
 #ifndef __WIN32__
-#include <unistd.h>
-#include <errno.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <arpa/inet.h>
+#  include <unistd.h>
+#  include <errno.h>
+#  include <netinet/in.h>
+#  include <sys/socket.h>
+#  include <netdb.h>
+#  include <arpa/inet.h>
 #else
-#include <winsock2.h>
-#include <ws2tcpip.h>
+#  include <winsock2.h>
+#  include <ws2tcpip.h>
 #endif
 
 #ifndef __WIN32__
-#define SOCKETERR errno
-#define STRSOCKETERR strerror(errno)
+#  define SOCKETERR errno
+#  define STRSOCKETERR strerror(errno)
 #else
-#define SOCKETERR WSAGetLastError()
-#define STRSOCKETERR ""
+#  define SOCKETERR WSAGetLastError()
+#  define STRSOCKETERR ""
 #endif
 
 static bool type_loaded = false;
@@ -76,143 +76,146 @@ ipaddress = resolvehost ('www.gnu.org', 'address');\n \
 @end deftypefn")
 {
 #ifndef BUILD_RESOLVEHOST
-    error("resolvehost: Your system doesn't support the resolvehost interface");
-    return octave_value();
+  error("resolvehost: Your system doesn't support the resolvehost interface");
+  return octave_value();
 #else
-    octave_value_list return_value;
+  octave_value_list return_value;
 
-    if (!type_loaded)
+  if (!type_loaded)
     {
 #ifdef __WIN32__
-    WORD wVersionRequested;
-    WSADATA wsaData;
-    int err;
+      WORD wVersionRequested;
+      WSADATA wsaData;
+      int err;
 
-    wVersionRequested = MAKEWORD( 2, 2 );
-    err = WSAStartup ( wVersionRequested, &wsaData );
-    if ( err != 0 )
-    {
-      error( "resolvehost: could not initialize winsock library" );
-      return return_value;
-    }
+      wVersionRequested = MAKEWORD ( 2, 2 );
+      err = WSAStartup (wVersionRequested, &wsaData);
+    
+      if (err != 0)
+        {
+          error ("resolvehost: could not initialize winsock library");
+          return return_value;
+        }
 #endif
  
-        type_loaded = true;
+      type_loaded = true;
     }
 
-    // Nothing to do
-    if (args.length () != 1 && args.length () != 2)
+  // Nothing to do
+  if (args.length () != 1 && args.length () != 2)
     {
-        print_usage ();
-        return return_value;
+      print_usage ();
+      return return_value;
     }
 
-    // expects host string
-    if (! args(0).is_string ())
+  // expects host string
+  if (! args (0).is_string ())
     {
-        print_usage ();
-        return return_value;
+      print_usage ();
+      return return_value;
     }
 
-    std::string host = args(0).string_value ();
+  std::string host = args (0).string_value ();
 
-    // optional return type
-    std::string return_type = "both";
+  // optional return type
+  std::string return_type = "both";
 
-    if (args.length () == 2)
+  if (args.length () == 2)
     {
-        if(! args(1).is_string ())
+      if(! args (1).is_string ())
         {
-            print_usage ();
-            return return_value;
+          print_usage ();
+          return return_value;
         }
-        return_type = args(1).string_value ();
-        std::transform (return_type.begin(), return_type.end(), 
-            return_type.begin(), ::tolower);
+      return_type = args (1).string_value ();
 
-        if (return_type != "name" && return_type != "address")
+      std::transform (return_type.begin (), return_type.end (), 
+                      return_type.begin (), ::tolower);
+
+      if (return_type != "name" && return_type != "address")
         {
-            print_usage ();
-            return return_value;
+          print_usage ();
+          return return_value;
         }
     }
 
-    // create addr from ip/looked up ip of value
-    sockaddr_in in;
-    memset (&in,0,sizeof(in));
-    in.sin_family = AF_INET;
+  // create addr from ip/looked up ip of value
+  sockaddr_in in;
 
-    in.sin_addr.s_addr = inet_addr (host.c_str ());
+  memset (&in, 0, sizeof (in));
 
-    if (in.sin_addr.s_addr == INADDR_NONE)
+  in.sin_family = AF_INET;
+  in.sin_addr.s_addr = inet_addr (host.c_str ());
+
+  if (in.sin_addr.s_addr == INADDR_NONE)
     {
-      struct hostent * hostinfo = gethostbyname (host.c_str());
+      struct hostent * hostinfo = gethostbyname (host.c_str ());
       if (hostinfo)
         memcpy (&in.sin_addr, hostinfo->h_addr_list[0], hostinfo->h_length);
     }
  
-    if (in.sin_addr.s_addr == INADDR_NONE)
+  if (in.sin_addr.s_addr == INADDR_NONE)
     {
-      error( "resolvehost: could not lookup IP address" );
+      error ("resolvehost: could not lookup IP address");
       return return_value;
     }
 
-    // we want to look up the name (ie: not only address)
-    if (return_type != "address")
+  // we want to look up the name (ie: not only address)
+  if (return_type != "address")
     {
-        char name[1025];
-        if( getnameinfo ((struct sockaddr *)&in, sizeof(in),
-            name, sizeof(name), NULL, 0, 0) != 0)
+      char name[1025];
+      if( getnameinfo ((struct sockaddr *)&in, sizeof (in),
+                       name, sizeof(name), NULL, 0, 0) != 0)
         {
-            error("resolvehost: error looking up host name : %d - %s\n", 
+          error ("resolvehost: error looking up host name : %d - %s\n", 
                 SOCKETERR, STRSOCKETERR);
         
-            return return_value;
+          return return_value;
         }
-        return_value(0) = name;
+      return_value (0) = name;
     }
 
     // we want the ip address (both or address)
-    if (return_type != "name")
+  if (return_type != "name")
     {
-        std::stringstream n;
-        u_long addr = ntohl (in.sin_addr.s_addr);
-        int b[4];
-        b[0] = (addr>>24)&0xff;
-        b[1] = (addr>>16)&0xff;
-        b[2] = (addr>>8)&0xff;
-        b[3] = (addr>>0)&0xff;
-        n << b[0] << "." << b[1] << "." << b[2] << "." << b[3];
+      std::stringstream n;
+      u_long addr = ntohl (in.sin_addr.s_addr);
+      int b[4];
+      b[0] = (addr>>24)&0xff;
+      b[1] = (addr>>16)&0xff;
+      b[2] = (addr>>8)&0xff;
+      b[3] = (addr>>0)&0xff;
+      n << b[0] << "." << b[1] << "." << b[2] << "." << b[3];
   
-        if (return_type == "both")
-            return_value(1) = n.str ();
-        else
-            return_value(0) = n.str ();
+      if (return_type == "both")
+        return_value (1) = n.str ();
+      else
+        return_value (0) = n.str ();
     }
 
-    return return_value;
+  return return_value;
 #endif
 }
 #if 0
 %!xtest
-%! name = resolvehost("wiki.octave.org");
-%! assert(!isempty(name));
+%! name = resolvehost ("wiki.octave.org");
+%! assert(! isempty (name));
 
 %!xtest
-%! [name, addr] = resolvehost("wiki.octave.org");
-%! assert(!isempty(name));
-%! assert(!isempty(addr));
-%! assert(name, resolvehost("wiki.octave.org", "name"));
-%! assert(addr, resolvehost("wiki.octave.org", "address"));
+%! [name, addr] = resolvehost ("wiki.octave.org");
+%! assert (! isempty (name));
+%! assert (! isempty (addr));
+%! assert (name, resolvehost ("wiki.octave.org", "name"));
+%! assert (addr, resolvehost ("wiki.octave.org", "address"));
 
-%!error <Invalid call to resolvehost> resolvehost();
+%!error <Invalid call to resolvehost> resolvehost ();
 
-%!error <Invalid call to resolvehost> resolvehost(1);
+%!error <Invalid call to resolvehost> resolvehost (1);
 
-%!error <Invalid call to resolvehost> resolvehost("wiki.octave.org", 1);
+%!error <Invalid call to resolvehost> resolvehost ("wiki.octave.org", 1);
 
-%!error <Invalid call to resolvehost> resolvehost("wiki.octave.org", "addr");
+%!error <Invalid call to resolvehost> resolvehost ("wiki.octave.org", "addr");
 
-%!error <Invalid call to resolvehost> resolvehost("wiki.octave.org", "name", 1);
+%!error <Invalid call to resolvehost> resolvehost ("wiki.octave.org", "name", 1);
 
 #endif
