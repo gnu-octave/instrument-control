@@ -14,7 +14,7 @@ Summary of important user-visible changes for instrument-control 0.3.0:
         udp_close
         udp_demo
 
-   ** UDP overload functions for: 
+  ** UDP overload functions for: 
         fprintf
         fread
         fwrite
