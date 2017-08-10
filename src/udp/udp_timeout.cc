@@ -17,15 +17,14 @@
 #include <octave/oct.h>
 
 #ifdef HAVE_CONFIG_H
-#include "../config.h"
+#  include "../config.h"
 #endif
 
 #ifdef BUILD_UDP
-#include "udp_class.h"
-
-static bool type_loaded = false;
+#  include "udp_class.h"
 #endif
 
+// PKG_ADD: autoload ("udp_timeout", "udp.oct");
 DEFUN_DLD (udp_timeout, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} udp_timeout (@var{udp}, @var{timeout})\n \
@@ -40,42 +39,36 @@ If @var{timeout} parameter is omitted, the udp_timeout() shall return current ti
 @end deftypefn")
 {
 #ifndef BUILD_UDP
-    error("udp: Your system doesn't support the UDP interface");
-    return octave_value();
+  error("udp: Your system doesn't support the UDP interface");
+  return octave_value();
 #else
-    if (!type_loaded)
+  if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_udp::static_type_id())
     {
-        octave_udp::register_type();
-        type_loaded = true;
+      print_usage();
+      return octave_value(-1);
     }
 
-    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_udp::static_type_id())
+  octave_udp* udp = NULL;
+
+  const octave_base_value& rep = args(0).get_rep();
+  udp = &((octave_udp &)rep);
+
+  // Setting new timeout
+  if (args.length() > 1)
     {
-        print_usage();
-        return octave_value(-1);
-    }
-
-    octave_udp* udp = NULL;
-
-    const octave_base_value& rep = args(0).get_rep();
-    udp = &((octave_udp &)rep);
-
-    // Setting new timeout
-    if (args.length() > 1)
-    {
-        if ( !(args(1).is_integer_type() || args(1).is_float_type()) )
+      if ( !(args(1).is_integer_type() || args(1).is_float_type()) )
         {
-            print_usage();
-            return octave_value(-1);
+          print_usage();
+          return octave_value(-1);
         }
 
-        udp->set_timeout(args(1).int_value());
+      udp->set_timeout(args(1).int_value());
 
-        return octave_value(); // Should it return by default?
+      return octave_value(); // Should it return by default?
     }
 
-    // Returning current timeout
-    return octave_value(udp->get_timeout());
+  // Returning current timeout
+  return octave_value(udp->get_timeout());
 #endif
 }
 

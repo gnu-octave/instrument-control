@@ -24,71 +24,73 @@
 #include <string>
 
 #ifndef __WIN32__
-#include <netinet/in.h>
+# include <netinet/in.h>
 #else
-#include <winsock2.h>
+# include <winsock2.h>
 #endif
-
-using std::string;
 
 class octave_udp : public octave_base_value
 {
 public:
-    octave_udp();
-    ~octave_udp();
+  octave_udp (void);
+  ~octave_udp (void);
 
-    int write(string);
-    int write(uint8_t *, unsigned int);
+  int write (const std::string &str);
+  int write (uint8_t *buf, unsigned int len);
 
-    int read(uint8_t *, unsigned int, int);
+  int read (uint8_t *buf, unsigned int len, int readtimeout);
 
-    int open(string, int, int);
-    int close();
-    int get_fd();
+  int open (const std::string &address, int port, int localport);
 
-    // Overloaded base functions
-    double udp_value() const { return (double)this->fd; }
+  int close (void);
 
-    virtual double scalar_value (bool frc_str_conv = false) const
+  int get_fd (void) const { return fd; }
+
+  // Overloaded base functions
+  double udp_value (void) const { return (double)fd; }
+
+  virtual double scalar_value (bool frc_str_conv = false) const
     {
-        return (double)this->fd;
+      return (double)fd;
     }
 
-    void print (std::ostream& os, bool pr_as_read_syntax = false);
-    void print (std::ostream& os, bool pr_as_read_syntax = false) const;
-    void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
+  void print (std::ostream& os, bool pr_as_read_syntax = false);
+  void print (std::ostream& os, bool pr_as_read_syntax = false) const;
+  void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
 
-    // Properties
-    bool is_constant (void) const { return true;}
-    bool is_defined (void) const { return true;}
-    bool is_object (void) const { return true;}
+  // Properties
+  bool is_constant (void) const { return true; }
+  bool is_defined (void) const { return true; }
+  bool is_object (void) const { return true; }
 
-    std::string get_name () const;
-    std::string set_name (const std::string &n);
+  std::string get_name (void) const { return name; }
+  std::string set_name (const std::string &);
 
+  std::string get_remote_addr (void) const;
+  std::string set_remote_addr (const std::string &);
 
-    std::string get_remote_addr () const;
-    std::string set_remote_addr (const std::string &s);
+  int get_remote_port (void) const;
+  int set_remote_port (int);
 
-    int get_remote_port () const;
-    int set_remote_port (int p);
+  int get_local_port (void) const;
 
-    int get_local_port () const;
-    bool is_open() const;
-    std::string get_type() const { return "udp"; }
-    std::string get_status() const;
+  bool is_open(void) const;
 
-    int set_timeout(int);
-    int get_timeout();
+  std::string get_type (void) const { return "udp"; }
+
+  std::string get_status (void) const;
+
+  int set_timeout (int);
+  int get_timeout (void) const { return timeout; }
 
 private:
-    int fd;
-    int timeout;
-    std::string name;
-    sockaddr_in remote_addr;
-    sockaddr_in local_addr;
+  int fd;
+  int timeout;
+  std::string name;
+  sockaddr_in remote_addr;
+  sockaddr_in local_addr;
 
-    DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
+  DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 
 #endif

@@ -23,10 +23,9 @@
 
 #ifdef BUILD_UDP
 #include "udp_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("udp_close", "udp.oct");
 DEFUN_DLD (udp_close, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} udp_close (@var{udp})\n \
@@ -40,12 +39,6 @@ Close the interface and release a file descriptor.\n \
     error("udp: Your system doesn't support the UDP interface");
     return octave_value();
 #else
-    if (!type_loaded)
-    {
-        octave_udp::register_type();
-        type_loaded = true;
-    }
-
     if (args.length() != 1 || args(0).type_id() != octave_udp::static_type_id())
     {
         print_usage();

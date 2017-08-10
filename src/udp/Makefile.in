@@ -1,5 +1,5 @@
-OCT := udp.oct udp_timeout.oct udp_write.oct udp_close.oct udp_read.oct __udp_properties__.oct
-OBJ := udp_class.o
+OCT := udp.oct
+OBJ := udp.o udp_timeout.o udp_write.o udp_close.o udp_read.o __udp_properties__.o udp_class.o
 
 MKOCTFILE ?= mkoctfile
 GREP ?= @GREP@

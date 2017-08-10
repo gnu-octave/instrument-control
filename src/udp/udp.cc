@@ -18,15 +18,14 @@
 #include <octave/oct.h>
 
 #ifdef HAVE_CONFIG_H
-#include "../config.h"
+#  include "../config.h"
 #endif
 
 #ifdef BUILD_UDP
-#include "udp_class.h"
-
-static bool type_loaded = false;
+#  include "udp_class.h"
 #endif
 
+// PKG_ADD: autoload ("udp", "udp.oct");
 DEFUN_DLD (udp, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{udp} = } udp ([@var{remoteipaddress}], [@var{remoteport}], [@var{localport}], [@var{timeout}])\n \
@@ -42,113 +41,107 @@ The udp() shall return instance of @var{octave_udp} class as the result @var{udp
 @end deftypefn")
 {
 #ifndef BUILD_UDP
-    error("udp: Your system doesn't support the UDP interface");
-    return octave_value();
+  error("udp: Your system doesn't support the UDP interface");
+  return octave_value();
 #else
-    if (!type_loaded)
+  // Do not open interface if return value is not assigned
+  if (nargout != 1)
     {
-        octave_udp::register_type();
-        type_loaded = true;
+      print_usage();
+      return octave_value();
     }
 
-    // Do not open interface if return value is not assigned
-    if (nargout != 1)
-    {
-        print_usage();
-        return octave_value();
-    }
+  // Default values
+  std::string address("127.0.0.1");
+  int port = 23;
+  int timeout = -1;
+  int localport = 0;
 
-    // Default values
-    string address("127.0.0.1");
-    int port = 23;
-    int timeout = -1;
-    int localport = 0;
-
-    // Parse the function arguments
-    if (args.length() > 0)
+  // Parse the function arguments
+  if (args.length() > 0)
     {
-        if (args(0).is_string())
+      if (args(0).is_string())
         {
-            address = args(0).string_value();
+          address = args(0).string_value();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage();
+          return octave_value();
         }
 
     }
 
-    // is_float_type() is or'ed to allow expression like ("", 123), without user
-    // having to use ("", int32(123)), as we still only take "int_value"
-    if (args.length() > 1)
+  // is_float_type() is or'ed to allow expression like ("", 123), without user
+  // having to use ("", int32(123)), as we still only take "int_value"
+  if (args.length() > 1)
     {
-        if (args(1).is_integer_type() || args(1).is_float_type())
+      if (args(1).is_integer_type() || args(1).is_float_type())
         {
-            port = args(1).int_value();
+          port = args(1).int_value();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage();
+          return octave_value();
         }
     }
 
-    if (args.length() > 2)
+  if (args.length() > 2)
     {
-        if (args(2).is_integer_type() || args(2).is_float_type())
+      if (args(2).is_integer_type() || args(2).is_float_type())
         {
-            localport = args(2).int_value();
+          localport = args(2).int_value();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage();
+          return octave_value();
         }
     }
 
-    if (args.length() > 3)
+  if (args.length() > 3)
     {
-        if (args(3).is_integer_type() || args(3).is_float_type())
+      if (args(3).is_integer_type() || args(3).is_float_type())
         {
-            timeout = args(3).int_value();
+          timeout = args(3).int_value();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage();
+          return octave_value();
         }
     }
 
-    // Open the interface and connect
-    octave_udp* retval = new octave_udp();
+  // Open the interface and connect
+  octave_udp* retval = new octave_udp();
 
-    if (retval->open(address, port, localport) < 0)
+  if (retval->open(address, port, localport) < 0)
     {
-        return octave_value();
+      return octave_value();
     }
 
-    retval->set_timeout(timeout);
+  retval->set_timeout(timeout);
 
-    //retval->flush(2);
+  //retval->flush(2);
 
-    return octave_value(retval);
+  return octave_value(retval);
 #endif
 }
 #if 0
 %!test
-%! #can create default udp object
-%! a = udp();
-%! assert(!isnull(a));
-%! assert(isa(a, 'octave_udp'));
-%! udp_close(a);
+%! # can create default udp object
+%! a = udp ();
+%! assert (! isnull (a));
+%! assert (isa (a, 'octave_udp'));
+%! udp_close (a);
 
-%!error <Invalid call to udp> udp(1)
+%!error <Invalid call to udp> udp (1)
 
 %!test
-%! a = udp('127.0.0.1', 23, 0, 0);
-%! assert(!isnull(a));
-%! udp_close(a);
+%! a = udp ('127.0.0.1', 23, 0, 0);
+%! assert (! isnull (a));
+%! udp_close (a);
 
-%!error <Invalid call to udp> udp('127.0.0.1', 23,0,0,0)
+%!error <Invalid call to udp> udp ('127.0.0.1', 23,0,0,0)
 #endif

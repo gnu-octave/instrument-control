@@ -17,15 +17,14 @@
 #include <octave/oct.h>
 
 #ifdef HAVE_CONFIG_H
-#include "../config.h"
+#  include "../config.h"
 #endif
 
 #ifdef BUILD_UDP
-#include "udp_class.h"
-
-static bool type_loaded = false;
+#  include "udp_class.h"
 #endif
 
+// PKG_ADD: autoload ("udp_write", "udp.oct");
 DEFUN_DLD (udp_write, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{n} = } udp_write (@var{udp}, @var{data})\n \
@@ -39,88 +38,82 @@ Upon successful completion, udp_write() shall return the number of bytes written
 @end deftypefn")
 {
 #ifndef BUILD_UDP
-    error("udp: Your system doesn't support the UDP interface");
-    return octave_value();
+  error("udp: Your system doesn't support the UDP interface");
+  return octave_value();
 #else
-    if (!type_loaded)
+  if (args.length() != 2 || args(0).type_id() != octave_udp::static_type_id())
     {
-        octave_udp::register_type();
-        type_loaded = true;
+      print_usage();
+      return octave_value(-1);
     }
 
-    if (args.length() != 2 || args(0).type_id() != octave_udp::static_type_id())
+  octave_udp *udp = NULL;
+  int retval;
+
+  const octave_base_value& rep = args(0).get_rep();
+  udp = &((octave_udp &)rep);
+
+  if (args(1).is_string()) // String
     {
-        print_usage();
-        return octave_value(-1);
+      retval = udp->write(args(1).string_value());
     }
-
-    octave_udp *udp = NULL;
-    int retval;
-
-    const octave_base_value& rep = args(0).get_rep();
-    udp = &((octave_udp &)rep);
-
-    if (args(1).is_string()) // String
+  else if (args(1).is_uint8_type ())
     {
-        retval = udp->write(args(1).string_value());
-    }
-    else if (args(1).is_uint8_type ())
-    {
-        NDArray data = args(1).array_value();
-        uint8_t *buf = NULL;
-        buf = new uint8_t[data.numel()];
+      NDArray data = args(1).array_value();
+      uint8_t *buf = NULL;
+      buf = new uint8_t[data.numel()];
 
-        // memcpy?
-        if (buf == NULL)
+      // memcpy?
+      if (buf == NULL)
         {
-            error("udp_write: cannot allocate requested memory");
-            return octave_value(-1);
+          error("udp_write: cannot allocate requested memory");
+          return octave_value(-1);
         }
 
-        for (int i = 0; i < data.numel(); i++)
-            buf[i] = static_cast<uint8_t>(data(i));
+      for (int i = 0; i < data.numel(); i++)
+        buf[i] = static_cast<uint8_t>(data(i));
 
-        retval = udp->write(buf, data.numel());
+      retval = udp->write(buf, data.numel());
 
-        delete[] buf;
+      delete[] buf;
     }
-    else
+  else
     {
-        print_usage();
-        return octave_value(-1);
+      print_usage();
+      return octave_value(-1);
     }
 
-    return octave_value(retval);
+  return octave_value(retval);
 #endif
 }
 
 #if 0
 %!test
-%! a = udp();
-%! b = udp();
-%! p = get(a, 'localport');
-%! set(b, 'remoteport', p);
-%! p = get(b, 'localport');
-%! set(a, 'remoteport', p);
-%! assert(5, udp_write(a, uint8([104  101  108  108  111])));
-%! [d, c] = udp_read(b, 5, 1000);
-%! assert(c, 5);
-%! assert(d, uint8([104  101  108  108  111]));
-%! udp_close(a);
-%! udp_close(b);
+%! a = udp ();
+%! b = udp ();
+%! p = get (a, 'localport');
+%! set (b, 'remoteport', p);
+%! p = get (b, 'localport');
+%! set (a, 'remoteport', p);
+%! assert (5, udp_write (a, uint8 ([104  101  108  108  111])));
+%! [d, c] = udp_read (b, 5, 1000);
+%! assert (c, 5);
+%! assert (d, uint8 ([104  101  108  108  111]));
+%! udp_close (a);
+%! udp_close (b);
 
-%!error <Invalid call to udp_write> udp_write(1, uint8([104  101  108  108  111]))
+%!error <Invalid call to udp_write> udp_write (1, uint8([104  101  108  108  111]))
 
-%!error <Invalid call to udp_write> udp_write()
-
-%!test
-%! a = udp();
-%! fail ("udp_write(a, uint8([104  101  108  108  111]), 0)", "Invalid call to udp_write")
-%! udp_close(a);
+%!error <Invalid call to udp_write> udp_write ()
 
 %!test
-%! a = udp();
-%! fail ("udp_write(a)", "Invalid call to udp_write")
-%! udp_close(a);
+%! a = udp ();
+%! fail ("udp_write (a, uint8([104  101  108  108  111]), 0)", "Invalid call to udp_write")
+%! udp_close (a);
+
+%!test
+%! a = udp ();
+%! fail ("udp_write (a)", "Invalid call to udp_write")
+%! udp_close (a);
 #endif
 
