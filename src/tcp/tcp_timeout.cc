@@ -22,10 +22,9 @@
 
 #ifdef BUILD_TCP
 #include "tcp_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("tcp_timeout", "tcp.oct");
 DEFUN_DLD (tcp_timeout, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} tcp_timeout (@var{tcp}, @var{timeout})\n \
@@ -40,41 +39,35 @@ If @var{timeout} parameter is omitted, the tcp_timeout() shall return current ti
 @end deftypefn")
 {
 #ifndef BUILD_TCP
-    error("tcp: Your system doesn't support the TCP interface");
-    return octave_value();
+  error("tcp: Your system doesn't support the TCP interface");
+  return octave_value();
 #else
-    if (!type_loaded)
+  if (args.length () < 1 || args.length () > 2 || args (0).type_id () != octave_tcp::static_type_id ())
     {
-        octave_tcp::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_tcp::static_type_id())
+  octave_tcp* tcp = NULL;
+
+  const octave_base_value& rep = args (0).get_rep ();
+  tcp = &((octave_tcp &)rep);
+
+  // Setting new timeout
+  if (args.length () > 1)
     {
-        print_usage();
-        return octave_value(-1);
-    }
-
-    octave_tcp* tcp = NULL;
-
-    const octave_base_value& rep = args(0).get_rep();
-    tcp = &((octave_tcp &)rep);
-
-    // Setting new timeout
-    if (args.length() > 1)
-    {
-        if ( !(args(1).is_integer_type() || args(1).is_float_type()) )
+      if ( !(args (1).is_integer_type () || args (1).is_float_type ()) )
         {
-            print_usage();
-            return octave_value(-1);
+          print_usage ();
+          return octave_value (-1);
         }
 
-        tcp->set_timeout(args(1).int_value());
+      tcp->set_timeout (args (1).int_value ());
 
-        return octave_value(); // Should it return by default?
+      return octave_value (); // Should it return by default?
     }
 
-    // Returning current timeout
-    return octave_value(tcp->get_timeout());
+  // Returning current timeout
+  return octave_value (tcp->get_timeout ());
 #endif
 }

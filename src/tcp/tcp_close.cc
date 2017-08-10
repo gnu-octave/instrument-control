@@ -22,10 +22,9 @@
 
 #ifdef BUILD_TCP
 #include "tcp_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("tcp_close", "tcp.oct");
 DEFUN_DLD (tcp_close, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} tcp_close (@var{tcp})\n \
@@ -36,38 +35,33 @@ Close the interface and release a file descriptor.\n \
 @end deftypefn")
 {
 #ifndef BUILD_TCP
-    error("tcp: Your system doesn't support the TCP interface");
-    return octave_value();
+  error ("tcp: Your system doesn't support the TCP interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+
+  if (args.length () != 1 || args (0).type_id () != octave_tcp::static_type_id ())
     {
-        octave_tcp::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() != 1 || args(0).type_id() != octave_tcp::static_type_id())
-    {
-        print_usage();
-        return octave_value(-1);
-    }
+  octave_tcp* tcp = NULL;
 
-    octave_tcp* tcp = NULL;
+  const octave_base_value& rep = args (0).get_rep ();
+  tcp = &((octave_tcp &)rep);
 
-    const octave_base_value& rep = args(0).get_rep();
-    tcp = &((octave_tcp &)rep);
+  tcp->close ();
 
-    tcp->close();
-
-    return octave_value();
+  return octave_value ();
 #endif
 }
 #if 0
 %!test
-%! addr = resolvehost('gnu.org', 'address');
-%! a = tcp(addr, 80);;
-%! tcp_close(a);
+%! addr = resolvehost ('gnu.org', 'address');
+%! a = tcp (addr, 80);
+%! tcp_close (a);
 
-%!error <Invalid call to tcp_close> tcp_close(1)
+%!error <Invalid call to tcp_close> tcp_close (1)
 
-%!error <Invalid call to tcp_close> tcp_close()
+%!error <Invalid call to tcp_close> tcp_close ()
 #endif

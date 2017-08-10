@@ -22,10 +22,9 @@
 
 #ifdef BUILD_TCP
 #include "tcp_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("tcp_write", "tcp.oct");
 DEFUN_DLD (tcp_write, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{n} = } tcp_write (@var{tcp}, @var{data})\n \
@@ -39,58 +38,52 @@ Upon successful completion, tcp_write() shall return the number of bytes written
 @end deftypefn")
 {
 #ifndef BUILD_TCP
-    error("tcp: Your system doesn't support the TCP interface");
-    return octave_value();
+  error("tcp: Your system doesn't support the TCP interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+  if (args.length () != 2 || args (0).type_id () != octave_tcp::static_type_id ())
     {
-        octave_tcp::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() != 2 || args(0).type_id() != octave_tcp::static_type_id())
+  octave_tcp *tcp = NULL;
+  int retval;
+
+  const octave_base_value& rep = args (0).get_rep ();
+  tcp = &((octave_tcp &)rep);
+
+  if (args (1).is_string ()) // String
     {
-        print_usage();
-        return octave_value(-1);
+      retval = tcp->write (args (1).string_value ());
     }
-
-    octave_tcp *tcp = NULL;
-    int retval;
-
-    const octave_base_value& rep = args(0).get_rep();
-    tcp = &((octave_tcp &)rep);
-
-    if (args(1).is_string()) // String
+  else if (args (1).is_uint8_type ())
     {
-        retval = tcp->write(args(1).string_value());
-    }
-    else if (args(1).is_uint8_type ())
-    {
-        NDArray data = args(1).array_value();
-        uint8_t *buf = NULL;
-        buf = new uint8_t[data.numel()];
+      NDArray data = args (1).array_value ();
+      uint8_t *buf = NULL;
+      buf = new uint8_t[data.numel ()];
 
-        // memcpy?
-        if (buf == NULL)
+      // memcpy?
+      if (buf == NULL)
         {
-            error("tcp_write: cannot allocate requested memory");
-            return octave_value(-1);
+          error ("tcp_write: cannot allocate requested memory");
+          return octave_value (-1);
         }
 
-        for (int i = 0; i < data.numel(); i++)
-            buf[i] = static_cast<uint8_t>(data(i));
+      for (int i = 0; i < data.numel (); i++)
+        buf[i] = static_cast<uint8_t>(data(i));
 
-        retval = tcp->write(buf, data.numel());
+      retval = tcp->write (buf, data.numel ());
 
-        delete[] buf;
+      delete[] buf;
     }
-    else
+  else
     {
-        print_usage();
-        return octave_value(-1);
+      print_usage ();
+      return octave_value (-1);
     }
 
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }
 
@@ -100,14 +93,14 @@ Upon successful completion, tcp_write() shall return the number of bytes written
 %!error <Invalid call to tcp_write> tcp_write()
 
 %!test
-%! addr = resolvehost('gnu.org', 'address');
-%! a = tcp(addr, 80);;
+%! addr = resolvehost ('gnu.org', 'address');
+%! a = tcp (addr, 80);;
 %! # call HTTP HEAD
 %! req = "HEAD / HTTP/1.1\r\n\r\n";
-%! assert(length(req), tcp_write(a, req));
-%! [d, c] = tcp_read(a, 12, 5000);
-%! tcp_close(a);
-%! assert(12, c);
-%! assert(c, length(d));
+%! assert (length (req), tcp_write (a, req));
+%! [d, c] = tcp_read (a, 12, 5000);
+%! tcp_close (a);
+%! assert (12, c);
+%! assert (c, length (d));
 #endif
 

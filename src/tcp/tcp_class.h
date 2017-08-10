@@ -22,49 +22,46 @@
 
 #include <string>
 
-using std::string;
-
 class octave_tcp : public octave_base_value
 {
 public:
-    octave_tcp();
-    ~octave_tcp();
+  octave_tcp (void);
+  ~octave_tcp (void);
 
-    int write(string);
-    int write(uint8_t *, unsigned int);
+  int write (const std::string &);
+  int write (uint8_t *, unsigned int);
 
-    int read(uint8_t *, unsigned int, int);
+  int read (uint8_t *, unsigned int, int);
 
-    int open(string, int);
-    int close();
-    int get_fd();
+  int open (const std::string &, int);
+  int close (void);
+  int get_fd (void) const { return fd; }
 
-    int set_timeout(int);
-    int get_timeout();
+  int set_timeout (int);
+  int get_timeout (void) const { return timeout; }
 
-    // Overloaded base functions
-    double tcp_value() const { return (double)this->fd; }
+  // Overloaded base functions
+  double tcp_value (void) const { return (double)fd; }
 
-    virtual double scalar_value (bool frc_str_conv = false) const
+  virtual double scalar_value (bool frc_str_conv = false) const
     {
-        return (double)this->fd;
+        return (double)fd;
     }
 
-    void print (std::ostream& os, bool pr_as_read_syntax = false);
-    void print (std::ostream& os, bool pr_as_read_syntax = false) const;
-    void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
+  void print (std::ostream& os, bool pr_as_read_syntax = false);
+  void print (std::ostream& os, bool pr_as_read_syntax = false) const;
+  void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
 
-    // Properties
-    bool is_constant (void) const { return true;}
-    bool is_defined (void) const { return true;}
-    bool print_as_scalar (void) const { return true;}
-
+  // Properties
+  bool is_constant (void) const { return true;}
+  bool is_defined (void) const { return true;}
+  bool print_as_scalar (void) const { return true;}
 
 private:
-    int fd;
-    int timeout;
+  int fd;
+  int timeout;
 
-    DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
+  DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 
 #endif

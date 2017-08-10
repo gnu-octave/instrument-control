@@ -17,15 +17,14 @@
 #include <octave/oct.h>
 
 #ifdef HAVE_CONFIG_H
-#include "../config.h"
+#  include "../config.h"
 #endif
 
 #ifdef BUILD_TCP
-#include "tcp_class.h"
-
-static bool type_loaded = false;
+#  include "tcp_class.h"
 #endif
 
+// PKG_ADD: autoload ("tcp", "tcp.oct");
 DEFUN_DLD (tcp, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{tcp} = } tcp ([@var{ipaddress}], [@var{port}], [@var{timeout}])\n \
@@ -40,96 +39,89 @@ The tcp() shall return instance of @var{octave_tcp} class as the result @var{tcp
 @end deftypefn")
 {
 #ifndef BUILD_TCP
-    error("tcp: Your system doesn't support the TCP interface");
-    return octave_value();
+  error("tcp: Your system doesn't support the TCP interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+  // Do not open interface if return value is not assigned
+  if (nargout != 1)
     {
-        octave_tcp::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value ();
     }
 
-    // Do not open interface if return value is not assigned
-    if (nargout != 1)
+  // Default values
+  std::string address ("127.0.0.1");
+  int port = 23;
+  int timeout = -1;
+
+  // Parse the function arguments
+  if (args.length () > 0)
     {
-        print_usage();
-        return octave_value();
-    }
-
-    // Default values
-    string address("127.0.0.1");
-    int port = 23;
-    int timeout = -1;
-
-    // Parse the function arguments
-    if (args.length() > 0)
-    {
-        if (args(0).is_string())
+      if (args (0).is_string ())
         {
-            address = args(0).string_value();
+          address = args (0).string_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
-
     }
 
     // is_float_type() is or'ed to allow expression like ("", 123), without user
     // having to use ("", int32(123)), as we still only take "int_value"
-    if (args.length() > 1)
+  if (args.length () > 1)
     {
-        if (args(1).is_integer_type() || args(1).is_float_type())
+      if (args (1).is_integer_type () || args (1).is_float_type ())
         {
-            port = args(1).int_value();
+          port = args (1).int_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
     }
 
-    if (args.length() > 2)
+  if (args.length () > 2)
     {
-        if (args(2).is_integer_type() || args(2).is_float_type())
+      if (args (2).is_integer_type () || args (2).is_float_type ())
         {
-            timeout = args(2).int_value();
+          timeout = args (2).int_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
     }
 
-    // Open the interface and connect
-    octave_tcp* retval = new octave_tcp();
+  // Open the interface and connect
+  octave_tcp* retval = new octave_tcp ();
 
-    if (retval->open(address, port) < 0)
+  if (retval->open (address, port) < 0)
     {
-        return octave_value();
+      return octave_value ();
     }
 
-    retval->set_timeout(timeout);
+  retval->set_timeout (timeout);
 
-    //retval->flush(2);
+  //retval->flush (2);
 
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }
 
 #if 0
 %!test
-%! addr = resolvehost('gnu.org', 'address');
-%! a = tcp(addr, 80);;
-%! assert(!isnull(a));
-%! assert(isa(a, 'octave_tcp'));
-%! tcp_close(a);
+%! addr = resolvehost ('gnu.org', 'address');
+%! a = tcp (addr, 80);
+%! assert (! isnull (a));
+%! assert (isa (a, 'octave_tcp'));
+%! tcp_close (a);
 
-%!error <Invalid call to tcp> tcp(1)
+%!error <Invalid call to tcp> tcp (1)
 
-%!error <Invalid call to tcp> tcp(1, 1)
+%!error <Invalid call to tcp> tcp (1, 1)
 
 #endif
