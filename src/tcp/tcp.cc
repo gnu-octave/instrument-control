@@ -72,7 +72,7 @@ The tcp() shall return instance of @var{octave_tcp} class as the result @var{tcp
     // having to use ("", int32(123)), as we still only take "int_value"
   if (args.length () > 1)
     {
-      if (args (1).is_integer_type () || args (1).is_float_type ())
+      if (args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ())
         {
           port = args (1).int_value ();
         }
@@ -85,7 +85,7 @@ The tcp() shall return instance of @var{octave_tcp} class as the result @var{tcp
 
   if (args.length () > 2)
     {
-      if (args (2).is_integer_type () || args (2).is_float_type ())
+      if (args (2).OV_ISINTEGER () || args (2).OV_ISFLOAT ())
         {
           timeout = args (2).int_value ();
         }

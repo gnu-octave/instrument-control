@@ -82,7 +82,7 @@ The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c
     // having to use ("", int32(123)), as we still only take "int_value"
     if (args.length() > 1)
     {
-        if (args(1).is_integer_type() || args(1).is_float_type())
+        if (args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT())
         {
             addr = args(1).int_value();
         }

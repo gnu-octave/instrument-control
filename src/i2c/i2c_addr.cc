@@ -65,7 +65,7 @@ current i2c slave device address as the result @var{addr}.\n \
     // Setting new slave address
     if (args.length() > 1)
     {
-        if ( !(args(1).is_integer_type() || args(1).is_float_type()) )
+        if ( !(args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT()) )
         {
             print_usage();
             return octave_value(-1);

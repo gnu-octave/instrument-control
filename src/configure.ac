@@ -5,6 +5,8 @@ AC_PREREQ([2.67])
 AC_INIT([octave instrument control package], [0.0.0+])
 AC_CONFIG_HEADERS([config.h])
 
+AC_CONFIG_MACRO_DIRS([m4])
+
 # Checks for programs.
 AC_PROG_CXX
 AC_LANG(C++)
@@ -19,39 +21,65 @@ fi
 
 AC_PROG_GREP
 
-# check for octave namespaces on some changing functions
-
-AC_DEFUN([CHECK_OCTAVE_NAMESPACE], [
-AC_MSG_CHECKING([whether $1 is in the octave namespace])
-save_$1_CXX="$CXX"
-save_$1_CXXFLAGS="$CXXFLAGS"
+## Simple symbol alternatives of different Octave versions.
+save_altsyms_CXX="$CXX"
+save_altsyms_CXXFLAGS="$CXXFLAGS"
+save_altsyms_LDFLAGS="$LDFLAGS"
+save_altsyms_LIBS="$LIBS"
+OCTINCLUDEDIR=${OCTINCLUDEDIR:-`$MKOCTFILE -p INCFLAGS`}
+OCTLIBDIR=${OCTLIBDIR:-`$MKOCTFILE -p OCTLIBDIR`}
 CXX=`${MKOCTFILE} -p CXX`
-CXXFLAGS="$CXXFLAGS -I`$MKOCTFILE -p OCTINCLUDEDIR`"
-  AC_COMPILE_IFELSE(
-    [AC_LANG_PROGRAM([[#include <oct.h>]
-                      [#include <octave.h>]
-                      $3],
-                     [octave::$1($2)])],
-    [ac_have_$1_in_octave_namespace=yes],
-    [ac_have_$1_in_octave_namespace=no]
-)
-CC=$save_$1_CXX
-CXXFLAGS=$save_$1_CXXFLAGS
-sub_$1=`echo translit([HAVE_$1_IN_OCTAVE_NAMESPACE],[a-z],[A-Z])`
-if test "$ac_have_$1_in_octave_namespace" = "yes"; then
-   AC_MSG_RESULT(yes)
-   result=1
-   $4
-else
-   AC_MSG_RESULT(no)
-   result=0
-   $5
-fi
-  AC_SUBST(translit([HAVE_$1_IN_OCTAVE_NAMESPACE],[a-z],[A-Z]), $result)
-])
+CXXFLAGS="$OCTINCLUDEDIR $CXXFLAGS"
+LDFLAGS="-L$OCTLIBDIR $LDFLAGS"
+LIBS="-loctinterp $LIBS"
 
-CHECK_OCTAVE_NAMESPACE([install_signal_handlers],[],[#include <sighandlers.h>])
-CHECK_OCTAVE_NAMESPACE([set_signal_handler],[SIGINT, 0],[#include <sighandlers.h>])
+OF_OCTAVE_LIST_ALT_SYMS([
+[dnl
+  [is_float_type],
+  [isfloat],
+  [[octave_value ().isfloat ();]],
+  [OV_ISFLOAT],
+  [],
+  []
+],
+
+[dnl
+  [is_integer_type],
+  [isinteger],
+  [[octave_value ().isinteger ();]],
+  [OV_ISINTEGER],
+  [],
+  []
+],
+
+[dnl
+  [octave_install_signal_handlers],
+  [octave::install_signal_handlers],
+  [[octave::install_signal_handlers();]],
+  [OCTAVE__INSTALL_SIGNAL_HANDLERS],
+  [[#include <sighandlers.h>],
+   [#include <octave.h>]
+  ],
+  [[#include <sighandlers.h>]
+   [#include <octave.h>]
+  ]
+],
+
+[dnl
+  [octave_set_signal_handler],
+  [octave::set_signal_handler],
+  [[octave::set_signal_handler(SIGINT, 0);]],
+  [OCTAVE__SET_SIGNAL_HANDLER],
+  [[#include <sighandlers.h>]],
+  [[#include <sighandlers.h>]]
+]
+
+],[oct-alt-includes.h])
+
+CC=$save_alsyms_CXX
+CXXFLAGS=$save_altsyms_CXXFLAGS
+LDFLAGS=$save_altsyms_LDFLAGS
+LIBS=$save_altsyms_LIBS
 
 build_parallel=no
 build_serial=no
@@ -213,7 +241,7 @@ fi
 
 # all done
 
-AC_CONFIG_FILES([octave-wrappers.h Makefile gpib/Makefile tcp/Makefile udp/Makefile vxi11/Makefile usbtmc/Makefile serial/Makefile parallel/Makefile i2c/Makefile resolvehost/Makefile])
+AC_CONFIG_FILES([Makefile gpib/Makefile tcp/Makefile udp/Makefile vxi11/Makefile usbtmc/Makefile serial/Makefile parallel/Makefile i2c/Makefile resolvehost/Makefile])
 AC_OUTPUT
 
 AC_MSG_NOTICE([

@@ -45,7 +45,7 @@ octave_value_list srl_flush (octave_serial* serial, const octave_value_list& arg
     
   if (args.length() > 0)
     {
-      if (!(args(0).is_integer_type() || args(0).is_float_type()))
+      if (!(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()))
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
       queue_selector = args(0).int_value();
@@ -64,7 +64,7 @@ octave_value_list srl_timeout (octave_serial* serial, const octave_value_list& a
   // Setting new timeout
   if (args.length() > 0)
     {
-      if ( !(args(0).is_integer_type() || args(0).is_float_type()) )
+      if ( !(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()) )
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
       serial->set_timeout(args(0).int_value());
@@ -84,7 +84,7 @@ octave_value_list srl_baudrate (octave_serial* serial, const octave_value_list& 
   // Setting new baudrate
   if (args.length() > 0)
     {
-      if ( !(args(0).is_integer_type() || args(0).is_float_type()) )
+      if ( !(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()) )
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
       serial->set_baudrate(args(0).int_value());
@@ -104,7 +104,7 @@ octave_value_list srl_bytesize (octave_serial* serial, const octave_value_list& 
   // Setting new byte size
   if (args.length() > 0)
     {
-      if ( !(args(0).is_integer_type() || args(0).is_float_type()) )
+      if ( !(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()) )
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
       serial->set_bytesize(args(0).int_value());
@@ -124,7 +124,7 @@ octave_value_list srl_stopbits (octave_serial* serial, const octave_value_list& 
   // Setting new stop bits
   if (args.length() > 0)
     {
-      if ( !(args(0).is_integer_type() || args(0).is_float_type()) )
+      if ( !(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()) )
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
       serial->set_stopbits(args(0).int_value());

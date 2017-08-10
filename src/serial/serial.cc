@@ -86,11 +86,11 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
 
     path = args(0).string_value ();
 
-    // is_float_type() is or'ed to allow expression like ("", 123), without user
+    // isfloat() is or'ed to allow expression like ("", 123), without user
     // having to use ("", int32(123)), as we still only take "int_value"
     if (args.length() > 1)
     {
-        if (args(1).is_integer_type() || args(1).is_float_type())
+        if (args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT())
         {
             baud_rate = args(1).int_value();
         }
@@ -103,7 +103,7 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
 
     if (args.length() > 2)
     {
-        if (args(2).is_integer_type() || args(2).is_float_type())
+        if (args(2).OV_ISINTEGER() || args(2).OV_ISFLOAT())
         {
             timeout = args(2).int_value();
         }

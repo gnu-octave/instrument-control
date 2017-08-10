@@ -27,8 +27,6 @@
 
 #include "serial_class.h"
 
-#include "../octave-wrappers.h"
-
 extern bool read_interrupt;
 static bool type_loaded = false;
 
@@ -69,7 +67,7 @@ The srl_read() shall return number of bytes successfully read in @var{count} as 
 
     unsigned int buffer_len = 0;
 
-    if ( !(args(1).is_integer_type() || args(1).is_float_type()) )
+    if ( !(args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT()) )
     {
         print_usage();
         return octave_value(-1);
@@ -92,7 +90,7 @@ The srl_read() shall return number of bytes successfully read in @var{count} as 
     serial = &((octave_serial &)rep);
 
     // Register custom interrupt signal handler
-    instrument_control::set_signal_handler(SIGINT, read_sighandler);
+    OCTAVE__SET_SIGNAL_HANDLER(SIGINT, read_sighandler);
     read_interrupt = false;
     
     // Read data
@@ -100,7 +98,7 @@ The srl_read() shall return number of bytes successfully read in @var{count} as 
 
     // Restore default signal handling
     // TODO: a better way? 
-    instrument_control::install_signal_handlers();
+    OCTAVE__INSTALL_SIGNAL_HANDLERS();
     
     // Convert data to octave type variables
     octave_value_list return_list;

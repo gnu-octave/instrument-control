@@ -70,7 +70,7 @@ The gpib() shall return instance of @var{octave_gpib} class as the result @var{g
     // Parse the function arguments
     if (args.length() > 0)
     {
-        if (args(0).is_integer_type() || args(0).is_float_type())
+        if (args(0).OV_ISINTEGER () || args(0).OV_ISFLOAT ())
         {
             gpibid = args(0).int_value();
         }
@@ -90,7 +90,7 @@ The gpib() shall return instance of @var{octave_gpib} class as the result @var{g
     // having to use ("", int32(123)), as we still only take "int_value"
     if (args.length() > 1)
     {
-        if (args(1).is_integer_type() || args(1).is_float_type())
+        if (args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT ())
         {
             timeout = args(1).int_value();
         }

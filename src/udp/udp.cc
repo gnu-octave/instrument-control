@@ -76,7 +76,7 @@ The udp() shall return instance of @var{octave_udp} class as the result @var{udp
   // having to use ("", int32(123)), as we still only take "int_value"
   if (args.length() > 1)
     {
-      if (args(1).is_integer_type() || args(1).is_float_type())
+      if (args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT())
         {
           port = args(1).int_value();
         }
@@ -89,7 +89,7 @@ The udp() shall return instance of @var{octave_udp} class as the result @var{udp
 
   if (args.length() > 2)
     {
-      if (args(2).is_integer_type() || args(2).is_float_type())
+      if (args(2).OV_ISINTEGER() || args(2).OV_ISFLOAT())
         {
           localport = args(2).int_value();
         }
@@ -102,7 +102,7 @@ The udp() shall return instance of @var{octave_udp} class as the result @var{udp
 
   if (args.length() > 3)
     {
-      if (args(3).is_integer_type() || args(3).is_float_type())
+      if (args(3).OV_ISINTEGER() || args(3).OV_ISFLOAT())
         {
           timeout = args(3).int_value();
         }

@@ -28,8 +28,6 @@
 
 #include "tcp_class.h"
 
-#include "../octave-wrappers.h"
-
 extern bool read_interrupt;
 
 void read_sighandler (int sig)
@@ -66,7 +64,7 @@ The tcp_read() shall return number of bytes successfully read in @var{count} as 
 
   unsigned int buffer_len = 0;
 
-  if ( !(args (1).is_integer_type () || args (1).is_float_type ()))
+  if ( !(args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ()))
     {
       print_usage ();
       return octave_value (-1);
@@ -74,7 +72,7 @@ The tcp_read() shall return number of bytes successfully read in @var{count} as 
 
   if ( args.length () > 2 )
     {
-      if ( !(args (2).is_integer_type () || args (2).is_float_type ()))
+      if ( !(args (2).OV_ISINTEGER () || args (2).OV_ISFLOAT ()))
         {
           print_usage ();
           return octave_value (-1);
@@ -104,7 +102,7 @@ The tcp_read() shall return number of bytes successfully read in @var{count} as 
     }
 
   // Register custom interrupt signal handler
-  instrument_control::set_signal_handler (SIGINT, read_sighandler);
+  OCTAVE__SET_SIGNAL_HANDLER (SIGINT, read_sighandler);
   read_interrupt = false;
 
   // Read data
@@ -112,7 +110,7 @@ The tcp_read() shall return number of bytes successfully read in @var{count} as 
 
   // Restore default signal handling
   // TODO: a better way?
-  instrument_control::install_signal_handlers ();
+  OCTAVE__INSTALL_SIGNAL_HANDLERS ();
 
   // Convert data to octave type variables
   octave_value_list return_list;

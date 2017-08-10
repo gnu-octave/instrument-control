@@ -62,7 +62,7 @@ If @var{ctrl} parameter is omitted, the pp_ctrl() shall return current Control l
     // Set new Control register value
     if (args.length() > 1)
     {
-        if ( !(args(1).is_integer_type() || args(1).is_float_type()) )
+        if ( !(args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT()) )
         {
             print_usage();
             return octave_value(-1);
