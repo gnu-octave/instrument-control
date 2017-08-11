@@ -13,10 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
-#ifdef HAVE_CONFIG_H
-#include "../config.h"
-#endif
-
 #ifdef BUILD_PARALLEL
 #include <octave/oct.h>
 #include <octave/ov-int32.h>
@@ -56,6 +52,10 @@
 #endif
 
 using std::string;
+
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
 
 #include "parallel_class.h"
 

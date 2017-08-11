@@ -5,6 +5,10 @@ AC_PREREQ([2.67])
 AC_INIT([octave instrument control package], [0.0.0+])
 AC_CONFIG_HEADERS([config.h])
 
+# Avoid warnings for redefining AH-generated preprocessor symbols of
+# Octave.
+AH_TOP([#include "undef-ah-octave.h"])
+
 AC_CONFIG_MACRO_DIRS([m4])
 
 # Checks for programs.
@@ -53,15 +57,15 @@ OF_OCTAVE_LIST_ALT_SYMS([
 ],
 
 [dnl
-  [octave_install_signal_handlers],
+  [install_signal_handlers],
   [octave::install_signal_handlers],
   [[octave::install_signal_handlers();]],
   [OCTAVE__INSTALL_SIGNAL_HANDLERS],
-  [[#include <sighandlers.h>],
-   [#include <octave.h>]
+  [[#include <octave/sighandlers.h>]
+   [#include <octave/octave.h>]
   ],
-  [[#include <sighandlers.h>]
-   [#include <octave.h>]
+  [[#include <octave/sighandlers.h>]
+   [#include <octave/octave.h>]
   ]
 ],
 
@@ -70,8 +74,8 @@ OF_OCTAVE_LIST_ALT_SYMS([
   [octave::set_signal_handler],
   [[octave::set_signal_handler(SIGINT, 0);]],
   [OCTAVE__SET_SIGNAL_HANDLER],
-  [[#include <sighandlers.h>]],
-  [[#include <sighandlers.h>]]
+  [[#include <octave/sighandlers.h>]],
+  [[#include <octave/sighandlers.h>]]
 ]
 
 ],[oct-alt-includes.h])
