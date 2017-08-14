@@ -23,13 +23,10 @@
 #ifdef BUILD_USBTMC
 #include <fcntl.h>
 
-using std::string;
-
 #include "usbtmc_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("usbtmc", "usbtmc.oct");
 DEFUN_DLD (usbtmc, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{usbtmc} = } usbtmc (@var{path})\n \
@@ -42,47 +39,41 @@ The usbtmc() shall return instance of @var{octave_usbtmc} class as the result @v
 @end deftypefn")
 {
 #ifndef BUILD_USBTMC
-    error("usbtmc: Your system doesn't support the USBTMC interface");
-    return octave_value();
+  error ("usbtmc: Your system doesn't support the USBTMC interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+
+  // Do not open interface if return value is not assigned
+  if (nargout != 1)
     {
-        octave_usbtmc::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value ();
     }
 
-    // Do not open interface if return value is not assigned
-    if (nargout != 1)
-    {
-        print_usage();
-        return octave_value();
-    }
+  // Default values
+  int oflags = O_RDWR;
+  std::string path ("/dev/usbtmc0");
 
-    // Default values
-    int oflags = O_RDWR;
-    string path("/dev/usbtmc0");
-
-    // Parse the function arguments
-    if (args.length() > 0)
+  // Parse the function arguments
+  if (args.length () > 0)
     {
-        if (args(0).is_string())
+      if (args (0).is_string ())
         {
-            path = args(0).string_value();
+            path = args (0).string_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
-
     }
 
-    octave_usbtmc* retval = new octave_usbtmc();
+  octave_usbtmc* retval = new octave_usbtmc ();
 
-    // Open the interface
-    if (retval->open(path, oflags) < 0)
-        return octave_value();
+  // Open the interface
+  if (retval->open (path, oflags) < 0)
+    return octave_value ();
 
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }

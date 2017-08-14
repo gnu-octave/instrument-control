@@ -24,10 +24,9 @@
 #include <errno.h>
 
 #include "usbtmc_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("usbtmc_write", "usbtmc.oct");
 DEFUN_DLD (usbtmc_write, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{n} = } usbtmc_write (@var{usbtmc}, @var{data})\n \
@@ -41,59 +40,54 @@ Upon successful completion, usbtmc_write() shall return the number of bytes writ
 @end deftypefn")
 {
 #ifndef BUILD_USBTMC
-    error("usbtmc: Your system doesn't support the USBTMC interface");
-    return octave_value();
+  error ("usbtmc: Your system doesn't support the USBTMC interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+
+  if (args.length () != 2 || args (0).type_id () != octave_usbtmc::static_type_id ())
     {
-        octave_usbtmc::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() != 2 || args(0).type_id() != octave_usbtmc::static_type_id())
+  octave_usbtmc* usbtmc = NULL;
+  int retval;
+
+  const octave_base_value& rep = args (0).get_rep ();
+  usbtmc = &((octave_usbtmc &)rep);
+
+  const octave_base_value& data = args (1).get_rep ();
+
+  if (data.is_string())
     {
-        print_usage();
-        return octave_value(-1);
+      std::string buf = data.string_value ();
+      retval = usbtmc->write ((uint8_t*)buf.c_str (), buf.length ());
     }
-
-    octave_usbtmc* usbtmc = NULL;
-    int retval;
-
-    const octave_base_value& rep = args(0).get_rep();
-    usbtmc = &((octave_usbtmc &)rep);
-
-    const octave_base_value& data = args(1).get_rep();
-
-    if (data.is_string())
+  else if (data.is_uint8_type ())
     {
-        string buf = data.string_value();
-        retval = usbtmc->write((uint8_t*)buf.c_str(), buf.length());
-    }
-    else if (data.is_uint8_type ())
-    {
-        NDArray dtmp = data.array_value();
-        uint8_t *buf = NULL;
-        buf = new uint8_t[dtmp.numel()];
+      NDArray dtmp = data.array_value ();
+      uint8_t *buf = NULL;
+      buf = new uint8_t[dtmp.numel ()];
 
-        if (buf == NULL)
+      if (buf == NULL)
         {
-            error("usbtmc_write: cannot allocate requested memory: %s\n", strerror(errno));
-            return octave_value(-1);
+          error ("usbtmc_write: cannot allocate requested memory: %s\n", strerror (errno));
+          return octave_value (-1);
         }
 
-        for (int i = 0; i < dtmp.numel(); i++)
-            buf[i] = static_cast<uint8_t>(dtmp(i));
+      for (int i = 0; i < dtmp.numel (); i++)
+        buf[i] = static_cast<uint8_t>(dtmp (i));
 
-        retval = usbtmc->write(buf, dtmp.numel());
+        retval = usbtmc->write (buf, dtmp.numel ());
 
         delete[] buf;
     }
-    else
+  else
     {
-        print_usage();
-        return octave_value(-1);
+      print_usage ();
+      return octave_value (-1);
     }
 
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }

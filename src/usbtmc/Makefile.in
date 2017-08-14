@@ -1,5 +1,5 @@
-OCT := usbtmc.oct usbtmc_close.oct usbtmc_write.oct usbtmc_read.oct
-OBJ := usbtmc_class.o
+OCT := usbtmc.oct
+OBJ := usbtmc.o usbtmc_close.o usbtmc_write.o usbtmc_read.o usbtmc_class.o
 
 MKOCTFILE ?= mkoctfile
 

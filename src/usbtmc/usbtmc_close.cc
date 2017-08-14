@@ -22,10 +22,9 @@
 
 #ifdef BUILD_USBTMC
 #include "usbtmc_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("usbtmc_close", "usbtmc.oct");
 DEFUN_DLD (usbtmc_close, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} usbtmc_close (@var{usbtmc})\n \
@@ -36,29 +35,23 @@ Close the interface and release a file descriptor.\n \
 @end deftypefn")
 {
 #ifndef BUILD_USBTMC
-    error("usbtmc: Your system doesn't support the USBTMC interface");
-    return octave_value();
+  error ("usbtmc: Your system doesn't support the USBTMC interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+
+  if (args.length () != 1 || args (0).type_id () != octave_usbtmc::static_type_id ())
     {
-        octave_usbtmc::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
+  octave_usbtmc* usbtmc = NULL;
 
-    if (args.length() != 1 || args(0).type_id() != octave_usbtmc::static_type_id())
-    {
-        print_usage();
-        return octave_value(-1);
-    }
+  const octave_base_value& rep = args (0).get_rep ();
+  usbtmc = &((octave_usbtmc &)rep);
 
-    octave_usbtmc* usbtmc = NULL;
+  usbtmc->close ();
 
-    const octave_base_value& rep = args(0).get_rep();
-    usbtmc = &((octave_usbtmc &)rep);
-
-    usbtmc->close();
-
-    return octave_value();
+  return octave_value ();
 #endif
 }

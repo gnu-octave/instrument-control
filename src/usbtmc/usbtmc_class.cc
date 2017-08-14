@@ -27,99 +27,112 @@
 
 #include <string>
 
-using std::string;
-
 #include "usbtmc_class.h"
 
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_usbtmc, "octave_usbtmc", "octave_usbtmc");
 
-octave_usbtmc::octave_usbtmc()
+octave_usbtmc::octave_usbtmc (void)
+: fd (-1)
 {
-    this->fd = -1;
-}
+  static bool type_registered = false;
 
-octave_usbtmc::~octave_usbtmc()
-{
-    this->close();
-}
-
-int octave_usbtmc::get_fd()
-{
-    return this->fd;
-}
-
-void octave_usbtmc::print (std::ostream& os, bool pr_as_read_syntax)
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_usbtmc::print (std::ostream& os, bool pr_as_read_syntax ) const
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_usbtmc::print_raw (std::ostream& os, bool pr_as_read_syntax) const
-{
-    os << this->fd;
-}
-
-int octave_usbtmc::open(string path, int flags)
-{
-    this->fd = ::open(path.c_str(), flags, 0);
-
-    if (this->get_fd() < 0)
+  if (! type_registered)
     {
-        error("usbtmc: Error opening the interface: %s\n", strerror(errno));
-        return -1;
+      type_registered = true;
+      register_type ();
+    }
+}
+
+octave_usbtmc::~octave_usbtmc (void)
+{
+  octave_usbtmc::close();
+}
+
+int
+octave_usbtmc::get_fd() const
+{
+  return fd;
+}
+
+void
+octave_usbtmc::print (std::ostream& os, bool pr_as_read_syntax)
+{
+  print_raw(os, pr_as_read_syntax);
+  newline(os);
+}
+
+void
+octave_usbtmc::print (std::ostream& os, bool pr_as_read_syntax ) const
+{
+  print_raw(os, pr_as_read_syntax);
+  newline(os);
+}
+
+void
+octave_usbtmc::print_raw (std::ostream& os, bool pr_as_read_syntax) const
+{
+  os << fd;
+}
+
+int
+octave_usbtmc::open (const std::string &path, int flags)
+{
+  fd = ::open (path.c_str (), flags, 0);
+
+  if (get_fd () < 0)
+    {
+      error ("usbtmc: Error opening the interface: %s\n", strerror (errno));
+      return -1;
     }
 
-    return this->get_fd();
+  return get_fd ();
 }
 
-int octave_usbtmc::read(uint8_t *buf, unsigned int len)
+int
+octave_usbtmc::read (uint8_t *buf, unsigned int len)
 {
-    if (this->get_fd() < 0)
+  if (get_fd () < 0)
     {
-        error("usbtmc: Interface must be open first...");
-        return -1;
+      error ("usbtmc: Interface must be open first...");
+      return -1;
     }
 
-    int retval = ::read(get_fd(), buf, len);
+  int retval = ::read (get_fd (), buf, len);
 
-    if (retval < 0)
-        error("usbtmc: Failed to read from the usbtmc bus: %s\n", strerror(errno));
+  if (retval < 0)
+    error ("usbtmc: Failed to read from the usbtmc bus: %s\n", strerror (errno));
 
-    return retval;
+  return retval;
 }
 
-int octave_usbtmc::write(uint8_t *buf, unsigned int len)
+int
+octave_usbtmc::write (uint8_t *buf, unsigned int len)
 {
-    if (this->get_fd() < 0)
+  if (get_fd () < 0)
     {
-        error("usbtmc: Interface must be open first...");
-        return -1;
+      error ("usbtmc: Interface must be open first...");
+      return -1;
     }
 
-    int retval = ::write(get_fd(), buf, len);
+  int retval = ::write (get_fd (), buf, len);
 
-    if (retval < 0)
-        error("usbtmc: Failed to write to the usbtmc bus: %s\n", strerror(errno));
+  if (retval < 0)
+    error("usbtmc: Failed to write to the usbtmc bus: %s\n", strerror(errno));
 
-    return retval;
+  return retval;
 }
 
-int octave_usbtmc::close()
+int
+octave_usbtmc::close (void)
 {
-    int retval = -1;
+  int retval = -1;
 
-    if (this->get_fd() > 0)
+  if (get_fd () > 0)
     {
-        retval = ::close(this->get_fd());
-        this->fd = -1;
+      retval = ::close(get_fd ());
+      fd = -1;
     }
 
-    return retval;
+  return retval;
 }
 #endif

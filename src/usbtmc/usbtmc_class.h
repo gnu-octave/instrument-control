@@ -21,47 +21,45 @@
 
 #include <string>
 
-using std::string;
-
 class octave_usbtmc : public octave_base_value
 {
 public:
-    octave_usbtmc();
-    ~octave_usbtmc();
+  octave_usbtmc (void);
+  ~octave_usbtmc(void);
 
-    int open(string, int);
-    int close();
-    int get_fd();
+  int open(const std::string&, int);
+  int close(void);
+  int get_fd(void) const;
 
-    // Simple usbtmc commands
-    int write(uint8_t*, unsigned int);
-    int read(uint8_t*, unsigned int);
+  // Simple usbtmc commands
+  int write(uint8_t*, unsigned int);
+  int read(uint8_t*, unsigned int);
 
 
-    // Overloaded base functions
-    double usbtmc_value() const
-    {
-        return (double)this->fd;
-    }
+  // Overloaded base functions
+  double usbtmc_value(void) const
+  {
+    return (double)fd;
+  }
 
-    virtual double scalar_value (bool frc_str_conv = false) const
-    {
-        return (double)this->fd;
-    }
+  virtual double scalar_value (bool frc_str_conv = false) const
+  {
+    return (double)fd;
+  }
 
-    void print (std::ostream& os, bool pr_as_read_syntax = false);
-    void print (std::ostream& os, bool pr_as_read_syntax = false) const;
-    void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
+  void print (std::ostream& os, bool pr_as_read_syntax = false);
+  void print (std::ostream& os, bool pr_as_read_syntax = false) const;
+  void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
 
-    // Properties
-    bool is_constant (void) const { return true;}
-    bool is_defined (void) const { return true;}
-    bool print_as_scalar (void) const { return true;}
+  // Properties
+  bool is_constant (void) const { return true;}
+  bool is_defined (void) const { return true;}
+  bool print_as_scalar (void) const { return true;}
 
 private:
-    int fd;
+  int fd;
 
-    DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
+  DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 
 
