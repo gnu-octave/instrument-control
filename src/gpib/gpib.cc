@@ -26,9 +26,9 @@
 
 #include "gpib_class.h"
 
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("gpib", "gpib.oct");
 DEFUN_DLD (gpib, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{gpib} = } gpib ([@var{gpibid}], [@var{timeout}])\n \
@@ -42,76 +42,70 @@ The gpib() shall return instance of @var{octave_gpib} class as the result @var{g
 @end deftypefn")
 {
 #ifndef BUILD_GPIB
-    error("gpib: Your system doesn't support the GPIB interface");
-    return octave_value();
+  error ("gpib: Your system doesn't support the GPIB interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
-    {
-        octave_gpib::register_type();
-        type_loaded = true;
-    }
-
     // Do not open interface if return value is not assigned
-    if (nargout != 1)
+  if (nargout != 1)
     {
-        print_usage();
-        return octave_value();
+      print_usage ();
+      return octave_value ();
     }
 
-    // Default values
-    int gpibid;
-    const int minor = 0;
-    int timeout = -1;
-    const int secid = 0;
-    const int send_eoi = 1;
-    const int eos_mode = 0;
+  // Default values
+  int gpibid;
+  const int minor = 0;
+  int timeout = -1;
+  const int secid = 0;
+  const int send_eoi = 1;
+  const int eos_mode = 0;
 
 
-    // Parse the function arguments
-    if (args.length() > 0)
+  // Parse the function arguments
+  if (args.length() > 0)
     {
-        if (args(0).OV_ISINTEGER () || args(0).OV_ISFLOAT ())
+      if (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT ())
         {
-            gpibid = args(0).int_value();
+            gpibid = args (0).int_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+            print_usage ();
+            return octave_value ();
         }
     }
-    else
+  else
     {
-        print_usage();
-        return octave_value();
+      print_usage ();
+      return octave_value ();
     }
 
-    // is_float_type() is or'ed to allow expression like ("", 123), without user
-    // having to use ("", int32(123)), as we still only take "int_value"
-    if (args.length() > 1)
+  // is_float_type() is or'ed to allow expression like ("", 123), without user
+  // having to use ("", int32(123)), as we still only take "int_value"
+  if (args.length() > 1)
     {
-        if (args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT ())
+      if (args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ())
         {
-            timeout = args(1).int_value();
+          timeout = args (1).int_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
     }
 
-    // Open the interface
-    octave_gpib* retval = new octave_gpib();
+  // Open the interface
+  octave_gpib* retval = new octave_gpib ();
 
-    retval->open(minor, gpibid, secid, timeout, send_eoi, eos_mode);
+  retval->open (minor, gpibid, secid, timeout, send_eoi, eos_mode);
 
-    //retval->set_timeout(timeout);
-    //retval->set_sad(eot);
-    //retval->set_send_eoi(eot);
-    //retval->set_eos_mode(eot);
+  //retval->set_timeout(timeout);
+  //retval->set_sad(eot);
+  //retval->set_send_eoi(eot);
+  //retval->set_eos_mode(eot);
 
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }
 #if 0

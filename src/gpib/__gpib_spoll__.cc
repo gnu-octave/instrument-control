@@ -25,11 +25,10 @@
 
 #include "gpib_class.h"
 
-
-static bool type_loaded = false;
 #endif
 
 
+// PKG_ADD: autoload ("__gpib_spoll__", "gpib.oct");
 DEFUN_DLD (__gpib_spoll__, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{sb} = } __gpib_spoll__ (@var{gpib})\n \
@@ -42,34 +41,28 @@ Upon successful completion, gpib_spoll() shall return the status byte @var{sb}.\
 @end deftypefn")
 {
 #ifndef BUILD_GPIB
-    error("gpib: Your system doesn't support the GPIB interface");
-    return octave_value();
+  error ("gpib: Your system doesn't support the GPIB interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+  if (args.length () != 1 || args (0).type_id () != octave_gpib::static_type_id ())
     {
-        octave_gpib::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() != 1 || args(0).type_id() != octave_gpib::static_type_id())
-    {
-        print_usage();
-        return octave_value(-1);
-    }
+  octave_gpib* gpib = NULL;
+  int retval;
 
-    octave_gpib* gpib = NULL;
-    int retval;
+  const octave_base_value& rep = args (0).get_rep ();
+  gpib = &((octave_gpib &)rep);
 
-    const octave_base_value& rep = args(0).get_rep();
-    gpib = &((octave_gpib &)rep);
+  char rqs;
 
-    char rqs;
+  retval = gpib->spoll (&rqs);
+  if (retval == -1)
+    return octave_value ();
 
-    retval = gpib->spoll(&rqs);
-    if (retval == -1)
-        return octave_value();
-
-    return octave_value(rqs);
+  return octave_value (rqs);
 
 #endif
 }

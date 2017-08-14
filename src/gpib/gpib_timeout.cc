@@ -24,9 +24,9 @@
 
 #include "gpib_class.h"
 
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("gpib_timeout", "gpib.oct");
 DEFUN_DLD (gpib_timeout, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} gpib_timeout (@var{gpib}, @var{timeout})\n \
@@ -41,41 +41,35 @@ If @var{timeout} parameter is omitted, the gpib_timeout() shall return current t
 @end deftypefn")
 {
 #ifndef BUILD_GPIB
-    error("gpib: Your system doesn't support the GPIB interface");
-    return octave_value();
+  error ("gpib: Your system doesn't support the GPIB interface");
+  return octave_value();
 #else
-    if (!type_loaded)
+  if (args.length () < 1 || args.length () > 2 || args (0).type_id () != octave_gpib::static_type_id ())
     {
-        octave_gpib::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_gpib::static_type_id())
+  octave_gpib* gpib = NULL;
+
+  const octave_base_value& rep = args (0).get_rep ();
+  gpib = &((octave_gpib &)rep);
+
+  // Setting new timeout
+  if (args.length () > 1)
     {
-        print_usage();
-        return octave_value(-1);
-    }
-
-    octave_gpib* gpib = NULL;
-
-    const octave_base_value& rep = args(0).get_rep();
-    gpib = &((octave_gpib &)rep);
-
-    // Setting new timeout
-    if (args.length() > 1)
-    {
-        if ( !(args(1).OV_ISINTEGER () || args(1).OV_ISFLOAT()) )
+      if ( !(args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ()) )
         {
-            print_usage();
-            return octave_value(-1);
+          print_usage ();
+          return octave_value (-1);
         }
 
-        gpib->set_timeout(args(1).int_value());
+      gpib->set_timeout (args (1).int_value ());
 
-        return octave_value(); // Should it return by default?
+      return octave_value (); // Should it return by default?
     }
 
-    // Returning current timeout
-    return octave_value(gpib->get_timeout());
+  // Returning current timeout
+  return octave_value (gpib->get_timeout ());
 #endif
 }

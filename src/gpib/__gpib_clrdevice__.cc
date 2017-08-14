@@ -24,12 +24,9 @@
 #include <errno.h>
 
 #include "gpib_class.h"
-
-
-static bool type_loaded = false;
 #endif
 
-
+// PKG_ADD: autoload ("__gpib_clrdevice__", "gpib.oct");
 DEFUN_DLD (__gpib_clrdevice__, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} __gpib_clrdevice__ (@var{gpib})\n \
@@ -41,29 +38,23 @@ Sends clear command to gpib device.\n \
 @end deftypefn")
 {
 #ifndef BUILD_GPIB
-    error("gpib: Your system doesn't support the GPIB interface");
-    return octave_value();
+  error ("gpib: Your system doesn't support the GPIB interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+  if (args.length () != 1 || args (0).type_id () != octave_gpib::static_type_id ())
     {
-        octave_gpib::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() != 1 || args(0).type_id() != octave_gpib::static_type_id())
-    {
-        print_usage();
-        return octave_value(-1);
-    }
+  octave_gpib* gpib = NULL;
+  int retval;
 
-    octave_gpib* gpib = NULL;
-    int retval;
+  const octave_base_value& rep = args (0).get_rep ();
+  gpib = &((octave_gpib &)rep);
 
-    const octave_base_value& rep = args(0).get_rep();
-    gpib = &((octave_gpib &)rep);
+  retval = gpib->cleardevice ();
 
-    retval = gpib->cleardevice ();
-
-    return octave_value();
+  return octave_value ();
 #endif
 }

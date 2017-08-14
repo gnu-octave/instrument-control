@@ -22,60 +22,57 @@
 
 #include <string>
 
-using std::string;
-
 class octave_gpib : public octave_base_value
 {
 public:
-    octave_gpib();
-    ~octave_gpib();
+  octave_gpib();
+  ~octave_gpib();
 
-    int write(string);
-    int write(uint8_t*, unsigned int);
+  int write(const std::string&);
+  int write(uint8_t*, unsigned int);
 
-    int read(uint8_t*, unsigned int, bool*);
+  int read(uint8_t*, unsigned int, bool*);
 
-    int spoll(char*);
-    int trigger();
-    int cleardevice();
+  int spoll(char*);
+  int trigger();
+  int cleardevice();
 
-    int open(int, int, int, int, int, int);
-    int close();
+  int open(int, int, int, int, int, int);
+  int close();
 
-    int set_timeout(int);
-    int get_timeout();
+  int set_timeout(int);
+  int get_timeout() const;
 
-    //int set_sad(int);
-    //int set_send_eoi(int);
-    //int set_eos_mode(int);
+  //int set_sad(int);
+  //int set_send_eoi(int);
+  //int set_eos_mode(int);
 
-    // Overloaded base functions
-    double gpib_value() const { return (double)this->gpibid; }
+  // Overloaded base functions
+  double gpib_value() const { return (double)this->gpibid; }
 
-    virtual double scalar_value (bool frc_str_conv = false) const
-    {
-        return (double)this->gpibid;
-    }
+  virtual double scalar_value (bool frc_str_conv = false) const
+  {
+    return (double)this->gpibid;
+  }
 
-    void print (std::ostream& os, bool pr_as_read_syntax = false);
-    void print (std::ostream& os, bool pr_as_read_syntax = false) const;
-    void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
+  void print (std::ostream& os, bool pr_as_read_syntax = false);
+  void print (std::ostream& os, bool pr_as_read_syntax = false) const;
+  void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
 
-    // Properties
-    bool is_constant (void) const { return true;}
-    bool is_defined (void) const { return true;}
-    bool print_as_scalar (void) const { return true;}
-
+  // Properties
+  bool is_constant (void) const { return true;}
+  bool is_defined (void) const { return true;}
+  bool print_as_scalar (void) const { return true;}
 
 private:
-    int minor;
-    int gpibid;
-    int sad;
-    int timeout;
-    int send_eoi;
-    int eos_mode;
+  int minor;
+  int gpibid;
+  int sad;
+  int timeout;
+  int send_eoi;
+  int eos_mode;
 
-    DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
+  DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 
 #endif

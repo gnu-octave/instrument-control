@@ -29,15 +29,15 @@
 #include "gpib_class.h"
 
 extern bool read_interrupt;
-static bool type_loaded = false;
 
 void read_sighandler(int sig)
 {
-    printf("gpib_read: Interrupting...\n\r");
-    read_interrupt = true;
+  printf("gpib_read: Interrupting...\n\r");
+  read_interrupt = true;
 }
 #endif
 
+// PKG_ADD: autoload ("gpib_read", "gpib.oct");
 DEFUN_DLD (gpib_read, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {[@var{data}, @var{count}, @var{eoi}] = } gpib_read (@var{gpib}, @var{n})\n \
@@ -52,70 +52,64 @@ The gpib_read() shall return number of bytes successfully read in @var{count} as
 @end deftypefn")
 {
 #ifndef BUILD_GPIB
-    error("gpib: Your system doesn't support the GPIB interface");
-    return octave_value();
+  error ("gpib: Your system doesn't support the GPIB interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+  if (args.length () < 2 || args.length () > 3 || args (0).type_id () != octave_gpib::static_type_id ())
     {
-        octave_gpib::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() < 2 || args.length() > 3 || args(0).type_id() != octave_gpib::static_type_id())
+  unsigned int buffer_len = 0;
+
+  if ( !(args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ()))
     {
-        print_usage();
-        return octave_value(-1);
+      print_usage ();
+      return octave_value (-1);
     }
 
-    unsigned int buffer_len = 0;
+  buffer_len = args (1).int_value ();
 
-    if ( !(args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT()))
+  uint8_t *buffer = NULL;
+  buffer = new uint8_t[buffer_len + 1];
+
+  if (buffer == NULL)
     {
-        print_usage();
-        return octave_value(-1);
+      error ("gpib_read: cannot allocate requested memory: %s\n", strerror (errno));
+      return octave_value (-1);
     }
 
-    buffer_len = args(1).int_value();
+  octave_gpib* gpib = NULL;
 
-    uint8_t *buffer = NULL;
-    buffer = new uint8_t[buffer_len + 1];
+  const octave_base_value& rep = args (0).get_rep ();
+  gpib = &((octave_gpib &)rep);
 
-    if (buffer == NULL)
-    {
-        error("gpib_read: cannot allocate requested memory: %s\n", strerror(errno));
-        return octave_value(-1);
-    }
+  // Register custom interrupt signal handler
+  OCTAVE__SET_SIGNAL_HANDLER (SIGINT, read_sighandler);
+  read_interrupt = false;
 
-    octave_gpib* gpib = NULL;
+  // Read data
+  bool eoi;
+  int bytes_read = gpib->read (buffer, buffer_len, &eoi);
 
-    const octave_base_value& rep = args(0).get_rep();
-    gpib = &((octave_gpib &)rep);
+  // Restore default signal handling
+  // TODO: a better way?
+  OCTAVE__INSTALL_SIGNAL_HANDLERS ();
 
-    // Register custom interrupt signal handler
-    OCTAVE__SET_SIGNAL_HANDLER(SIGINT, read_sighandler);
-    read_interrupt = false;
+  // Convert data to octave type variables
+  octave_value_list return_list;
+  uint8NDArray data(dim_vector (1, bytes_read));
 
-    // Read data
-    bool eoi;
-    int bytes_read = gpib->read(buffer, buffer_len, &eoi);
+  for (int i = 0; i < bytes_read; i++)
+    data (i) = buffer[i];
 
-    // Restore default signal handling
-    // TODO: a better way?
-    OCTAVE__INSTALL_SIGNAL_HANDLERS();
+  return_list (0) = data;
+  return_list (1) = bytes_read;
+  return_list (2) = eoi;
 
-    // Convert data to octave type variables
-    octave_value_list return_list;
-    uint8NDArray data( dim_vector(1, bytes_read) );
+  delete[] buffer;
 
-    for (int i = 0; i < bytes_read; i++)
-        data(i) = buffer[i];
-
-    return_list(0) = data;
-    return_list(1) = bytes_read;
-    return_list(2) = eoi;
-
-    delete[] buffer;
-
-    return return_list;
+  return return_list;
 #endif
 }

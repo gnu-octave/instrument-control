@@ -22,10 +22,9 @@
 
 #ifdef BUILD_GPIB
 #include "gpib_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("gpib_close", "gpib.oct");
 DEFUN_DLD (gpib_close, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} gpib_close (@var{gpib})\n \
@@ -36,28 +35,23 @@ Close the interface and release a file descriptor.\n \
 @end deftypefn")
 {
 #ifndef BUILD_GPIB
-    error("gpib: Your system doesn't support the GPIB interface");
-    return octave_value();
+  error ("gpib: Your system doesn't support the GPIB interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+
+  if (args.length() != 1 || args(0).type_id() != octave_gpib::static_type_id())
     {
-        octave_gpib::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() != 1 || args(0).type_id() != octave_gpib::static_type_id())
-    {
-        print_usage();
-        return octave_value(-1);
-    }
+  octave_gpib* gpib = NULL;
 
-    octave_gpib* gpib = NULL;
+  const octave_base_value& rep = args (0).get_rep ();
+  gpib = &((octave_gpib &)rep);
 
-    const octave_base_value& rep = args(0).get_rep();
-    gpib = &((octave_gpib &)rep);
+  gpib->close ();
 
-    gpib->close();
-
-    return octave_value();
+  return octave_value ();
 #endif
 }
