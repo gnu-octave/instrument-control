@@ -77,3 +77,9 @@ The usbtmc() shall return instance of @var{octave_usbtmc} class as the result @v
   return octave_value (retval);
 #endif
 }
+
+#if 0
+
+%!error <Invalid call to usbtmc> usbtmc ()
+
+#endif

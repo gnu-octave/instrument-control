@@ -88,3 +88,8 @@ The vxi11() shall return instance of @var{octave_vxi11} class as the result @var
     return octave_value(retval);
 #endif
 }
+#if 0
+
+%!error <Invalid call to vxi11> vxi11 ()
+
+#endif

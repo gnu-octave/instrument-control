@@ -97,3 +97,9 @@ The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c
   return octave_value (retval);
 #endif
 }
+
+#if 0
+
+%!error <Invalid call to i2c> i2c ()
+
+#endif

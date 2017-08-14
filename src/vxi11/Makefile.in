@@ -4,13 +4,18 @@ OBJ := vxi11_class.o
 
 MKOCTFILE  ?= mkoctfile
 RPCGEN     ?= rpcgen
+GREP       ?= @GREP@
 
 CFLAGS      = @DEFS@
 LFLAGS      = 
 
 BUILD_VXI11 = @BUILD_VXI11@
 
-all: $(OCT)
+CC_SOURCES  := $(wildcard *.cc)
+CC_TST_SOURCES := $(shell $(GREP) --files-with-matches '^%!' $(CC_SOURCES))
+TST_SOURCES := $(patsubst %.cc,../../inst/test/%.cc-tst,$(CC_TST_SOURCES))
+
+all: $(OCT) $(TST_SOURCES)
 
 ifneq ($(BUILD_VXI11),1)
 VXI =
@@ -34,6 +39,15 @@ endif
 
 %.oct: %.o $(OBJ) $(VXI)
 	$(MKOCTFILE) $^ $(LFLAGS) -o ../$@
+
+../../inst/test:
+	@mkdir -p "$@"
+
+$(TST_SOURCES): ../../inst/test/%.cc-tst: %.cc | ../../inst/test
+	@echo "Extracting tests from $< ..."
+	@$(RM) -f "$@" "$@-t"
+	@(      echo "## Generated from $<"; \
+	        $(GREP) '^%!' "$<") > "$@"
 
 clean:
 	rm -f *.oct *.o

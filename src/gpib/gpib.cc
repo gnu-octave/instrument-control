@@ -114,3 +114,8 @@ The gpib() shall return instance of @var{octave_gpib} class as the result @var{g
     return octave_value(retval);
 #endif
 }
+#if 0
+
+%!error <Invalid call to gpib> gpib ()
+
+#endif

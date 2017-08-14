@@ -122,3 +122,8 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
     return octave_value(retval);
 #endif
 }
+#if 0
+
+%!error <Invalid call to parallel> parallel ()
+
+#endif

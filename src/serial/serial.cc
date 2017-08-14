@@ -117,3 +117,9 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
   return octave_value (retval);
 #endif
 }
+
+#if 0
+
+%!error <Invalid call to serial> serial ()
+
+#endif
