@@ -39,71 +39,82 @@
 #include <dev/iicbus/iic.h>
 #endif
 
-
-using std::string;
-
 #include "i2c_class.h"
 
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_i2c, "octave_i2c", "octave_i2c");
 
-octave_i2c::octave_i2c()
+octave_i2c::octave_i2c (void)
 {
-    this->fd = -1;
-}
+  static bool type_registered = false;
 
-octave_i2c::~octave_i2c()
-{
-    this->close();
-}
-
-int octave_i2c::get_fd()
-{
-    return this->fd;
-}
-
-void octave_i2c::print (std::ostream& os, bool pr_as_read_syntax)
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_i2c::print (std::ostream& os, bool pr_as_read_syntax ) const
-{
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
-}
-
-void octave_i2c::print_raw (std::ostream& os, bool pr_as_read_syntax) const
-{
-    os << this->fd;
-}
-
-int octave_i2c::open(string path, int flags)
-{
-    this->fd = ::open(path.c_str(), flags, 0);
-
-    if (this->get_fd() < 0)
+  if (! type_registered)
     {
-        error("i2c: Error opening the interface: %s\n", strerror(errno));
-        return -1;
+      type_registered = true;
+      register_type ();
+    }
+ 
+  fd = -1;
+}
+
+octave_i2c::~octave_i2c (void)
+{
+  octave_i2c::close ();
+}
+
+int
+octave_i2c::get_fd (void) const
+{
+  return fd;
+}
+
+void
+octave_i2c::print (std::ostream& os, bool pr_as_read_syntax)
+{
+  print_raw (os, pr_as_read_syntax);
+  newline (os);
+}
+
+void
+octave_i2c::print (std::ostream& os, bool pr_as_read_syntax ) const
+{
+  print_raw (os, pr_as_read_syntax);
+  newline (os);
+}
+
+void
+octave_i2c::print_raw (std::ostream& os, bool pr_as_read_syntax) const
+{
+  os << fd;
+}
+
+int
+octave_i2c::open (const std::string &path, int flags)
+{
+  fd = ::open (path.c_str (), flags, 0);
+
+  if (get_fd () < 0)
+    {
+      error ("i2c: Error opening the interface: %s\n", strerror (errno));
+      return -1;
     }
 
-    return this->get_fd();
+  return get_fd ();
 }
 
 
-int octave_i2c::set_addr(int addr)
+int
+octave_i2c::set_addr (int addr)
 {
-    if (this->get_fd() < 0)
+  if (get_fd () < 0)
     {
-        error("i2c: Interface must be open first...");
-        return -1;
+      error ("i2c: Interface must be open first...");
+      return -1;
     }
 
 #if defined (__linux__)
-    if (::ioctl(this->get_fd(), I2C_SLAVE, addr) < 0)
+  if (::ioctl (get_fd (), I2C_SLAVE, addr) < 0)
     {
-        error("i2c: Error setting slave address: %s\n", strerror(errno));
+        error ("i2c: Error setting slave address: %s\n", strerror (errno));
         return -1;
     }
 #endif
@@ -111,95 +122,99 @@ int octave_i2c::set_addr(int addr)
     return 1;
 }
 
-int octave_i2c::get_addr()
+int
+octave_i2c::get_addr (void) const
 {
-    if (this->get_fd() < 0)
+    if (get_fd() < 0)
     {
-        error("i2c: Interface must be open first...");
+        error ("i2c: Interface must be open first...");
         return -1;
     }
 
-    return this->addr;
+    return addr;
 }
 
-int octave_i2c::read(uint8_t *buf, unsigned int len)
+int
+octave_i2c::read (uint8_t *buf, unsigned int len)
 {   
-    if (this->get_fd() < 0)
+  if (get_fd () < 0)
     {
-        error("i2c: Interface must be open first...");
-        return -1;
+      error ("i2c: Interface must be open first...");
+      return -1;
     }
 
-    int retval = -1;
+  int retval = -1;
 
 #if defined (__linux__)
-    retval = ::read(this->get_fd(), buf, len);
+  retval = ::read (get_fd (), buf, len);
 #endif
 
 #if defined (__FreeBSD__)
-    // Populate FreeBSD-specific structure
-    struct iiccmd i2c_slave;
+  // Populate FreeBSD-specific structure
+  struct iiccmd i2c_slave;
 
-    i2c_slave.slave = static_cast<uint8_t>(this->get_addr());
-    i2c_slave.count = len;
-    i2c_slave.last = 0; // No additional reads will follow for this transaction
-    i2c_slave.buf = buf;
+  i2c_slave.slave = static_cast<uint8_t>(get_addr ());
+  i2c_slave.count = len;
+  i2c_slave.last = 0; // No additional reads will follow for this transaction
+  i2c_slave.buf = buf;
 
-    ::ioctl(this->get_fd(), I2CSTART, &i2c_slave);
-    retval = ::ioctl(this->get_fd(), I2CREAD, &i2c_slave);
-    ::ioctl(this->get_fd(), I2CSTOP);
+  ::ioctl (get_fd (), I2CSTART, &i2c_slave);
+  retval = ::ioctl (get_fd(), I2CREAD, &i2c_slave);
+  ::ioctl (get_fd(), I2CSTOP);
 #endif
 
-    if (retval < 0)
-        error("i2c: Failed to read from the i2c bus: %s\n", strerror(errno));
+  if (retval < 0)
+    error ("i2c: Failed to read from the i2c bus: %s\n", strerror (errno));
 
-    return retval;
+  return retval;
 }
 
-int octave_i2c::write(uint8_t *buf, unsigned int len)
+int
+octave_i2c::write (uint8_t *buf, unsigned int len)
 {
-    if (this->get_fd() < 0)
+  if (get_fd () < 0)
     {
-        error("i2c: Interface must be open first...");
-        return -1;
+      error ("i2c: Interface must be open first...");
+      return -1;
     }
 
-    int retval = -1;
+  int retval = -1;
 
 #if defined (__linux__)
-    retval = ::write(this->get_fd(), buf, len);
+  retval = ::write (get_fd (), buf, len);
 #endif
 
 #if defined (__FreeBSD__)
-    // Populate FreeBSD-specific structure
-    struct iiccmd i2c_slave;
+  // Populate FreeBSD-specific structure
+  struct iiccmd i2c_slave;
 
-    i2c_slave.slave = static_cast<uint16_t>(this->get_addr());
-    i2c_slave.count = len;
-    i2c_slave.last = 0; // No additional writes will follow for this transaction
-    i2c_slave.buf = buf;
+  i2c_slave.slave = static_cast<uint16_t>(get_addri ());
+  i2c_slave.count = len;
+  i2c_slave.last = 0; // No additional writes will follow for this transaction
+  i2c_slave.buf = buf;
 
-    ::ioctl(this->get_fd(), I2CSTART, &i2c_slave);
-    retval = ::ioctl(this->get_fd(), I2CWRITE, &i2c_slave);
-    ::ioctl(this->get_fd(), I2CSTOP);
+  ::ioctl (get_fd (), I2CSTART, &i2c_slave);
+  retval = ::ioctl (get_fd (), I2CWRITE, &i2c_slave);
+  ::ioctl(get_fd (), I2CSTOP);
 #endif
 
-    if (retval < 0)
-        error("i2c: Failed to write to the i2c bus: %s\n", strerror(errno));
+  if (retval < 0)
+    error ("i2c: Failed to write to the i2c bus: %s\n", strerror (errno));
 
-    return retval;
+  return retval;
 }
 
-int octave_i2c::close()
+int
+octave_i2c::close (void)
 {
-    int retval = -1;
+  int retval = -1;
 
-    if (this->get_fd() > 0)
+  if (get_fd () > 0)
     {
-        retval = ::close(this->get_fd());
-        this->fd = -1;
+      retval = ::close(get_fd ());
+      fd = -1;
     }
 
-    return retval;
+  return retval;
 }
 #endif

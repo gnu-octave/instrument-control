@@ -21,10 +21,9 @@
 
 #ifdef BUILD_I2C
 #include "i2c_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("i2c_close", "i2c.oct");
 DEFUN_DLD (i2c_close, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} i2c_close (@var{i2c})\n \
@@ -35,29 +34,23 @@ Close the interface and release a file descriptor.\n \
 @end deftypefn")
 {
 #ifndef BUILD_I2C
-    error("i2c: Your system doesn't support the I2C interface");
-    return octave_value();
+  error ("i2c: Your system doesn't support the I2C interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
-    {
-        octave_i2c::register_type();
-        type_loaded = true;
-    }
-
     
-    if (args.length() != 1 || args(0).type_id() != octave_i2c::static_type_id())
+  if (args.length () != 1 || args (0).type_id () != octave_i2c::static_type_id ())
     {
-        print_usage();
-        return octave_value(-1);
+      print_usage ();
+      return octave_value (-1);
     }
 
-    octave_i2c* i2c = NULL;
+  octave_i2c* i2c = NULL;
 
-    const octave_base_value& rep = args(0).get_rep();
-    i2c = &((octave_i2c &)rep);
+  const octave_base_value& rep = args (0).get_rep ();
+  i2c = &((octave_i2c &)rep);
 
-    i2c->close();
+  i2c->close ();
 
-    return octave_value();
+  return octave_value ();
 #endif
 }

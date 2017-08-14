@@ -20,51 +20,49 @@
 
 #include <string>
 
-using std::string;
-
 class octave_i2c : public octave_base_value
 {
 public:
-    octave_i2c();
-    ~octave_i2c();
+  octave_i2c (void);
+  ~octave_i2c (void);
 
-    int open(string /* path */, int /* open flags */);
-    int close();
-    int get_fd();
+  int open (const std::string& /* path */, int /* open flags */);
+  int close (void);
+  int get_fd (void) const;
 
-    int set_addr(int /* slave ddress */);
-    int get_addr();
+  int set_addr (int /* slave ddress */);
+  int get_addr (void) const;
 
-    // Simple i2c commands
-    int write(uint8_t* /* buffer */, unsigned int /* buffer size */);
-    int read(uint8_t* /* buffer */, unsigned int /* buffer size */);
+  // Simple i2c commands
+  int write (uint8_t* /* buffer */, unsigned int /* buffer size */);
+  int read (uint8_t* /* buffer */, unsigned int /* buffer size */);
 
 
-    // Overloaded base functions
-    double i2c_value() const
-    {
-        return (double)this->fd;
-    }
+  // Overloaded base functions
+  double i2c_value () const
+  {
+    return (double)fd;
+  }
 
-    virtual double scalar_value (bool frc_str_conv = false) const
-    {
-        return (double)this->fd;
-    }
+  virtual double scalar_value (bool frc_str_conv = false) const
+  {
+    return (double)fd;
+  }
 
-    void print (std::ostream& os, bool pr_as_read_syntax = false);
-    void print (std::ostream& os, bool pr_as_read_syntax = false) const;
-    void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
+  void print (std::ostream& os, bool pr_as_read_syntax = false);
+  void print (std::ostream& os, bool pr_as_read_syntax = false) const;
+  void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
 
-    // Properties
-    bool is_constant (void) const { return true;}
-    bool is_defined (void) const { return true;}
-    bool print_as_scalar (void) const { return true;}
+  // Properties
+  bool is_constant (void) const { return true;}
+  bool is_defined (void) const { return true;}
+  bool print_as_scalar (void) const { return true;}
 
 private:
-    int fd;
-    int addr;
+  int fd;
+  int addr;
 
-    DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
+  DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 
 

@@ -21,10 +21,9 @@
 
 #ifdef BUILD_I2C
 #include "i2c_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("i2c_addr", "i2c.oct");
 DEFUN_DLD (i2c_addr, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} i2c_addr (@var{i2c}, @var{address})\n \
@@ -41,42 +40,36 @@ current i2c slave device address as the result @var{addr}.\n \
 @end deftypefn")
 {
 #ifndef BUILD_I2C
-    error("i2c: Your system doesn't support the I2C interface");
-    return octave_value();
+  error ("i2c: Your system doesn't support the I2C interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+  if (args.length () < 1 || args.length () > 2 || args (0).type_id () != octave_i2c::static_type_id ()) 
     {
-        octave_i2c::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
     
-    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_i2c::static_type_id()) 
+  octave_i2c* i2c = NULL;
+
+  const octave_base_value& rep = args (0).get_rep();
+  i2c = &((octave_i2c &)rep);
+
+
+  // Setting new slave address
+  if (args.length () > 1)
     {
-        print_usage();
-        return octave_value(-1);
-    }
-    
-    octave_i2c* i2c = NULL;
-
-    const octave_base_value& rep = args(0).get_rep();
-    i2c = &((octave_i2c &)rep);
-
-
-    // Setting new slave address
-    if (args.length() > 1)
-    {
-        if ( !(args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT()) )
+      if ( !(args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ()) )
         {
-            print_usage();
-            return octave_value(-1);
+          print_usage ();
+          return octave_value (-1);
         }
 
-        i2c->set_addr(args(1).int_value());
+      i2c->set_addr(args (1).int_value ());
 
-        return octave_value();
+      return octave_value ();
     }
 
-    // Returning current slave address
-    return octave_value(i2c->get_addr());
+  // Returning current slave address
+  return octave_value (i2c->get_addr ());
 #endif
 }
