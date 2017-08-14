@@ -60,7 +60,7 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
 @end deftypefn")
 {
 #ifndef BUILD_PARALLEL
-    error("parallel: Your system doesn't support the GPIB interface");
+    error("parallel: Your system doesn't support the parallel interface");
     return octave_value();
 #else
     if (!type_loaded)
