@@ -19,54 +19,52 @@
 #include <string>
 #include <termios.h>
 
-using std::string;
-
 class octave_serial : public octave_serial_common
 {
 public:
-    octave_serial();
-    ~octave_serial();
+  octave_serial(void);
+  ~octave_serial(void);
 
-    int write(string /* buffer */);
-    int write(uint8_t* /* buffer */, unsigned int /* buffer size */);
+  int write(const std::string& /* buffer */);
+  int write(uint8_t* /* buffer */, unsigned int /* buffer size */);
 
-    int read(uint8_t* /* buffer */, unsigned int /* buffer size */);
+  int read(uint8_t* /* buffer */, unsigned int /* buffer size */);
 
-    void open(string /* path */);
-    void close();
+  void open(const std::string& /* path */);
+  void close(void);
 
-    int flush(unsigned short /* stream select */);
+  int flush(unsigned short /* stream select */);
 
-    int set_timeout(short /* timeout */);
-    int get_timeout() const;
+  int set_timeout(short /* timeout */);
+  int get_timeout(void) const;
 
-    int set_baudrate(unsigned int /* baudrate */);
-    int get_baudrate() const;
+  int set_baudrate(unsigned int /* baudrate */);
+  int get_baudrate(void) const;
 
-    int set_bytesize(unsigned short /* bytesize */);
-    int get_bytesize() const;
+  int set_bytesize(unsigned short /* bytesize */);
+  int get_bytesize(void) const;
 
-    int set_parity(string /* parity */);
-    string get_parity() const;
+  int set_parity(const std::string& /* parity */);
+  std::string get_parity() const;
 
-    int set_stopbits(unsigned short /* stop bits */);
-    int get_stopbits() const;
+  int set_stopbits(unsigned short /* stop bits */);
+  int get_stopbits(void) const;
 
-    bool get_control_line(string);
-    void set_control_line(string, bool);
+  bool get_control_line(const std::string &);
+  void set_control_line(const std::string &, bool);
 
 private:
-    int fd;
-    int status;
-    struct termios config;
+  int fd;
+  int status;
+  struct termios config;
 
-    volatile bool blocking_read;
+  volatile bool blocking_read;
 
-    void get_control_line_status(void);
+  void get_control_line_status(void);
 
-    bool fd_is_valid() const;
+  bool fd_is_valid(void) const;
 
-    DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
+  DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 
 #endif

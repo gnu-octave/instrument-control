@@ -28,15 +28,15 @@
 #include "serial_class.h"
 
 extern bool read_interrupt;
-static bool type_loaded = false;
 
 void read_sighandler(int sig)
 {
-    printf("srl_read: Interrupting...\n\r");
-    read_interrupt = true;
+  printf("srl_read: Interrupting...\n\r");
+  read_interrupt = true;
 }
 #endif
 
+// PKG_ADD: autoload ("srl_read", "serial.oct");
 DEFUN_DLD (srl_read, args, nargout, 
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {[@var{data}, @var{count}] = } srl_read (@var{serial}, @var{n})\n \
@@ -50,68 +50,62 @@ The srl_read() shall return number of bytes successfully read in @var{count} as 
 @end deftypefn")
 {
 #ifndef BUILD_SERIAL
-    error("serial: Your system doesn't support the SERIAL interface");
-    return octave_value();
+  error("serial: Your system doesn't support the SERIAL interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+  if (args.length () != 2 || args (0).type_id () != octave_serial::static_type_id ())
     {
-        octave_serial::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
+
+  unsigned int buffer_len = 0;
+
+  if ( !(args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ()) )
+    {
+      print_usage ();
+      return octave_value (-1);
+    }
+
+  buffer_len = args (1).int_value ();
+
+  uint8_t *buffer = NULL;
+  buffer = new uint8_t[buffer_len + 1];
+
+  if (buffer == NULL)
+    {
+      error ("srl_read: cannot allocate requested memory: %s\n", strerror (errno));
+      return octave_value (-1);  
+    }
+
+  octave_serial* serial = NULL;
+
+  const octave_base_value& rep = args (0).get_rep ();
+  serial = &((octave_serial &)rep);
+
+  // Register custom interrupt signal handler
+  OCTAVE__SET_SIGNAL_HANDLER (SIGINT, read_sighandler);
+  read_interrupt = false;
     
-    if (args.length() != 2 || args(0).type_id() != octave_serial::static_type_id())
-    {
-        print_usage();
-        return octave_value(-1);
-    }
+  // Read data
+  int bytes_read = serial->read (buffer, buffer_len);
 
-    unsigned int buffer_len = 0;
-
-    if ( !(args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT()) )
-    {
-        print_usage();
-        return octave_value(-1);
-    }
-
-    buffer_len = args(1).int_value();
-
-    uint8_t *buffer = NULL;
-    buffer = new uint8_t[buffer_len + 1];
-
-    if (buffer == NULL)
-    {
-        error("srl_read: cannot allocate requested memory: %s\n", strerror(errno));
-        return octave_value(-1);  
-    }
-
-    octave_serial* serial = NULL;
-
-    const octave_base_value& rep = args(0).get_rep();
-    serial = &((octave_serial &)rep);
-
-    // Register custom interrupt signal handler
-    OCTAVE__SET_SIGNAL_HANDLER(SIGINT, read_sighandler);
-    read_interrupt = false;
+  // Restore default signal handling
+  // TODO: a better way? 
+  OCTAVE__INSTALL_SIGNAL_HANDLERS ();
     
-    // Read data
-    int bytes_read = serial->read(buffer, buffer_len);
+  // Convert data to octave type variables
+  octave_value_list return_list;
+  uint8NDArray data (dim_vector (1, bytes_read));
 
-    // Restore default signal handling
-    // TODO: a better way? 
-    OCTAVE__INSTALL_SIGNAL_HANDLERS();
-    
-    // Convert data to octave type variables
-    octave_value_list return_list;
-    uint8NDArray data( dim_vector(1, bytes_read) );
+  for (int i = 0; i < bytes_read; i++)
+    data (i) = buffer[i];
 
-    for (int i = 0; i < bytes_read; i++)
-        data(i) = buffer[i];
+  return_list (0) = data;
+  return_list (1) = bytes_read;
 
-    return_list(0) = data;
-    return_list(1) = bytes_read;
+  delete[] buffer;
 
-    delete[] buffer;
-
-    return return_list;
+  return return_list;
 #endif
 }

@@ -28,16 +28,9 @@
 
 #include "serial_class.h"
 
-static bool type_loaded = false;
-
-void
-install_serial_ops (void)
-{
-  INSTALL_BINOP (op_eq, octave_serial, octave_serial, eq_serial_serial);
-  INSTALL_BINOP (op_ne, octave_serial, octave_serial, ne_serial_serial);
-}
 #endif
 
+// PKG_ADD: autoload ("serial", "serial.oct");
 DEFUN_DLD (serial, args, nargout, 
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{serial} = } serial ([@var{path}], [@var{baudrate}], [@var{timeout}])\n \
@@ -52,82 +45,75 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
 @end deftypefn")
 {
 #ifndef BUILD_SERIAL
-    error("serial: Your system doesn't support the SERIAL interface");
-    return octave_value();
+  error ("serial: Your system doesn't support the SERIAL interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
-    {
-        octave_serial::register_type();
-        install_serial_ops ();
-        type_loaded = true;
-    }
-
-    // Do not open interface if return value is not assigned
-    if (nargout != 1)
-    {
-        print_usage();
-        return octave_value();
-    }
-
-    // Default values
-    string path;
-    unsigned int baud_rate = 115200;
-    short timeout = -1;
-
-    unsigned short bytesize = 8;
-    string parity("N");
-    unsigned short stopbits = 1;
-    // Parse the function arguments
-    if ((args.length () == 0) || !args(0).is_string ())
+  // Do not open interface if return value is not assigned
+  if (nargout != 1)
     {
         print_usage ();
-        return octave_value();
+        return octave_value ();
     }
 
-    path = args(0).string_value ();
+  // Default values
+  std::string path;
+  unsigned int baud_rate = 115200;
+  short timeout = -1;
 
-    // isfloat() is or'ed to allow expression like ("", 123), without user
-    // having to use ("", int32(123)), as we still only take "int_value"
-    if (args.length() > 1)
+  unsigned short bytesize = 8;
+  std::string parity("N");
+  unsigned short stopbits = 1;
+  // Parse the function arguments
+  if ((args.length () == 0) || !args(0 ).is_string ())
     {
-        if (args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT())
+      print_usage ();
+      return octave_value ();
+    }
+
+  path = args (0).string_value ();
+
+  // isfloat() is or'ed to allow expression like ("", 123), without user
+  // having to use ("", int32(123)), as we still only take "int_value"
+  if (args.length() > 1)
+    {
+      if (args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ())
         {
-            baud_rate = args(1).int_value();
+          baud_rate = args (1).int_value ();
         }
         else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
     }
 
-    if (args.length() > 2)
+  if (args.length () > 2)
     {
-        if (args(2).OV_ISINTEGER() || args(2).OV_ISFLOAT())
+      if (args (2).OV_ISINTEGER () || args (2).OV_ISFLOAT ())
         {
-            timeout = args(2).int_value();
+          timeout = args (2).int_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
     }
 
 
-    octave_serial* retval = new octave_serial();
+  octave_serial* retval = new octave_serial ();
 
-    // Open the interface
-    retval->open(path);
+  // Open the interface
+  retval->open (path);
 
-    retval->set_baudrate(baud_rate);
-    retval->set_timeout(timeout);
-    retval->set_parity(parity);
-    retval->set_bytesize(bytesize);
-    retval->set_stopbits(stopbits);
+  retval->set_baudrate (baud_rate);
+  retval->set_timeout (timeout);
+  retval->set_parity (parity);
+  retval->set_bytesize (bytesize);
+  retval->set_stopbits (stopbits);
 
-    //retval->flush(2);
+  //retval->flush (2);
 
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }

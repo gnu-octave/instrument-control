@@ -109,8 +109,8 @@ public:
   }
 
 protected:
-  std::string portPath;
 
+  std::string portPath;
 };
 
 

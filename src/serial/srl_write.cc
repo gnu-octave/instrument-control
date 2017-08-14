@@ -21,10 +21,9 @@
 
 #ifdef BUILD_SERIAL
 #include "serial_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("srl_write", "serial.oct");
 DEFUN_DLD (srl_write, args, nargout, 
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{n} = } srl_write (@var{serial}, @var{data})\n \
@@ -38,56 +37,50 @@ Upon successful completion, srl_write() shall return the number of bytes written
 @end deftypefn")
 {
 #ifndef BUILD_SERIAL
-    error("serial: Your system doesn't support the SERIAL interface");
-    return octave_value();
+  error ("serial: Your system doesn't support the SERIAL interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+  if (args.length () != 2 || args (0).type_id () != octave_serial::static_type_id ())
     {
-        octave_serial::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
-    if (args.length() != 2 || args(0).type_id() != octave_serial::static_type_id())
+  octave_serial *serial = NULL;
+  int retval;
+
+  const octave_base_value& rep = args (0).get_rep ();
+  serial = &((octave_serial &)rep);
+
+  if (args (1).is_string ()) // String
     {
-        print_usage();
-        return octave_value(-1);
+      retval = serial->write (args (1).string_value ());
     }
-
-    octave_serial *serial = NULL;
-    int retval;
-
-    const octave_base_value& rep = args(0).get_rep();
-    serial = &((octave_serial &)rep);
-
-    if (args(1).is_string()) // String
+  else if (args (1).is_uint8_type ()) // uint8_t
     {
-        retval = serial->write(args(1).string_value());
-    }
-    else if (args(1).is_uint8_type ()) // uint8_t
-    {
-        NDArray data = args(1).array_value();
-        uint8_t *buf = NULL; 
-        buf = new uint8_t[data.numel()];
+      NDArray data = args (1).array_value ();
+      uint8_t *buf = NULL; 
+      buf = new uint8_t[data.numel ()];
 
-        if (buf == NULL)
+      if (buf == NULL)
         {
-            error("srl_write: cannot allocate requested memory");
-            return octave_value(-1);  
+          error ("srl_write: cannot allocate requested memory");
+          return octave_value (-1);  
         }
 
-        for (int i = 0; i < data.numel(); i++)
-            buf[i] =  static_cast<uint8_t>(data(i));
+      for (int i = 0; i < data.numel (); i++)
+        buf[i] =  static_cast<uint8_t>(data(i));
 
-        retval = serial->write(buf, data.numel());
+      retval = serial->write (buf, data.numel ());
 
-        delete[] buf;
+      delete[] buf;
     }
-    else
+  else
     {
-        print_usage();
-        return octave_value(-1);
+      print_usage ();
+      return octave_value (-1);
     }
 
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }

@@ -23,16 +23,13 @@
 
 #ifdef BUILD_SERIAL
 #include "serial_class.h"
-
-static bool type_loaded = false;
 #endif
-
 
 #ifdef BUILD_SERIAL
 octave_value_list srl_close (octave_serial* serial, const octave_value_list& args, int nargout)
 {
-  serial->close();
-  return octave_value();
+  serial->close ();
+  return octave_value ();
 }
 
 octave_value_list srl_flush (octave_serial* serial, const octave_value_list& args, int nargout)
@@ -43,37 +40,37 @@ octave_value_list srl_flush (octave_serial* serial, const octave_value_list& arg
   // Default arguments
   int queue_selector = 2; // Input and Output
     
-  if (args.length() > 0)
+  if (args.length () > 0)
     {
-      if (!(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()))
+      if (!(args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT ()))
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
-      queue_selector = args(0).int_value();
+      queue_selector = args (0).int_value ();
     }
 
-    serial->flush(queue_selector);
+    serial->flush (queue_selector);
 
-    return octave_value();
+    return octave_value ();
 }
 
 octave_value_list srl_timeout (octave_serial* serial, const octave_value_list& args, int nargout)
 {
-  if (args.length() > 1)
+  if (args.length () > 1)
     (*current_liboctave_error_handler) ("wrong number of arguments");
 
   // Setting new timeout
-  if (args.length() > 0)
+  if (args.length () > 0)
     {
-      if ( !(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()) )
+      if ( !(args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT ()) )
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
-      serial->set_timeout(args(0).int_value());
+      serial->set_timeout (args (0).int_value ());
 
-      return octave_value(); // Should it return by default?
+      return octave_value (); // Should it return by default?
     }
 
   // Returning current timeout
-  return octave_value(serial->get_timeout());
+  return octave_value (serial->get_timeout ());
 }
 
 octave_value_list srl_baudrate (octave_serial* serial, const octave_value_list& args, int nargout)
@@ -82,38 +79,38 @@ octave_value_list srl_baudrate (octave_serial* serial, const octave_value_list& 
     (*current_liboctave_error_handler) ("wrong number of arguments");
     
   // Setting new baudrate
-  if (args.length() > 0)
+  if (args.length () > 0)
     {
-      if ( !(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()) )
+      if (! (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT ()))
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
-      serial->set_baudrate(args(0).int_value());
+      serial->set_baudrate (args (0).int_value ());
 
-      return octave_value();
+      return octave_value ();
     }
 
   // Returning current baud rate
-  return octave_value(serial->get_baudrate());
+  return octave_value (serial->get_baudrate ());
 }
 
 octave_value_list srl_bytesize (octave_serial* serial, const octave_value_list& args, int nargout)
 {
-  if (args.length() > 1)
+  if (args.length () > 1)
     (*current_liboctave_error_handler) ("wrong number of arguments");
     
   // Setting new byte size
-  if (args.length() > 0)
+  if (args.length () > 0)
     {
-      if ( !(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()) )
+      if (! (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT ()) )
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
-      serial->set_bytesize(args(0).int_value());
+      serial->set_bytesize (args (0).int_value ());
 
-      return octave_value();
+      return octave_value ();
     }
 
   // Returning current byte size 
-  return octave_value(serial->get_bytesize());
+  return octave_value (serial->get_bytesize ());
 }
 
 octave_value_list srl_stopbits (octave_serial* serial, const octave_value_list& args, int nargout)
@@ -122,38 +119,38 @@ octave_value_list srl_stopbits (octave_serial* serial, const octave_value_list& 
     (*current_liboctave_error_handler) ("wrong number of arguments");
 
   // Setting new stop bits
-  if (args.length() > 0)
+  if (args.length () > 0)
     {
-      if ( !(args(0).OV_ISINTEGER() || args(0).OV_ISFLOAT()) )
+      if (! (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT ()) )
         (*current_liboctave_error_handler) ("argument must be integer or float");
 
-      serial->set_stopbits(args(0).int_value());
+      serial->set_stopbits(args (0).int_value ());
 
-      return octave_value();
+      return octave_value ();
     }
 
   // Returning current stop bits
-  return octave_value(serial->get_stopbits());
+  return octave_value (serial->get_stopbits ());
 }
 
 octave_value_list srl_parity (octave_serial* serial, const octave_value_list& args, int nargout)
 {
-  if (args.length() > 1)
+  if (args.length () > 1)
     (*current_liboctave_error_handler) ("wrong number of arguments");
 
   // Setting new parity
-  if (args.length() > 0)
+  if (args.length () > 0)
     {
-      if ( !(args(0).is_string()) )
+      if ( !(args (0).is_string ()) )
         (*current_liboctave_error_handler) ("argument must be string");
 
-      serial->set_parity(args(0).string_value());
+      serial->set_parity (args (0).string_value());
 
-      return octave_value();
+      return octave_value ();
     }
 
   // Returning current parity
-  return octave_value(serial->get_parity());
+  return octave_value (serial->get_parity ());
 }
 
 octave_value_list srl_requesttosend (octave_serial* serial, const octave_value_list& args, int nargout)
@@ -161,29 +158,29 @@ octave_value_list srl_requesttosend (octave_serial* serial, const octave_value_l
   if (args.length () > 1)
     (*current_liboctave_error_handler) ("wrong number of arguments");
 
-  string onoff = "";
+  std::string onoff = "";
 
   // Setting RTS
   if (args.length () > 0)
     {
-      if ( !(args(0).is_string ()) )
+      if ( !(args (0).is_string ()) )
         (*current_liboctave_error_handler) ("argument must be string");
 
-      onoff = args(0).string_value ();
-      std::transform(onoff.begin(), onoff.end(), onoff.begin(), ::tolower);
+      onoff = args (0).string_value ();
+      std::transform (onoff.begin (), onoff.end (), onoff.begin (), ::tolower);
       if (onoff == "on")
-        serial->set_control_line("RTS",true);
+        serial->set_control_line ("RTS", true);
       else if (onoff == "off")
-        serial->set_control_line("RTS",false);
+        serial->set_control_line ("RTS", false);
       else
         (*current_liboctave_error_handler) ("wrong argument");
     }
 
   // Returning RTS
-  if (serial->get_control_line("RTS"))
-    return octave_value("on");
+  if (serial->get_control_line ("RTS"))
+    return octave_value ("on");
 
-  return octave_value("off");
+  return octave_value ("off");
 }
 
 octave_value_list srl_dataterminalready (octave_serial* serial, const octave_value_list& args, int nargout)
@@ -191,29 +188,29 @@ octave_value_list srl_dataterminalready (octave_serial* serial, const octave_val
   if (args.length () > 1)
     (*current_liboctave_error_handler) ("wrong number of arguments");
 
-  string onoff = "";
+  std::string onoff = "";
 
   // Setting DTR
   if (args.length () > 0)
     {
-      if ( !(args(0).is_string ()) )
+      if ( !(args (0).is_string ()) )
         (*current_liboctave_error_handler) ("argument must be string");
 
-      onoff = args(0).string_value ();
-      std::transform(onoff.begin(), onoff.end(), onoff.begin(), ::tolower);
+      onoff = args (0).string_value ();
+      std::transform (onoff.begin (), onoff.end (), onoff.begin (), ::tolower);
       if (onoff == "on")
-        serial->set_control_line("DTR",true);
+        serial->set_control_line ("DTR", true);
       else if (onoff == "off")
-        serial->set_control_line("DTR",false);
+        serial->set_control_line ("DTR", false);
       else
         (*current_liboctave_error_handler) ("wrong argument");
     }
 
   // Returning DTR
-  if (serial->get_control_line("DTR"))
-    return octave_value("on");
+  if (serial->get_control_line ("DTR"))
+    return octave_value ("on");
 
-  return octave_value("off");
+  return octave_value ("off");
 }
 
 octave_value_list srl_pinstatus (octave_serial* serial, const octave_value_list& args, int nargout)
@@ -243,6 +240,7 @@ octave_value_list srl_pinstatus (octave_serial* serial, const octave_value_list&
 }
 #endif
 
+// PKG_ADD: autoload ("__srl_properties__", "serial.oct");
 DEFUN_DLD (__srl_properties__, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {varargout =} __srl_properties__ (@var{octave_serial}, @var{property}, @var{varargin})\n\
@@ -250,19 +248,14 @@ Undocumented internal function.\n\
 @end deftypefn")
 {
 #ifdef BUILD_SERIAL
-  if (!type_loaded)
-    {
-      octave_serial::register_type();
-      type_loaded = true;
-    }
 
-  if (args.length () < 2 || args(0).type_id () != octave_serial::static_type_id () || !args(1).is_string ())
+  if (args.length () < 2 || args (0).type_id () != octave_serial::static_type_id () || !args (1).is_string ())
     (*current_liboctave_error_handler) ("wrong number of arguments");
     
-  const octave_base_value& rep = args(0).get_rep ();
+  const octave_base_value& rep = args (0).get_rep ();
   octave_serial* serial = &((octave_serial &)rep);
     
-  string property = args(1).string_value ();
+  std::string property = args (1).string_value ();
   octave_value_list args2 = args.slice (2, args.length ()-2);
     
   if (property == "baudrate")
