@@ -80,7 +80,7 @@ OF_OCTAVE_LIST_ALT_SYMS([
 
 ],[oct-alt-includes.h])
 
-CC=$save_alsyms_CXX
+CC=$save_altsyms_CXX
 CXXFLAGS=$save_altsyms_CXXFLAGS
 LDFLAGS=$save_altsyms_LDFLAGS
 LIBS=$save_altsyms_LIBS

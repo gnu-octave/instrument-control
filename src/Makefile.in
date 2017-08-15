@@ -2,16 +2,27 @@
 SUBDIRS = serial parallel i2c usbtmc tcp udp gpib vxi11 resolvehost hwinfo
 
 MKOCTFILE ?= mkoctfile
+GREP ?= grep
 
 .PHONY: clean
 .PHONY: realclean
 .PHONY: distclean
 .PHONY: $(SUBDIRS)
+.PHONY: make-pkg-add_file
 
-all: $(SUBDIRS)
+all: $(SUBDIRS) make-pkg-add-file.cc
 
 $(SUBDIRS):
 	$(MAKE) -C $@
+
+# pkg install doesnt look in subdirs of src to make pkgadd/del so we 
+# make a source file that it will see
+CC_SOURCES = $(wildcard */*.cc)
+make-pkg-add-file.cc: $(CC_SOURCES)
+	@echo "Generating pkg add/del $@ ..."
+	@(      echo "// Generated file for PKG_ADD/DEL inclusion"; \
+	        $(GREP) -h '// PKG_' $^) > "$@"
+
 
 CLEANDIRS = $(SUBDIRS:%=clean-%)
 DISTCLEANDIRS = $(SUBDIRS:%=distclean-%)
@@ -29,6 +40,7 @@ clean: $(CLEANDIRS)
 
 realclean:
 	rm -f *.oct
+	rm -f make-pkg-add-file.cc:
 
 distclean: realclean $(DISTCLEANDIRS)
 	rm -rf autom4te.cache
