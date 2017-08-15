@@ -22,11 +22,16 @@
 
 function out = instrhwinfo (interface)
 
-  if (nargin != 1)
+  if (nargin == 0)
+    a = __instr_hwinfo__();
+    if (nargout == 0)
+      disp(a);
+    else
+      out = a;
+    endif
+  elseif (nargin != 1)
     print_usage ();
-  endif
-
-  if (strcmpi (interface, "serial"))
+  elseif (strcmpi (interface, "serial"))
 
     if (ispc ()) # windoze
 
@@ -49,9 +54,12 @@ function out = instrhwinfo (interface)
 
 endfunction
 
+%!test
+%! a = instrhwinfo();
+%! assert(! isempty (a))
+
 %!xtest
-%! # could fail if no serial ports
+%! # could fail if no serial ports?
 %! assert(!isempty(instrhwinfo("serial")))
 
-%! # NOTE: is valid in matlab
-%!error <Invalid call to instrhwinfo> instrhwinfo
+%!error <Invalid call to instrhwinfo> instrhwinfo("serial", "2ndarg")
