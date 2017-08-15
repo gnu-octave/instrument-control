@@ -58,7 +58,7 @@ Internal private function\n \
   interfaces (int_count++) = "udp";
 #endif
 
-#ifdef BUILD_USTMC
+#ifdef BUILD_USBTMC
   interfaces (int_count++) = "usbtmc";
 #endif
 

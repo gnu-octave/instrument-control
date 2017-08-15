@@ -79,7 +79,11 @@ The usbtmc() shall return instance of @var{octave_usbtmc} class as the result @v
 }
 
 #if 0
-
-%!error <Invalid call to usbtmc> usbtmc ()
+%!test
+%! if any(strcmp(instrhwinfo().SupportedInterfaces, "usbtmc"))
+%!   fail ("usbtmc ()", "Invalid call to usbtmc");
+%! else
+%!   fail ("usbtmc ()", "usbtmc: Your system doesn't support the USBTMC interface");
+%! endif
 
 #endif

@@ -100,6 +100,11 @@ The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c
 
 #if 0
 
-%!error <Invalid call to i2c> i2c ()
+%!test
+%! if any(strcmp(instrhwinfo().SupportedInterfaces, "i2c"))
+%!   fail ("i2c ()", "Invalid call to i2c");
+%! else
+%!   fail ("i2c ()", "i2c: Your system doesn't support the I2C interface");
+%! endif
 
 #endif

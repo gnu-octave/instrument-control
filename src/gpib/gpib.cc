@@ -110,6 +110,11 @@ The gpib() shall return instance of @var{octave_gpib} class as the result @var{g
 }
 #if 0
 
-%!error <Invalid call to gpib> gpib ()
+%!test
+%! if any(strcmp(instrhwinfo().SupportedInterfaces, "gpib"))
+%!   fail ("gpib ()", "Invalid call to gpib");
+%! else
+%!   fail ("gpib ()", "gpib: Your system doesn't support the GPIB interface");
+%! endif
 
 #endif

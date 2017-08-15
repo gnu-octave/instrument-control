@@ -42,7 +42,7 @@ The vxi11() shall return instance of @var{octave_vxi11} class as the result @var
 @end deftypefn")
 {
 #ifndef BUILD_VXI11
-    error("usbtmc: Your system doesn't support the USBTMC interface");
+    error("vxi11: Your system doesn't support the VXI11 interface");
     return octave_value();
 #else
     if (!type_loaded)
@@ -89,7 +89,11 @@ The vxi11() shall return instance of @var{octave_vxi11} class as the result @var
 #endif
 }
 #if 0
-
-%!error <Invalid call to vxi11> vxi11 ()
+%!test
+%! if any(strcmp(instrhwinfo().SupportedInterfaces, "vxi11"))
+%!   fail ("vxi11 ()", "Invalid call to vxi11");
+%! else
+%!   fail ("vxi11 ()", "vxi11: Your system doesn't support the VXI11 interface");
+%! endif
 
 #endif

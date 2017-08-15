@@ -119,7 +119,11 @@ The serial() shall return instance of @var{octave_serial} class as the result @v
 }
 
 #if 0
-
-%!error <Invalid call to serial> serial ()
+%!test
+%! if any(strcmp(instrhwinfo().SupportedInterfaces, "serial"))
+%!   fail ("serial ()", "Invalid call to serial");
+%! else
+%!   fail ("serial ()", "serial: Your system doesn't support the serial interface");
+%! endif
 
 #endif

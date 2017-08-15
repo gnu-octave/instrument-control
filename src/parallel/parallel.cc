@@ -123,7 +123,11 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
 #endif
 }
 #if 0
-
-%!error <Invalid call to parallel> parallel ()
+%!test
+%! if any(strcmp(instrhwinfo().SupportedInterfaces, "parallel"))
+%!   fail ("parallel ()", "Invalid call to parallel");
+%! else
+%!   fail ("parallel ()", "parallel: Your system doesn't support the parallel interface");
+%! endif
 
 #endif
