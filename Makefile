@@ -16,11 +16,12 @@ HTML_DIR        = $(TARGET_DIR)$(PACKAGE)-html
 HTML_TARBALL    = $(TARGET_DIR)$(PACKAGE)-html.tar.gz
 
 M_SOURCES   = $(wildcard inst/*.m) $(patsubst %.in,%,$(wildcard src/*.m.in))
-CC_SOURCES  = $(wildcard src/*.cc)
+#CC_SOURCES  = $(wildcard src/*.cc)
+CC_SOURCES  = 
 OCT_FILES   = $(patsubst %.cc,%.oct,$(CC_SOURCES))
 ## This has the issue that it won't include PKG_ADD from src/*.m since
 ## they may not exist yet to be grepped.
-PKG_ADD     = $(shell grep -Pho '(?<=// PKG_ADD: ).*' $(CC_SOURCES) $(M_SOURCES))
+PKG_ADD     = $(shell grep -Pho '(?<=// PKG_ADD: ).*' $(CC_SOURCES) $(M_SOURCES) src/make-pkg-add-file.cc)
 
 # other octave packages we depend on in testing
 DEPENDS     =
