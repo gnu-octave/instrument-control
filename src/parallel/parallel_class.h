@@ -26,53 +26,53 @@ using std::string;
 class octave_parallel : public octave_base_value
 {
 public:
-    octave_parallel();
-    ~octave_parallel();
+  octave_parallel (void);
+  ~octave_parallel (void);
 
-    int open(string /* path */, int /* open flags */);
-    int close();
-    int get_fd();
+  int open (string /* path */, int /* open flags */);
+  int close (void);
+  int get_fd ();
 
-    int get_datadir();
-    int set_datadir(int /* direction */);
+  int get_datadir (void);
+  int set_datadir (int /* direction */);
 
-    int get_data();
-    int set_data(uint8_t /* value */);
+  int get_data (void);
+  int set_data (uint8_t /* value */);
 
-    int get_stat();
-    //int set_stat(uint8_t);
+  int get_stat (void);
+  //int set_stat (uint8_t);
 
-    int get_ctrl();
-    int set_ctrl(uint8_t /* value */);
+  int get_ctrl (void);
+  int set_ctrl (uint8_t /* value */);
 
-    // Overloaded base functions
-    double parallel_value() const
-    {
-        return (double)this->fd;
-    }
+  // Overloaded base functions
+  double parallel_value(void) const
+  {
+    return (double)this->fd;
+  }
 
-    virtual double scalar_value (bool frc_str_conv = false) const
-    {
-        return (double)this->fd;
-    }
+  virtual double scalar_value (bool frc_str_conv = false) const
+  {
+    return (double)this->fd;
+  }
 
-    void print (std::ostream& os, bool pr_as_read_syntax = false);
-    void print (std::ostream& os, bool pr_as_read_syntax = false) const;
-    void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
+  void print (std::ostream& os, bool pr_as_read_syntax = false);
+  void print (std::ostream& os, bool pr_as_read_syntax = false) const;
+  void print_raw (std::ostream& os, bool pr_as_read_syntax) const;
 
-    // Properties
-    bool is_constant (void) const { return true;}
-    bool is_defined (void) const { return true;}
-    bool print_as_scalar (void) const { return true;}
+  // Properties
+  bool is_constant (void) const { return true;}
+  bool is_defined (void) const { return true;}
+  bool print_as_scalar (void) const { return true;}
 
 private:
-    int fd;
+  int fd;
 
-    // 1 - Input
-    // 0 - Output
-    int dir;
+  // 1 - Input
+  // 0 - Output
+  int dir;
 
-    DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
+  DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
 
 

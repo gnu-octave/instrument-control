@@ -21,10 +21,9 @@
 
 #ifdef BUILD_PARALLEL
 #include "parallel_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("pp_datadir", "parallel.oct");
 DEFUN_DLD (pp_datadir, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} pp_datadir (@var{parallel}, @var{direction})\n \
@@ -43,42 +42,49 @@ If @var{direction} parameter is omitted, the pp_datadir() shall return current D
 @end deftypefn")
 {
 #ifndef BUILD_PARALLEL
-    error("parallel: Your system doesn't support the GPIB interface");
-    return octave_value();
+  error ("parallel: Your system doesn't support the parallel interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
-    {
-        octave_parallel::register_type();
-        type_loaded = true;
-    }
-
     
-    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_parallel::static_type_id())
+  if (args.length () < 1 || args.length () > 2 || args (0).type_id () != octave_parallel::static_type_id ())
     {
-        print_usage();
-        return octave_value(-1);
+      print_usage ();
+      return octave_value (-1);
     }
 
-    octave_parallel* parallel = NULL;
+  octave_parallel* parallel = NULL;
 
-    const octave_base_value& rep = args(0).get_rep();
-    parallel = &((octave_parallel &)rep);
+  const octave_base_value& rep = args (0).get_rep ();
+  parallel = &((octave_parallel &)rep);
 
-    // Set new direction
-    if (args.length() > 1)
+  // Set new direction
+  if (args.length () > 1)
     {
-        if ( !(args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT()) )
+      if ( !(args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ()) )
         {
-            print_usage();
-            return octave_value(-1);
+          print_usage ();
+          return octave_value (-1);
         }
 
-        parallel->set_datadir(args(1).int_value());
+      parallel->set_datadir (args (1).int_value ());
 
-        return octave_value();
+      return octave_value ();
     }
 
     // Return current direction
-    return octave_value(parallel->get_datadir());
+    return octave_value (parallel->get_datadir ());
 #endif
 }
+#if 0
+%!xtest
+%! if any (strcmp(instrhwinfo().SupportedInterfaces, "parallel"))
+%!   a = parallel ();
+%!   d = pp_datadir (a);
+%!   pp_close (a);
+%! endif
+
+%!test
+%! if any (strcmp(instrhwinfo().SupportedInterfaces, "parallel"))
+%!   fail ("pp_datadir(1);", "Invalid call to pp_datadir");
+%! endif
+#endif

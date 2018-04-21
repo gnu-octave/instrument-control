@@ -22,9 +22,9 @@
 #ifdef BUILD_PARALLEL
 #include "parallel_class.h"
 
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("pp_ctrl", "parallel.oct");
 DEFUN_DLD (pp_ctrl, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} pp_ctrl (@var{parallel}, @var{ctrl})\n \
@@ -39,41 +39,48 @@ If @var{ctrl} parameter is omitted, the pp_ctrl() shall return current Control l
 @end deftypefn")
 {
 #ifndef BUILD_PARALLEL
-    error("parallel: Your system doesn't support the GPIB interface");
-    return octave_value();
+  error ("parallel: Your system doesn't support the parallel interface");
+  return octave_value();
 #else
-    if (!type_loaded)
+  if (args.length () < 1 || args.length () > 2 || args (0).type_id () != octave_parallel::static_type_id ())
     {
-        octave_parallel::register_type();
-        type_loaded = true;
-    }
-    
-    if (args.length() < 1 || args.length() > 2 || args(0).type_id() != octave_parallel::static_type_id())
+      print_usage ();
+      return octave_value (-1);
+  }
+
+  octave_parallel* parallel = NULL;
+
+  const octave_base_value& rep = args (0).get_rep ();
+  parallel = &((octave_parallel &)rep);
+
+  // Set new Control register value
+  if (args.length () > 1)
     {
-        print_usage();
-        return octave_value(-1);
-    }
-
-    octave_parallel* parallel = NULL;
-
-    const octave_base_value& rep = args(0).get_rep();
-    parallel = &((octave_parallel &)rep);
-
-    // Set new Control register value
-    if (args.length() > 1)
-    {
-        if ( !(args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT()) )
+      if ( !(args (1).OV_ISINTEGER () || args(1).OV_ISFLOAT ()) )
         {
-            print_usage();
-            return octave_value(-1);
+          print_usage ();
+          return octave_value (-1);
         }
 
-        parallel->set_ctrl(args(1).int_value());
+        parallel->set_ctrl (args (1).int_value ());
 
-        return octave_value();
+        return octave_value ();
     }
 
-    // Return current Control register value on port
-    return octave_value(parallel->get_ctrl());
+  // Return current Control register value on port
+  return octave_value (parallel->get_ctrl ());
 #endif
 }
+#if 0
+%!xtest
+%! if any (strcmp(instrhwinfo().SupportedInterfaces, "parallel"))
+%!   a = parallel ();
+%!   v = pp_ctrl(a);
+%!   pp_close (a);
+%! endif
+
+%!test
+%! if any (strcmp(instrhwinfo().SupportedInterfaces, "parallel"))
+%!   fail ("pp_ctrl(1);", "Invalid call to pp_ctrl");
+%! endif
+#endif

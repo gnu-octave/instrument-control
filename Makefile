@@ -104,5 +104,5 @@ run: all
 
 clean:
 	rm -rf $(TARGET_DIR)
-	test -e inst/test && rm -rf inst/test
-	test -e src/Makefile && $(MAKE) -C src distclean
+	test -e inst/test && rm -rf inst/test || true
+	test -e src/Makefile && $(MAKE) -C src distclean || true

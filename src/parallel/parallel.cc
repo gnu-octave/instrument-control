@@ -43,9 +43,9 @@ using std::string;
 
 #include "parallel_class.h"
 
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("parallel", "parallel.oct");
 DEFUN_DLD (parallel, args, nargout, 
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{parallel} = } parallel ([@var{path}], [@var{direction}])\n \
@@ -60,68 +60,63 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
 @end deftypefn")
 {
 #ifndef BUILD_PARALLEL
-    error("parallel: Your system doesn't support the parallel interface");
-    return octave_value();
+    error ("parallel: Your system doesn't support the parallel interface");
+    return octave_value ();
 #else
-    if (!type_loaded)
+  // Do not open interface if return value is not assigned
+  if (nargout != 1)
     {
-        octave_parallel::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value ();
     }
 
-    // Do not open interface if return value is not assigned
-    if (nargout != 1)
-    {
-        print_usage();
-        return octave_value();
-    }
+  // Default values
+  int oflags = O_RDWR;
+  int dir = 1; // Input
+  string path ("/dev/parport0");
 
-    // Default values
-    int oflags = O_RDWR;
-    int dir = 1; // Input
-    string path("/dev/parport0");
-
-    // Parse the function arguments
-    if (args.length() > 0)
+  // Parse the function arguments
+  if (args.length () > 0)
     {
-        if (args(0).is_string())
+      if (args (0).is_string ())
         {
-            path = args(0).string_value();
+          path = args (0).string_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
     }
 
-    // is_float_type() is or'ed to allow expression like ("", 123), without user
-    // having to use ("", int32(123)), as we still only take "int_value"
-    if (args.length() > 1)
+  // is_float_type () is or'ed to allow expression like ("", 123), without user
+  // having to use ("", int32(123)), as we still only take "int_value"
+  if (args.length () > 1)
     {
-        if (args(1).OV_ISINTEGER() || args(1).OV_ISFLOAT())
+      if (args (1).OV_ISINTEGER() || args (1).OV_ISFLOAT())
         {
-            dir = args(1).int_value();
+          dir = args (1).int_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
     }
 
-    octave_parallel* retval = new octave_parallel();
+  octave_parallel* retval = new octave_parallel ();
 
-    // Open the interface
-    if (retval->open(path, oflags) < 0)
-        return octave_value();
+  // Open the interface
+  if (retval->open (path, oflags) < 0)
+        return octave_value ();
 
-    // Set direction
-    retval->set_datadir(dir);
+  // Set direction
+  retval->set_datadir(dir);
 
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }
+
 #if 0
 %!test
 %! if any(strcmp(instrhwinfo().SupportedInterfaces, "parallel"))

@@ -61,230 +61,252 @@ using std::string;
 
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_parallel, "octave_parallel", "octave_parallel");
 
-octave_parallel::octave_parallel()
+octave_parallel::octave_parallel (void)
 {
-    this->fd = -1;
-}
+  static bool type_registered = false;
 
-octave_parallel::~octave_parallel()
-{
-    this->close();
-}
-
-int octave_parallel::open(string path, int flags)
-{
-    this->fd = ::open(path.c_str(), flags, 0);
-
-    if (this->get_fd() < 0)
+  if (! type_registered)
     {
-        error("parallel: Error opening the interface: %s\n", strerror(errno));
+      type_registered = true;
+      register_type ();
+    }
+
+  this->fd = -1;
+}
+
+octave_parallel::~octave_parallel (void)
+{
+  this->close ();
+}
+
+int
+octave_parallel::open (string path, int flags)
+{
+  this->fd = ::open (path.c_str (), flags, 0);
+
+  if (this->get_fd () < 0)
+    {
+        error("parallel: Error opening the interface: %s\n", strerror (errno));
         return -1;
     }
 
-    // Claim control of parallel port
-    // Not used with FreeBSD
+  // Claim control of parallel port
+  // Not used with FreeBSD
 #if !defined(__FreeBSD__)
 
-    if (ioctl(this->get_fd(), PPCLAIM) < 0)
+  if (ioctl (this->get_fd (), PPCLAIM) < 0)
     {
-        error("parallel: Error when claiming the interface: %s\n", strerror(errno));
+      error("parallel: Error when claiming the interface: %s\n", strerror(errno));
 
-        ::close(this->get_fd());
-        this->fd = -1;
+      ::close (this->get_fd ());
+      this->fd = -1;
 
-        return -1;
+      return -1;
     }
 
 #endif
 
-    return this->get_fd();
+  return this->get_fd ();
 }
 
-int octave_parallel::get_fd()
+int
+octave_parallel::get_fd (void)
 {
-    return this->fd;
+  return this->fd;
 }
 
-void octave_parallel::print(std::ostream& os, bool pr_as_read_syntax)
+void
+octave_parallel::print (std::ostream& os, bool pr_as_read_syntax)
 {
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
+    print_raw (os, pr_as_read_syntax);
+    newline (os);
 }
 
-void octave_parallel::print(std::ostream& os, bool pr_as_read_syntax ) const
+void
+octave_parallel::print (std::ostream& os, bool pr_as_read_syntax ) const
 {
-    print_raw(os, pr_as_read_syntax);
-    newline(os);
+  print_raw (os, pr_as_read_syntax);
+  newline (os);
 }
 
-void octave_parallel::print_raw(std::ostream& os, bool pr_as_read_syntax) const
+void
+octave_parallel::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 {
-    os << this->fd;
+  os << this->fd;
 }
 
-int octave_parallel::set_datadir(int dir)
+int
+octave_parallel::set_datadir (int dir)
 {
-    if (this->get_fd() < 0)
+  if (this->get_fd () < 0)
     {
-        error("parallel: Open the interface first...");
+      error ("parallel: Open the interface first...");
+      return -1;
+    }
+
+  if (dir < 0 || 1 < dir)
+    {
+        error ("parallel: Unsupported data direction...");
         return -1;
     }
 
-    if (dir < 0 || 1 < dir)
-    {
-        error("parallel: Unsupported data direction...");
-        return -1;
-    }
-
-    // The ioctl parameter is a pointer to an int.
-    // If the int is zero, the drivers are turned on (forward/output direction);
-    // if non-zero, the drivers are turned off (reverse/input direction).
-    // Not used with FreeBSD
+  // The ioctl parameter is a pointer to an int.
+  // If the int is zero, the drivers are turned on (forward/output direction);
+  // if non-zero, the drivers are turned off (reverse/input direction).
+  // Not used with FreeBSD
 #if !defined(__FreeBSD__)
 
-    if (ioctl(this->get_fd(), PPDATADIR, &dir) < 0)
+  if (ioctl (this->get_fd (), PPDATADIR, &dir) < 0)
     {
-        error("pp_datadir: error setting data direction: %s\n", strerror(errno));
-        return false;
+      error ("pp_datadir: error setting data direction: %s\n", strerror (errno));
+      return false;
     }
 
 #endif
 
-    this->dir = dir;
+  this->dir = dir;
 
-    return 1;
+  return 1;
 }
 
-int octave_parallel::get_datadir()
+int
+octave_parallel::get_datadir (void)
 {
-    if (this->get_fd() < 0)
+    if (this->get_fd () < 0)
     {
-        error("parallel: Open the interface first...");
+        error ("parallel: Open the interface first...");
         return false;
     }
 
     return this->dir;
 }
 
-int octave_parallel::get_stat()
+int
+octave_parallel::get_stat (void)
 {
-    if (this->get_fd() < 0)
+  if (this->get_fd () < 0)
     {
-        error("parallel: Open the interface first...");
-        return -1;
+      error ("parallel: Open the interface first...");
+      return -1;
     }
 
-    uint8_t status;
+  uint8_t status;
 
-    if (ioctl(this->get_fd(), PPRSTATUS, &status) < 0)
+  if (ioctl (this->get_fd (), PPRSTATUS, &status) < 0)
     {
-        error("parallel: Error while reading from Status register: %s\n", strerror(errno));
-        return -1;
+      error ("parallel: Error while reading from Status register: %s\n", strerror (errno));
+      return -1;
     }
 
-    return status;
+  return status;
 }
 
-int octave_parallel::set_data(uint8_t data)
+int
+octave_parallel::set_data (uint8_t data)
 {
-    if (this->get_fd() < 0)
+  if (this->get_fd () < 0)
     {
-        error("parallel: Open the interface first...");
-        return -1;
+      error("parallel: Open the interface first...");
+      return -1;
     }
 
-    /*
-    if (this->get_dir() == 1)
+  /*
+  if (this->get_dir () == 1)
     {
-        error("parallel: Trying to output data while in Input mode, this can result in hardware damage! \
-                   Use override if you know what you are doing...");
-        return false;
+      error ("parallel: Trying to output data while in Input mode, this can result in hardware damage! \
+                 Use override if you know what you are doing...");
+      return false;
     }
-     */
+   */
 
-    if (ioctl(this->get_fd(), PPWDATA, &data) < 0)
+  if (ioctl (this->get_fd (), PPWDATA, &data) < 0)
     {
-        error("parallel: Error while writing to Data register: %s\n", strerror(errno));
-        return -1;
+      error ("parallel: Error while writing to Data register: %s\n", strerror (errno));
+      return -1;
     }
 
     return 1;
 }
 
-int octave_parallel::get_data()
+int
+octave_parallel::get_data (void)
 {
-    if (this->get_fd() < 0)
+  if (this->get_fd () < 0)
     {
-        error("parallel: Open the interface first...");
-        return -1;
+      error ("parallel: Open the interface first...");
+      return -1;
     }
 
-    uint8_t data;
+  uint8_t data;
 
-    if (ioctl(this->get_fd(), PPRDATA, &data) < 0)
+  if (ioctl(this->get_fd (), PPRDATA, &data) < 0)
     {
-        error("parallel: Error while reading from Data register: %s\n", strerror(errno));
-        return -1;
+      error ("parallel: Error while reading from Data register: %s\n", strerror (errno));
+      return -1;
     }
 
-    return data;
+  return data;
 }
 
-int octave_parallel::set_ctrl(uint8_t ctrl)
+int
+octave_parallel::set_ctrl (uint8_t ctrl)
 {
-    if (this->get_fd() < 0)
+  if (this->get_fd () < 0)
     {
-        error("parallel: Open the interface first...");
-        return -1;
+      error ("parallel: Open the interface first...");
+      return -1;
     }
 
-    if (ioctl(this->get_fd(), PPWCONTROL, &ctrl) < 0)
+  if (ioctl(this->get_fd (), PPWCONTROL, &ctrl) < 0)
     {
-        error("parallel: Error while writing to Control register: %s\n", strerror(errno));
-        return -1;
+      error ("parallel: Error while writing to Control register: %s\n", strerror (errno));
+      return -1;
     }
 
-    return 1;
+  return 1;
 }
 
-int octave_parallel::get_ctrl()
+int
+octave_parallel::get_ctrl (void)
 {
-    if (this->get_fd() < 0)
+  if (this->get_fd () < 0)
     {
-        error("parallel: Open the interface first...");
-        return -1;
+      error ("parallel: Open the interface first...");
+      return -1;
     }
 
-    uint8_t ctrl;
+  uint8_t ctrl;
 
-    if (ioctl(this->get_fd(), PPRCONTROL, &ctrl) < 0)
+  if (ioctl(this->get_fd (), PPRCONTROL, &ctrl) < 0)
     {
-        error("parallel: Error while reading from Control register: %s\n", strerror(errno));
-        return -1;
+      error ("parallel: Error while reading from Control register: %s\n", strerror (errno));
+      return -1;
     }
 
-    return ctrl;
+  return ctrl;
 }
 
-int octave_parallel::close()
+int
+octave_parallel::close (void)
 {
-    if (this->get_fd() > 0)
+  if (this->get_fd () > 0)
     {
-        // Release parallel port
-        // Not used with FreeBSD
+      // Release parallel port
+      // Not used with FreeBSD
 #if !defined(__FreeBSD__)
 
-        if (ioctl(this->get_fd(), PPRELEASE) < 0)
-            error("parallel: error releasing parallel port: %s\n", strerror(errno));
+      if (ioctl (this->get_fd (), PPRELEASE) < 0)
+          error ("parallel: error releasing parallel port: %s\n", strerror (errno));
 
 #endif
 
-        int retval = ::close(this->get_fd());
-        this->fd = -1;
+      int retval = ::close (this->get_fd ());
+      
+      this->fd = -1;
 
-        return retval;
+      return retval;
     }
 
-    return -1;
+  return -1;
 }
 #endif
