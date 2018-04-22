@@ -22,10 +22,9 @@
 
 #ifdef BUILD_VXI11
 #include "vxi11_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("vxi11_write", "vxi11.oct");
 DEFUN_DLD (vxi11_write, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{n} = } vxi11_write (@var{vxi11}, @var{data})\n \
@@ -39,53 +38,47 @@ Upon successful completion, vxi11_write() shall return the number of bytes writt
 @end deftypefn")
 {
 #ifndef BUILD_VXI11
-    error("usbtmc: Your system doesn't support the USBTMC interface");
-    return octave_value();
+  error ("vxi11: Your system doesn't support the VXI11 interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+
+  if (args.length () != 2 || args (0).type_id () != octave_vxi11::static_type_id ())
     {
-        octave_vxi11::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
+  octave_vxi11* vxi11 = NULL;
 
-    if (args.length() != 2 || args(0).type_id() != octave_vxi11::static_type_id())
+  const octave_base_value& rep = args (0).get_rep ();
+  vxi11 = &((octave_vxi11 &)rep);
+
+  const octave_base_value& data = args (1).get_rep ();
+  int retval;
+
+  if (data.is_string ())
     {
-        print_usage();
-        return octave_value(-1);
+      string buf = data.string_value ();
+      retval = vxi11->write (buf.c_str (), buf.length ());
+    }
+  else if (data.is_uint8_type ())
+    {
+      NDArray dtmp = data.array_value ();
+      char* buf = new char [dtmp.numel ()];
+
+      for (int i = 0; i < dtmp.numel (); i++)
+          buf[i] = (char)dtmp(i);
+
+      retval = vxi11->write (buf, data.byte_size());
+
+      delete[] buf;
+    }
+  else
+    {
+      print_usage ();
+      return octave_value (-1);
     }
 
-    octave_vxi11* vxi11 = NULL;
-
-    const octave_base_value& rep = args(0).get_rep();
-    vxi11 = &((octave_vxi11 &)rep);
-
-    const octave_base_value& data = args(1).get_rep();
-    int retval;
-
-    if (data.is_string())
-    {
-        string buf = data.string_value();
-        retval = vxi11->write(buf.c_str(), buf.length());
-    }
-    else if (data.is_uint8_type ())
-    {
-        NDArray dtmp = data.array_value();
-        char* buf = new char [dtmp.numel()];
-
-        for (int i = 0; i < dtmp.numel(); i++)
-            buf[i] = (char)dtmp(i);
-
-        retval = vxi11->write(buf, data.byte_size());
-
-        delete[] buf;
-    }
-    else
-    {
-        print_usage();
-        return octave_value(-1);
-    }
-
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }

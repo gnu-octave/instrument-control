@@ -26,10 +26,9 @@
 using std::string;
 
 #include "vxi11_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("vxi11", "vxi11.oct");
 DEFUN_DLD (vxi11, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{vxi11} = } vxi11 (@var{ip})\n \
@@ -42,50 +41,43 @@ The vxi11() shall return instance of @var{octave_vxi11} class as the result @var
 @end deftypefn")
 {
 #ifndef BUILD_VXI11
-    error("vxi11: Your system doesn't support the VXI11 interface");
-    return octave_value();
+  error ("vxi11: Your system doesn't support the VXI11 interface");
+  return octave_value ();
 #else
-    if (!type_loaded)
+  // Do not open interface if return value is not assigned
+  if (nargout != 1)
     {
-        octave_vxi11::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value ();
     }
 
-    // Do not open interface if return value is not assigned
-    if (nargout != 1)
-    {
-        print_usage();
-        return octave_value();
-    }
+  // Default values
+  string path ("127.0.0.1");
 
-    // Default values
-    string path("127.0.0.1");
-
-    // Parse the function arguments
-    if (args.length() > 0)
+  // Parse the function arguments
+  if (args.length () > 0)
     {
-        if (args(0).is_string())
+      if (args(0).is_string ())
         {
-            path = args(0).string_value();
+          path = args (0).string_value ();
         }
-        else
+      else
         {
-            print_usage();
-            return octave_value();
+          print_usage ();
+          return octave_value ();
         }
-
     }
 
-    // Open the interface
-    octave_vxi11* retval = new octave_vxi11;
+  // Open the interface
+  octave_vxi11* retval = new octave_vxi11;
 
-    if (retval->open(path) < 0)
+  if (retval->open (path) < 0)
     {
-        error("vxi11: Error opening the interface: %s\n", strerror(errno));
-        return octave_value();
+      error("vxi11: Error opening the interface: %s\n", strerror (errno));
+      return octave_value ();
     }
 
-    return octave_value(retval);
+  return octave_value (retval);
 #endif
 }
 #if 0

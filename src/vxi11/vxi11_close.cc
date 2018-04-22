@@ -22,10 +22,9 @@
 
 #ifdef BUILD_VXI11
 #include "vxi11_class.h"
-
-static bool type_loaded = false;
 #endif
 
+// PKG_ADD: autoload ("vxi11_close", "vxi11.oct");
 DEFUN_DLD (vxi11_close, args, nargout,
 "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {} vxi11_close (@var{vxi11})\n \
@@ -36,29 +35,22 @@ Close the interface and release a file descriptor.\n \
 @end deftypefn")
 {
 #ifndef BUILD_VXI11
-    error("usbtmc: Your system doesn't support the USBTMC interface");
-    return octave_value();
+  error ("vxi11: Your system doesn't support the VXI11 interface");
+  return octave_value();
 #else
-    if (!type_loaded)
+  if (args.length () != 1 || args (0).type_id () != octave_vxi11::static_type_id())
     {
-        octave_vxi11::register_type();
-        type_loaded = true;
+      print_usage ();
+      return octave_value (-1);
     }
 
+  octave_vxi11* vxi11 = NULL;
 
-    if (args.length() != 1 || args(0).type_id() != octave_vxi11::static_type_id())
-    {
-        print_usage();
-        return octave_value(-1);
-    }
+  const octave_base_value& rep = args (0).get_rep ();
+  vxi11 = &((octave_vxi11 &)rep);
 
-    octave_vxi11* vxi11 = NULL;
+  vxi11->close ();
 
-    const octave_base_value& rep = args(0).get_rep();
-    vxi11 = &((octave_vxi11 &)rep);
-
-    vxi11->close();
-
-    return octave_value();
+  return octave_value ();
 #endif
 }

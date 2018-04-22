@@ -29,18 +29,18 @@ using std::string;
 class octave_vxi11 : public octave_base_value
 {
 public:
-    octave_vxi11();
-    ~octave_vxi11();
+  octave_vxi11 (void);
+  ~octave_vxi11 (void);
 
-    int open(string);
-    int close();
+    int open (string);
+    int close (void);
 
     // Simple vxi11 commands
-    int write(const char*, int);
-    int read(char*, unsigned int);
+    int write (const char*, int);
+    int read (char*, unsigned int);
 
     // Overloaded base functions
-    string vxi11_value() const
+    string vxi11_value () const
     {
         return (string)this->ip;
     }
@@ -65,8 +65,8 @@ private:
     std::string ip;
     std::string device;
 
-    int openvxi(const char *, CLIENT **, Create_LinkResp **, const char *);
-    int closevxi(const char *, CLIENT *, Create_LinkResp *);
+    int openvxi (const char *, CLIENT **, Create_LinkResp **, const char *);
+    int closevxi (const char *, CLIENT *, Create_LinkResp *);
 
     DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
