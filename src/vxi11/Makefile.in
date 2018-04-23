@@ -16,7 +16,6 @@ CC_SOURCES  := $(wildcard *.cc)
 CC_TST_SOURCES := $(shell $(GREP) --files-with-matches '^%!' $(CC_SOURCES))
 TST_SOURCES := $(patsubst %.cc,../../inst/test/%.cc-tst,$(CC_TST_SOURCES))
 
-all: $(OBJ) $(OCT) $(TST_SOURCES)
 
 ifneq ($(BUILD_VXI11),1)
 VXI =
@@ -25,12 +24,12 @@ else
 
 CFLAGS      += @RPCINCLUDE@
 LFLAGS      += @RPCLIBS@
+endif
+
+all: $(OCT) $(TST_SOURCES)
 
 vxi11.h vxi11_clnt.c vxi11_xdr.c : vxi11.x
 	$(RPCGEN) -M vxi11.x
-
-endif
-
 
 %.o: %.c
 	$(MKOCTFILE) $(CFLAGS) -c $^
