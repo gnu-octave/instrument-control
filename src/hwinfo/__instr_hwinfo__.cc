@@ -1,4 +1,4 @@
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017-2018   John Donoghue   <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,6 +14,7 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
+#include <octave/oct-map.h>
 
 #ifdef HAVE_CONFIG_H
 #  include "../config.h"
