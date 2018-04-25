@@ -1,6 +1,6 @@
 VXI := vxi11_clnt.o vxi11_xdr.o
 OBJ := vxi11.o vxi11_write.o vxi11_close.o vxi11_read.o
-OCT := vxi11.oct
+OCT := ../vxi11.oct
 VXCLASS := vxi11_class.o 
 
 MKOCTFILE  ?= mkoctfile
@@ -38,7 +38,7 @@ vxi11.h vxi11_clnt.c vxi11_xdr.c : vxi11.x
 	$(MKOCTFILE) $(CFLAGS) -c $^
 
 %.oct: $(OBJ) $(VXI) $(VXCLASS)
-	$(MKOCTFILE) $^ $(LFLAGS) -o ../$@
+	$(MKOCTFILE) $^ $(LFLAGS) -o $@
 
 ../../inst/test:
 	@mkdir -p "$@"
@@ -50,7 +50,7 @@ $(TST_SOURCES): ../../inst/test/%.cc-tst: %.cc | ../../inst/test
 	        $(GREP) '^%!' "$<") > "$@"
 
 clean:
-	rm -f *.oct *.o
+	rm -f $(OCT) *.o
 	rm -f vxi11.h vxi11_clnt.c vxi11_xdr.c vxi11_svc.c 
 	
 distclean: clean

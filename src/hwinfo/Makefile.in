@@ -1,4 +1,4 @@
-OCT := __instr_hwinfo__.oct
+OCT := ../__instr_hwinfo__.oct
 OBJ := __instr_hwinfo__.o
 
 MKOCTFILE ?= mkoctfile
@@ -11,13 +11,13 @@ CC_SOURCES  := $(wildcard *.cc)
 CC_TST_SOURCES := $(shell $(GREP) --files-with-matches '^%!' $(CC_SOURCES))
 TST_SOURCES := $(patsubst %.cc,../../inst/test/%.cc-tst,$(CC_TST_SOURCES))
 
-all: $(OBJ) $(OCT) $(TST_SOURCES)
+all: $(OCT) $(TST_SOURCES)
 
 %.o: %.cc
 	$(MKOCTFILE) $(CFLAGS) -c $^
 
-%.oct: %.o $(OBJ)
-	$(MKOCTFILE) $^ $(LFLAGS) -o ../$@
+%.oct: $(OBJ)
+	$(MKOCTFILE) $^ $(LFLAGS) -o $@
 
 ../../inst/test:
 	@mkdir -p "$@"
@@ -29,7 +29,7 @@ $(TST_SOURCES): ../../inst/test/%.cc-tst: %.cc | ../../inst/test
 	        $(GREP) '^%!' "$<") > "$@"
 
 clean:
-	rm -f *.oct *.o
+	rm -f $(OCT) *.o
 
 distclean: clean
 	rm Makefile
