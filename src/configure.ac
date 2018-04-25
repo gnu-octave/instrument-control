@@ -76,9 +76,28 @@ OF_OCTAVE_LIST_ALT_SYMS([
   [OCTAVE__SET_SIGNAL_HANDLER],
   [[#include <octave/sighandlers.h>]],
   [[#include <octave/sighandlers.h>]]
+],
+
+[dnl
+  [octave_value_typeinfo::register_binary_op],
+  [octave::type_info::register_binary_op],
+  [
+   [octave::type_info& ti = octave::interpreter::the_interpreter ()->get_type_info ();]
+   [ti.register_binary_op(octave_value::op_eq, 1,1,0);]
+  ],
+  [OCTAVE__REGISTER_BINARY_OP],
+  [[#include <octave/octave.h>]],
+  [
+   [#include <octave/octave.h>]
+   [#include <octave/interpreter.h>]
+  ]
 ]
 
 ],[oct-alt-includes.h])
+
+if test $ac_cv_octsym_OCTAVE__REGISTER_BINARY_OP == "octave::type_info::register_binary_op"; then
+  AC_DEFINE([OCTAVE__NEW_REGISTER_OP], [], [Use new register_binary_op]) 
+fi
 
 CXX=$save_altsyms_CXX
 CXXFLAGS=$save_altsyms_CXXFLAGS

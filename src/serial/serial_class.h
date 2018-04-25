@@ -1,4 +1,5 @@
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
+//               2018   John Donoghue   <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -47,11 +48,18 @@
       (&v1 op &v2); \
   }
 
+#ifdef OCTAVE__NEW_REGISTER_OP
+#define INSTALL_BINOP(op, t1, t2, f) \
+ {octave::type_info& ti = octave::interpreter::the_interpreter ()->get_type_info (); \
+  ti.register_binary_op \
+    (octave_value::op, t1::static_type_id (), t2::static_type_id (), \
+     CONCAT2(oct_binop_, f));}
+#else
 #define INSTALL_BINOP(op, t1, t2, f) \
   octave_value_typeinfo::register_binary_op \
     (octave_value::op, t1::static_type_id (), t2::static_type_id (), \
      CONCAT2(oct_binop_, f));
-
+#endif
 
 class octave_serial_common : public octave_base_value
 {

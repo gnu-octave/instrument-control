@@ -36,12 +36,14 @@ AC_MSG_CHECKING([$1 or $2])
                [[$2]],
                [macro for alternative Octave symbols])
      AC_MSG_RESULT([$2])
-     echo '$6' >> $7],
+     echo '$6' >> $7
+     ac_cv_octsym_[$4]=["$2"]],
     [AC_DEFINE($4,
                [[$1]],
                [macro for alternative Octave symbols])
      AC_MSG_RESULT([$1])
-     echo '$5' >> $7]
+     echo '$5' >> $7
+     ac_cv_octsym_[$4]=["$1"]],
 )
 ])
 
