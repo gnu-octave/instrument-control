@@ -31,6 +31,13 @@
 #  include <netdb.h>
 #  include <arpa/inet.h>
 #else
+   // tell old versions of mingw32 to be win2k
+#  ifdef __MINGW32__
+#    if _MINGW32_MAJOR_VERSION < 5
+#      undef _WIN32_WINNT
+#      define _WIN32_WINNT 0x0501
+#    endif
+#  endif
 #  include <winsock2.h>
 #  include <ws2tcpip.h>
 #endif

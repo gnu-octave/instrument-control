@@ -164,6 +164,7 @@ AC_CHECK_HEADERS([winsock2.h],
 if test $have_winsock2 = yes; then
   AC_SUBST(TCPLIBS, ["-lws2_32"])
   build_tcp=yes
+  build_resolvehost=yes
 fi
 
 # if can build tcp, can build udp
@@ -173,9 +174,11 @@ fi
 
 # checks for resolve host
 if test $build_tcp = yes; then
-  AC_SEARCH_LIBS(getnameinfo, [ws2_32 inet6 socket], [build_resolvehost=yes])
-  if test "x$ac_cv_search_getnameinfo" != "xno"; then
-    test "x$ac_cv_search_getnameinfo" = "xnone required" || AC_SUBST(TCPLIBS, [$ac_cv_search_getnameinfo])
+  if test $build_resolvehost = no; then
+    AC_SEARCH_LIBS(getnameinfo, [inet6 socket], [build_resolvehost=yes])
+    if test "x$ac_cv_search_getnameinfo" != "xno"; then
+      test "x$ac_cv_search_getnameinfo" = "xnone required" || AC_SUBST(TCPLIBS, [$ac_cv_search_getnameinfo])
+    fi
   fi
 fi
 
