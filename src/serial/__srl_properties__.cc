@@ -1,3 +1,4 @@
+// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 // Copyright (C) 2014   Stefan Mahr     <dac922@gmx.de>
 //
