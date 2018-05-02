@@ -1,3 +1,4 @@
+// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -57,8 +58,7 @@ Upon successful completion, i2c_write() shall return the number of bytes written
   if (args (1).is_uint8_type ()) // uint8_t
     {
       NDArray data = args (1).array_value ();
-      uint8_t *buf = NULL; 
-      buf = new uint8_t[data.numel ()];
+      OCTAVE_LOCAL_BUFFER (uint8_t, buf, (data.numel ()));
 
       if (buf == NULL)
         {
@@ -70,8 +70,6 @@ Upon successful completion, i2c_write() shall return the number of bytes written
         buf[i] =  static_cast<uint8_t>(data (i));
 
       retval = i2c->write (buf, data.numel());
-
-      delete[] buf;
     }
   else
     {

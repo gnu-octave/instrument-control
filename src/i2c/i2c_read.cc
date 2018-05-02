@@ -1,3 +1,4 @@
+// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -51,7 +52,6 @@ The i2c_read() shall return number of bytes successfully read in @var{count} as 
       return octave_value (-1);
     }
 
-  uint8_t *buffer = NULL;
   unsigned int buffer_len = 1;
 
   if (args.length () > 1)
@@ -65,7 +65,7 @@ The i2c_read() shall return number of bytes successfully read in @var{count} as 
       buffer_len = args (1).int_value ();
     }
 
-  buffer = new uint8_t [buffer_len + 1];
+  OCTAVE_LOCAL_BUFFER (uint8_t, buffer, (buffer_len +1));
 
   if (buffer == NULL)
     {
@@ -91,8 +91,6 @@ The i2c_read() shall return number of bytes successfully read in @var{count} as 
   return_list (0) = data;
   return_list (1) = retval; 
         
-  delete[] buffer;
-
   return return_list;
 #endif
 }

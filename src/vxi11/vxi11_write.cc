@@ -1,3 +1,4 @@
+// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -64,14 +65,12 @@ Upon successful completion, vxi11_write() shall return the number of bytes writt
   else if (data.is_uint8_type ())
     {
       NDArray dtmp = data.array_value ();
-      char* buf = new char [dtmp.numel ()];
+      OCTAVE_LOCAL_BUFFER (char, buf, (dtmp.numel ()));
 
       for (int i = 0; i < dtmp.numel (); i++)
           buf[i] = (char)dtmp(i);
 
       retval = vxi11->write (buf, data.byte_size());
-
-      delete[] buf;
     }
   else
     {

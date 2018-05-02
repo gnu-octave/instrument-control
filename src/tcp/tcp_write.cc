@@ -1,3 +1,4 @@
+// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -60,8 +61,7 @@ Upon successful completion, tcp_write() shall return the number of bytes written
   else if (args (1).is_uint8_type ())
     {
       NDArray data = args (1).array_value ();
-      uint8_t *buf = NULL;
-      buf = new uint8_t[data.numel ()];
+      OCTAVE_LOCAL_BUFFER (uint8_t, buf, (data.numel ()));
 
       // memcpy?
       if (buf == NULL)
@@ -75,7 +75,6 @@ Upon successful completion, tcp_write() shall return the number of bytes written
 
       retval = tcp->write (buf, data.numel ());
 
-      delete[] buf;
     }
   else
     {

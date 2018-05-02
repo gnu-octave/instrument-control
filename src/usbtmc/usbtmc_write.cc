@@ -1,3 +1,4 @@
+// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -66,8 +67,7 @@ Upon successful completion, usbtmc_write() shall return the number of bytes writ
   else if (data.is_uint8_type ())
     {
       NDArray dtmp = data.array_value ();
-      uint8_t *buf = NULL;
-      buf = new uint8_t[dtmp.numel ()];
+      OCTAVE_LOCAL_BUFFER (uint8_t, buf, (data.numel ()));
 
       if (buf == NULL)
         {
@@ -78,9 +78,7 @@ Upon successful completion, usbtmc_write() shall return the number of bytes writ
       for (int i = 0; i < dtmp.numel (); i++)
         buf[i] = static_cast<uint8_t>(dtmp (i));
 
-        retval = usbtmc->write (buf, dtmp.numel ());
-
-        delete[] buf;
+      retval = usbtmc->write (buf, dtmp.numel ());
     }
   else
     {

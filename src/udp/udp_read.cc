@@ -1,4 +1,4 @@
-// Copyright (C) 2016,2017 John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2016-2018 John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -74,8 +74,7 @@ The udp_read() shall return number of bytes successfully read in @var{count} as 
 
   buffer_len = args(1).int_value();
 
-  uint8_t *buffer = NULL;
-  buffer = new uint8_t[buffer_len + 1];
+  OCTAVE_LOCAL_BUFFER (uint8_t, buffer, (buffer_len + 1));
 
   if (buffer == NULL)
     {
@@ -106,8 +105,6 @@ The udp_read() shall return number of bytes successfully read in @var{count} as 
 
   return_list(0) = data;
   return_list(1) = bytes_read;
-
-  delete[] buffer;
 
   return return_list;
 #endif

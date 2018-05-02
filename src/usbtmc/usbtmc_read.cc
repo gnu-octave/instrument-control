@@ -1,3 +1,4 @@
+// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
@@ -53,7 +54,6 @@ The usbtmc_read() shall return number of bytes successfully read in @var{count} 
       return octave_value (-1);
     }
 
-  uint8_t *buffer = NULL;
   unsigned int buffer_len = 1;
 
   if (args.length () > 1)
@@ -67,7 +67,7 @@ The usbtmc_read() shall return number of bytes successfully read in @var{count} 
       buffer_len = args(1).int_value();
     }
 
-  buffer = new uint8_t [buffer_len + 1];
+  OCTAVE_LOCAL_BUFFER (uint8_t, buffer, (buffer_len + 1));
 
   if (buffer == NULL)
     {
@@ -92,8 +92,6 @@ The usbtmc_read() shall return number of bytes successfully read in @var{count} 
 
   return_list (0) = data;
   return_list (1) = retval;
-
-  delete[] buffer;
 
   return return_list;
 #endif
