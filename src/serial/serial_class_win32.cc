@@ -29,8 +29,6 @@ using std::string;
 
 #include "serial_class.h"
 
-volatile bool read_interrupt = false;
-
 char *
 winerror (int err)
 {
@@ -106,6 +104,8 @@ octave_serial::open (const std::string &path)
   timeouts.WriteTotalTimeoutMultiplier = 0;
   timeouts.WriteTotalTimeoutConstant = 0;
 
+  timeout = -1;
+
   if (SetCommTimeouts(fd, &timeouts) == FALSE)
     {
       error ("serial: Failed to disable timeouts: %s\n", winerror (errno));
@@ -133,9 +133,12 @@ octave_serial::read(uint8_t *buf, unsigned int len)
   size_t bytes_read = 0;
   ssize_t read_retval = -1;
 
+  int maxwait = timeout;
   // While not interrupted in blocking mode
-  while (!read_interrupt)
+  while (bytes_read < len)
     {
+      OCTAVE_QUIT;
+
       DWORD readsz;
       read_retval = -1;
       if (ReadFile (fd, (buf + bytes_read), len - bytes_read, &readsz, NULL) == TRUE)
@@ -151,13 +154,14 @@ octave_serial::read(uint8_t *buf, unsigned int len)
 
       bytes_read += read_retval;
 
-      // Required number of bytes read
-      if (bytes_read >= len)
-        break;
-
-      // Timeout while in non-blocking mode
       if (read_retval == 0 && !blocking_read)
-        break;
+        {
+          maxwait -= timeouts.ReadTotalTimeoutConstant/100;
+
+	  // actual timeout
+	  if (maxwait <= 0)
+            break;
+	}
     }
 
   return bytes_read;
@@ -198,7 +202,7 @@ octave_serial::write (uint8_t *buf, unsigned int len)
 }
 
 int
-octave_serial::set_timeout (short timeout)
+octave_serial::set_timeout (short newtimeout)
 {
   if (! fd_is_valid())
     {
@@ -206,27 +210,31 @@ octave_serial::set_timeout (short timeout)
       return -1;
     }
 
-  if (timeout < -1 || timeout > 255)
+  if (newtimeout < -1 || newtimeout > 255)
     {
       error ("srl_timeout: timeout value must be between [-1..255]...");
       return -1;
     }
 
+  timeout = newtimeout;
+
   // Disable custom timeout, enable blocking read
-  if (timeout < 0)
+  if (newtimeout < 0)
     {
       blocking_read = true;
-      timeout = 5;
+      newtimeout = 5;
     }
   // Enable custom timeout, disable blocking read
   else
     {
       blocking_read = false;
+      if (newtimeout > 10)
+        newtimeout = 5;
     }
 
   timeouts.ReadIntervalTimeout = MAXDWORD;
   timeouts.ReadTotalTimeoutMultiplier = 0;
-  timeouts.ReadTotalTimeoutConstant = timeout*100;
+  timeouts.ReadTotalTimeoutConstant = newtimeout*100;
   timeouts.WriteTotalTimeoutMultiplier = 0;
   timeouts.WriteTotalTimeoutConstant = 0;
 
@@ -245,7 +253,7 @@ octave_serial::get_timeout (void) const
   if (blocking_read)
     return -1;
   else
-    return timeouts.ReadTotalTimeoutConstant/100;
+    return timeout;
 }
 
 int

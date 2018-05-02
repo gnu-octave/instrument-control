@@ -61,6 +61,7 @@ private:
   COMMTIMEOUTS timeouts;
 
   volatile bool blocking_read;
+  short timeout;
 
   void get_control_line_status(void);
 
