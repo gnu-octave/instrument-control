@@ -1,3 +1,4 @@
+// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -45,8 +46,6 @@
 #endif
 
 #include "tcp_class.h"
-
-volatile bool read_interrupt = false;
 
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_tcp, "octave_tcp", "octave_tcp");
 
@@ -131,10 +130,9 @@ octave_tcp::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 }
 
 int
-octave_tcp::read (uint8_t *buf, unsigned int len, int timeout)
+octave_tcp::read (uint8_t *buf, unsigned int len, int readtimeout)
 {
   struct timeval tv;
-  struct timeval *ptv;
 
   fd_set readfds;
 
@@ -148,26 +146,33 @@ octave_tcp::read (uint8_t *buf, unsigned int len, int timeout)
   ssize_t read_retval = -1;
 
   // While not interrupted in blocking mode
-  while (!read_interrupt)
+  while (bytes_read < len)
     {
+
+      OCTAVE_QUIT;
+
       /* tv.tv_sec = timeout / 1000;
        * tv.tv_usec = (timeout % 1000) * 1000;
        */
 
-      ptv = &tv;
-      tv.tv_sec = 0;
-      tv.tv_usec = timeout * 1000;
-
-      // blocking read
-      if (timeout < 0)
+      if (readtimeout < 0) 
         {
-          ptv = NULL;
+          tv.tv_sec = 1;
+          tv.tv_usec = 0;
+        }
+      else
+        {
+          tv.tv_sec = 0;
+          if (readtimeout > 1000)
+            tv.tv_usec = 1000 * 1000;
+          else
+            tv.tv_usec = readtimeout * 1000;
         }
 
       FD_ZERO (&readfds);
       FD_SET (get_fd (), &readfds);
 
-      if (::select (get_fd ()+1, &readfds, NULL, NULL, ptv) < 0)
+      if (::select (get_fd ()+1, &readfds, NULL, NULL, &tv) < 0)
         {
           error ("tcp_read: Error while reading/select: %d - %s\n", SOCKETERR, STRSOCKETERR);
           break;
@@ -186,18 +191,24 @@ octave_tcp::read (uint8_t *buf, unsigned int len, int timeout)
               error ("tcp_read: Connection lost: %d - %s\n", SOCKETERR, STRSOCKETERR);
               break;
             }
+          else
+            {
+              bytes_read += read_retval;
+            }
         } 
       else 
         {
-          // Timeout
-          break;
+          // time out
+          if (readtimeout >= 0)
+            {
+              // real timeout
+              if (readtimeout <= 1000)
+                break;
+              // timed out 1 sec of an actual timeout
+              else
+                readtimeout -= 1000;
+            }
         }
-
-      bytes_read += read_retval;
-
-      // Required number of bytes read
-      if (bytes_read >= len)
-        break;
 
     }
 

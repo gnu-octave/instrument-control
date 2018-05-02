@@ -23,19 +23,11 @@
 
 #ifdef BUILD_UDP
 #include <octave/uint8NDArray.h>
-#include <octave/sighandlers.h>
 
 #include <errno.h>
 
 #include "udp_class.h"
 
-extern bool read_interrupt;
-
-void read_sighandler(int sig)
-{
-  printf("udp_read: Interrupting...\n\r");
-  read_interrupt = true;
-}
 #endif
 
 // PKG_ADD: autoload ("udp_read", "udp.oct");
@@ -102,16 +94,8 @@ The udp_read() shall return number of bytes successfully read in @var{count} as 
       timeout = args(2).int_value();
     }
 
-  // Register custom interrupt signal handler
-  OCTAVE__SET_SIGNAL_HANDLER(SIGINT, read_sighandler);
-  read_interrupt = false;
-
   // Read data
   int bytes_read = udp->read(buffer, buffer_len, timeout);
-
-  // Restore default signal handling
-  // TODO: a better way?
-  OCTAVE__INSTALL_SIGNAL_HANDLERS();
 
   // Convert data to octave type variables
   octave_value_list return_list;
