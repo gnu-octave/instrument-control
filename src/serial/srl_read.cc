@@ -21,19 +21,11 @@
 
 #ifdef BUILD_SERIAL
 #include <octave/uint8NDArray.h>
-#include <octave/sighandlers.h>
 
 #include <errno.h>
 
 #include "serial_class.h"
 
-extern bool read_interrupt;
-
-void read_sighandler(int sig)
-{
-  printf("srl_read: Interrupting...\n\r");
-  read_interrupt = true;
-}
 #endif
 
 // PKG_ADD: autoload ("srl_read", "serial.oct");
@@ -83,17 +75,9 @@ The srl_read() shall return number of bytes successfully read in @var{count} as 
   const octave_base_value& rep = args (0).get_rep ();
   serial = &((octave_serial &)rep);
 
-  // Register custom interrupt signal handler
-  OCTAVE__SET_SIGNAL_HANDLER (SIGINT, read_sighandler);
-  read_interrupt = false;
-    
   // Read data
   int bytes_read = serial->read (buffer, buffer_len);
 
-  // Restore default signal handling
-  // TODO: a better way? 
-  OCTAVE__INSTALL_SIGNAL_HANDLERS ();
-    
   // Convert data to octave type variables
   octave_value_list return_list;
   uint8NDArray data (dim_vector (1, bytes_read));

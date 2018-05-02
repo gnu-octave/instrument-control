@@ -1,3 +1,4 @@
+// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -33,8 +34,6 @@
 #include <unistd.h>
 
 #include "serial_class.h"
-
-volatile bool read_interrupt = false;
 
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_serial, "octave_serial", "octave_serial");
 
@@ -102,6 +101,7 @@ octave_serial::open (const std::string &path)
           return;
         }
 
+      timeout = -1;
       blocking_read = true;
     }
   else
@@ -128,9 +128,12 @@ octave_serial::read (uint8_t *buf, unsigned int len)
   size_t bytes_read = 0;
   ssize_t read_retval = -1;
 
+  int maxwait = timeout;
   // While not interrupted in blocking mode
-  while (!read_interrupt)
+  while (bytes_read < len)
     {
+      OCTAVE_QUIT;
+
       read_retval = ::read (fd, (void *)(buf + bytes_read), len - bytes_read);
       //printf("read_retval: %d\n\r", read_retval);
 
@@ -142,13 +145,15 @@ octave_serial::read (uint8_t *buf, unsigned int len)
 
       bytes_read += read_retval;
 
-      // Required number of bytes read
-      if (bytes_read >= len)
-        break;
-
       // Timeout while in non-blocking mode
       if (read_retval == 0 && !blocking_read)
-        break;
+        {
+          maxwait -= config.c_cc[VTIME];
+
+	  // actual timeout
+	  if (maxwait <= 0)
+            break;
+	}
     }
 
   return bytes_read;
@@ -179,7 +184,7 @@ octave_serial::write(uint8_t *buf, unsigned int len)
 }
 
 int
-octave_serial::set_timeout (short timeout)
+octave_serial::set_timeout (short newtimeout)
 {
   if (! fd_is_valid ())
     {
@@ -193,21 +198,25 @@ octave_serial::set_timeout (short timeout)
       return -1;
     }
 
+  timeout = newtimeout;
+
   // Disable custom timeout, enable blocking read
-  if (timeout < 0)
+  if (newtimeout < 0)
     {
       blocking_read = true;
-      timeout = 5;
+      newtimeout = 5;
     }
   // Enable custom timeout, disable blocking read
   else
     {
       blocking_read = false;
+      if(newtimeout > 10) newtimeout = 5;
     }
+
 
   BITMASK_CLEAR (config.c_lflag, ICANON); // Set non-canonical mode
   config.c_cc[VMIN] = 0;
-  config.c_cc[VTIME] = (unsigned) timeout; // Set timeout of 'timeout * 10' seconds
+  config.c_cc[VTIME] = (unsigned) newtimeout; // Set timeout of 'timeout * 10' seconds
 
   if (tcsetattr (fd, TCSANOW, &config) < 0)
     {
@@ -224,7 +233,7 @@ octave_serial::get_timeout (void) const
   if (blocking_read)
     return -1;
   else
-    return config.c_cc[VTIME];
+    return timeout;
 }
 
 int
