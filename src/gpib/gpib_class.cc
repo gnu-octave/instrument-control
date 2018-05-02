@@ -15,6 +15,7 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
+#include <octave/unwind-prot.h>
 
 #ifdef HAVE_CONFIG_H
 #include "../config.h"
@@ -33,9 +34,12 @@
 
 #include "gpib_class.h"
 
-volatile bool read_interrupt = false;
-
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_gpib, "octave_gpib", "octave_gpib");
+
+static void close_fd (int fd)
+{
+  ibonl(fd,0);
+}
 
 octave_gpib::octave_gpib ()
 {
@@ -108,6 +112,10 @@ octave_gpib::read (uint8_t *buf, unsigned int len, bool *eoi)
       return -1;
     }
 
+  // set up a frame to close fd
+  octave::unwind_protect frame;
+  frame.add_fcn (close_fd, fd);
+
 #if defined(GPIB_USEBLOCKREAD)
   // blocking read - not interruptable
   gperr = ibrd (fd,(void *)buf,len);
@@ -126,7 +134,6 @@ octave_gpib::read (uint8_t *buf, unsigned int len, bool *eoi)
               localiberr = ThreadIbcnt ();
               warning ("gpib_read: failed system call: %d - %s\n", localiberr, strerror (localiberr));
             }
-          ibonl(fd,0);
           return -1;
         }
     }
@@ -138,12 +145,13 @@ octave_gpib::read (uint8_t *buf, unsigned int len, bool *eoi)
   if (gperr & ERR)
     {
       error ("gpib_read: Error while reading: %d\n", ThreadIberr());
-      ibonl (fd,0);
       return -1;
     }
 
-  while (!read_interrupt)
+  while (1)
     {
+      OCTAVE_QUIT;
+
       gperr = ibwait (fd,CMPL);
       warning ("gpib_read: read timeout %d - %d - %d",gperr, ThreadIberr (),ThreadIbcnt ());
       if (gperr & ERR)
@@ -161,7 +169,6 @@ octave_gpib::read (uint8_t *buf, unsigned int len, bool *eoi)
                   localiberr = ThreadIbcnt();
                   warning ("gpib_read: failed system call: %d - %s\n", localiberr, strerror (localiberr));
                 }
-              ibonl (fd,0);
               return -1;
             }
         }
@@ -171,10 +178,7 @@ octave_gpib::read (uint8_t *buf, unsigned int len, bool *eoi)
   bytes_read = ThreadIbcnt ();
   *eoi = (ThreadIbsta () & 0x2000) ? true : false;
 
-  ibonl (fd,0);
-
   return bytes_read;
-
 }
 
 int
@@ -195,6 +199,10 @@ octave_gpib::write (const std::string &str)
       return -1;
     }
 
+  // set up a frame to close fd
+  octave::unwind_protect frame;
+  frame.add_fcn (close_fd, fd);
+
   gperr = ibwrt (fd,str.c_str (), str.length ());
   if (gperr & ERR) 
     {
@@ -205,8 +213,6 @@ octave_gpib::write (const std::string &str)
           error ("gpib: can not write gpib data to device");
         }
     }
-
-    ibonl (fd,0);
 
     return gperr;
 }
@@ -229,6 +235,10 @@ octave_gpib::write (uint8_t *buf, unsigned int len)
       return -1;
     }
 
+  // set up a frame to close fd
+  octave::unwind_protect frame;
+  frame.add_fcn (close_fd, fd);
+
   gperr = ibwrt (fd, buf, len);
   if (gperr & ERR) 
     {
@@ -240,9 +250,7 @@ octave_gpib::write (uint8_t *buf, unsigned int len)
         }
     }
 
-  ibonl (fd, 0);
-
-    return gperr;
+  return gperr;
 }
 
 int
@@ -263,6 +271,10 @@ octave_gpib::spoll (char *rqs)
       return -1;
     }
 
+  // set up a frame to close fd
+  octave::unwind_protect frame;
+  frame.add_fcn (close_fd, fd);
+
   gperr = ibrsp (fd,rqs);
   if (gperr & ERR)
     {
@@ -271,10 +283,7 @@ octave_gpib::spoll (char *rqs)
     }
   //warning ("aaa: %X - %X",gperr, buf);
 
-  ibonl(fd,0);
-
   return gperr;
-
 }
 
 int
@@ -295,6 +304,10 @@ octave_gpib::trigger()
       return -1;
     }
 
+  // set up a frame to close fd
+  octave::unwind_protect frame;
+  frame.add_fcn (close_fd, fd);
+
   gperr = ibtrg (fd);
   if (gperr & ERR)
     {
@@ -302,10 +315,7 @@ octave_gpib::trigger()
       return -1;
     }
 
-  ibonl (fd,0);
-
   return gperr;
-
 }
 
 int
@@ -326,6 +336,10 @@ octave_gpib::cleardevice()
       return -1;
     }
 
+  // set up a frame to close fd
+  octave::unwind_protect frame;
+  frame.add_fcn (close_fd, fd);
+
   gperr = ibclr(fd);
   if (gperr & ERR) 
     {
@@ -333,10 +347,7 @@ octave_gpib::cleardevice()
       return -1;
     }
 
-  ibonl (fd,0);
-
   return gperr;
-
 }
 
 int
@@ -355,7 +366,7 @@ octave_gpib::set_timeout (int newtimeout)
 
   timeout = newtimeout;
 
-    return 1;
+  return 1;
 }
 
 int
@@ -378,13 +389,15 @@ octave_gpib::close()
             return -1;
         }
 
+      // set up a frame to close fd
+      octave::unwind_protect frame;
+      frame.add_fcn (close_fd, fd);
+
       gperr = ibloc (fd);
       if (gperr & ERR) 
         {
           error ("gpib_close: can not set device to local");
         }
-
-        ibonl (fd, 0);
     }
 
     minor = -1;

@@ -24,19 +24,11 @@
 
 #ifdef BUILD_GPIB
 #include <octave/uint8NDArray.h>
-#include <octave/sighandlers.h>
 
 #include <errno.h>
 
 #include "gpib_class.h"
 
-extern bool read_interrupt;
-
-void read_sighandler(int sig)
-{
-  printf("gpib_read: Interrupting...\n\r");
-  read_interrupt = true;
-}
 #endif
 
 // PKG_ADD: autoload ("gpib_read", "gpib.oct");
@@ -86,17 +78,9 @@ The gpib_read() shall return number of bytes successfully read in @var{count} as
   const octave_base_value& rep = args (0).get_rep ();
   gpib = &((octave_gpib &)rep);
 
-  // Register custom interrupt signal handler
-  OCTAVE__SET_SIGNAL_HANDLER (SIGINT, read_sighandler);
-  read_interrupt = false;
-
   // Read data
   bool eoi;
   int bytes_read = gpib->read (buffer, buffer_len, &eoi);
-
-  // Restore default signal handling
-  // TODO: a better way?
-  OCTAVE__INSTALL_SIGNAL_HANDLERS ();
 
   // Convert data to octave type variables
   octave_value_list return_list;
