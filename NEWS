@@ -1,3 +1,14 @@
+Summary of important user-visible changes for instrument-control 0.3.1:
+-------------------------------------------------------------------
+
+  ** Updated build to allow install on octave 4.4
+
+  ** using polling rather than signal handling to break from instrument reads
+
+  ** insthwinfo() updated to show enabled modules
+
+  ** added initial builtin tests for each instrument
+
 Summary of important user-visible changes for instrument-control 0.3.0:
 -------------------------------------------------------------------
 
