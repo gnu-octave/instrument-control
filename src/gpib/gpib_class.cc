@@ -113,7 +113,7 @@ octave_gpib::read (uint8_t *buf, unsigned int len, bool *eoi)
     }
 
   // set up a frame to close fd
-  octave::unwind_protect frame;
+  OCTAVE__UNWIND_PROTECT frame;
   frame.add_fcn (close_fd, fd);
 
 #if defined(GPIB_USEBLOCKREAD)
@@ -200,7 +200,7 @@ octave_gpib::write (const std::string &str)
     }
 
   // set up a frame to close fd
-  octave::unwind_protect frame;
+  OCTAVE__UNWIND_PROTECT frame;
   frame.add_fcn (close_fd, fd);
 
   gperr = ibwrt (fd,str.c_str (), str.length ());
@@ -236,7 +236,7 @@ octave_gpib::write (uint8_t *buf, unsigned int len)
     }
 
   // set up a frame to close fd
-  octave::unwind_protect frame;
+  OCTAVE__UNWIND_PROTECT frame;
   frame.add_fcn (close_fd, fd);
 
   gperr = ibwrt (fd, buf, len);
@@ -272,7 +272,7 @@ octave_gpib::spoll (char *rqs)
     }
 
   // set up a frame to close fd
-  octave::unwind_protect frame;
+  OCTAVE__UNWIND_PROTECT frame;
   frame.add_fcn (close_fd, fd);
 
   gperr = ibrsp (fd,rqs);
@@ -305,7 +305,7 @@ octave_gpib::trigger()
     }
 
   // set up a frame to close fd
-  octave::unwind_protect frame;
+  OCTAVE__UNWIND_PROTECT frame;
   frame.add_fcn (close_fd, fd);
 
   gperr = ibtrg (fd);
@@ -337,7 +337,7 @@ octave_gpib::cleardevice()
     }
 
   // set up a frame to close fd
-  octave::unwind_protect frame;
+  OCTAVE__UNWIND_PROTECT frame;
   frame.add_fcn (close_fd, fd);
 
   gperr = ibclr(fd);
@@ -390,7 +390,7 @@ octave_gpib::close()
         }
 
       // set up a frame to close fd
-      octave::unwind_protect frame;
+      OCTAVE__UNWIND_PROTECT frame;
       frame.add_fcn (close_fd, fd);
 
       gperr = ibloc (fd);

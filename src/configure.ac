@@ -57,25 +57,16 @@ OF_OCTAVE_LIST_ALT_SYMS([
 ],
 
 [dnl
-  [install_signal_handlers],
-  [octave::install_signal_handlers],
-  [[octave::install_signal_handlers();]],
-  [OCTAVE__INSTALL_SIGNAL_HANDLERS],
-  [[#include <octave/sighandlers.h>]
+  [unwind_protect],
+  [octave::unwind_protect],
+  [[octave::unwind_protect frame;]],
+  [OCTAVE__UNWIND_PROTECT],
+  [[#include <octave/unwind-prot.h>]
    [#include <octave/octave.h>]
   ],
-  [[#include <octave/sighandlers.h>]
+  [[#include <octave/unwind-prot.h>]
    [#include <octave/octave.h>]
   ]
-],
-
-[dnl
-  [octave_set_signal_handler],
-  [octave::set_signal_handler],
-  [[octave::set_signal_handler(SIGINT, 0);]],
-  [OCTAVE__SET_SIGNAL_HANDLER],
-  [[#include <octave/sighandlers.h>]],
-  [[#include <octave/sighandlers.h>]]
 ],
 
 [dnl
