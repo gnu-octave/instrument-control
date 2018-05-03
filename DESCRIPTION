@@ -6,6 +6,6 @@ Maintainer: Stefan Mahr <dac922@gmx.de>, John Donoghue <john.donoghue@ieee.org>
 Title: Instrument Control
 Description: Low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
 Categories: instrument-control
-Depends: octave (>= 3.4.0)
+Depends: octave (>= 3.8.0)
 Autoload: no
 License: GPLv3+
