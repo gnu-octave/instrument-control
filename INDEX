@@ -31,8 +31,8 @@ Parallel
   pp_close
 TCP
   tcp
-  @octave_tcpip/fopen
-  @octave_tcpip/fclose
+  @octave_tcp/fopen
+  @octave_tcp/fclose
   tcp_read
   tcp_write
   tcp_timeout
