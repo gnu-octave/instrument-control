@@ -36,23 +36,23 @@ Close the interface and release a file descriptor.\n \
 @end deftypefn")
 {
 #ifndef BUILD_UDP
-    error("udp: Your system doesn't support the UDP interface");
-    return octave_value();
+  error ("udp: Your system doesn't support the UDP interface");
+  return octave_value ();
 #else
-    if (args.length() != 1 || args(0).type_id() != octave_udp::static_type_id())
+  if (args.length () != 1 || args (0).type_id () != octave_udp::static_type_id ())
     {
         print_usage();
-        return octave_value(-1);
+        return octave_value (-1);
     }
 
-    octave_udp* udp = NULL;
+  octave_udp* udp = NULL;
 
-    const octave_base_value& rep = args(0).get_rep();
-    udp = &((octave_udp &)rep);
+  const octave_base_value& rep = args(0).get_rep();
+  udp = &((octave_udp &)rep);
 
-    udp->close();
+  udp->close ();
 
-    return octave_value();
+  return octave_value ();
 #endif
 }
 

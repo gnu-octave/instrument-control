@@ -72,8 +72,8 @@ If @var{direction} parameter is omitted, the pp_datadir() shall return current D
       return octave_value ();
     }
 
-    // Return current direction
-    return octave_value (parallel->get_datadir ());
+  // Return current direction
+  return octave_value (parallel->get_datadir ());
 #endif
 }
 #if 0

@@ -47,7 +47,7 @@ If @var{ctrl} parameter is omitted, the pp_ctrl() shall return current Control l
     {
       print_usage ();
       return octave_value (-1);
-  }
+    }
 
   octave_parallel* parallel = NULL;
 

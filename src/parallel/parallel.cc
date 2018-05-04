@@ -109,7 +109,7 @@ The parallel() shall return instance of @var{octave_parallel} class as the resul
 
   // Open the interface
   if (retval->open (path, oflags) < 0)
-        return octave_value ();
+    return octave_value ();
 
   // Set direction
   retval->set_datadir(dir);

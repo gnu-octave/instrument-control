@@ -41,7 +41,7 @@ If @var{timeout} parameter is omitted, the tcp_timeout() shall return current ti
 {
 #ifndef BUILD_TCP
   error("tcp: Your system doesn't support the TCP interface");
-  return octave_value();
+  return octave_value ();
 #else
   if (args.length () < 1 || args.length () > 2 || args (0).type_id () != octave_tcp::static_type_id ())
     {
