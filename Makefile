@@ -211,9 +211,9 @@ doctest: $(install_stamp)
 
 ## Test package.
 octave_test_commands = \
-' dirs = {"."}; \
-  pkgs = pkg("list", "instrument-control"); \
-  cd (pkgs{1}.dir); \
+' pkgs = pkg("list", "instrument-control"); \
+  cd ("$(target_dir)/"); \
+  dirs = {sprintf(".installation/%s-%s", pkgs{1}.name, pkgs{1}.version)}; \
   __run_test_suite__ (dirs, {}); '
 
 ## the following works, too, but provides no overall summary output as
@@ -231,9 +231,10 @@ check: $(install_stamp)
 .PHONY: clean
 
 clean: clean-tarballs clean-unpacked-release clean-install
+	test -e inst/test && rmdir inst/test || true
+	test -e $(target_dir)/fntests.log && rm -f $(target_dir)/fntests.log || true
 	@echo "## Removing target directory (if empty)..."
-	test -r $(target_dir) && rmdir $(target_dir) || true
-	test -r inst/test && rmdir inst/test || true
+	test -e $(target_dir) && rmdir $(target_dir) || true
 	@echo
 	@echo "## Cleaning done"
 	@echo

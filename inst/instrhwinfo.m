@@ -63,3 +63,8 @@ endfunction
 %! assert(!isempty(instrhwinfo("serial")))
 
 %!error <Invalid call to instrhwinfo> instrhwinfo("serial", "2ndarg")
+
+%!test
+%! p = pkg('list', 'instrument-control');
+%! hw = instrhwinfo ();
+%! assert (hw.ToolboxVersion, p{1}.version)
