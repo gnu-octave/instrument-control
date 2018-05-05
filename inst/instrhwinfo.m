@@ -1,3 +1,4 @@
+## Copyright (C) 2018 John Donoghue <john.donoghue@ieee.org>
 ## Copyright (C) 2016 Andreas Weber <andy.weber.aw@gmail.com>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
@@ -14,10 +15,40 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{list} =} instrhwinfo (@var{interface})
+## @deftypefn {Function File} {[@var{list}] =} instrhwinfo ()
+## @deftypefnx {Function File} {@var{list} =} instrhwinfo (@var{interface})
 ## Query available hardware for instrument-control
 ##
-## Currently only interface "serial" is supported.
+## When run without any input parameters, instrhwinfo will provide the toolbox
+## information and a list of supported interfaces.
+##
+## If an output variable is provided, the function will store the information
+## to the variable, otherwise it will be displayed to the screeen.
+##
+## @example
+## instrhwinfo
+## scalar structure containing the fields:
+##
+##    ToolboxVersion = 0.3.0
+##    ToolboxName = octave instrument control package
+##    SupportedInterfaces =
+##    @{
+##      [1,1] = i2c
+##      [1,2] = parallel
+##      [1,3] = serial
+##      [1,4] = tcp
+##      [1,5] = udp
+##      [1,6] = usbtmc
+##      [1,7] = vxi11
+##    @}
+##
+## @end example
+##
+## @var{interface} is the instrument interface to query. When provided, instrhwinfo
+## will provide information on the specified interface.
+##
+## Currently only interface "serial" is supported, which will provide a list of
+## available serial ports.
 ## @end deftypefn
 
 function out = instrhwinfo (interface)
