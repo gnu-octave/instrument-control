@@ -83,12 +83,12 @@ octave_gpib::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 int
 octave_gpib::open (int minor, int gpibid, int sad, int timeout, int send_eoi, int eos_mode)
 {
-  minor = minor;
-  gpibid = gpibid;
-  sad = sad;
-  timeout = timeout;
-  send_eoi = send_eoi;
-  eos_mode = eos_mode;
+  this->minor = minor;
+  this->gpibid = gpibid;
+  this->sad = sad;
+  this->timeout = timeout;
+  this->send_eoi = send_eoi;
+  this->eos_mode = eos_mode;
 
   return 1;
 }
