@@ -122,7 +122,7 @@ public:
     if (fd_is_valid ())
       return "open";
     else
-      return "{closed}";
+      return "closed";
   }
 protected:
 
