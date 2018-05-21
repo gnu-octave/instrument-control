@@ -74,6 +74,26 @@ octave_value_list srl_timeout (octave_serial* serial, const octave_value_list& a
   return octave_value (serial->get_timeout ());
 }
 
+octave_value_list srl_bytesavailable (octave_serial* serial, const octave_value_list& args, int nargout)
+{
+  if (args.length () > 0)
+    (*current_liboctave_error_handler) ("wrong number of arguments");
+
+  // Returning bytes available
+  return octave_value (serial->get_bytesavailable ());
+}
+
+octave_value_list srl_status (octave_serial* serial, const octave_value_list& args, int nargout)
+{
+  if (args.length () > 0)
+    (*current_liboctave_error_handler) ("wrong number of arguments");
+
+  // Returning bytes available
+  return octave_value (serial->get_status ());
+}
+
+
+
 octave_value_list srl_baudrate (octave_serial* serial, const octave_value_list& args, int nargout)
 {
   if (args.length() > 1)
@@ -279,6 +299,10 @@ Undocumented internal function.\n\
     return srl_stopbits (serial, args2, nargout);
   else if (property == "timeout")
     return srl_timeout (serial, args2, nargout);
+  else if (property == "bytesavailable")
+    return srl_bytesavailable (serial, args2, nargout);
+  else if (property == "status")
+    return srl_status (serial, args2, nargout);
   else
     (*current_liboctave_error_handler) ("wrong keyword");
 #endif

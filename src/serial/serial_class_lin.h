@@ -54,6 +54,7 @@ public:
   bool get_control_line(const std::string &);
   void set_control_line(const std::string &, bool);
 
+  int get_bytesavailable(void) const;
 private:
   int fd;
   int status;

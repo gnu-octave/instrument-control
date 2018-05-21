@@ -535,12 +535,26 @@ octave_serial::fd_is_valid (void) const
 }
 
 void
-octave_serial::close(void)
+octave_serial::close (void)
 {
   if (fd_is_valid ())
     {
       CloseHandle(fd);
       fd = INVALID_HANDLE_VALUE;
     }
+}
+
+int
+octave_serial::get_bytesavailable (void) const
+{
+  int available = 0;
+  if (fd_is_valid ())
+    {
+      COMSTAT stats;
+      DWORD err;
+      if (ClearCommError (fd, &err, &stats))
+        available = status.cbInQueue;
+    }
+  return available;
 }
 #endif

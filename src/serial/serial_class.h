@@ -72,6 +72,7 @@ public:
   virtual int get_bytesize() const = 0;
   virtual std::string get_parity() const = 0;
   virtual int get_stopbits() const = 0;
+  virtual int get_bytesavailable() const = 0;
 
   // Properties
   bool is_constant (void) const { return true;}
@@ -93,7 +94,7 @@ public:
   void print_raw (std::ostream& os, bool pr_as_read_syntax) const
   {
     os << "  Serial Port Object"; newline(os);
-    os << "    open:     " << this->fd_is_valid(); newline(os);
+    os << "    status:   " << this->get_status(); newline(os);
     if (this->fd_is_valid())
       {
         os << "    port:     " << this->portPath; newline(os);
@@ -116,6 +117,13 @@ public:
     return ! (this == &other);
   }
 
+  std::string get_status () const
+  {
+    if (fd_is_valid ())
+      return "open";
+    else
+      return "{closed}";
+  }
 protected:
 
   std::string portPath;

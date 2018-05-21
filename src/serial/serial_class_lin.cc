@@ -693,4 +693,16 @@ octave_serial::close (void)
       fd = -1;
     }
 }
+
+int
+octave_serial::get_bytesavailable (void) const
+{
+  int available = 0;
+  if (fd_is_valid ())
+    {
+      ioctl (fd, FIONREAD, &available);
+    }
+  return available;
+}
+
 #endif
