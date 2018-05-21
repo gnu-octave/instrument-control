@@ -553,7 +553,7 @@ octave_serial::get_bytesavailable (void) const
       COMSTAT stats;
       DWORD err;
       if (ClearCommError (fd, &err, &stats))
-        available = status.cbInQueue;
+        available = stats.cbInQue;
     }
   return available;
 }
