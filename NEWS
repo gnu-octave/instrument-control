@@ -8,6 +8,9 @@ Summary of important user-visible changes for instrument-control 0.3.1+:
   ** TCP: added properties to object, added overridden functions:
         get
         set
+        fprintf
+        fread
+        fwrite
 
   ** tcpip(): added wrapper to be matlab compatible(ish)
 
