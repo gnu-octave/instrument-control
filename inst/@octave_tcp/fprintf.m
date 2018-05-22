@@ -41,6 +41,6 @@ if (! ( ischar (format)))
   print_usage ();
 end
 
-numbytes = tcp_write (varargin{1}, sprintf (format, formargs{:}))
+numbytes = tcp_write (varargin{1}, sprintf (format, formargs{:}));
 
 end

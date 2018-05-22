@@ -1,4 +1,4 @@
-## Copyright (C) 2016 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2016-2018 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -41,6 +41,6 @@ if (! ( ischar (format)))
   print_usage ();
 end
 
-numbytes = udp_write (varargin{1}, sprintf (format, formargs{:}))
+numbytes = udp_write (varargin{1}, sprintf (format, formargs{:}));
 
 end
