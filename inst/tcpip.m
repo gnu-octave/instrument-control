@@ -20,7 +20,7 @@
 ## @var{host} - the host name or ip.
 ## @var{port} - the port number to connect. If omitted defaults to 80.
 ## @var{PropertyName}, @var{PropertyValue} - Optional property name, value pairs to set on the tcp object.
-## Currently the only known property name is "timeout".
+## Currently the only known properties are "timeout" and "name".
 ##
 ## tcpip will return an instance of @var{octave_tcp} class as the result.
 ## @end deftypefn
@@ -54,10 +54,12 @@ function out = tcpip (varargin)
     propname = tolower(varargin{i});
     propvalue = varargin{i+1};
 
-    if strcmp(propname, "timeout")
-      tcp_timeout (out, propvalue);
-    endif
+    __tcp_properties__ (out, propname, propvalue);
   endfor
 
 endfunction
 
+%!test
+%! a = tcpip ("octave.org", 80);
+%! assert(isa(a, "octave_tcp"));
+%! fclose(a);
