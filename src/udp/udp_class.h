@@ -46,6 +46,8 @@ public:
 
   int get_fd (void) const { return fd; }
 
+  int get_bytesavailable (void) const;
+
   // Overloaded base functions
   double udp_value (void) const { return (double)fd; }
 

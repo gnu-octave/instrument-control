@@ -35,8 +35,13 @@
 #  include <sys/socket.h>
 #  include <netdb.h>
 #  include <arpa/inet.h>
+#  include <termios.h>
+#  include <sys/ioctl.h>
+#  define IOCTL_TYPE int
 #else
 #  include <winsock2.h>
+#  define IOCTL_TYPE u_long
+#  define ioctl ioctlsocket
 #endif
 
 #include "udp_class.h"
@@ -197,6 +202,20 @@ octave_udp::print_raw (std::ostream& os, bool pr_as_read_syntax) const
   newline(os);
   os << "     localport: " << get_local_port ();
   newline (os);
+}
+
+int
+octave_udp::get_bytesavailable () const
+{
+  IOCTL_TYPE available = 0;
+
+  if (get_fd () < 0)
+    {
+      return 0;
+    }
+  ioctl (get_fd (), FIONREAD, &available);
+
+  return available;
 }
 
 int

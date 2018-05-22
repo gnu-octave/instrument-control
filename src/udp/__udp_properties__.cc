@@ -61,6 +61,8 @@ Undocumented internal function.\n\
         return octave_value (udp->get_status ());
       else if (property == "timeout")
         return octave_value (udp->get_timeout ());
+      else if (property == "bytesavailable")
+        return octave_value (udp->get_bytesavailable ());
       else
         (*current_liboctave_error_handler) ("invalid property name");
     }

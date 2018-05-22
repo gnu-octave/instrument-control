@@ -25,7 +25,7 @@ function retval = get (udp, property)
 
   properties = {'name', 'remoteport', 'remotehost', ...
                 'localport', ...
-                'status', 'timeout'};
+                'status', 'timeout', 'bytesavailable'};
 
   if (nargin == 1)
     property = properties;
