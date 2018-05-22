@@ -5,6 +5,10 @@ Summary of important user-visible changes for instrument-control 0.3.1+:
 
   ** UDP: added 'status' and 'bytesavailable' properties
 
+  ** TCP: added properties to object, added overridden functions:
+        get
+        set
+
   ** tcpip(): added wrapper to be matlab compatible(ish)
 
 Summary of important user-visible changes for instrument-control 0.3.1:

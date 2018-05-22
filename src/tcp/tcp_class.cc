@@ -33,6 +33,8 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <termios.h>
+#include <sys/ioctl.h>
 #else
 #include <winsock2.h>
 #endif
@@ -40,17 +42,38 @@
 #ifndef __WIN32__
 #define SOCKETERR errno
 #define STRSOCKETERR strerror(errno)
+#define IOCTL_TYPE int
 #else
 #define SOCKETERR WSAGetLastError()
 #define STRSOCKETERR ""
+#define IOCTL_TYPE u_long
+#define ioctl ioctlsocket
+#define socklen_t int
 #endif
 
 #include "tcp_class.h"
 
+static std::string 
+to_ip_str (const sockaddr_in *in)
+{
+  u_long addr = ntohl (in->sin_addr.s_addr);
+
+  int b[4];
+  b[0] = (addr>>24)&0xff;
+  b[1] = (addr>>16)&0xff;
+  b[2] = (addr>>8)&0xff;
+  b[3] = (addr>>0)&0xff;
+
+  std::stringstream n;
+  n << b[0] << "." << b[1] << "." << b[2] << "." << b[3];
+
+  return n.str ();
+}
+
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_tcp, "octave_tcp", "octave_tcp");
 
 octave_tcp::octave_tcp (void)
-: fd (-1)
+: fd (-1), timeout(-1), name("")
 {
   static bool type_registered = false;
 
@@ -64,8 +87,9 @@ octave_tcp::octave_tcp (void)
 int
 octave_tcp::open (const std::string &address, int port)
 {
-  struct sockaddr_in sin;
   int sockerr;
+
+  name = "TCP-" + address;
 
 #ifdef __WIN32__
   WORD wVersionRequested;
@@ -81,10 +105,10 @@ octave_tcp::open (const std::string &address, int port)
     }
 #endif
 
-  sin.sin_addr.s_addr = inet_addr (address.c_str ());
-  sin.sin_family = AF_INET;
-  sin.sin_port = htons (port);
-  memset (&(sin.sin_zero), 0, 8*sizeof(char));
+  memset (&remote_addr, 0, sizeof (remote_addr));
+  remote_addr.sin_addr.s_addr = inet_addr (address.c_str ());
+  remote_addr.sin_family = AF_INET;
+  remote_addr.sin_port = htons (port);
 
   fd = socket (AF_INET, SOCK_STREAM,0);
   if (fd < 0)
@@ -94,7 +118,12 @@ octave_tcp::open (const std::string &address, int port)
       return -1;
     }
 
-  sockerr = connect (fd, (struct sockaddr*)&sin, sizeof(struct sockaddr));
+  // get local socket info
+  memset (&local_addr, 0, sizeof (local_addr));
+  socklen_t sz = sizeof (local_addr);
+  getsockname (fd, (struct sockaddr*)&local_addr, &sz);
+
+  sockerr = connect (fd, (struct sockaddr*)&remote_addr, sizeof(struct sockaddr));
   if (sockerr < 0)
     {
       error ("tcp: error on connect : %d - %s\n", SOCKETERR, STRSOCKETERR);
@@ -126,7 +155,18 @@ octave_tcp::print (std::ostream& os, bool pr_as_read_syntax ) const
 void
 octave_tcp::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 {
-  os << fd;
+  os << "  TCP Object " << get_name ();
+  newline(os);
+  os << "          type: " << get_type (); 
+  newline(os);
+  os << "        status: " << get_status ();
+  newline(os);
+  os << "    remoteport: " << get_remote_port ();
+  newline(os);
+  os << "    remotehost: " << get_remote_addr ();
+  newline(os);
+  os << "     localport: " << get_local_port ();
+  newline (os);
 }
 
 int
@@ -276,4 +316,71 @@ octave_tcp::close (void)
 
   return retval;
 }
+
+int
+octave_tcp::get_bytesavailable () const
+{
+  IOCTL_TYPE available = 0;
+
+  if (get_fd () <= 0)
+    {
+      return 0;
+    }
+  ioctl (get_fd (), FIONREAD, &available);
+
+  return available;
+}
+
+int
+octave_tcp::get_remote_port (void) const
+{
+  return ntohs (remote_addr.sin_port);
+}
+
+std::string
+octave_tcp::get_remote_addr (void) const
+{
+  return to_ip_str (&remote_addr);
+}
+
+int
+octave_tcp::get_local_port (void) const
+{
+  return ntohs (local_addr.sin_port);
+}
+
+std::string
+octave_tcp::set_name (const std::string &n)
+{
+  if (n.length() == 0 )
+    {
+      error ("tcp_name: value must be non empty");
+    }
+  else
+    {
+      name = n;
+    }
+ 
+  return name;
+}
+
+bool
+octave_tcp::is_open (void) const
+{
+  return fd > 0;
+}
+
+std::string
+octave_tcp::get_status (void) const
+{
+  if (! is_open ()) 
+    {
+      return "closed";
+    }
+  else
+    {
+      return "open";
+    }
+}
+
 #endif

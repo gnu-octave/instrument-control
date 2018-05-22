@@ -1,5 +1,5 @@
 OCT := ../tcp.oct
-OBJ := tcp.o tcp_timeout.o tcp_write.o tcp_close.o tcp_read.o tcp_class.o
+OBJ := tcp.o tcp_timeout.o tcp_write.o tcp_close.o tcp_read.o tcp_class.o __tcp_properties__.o
 
 MKOCTFILE ?= mkoctfile
 GREP ?= @GREP@

@@ -1,3 +1,4 @@
+// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -21,6 +22,12 @@
 #include <octave/ov-int32.h>
 
 #include <string>
+
+#ifndef __WIN32__
+# include <netinet/in.h>
+#else
+# include <winsock2.h>
+#endif
 
 class octave_tcp : public octave_base_value
 {
@@ -55,11 +62,31 @@ public:
   // Properties
   bool is_constant (void) const { return true;}
   bool is_defined (void) const { return true;}
-  bool print_as_scalar (void) const { return true;}
+  bool is_object (void) const { return true; }
 
+  int get_bytesavailable (void) const;
+
+  std::string get_name (void) const { return name; }
+  std::string set_name (const std::string &);
+
+  std::string get_remote_addr (void) const;
+
+  int get_remote_port (void) const;
+
+  bool is_open(void) const;
+
+  std::string get_type (void) const { return "tcp"; }
+
+  std::string get_status (void) const;
+
+  int get_local_port (void) const;
 private:
   int fd;
   int timeout;
+
+  std::string name;
+  sockaddr_in remote_addr;
+  sockaddr_in local_addr;
 
   DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
