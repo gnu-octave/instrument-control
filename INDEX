@@ -1,6 +1,7 @@
 instrument-control >> Low level I/O functions
 Serial
   serial
+  seriallist
   @octave_serial/fopen
   @octave_serial/fclose
   @octave_serial/get
