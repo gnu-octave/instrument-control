@@ -93,7 +93,7 @@ public:
 
   void print_raw (std::ostream& os, bool pr_as_read_syntax) const
   {
-    os << "  Serial Port Object"; newline(os);
+    os << "  Serial Port Object " << this->get_name(); newline(os);
     os << "    status:   " << this->get_status(); newline(os);
     if (this->fd_is_valid())
       {
@@ -124,8 +124,23 @@ public:
     else
       return "closed";
   }
-protected:
 
+  std::string get_type () const
+  {
+    return "serial";
+  }
+
+  std::string get_name () const
+  {
+    return name;
+  }
+
+  void set_name (const std::string &newname)
+  {
+    name = newname;
+  }
+protected:
+  std::string name;
   std::string portPath;
 };
 

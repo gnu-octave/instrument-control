@@ -74,7 +74,7 @@ octave_serial::open (const std::string &path)
 {
   fd = CreateFile(path.c_str (), GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
   portPath = path;
-
+  name = "Serial-" + path;
   if (! fd_is_valid())
     {
       error("serial: Error opening the interface: %s\n", winerror (errno));

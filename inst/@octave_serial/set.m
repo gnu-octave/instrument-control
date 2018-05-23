@@ -1,4 +1,5 @@
 ## Copyright (C) 2014 Stefan Mahr <dac922@gmx.de>
+## Copyright (C) 2018 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -33,6 +34,9 @@
 ## @item 'bytesize'
 ## Set the bytesize. Supported values: 5, 6, 7 and 8.
 ##
+## @item 'name'
+## Set the stored string name of the serial object.
+##
 ## @item 'parity'
 ## Set the parity value. Supported values: Even/Odd/None. This Parameter
 ## must be of type string. It is case insensitive and can be abbreviated
@@ -58,7 +62,7 @@
 
 function set (serial, varargin)
 
-  properties = {'baudrate','bytesize','parity','stopbits','timeout', ...
+  properties = {'name', 'baudrate','bytesize','parity','stopbits','timeout', ...
                 'requesttosend','dataterminalready'};
 
   if numel (varargin) == 1 && isstruct (varargin{1})

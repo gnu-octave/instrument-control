@@ -61,6 +61,7 @@ octave_serial::open (const std::string &path)
 
   fd = ::open (path.c_str (), flags);
   portPath = path;
+  name = "Serial-" + portPath;
 
   if (fd_is_valid ())
     {

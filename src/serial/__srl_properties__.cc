@@ -92,7 +92,34 @@ octave_value_list srl_status (octave_serial* serial, const octave_value_list& ar
   return octave_value (serial->get_status ());
 }
 
+octave_value_list srl_type (octave_serial* serial, const octave_value_list& args, int nargout)
+{
+  if (args.length () > 0)
+    (*current_liboctave_error_handler) ("wrong number of arguments");
 
+  // Returning bytes available
+  return octave_value (serial->get_type ());
+}
+
+octave_value_list srl_name (octave_serial* serial, const octave_value_list& args, int nargout)
+{
+  if (args.length() > 1)
+    (*current_liboctave_error_handler) ("wrong number of arguments");
+    
+  // Setting new name
+  if (args.length () > 0)
+    {
+      if (! (args (0).is_string ()))
+        (*current_liboctave_error_handler) ("argument must be string");
+
+      serial->set_name (args (0).string_value ());
+
+      return octave_value ();
+    }
+
+  // Returning current baud rate
+  return octave_value (serial->get_name ());
+}
 
 octave_value_list srl_baudrate (octave_serial* serial, const octave_value_list& args, int nargout)
 {
@@ -303,6 +330,10 @@ Undocumented internal function.\n\
     return srl_bytesavailable (serial, args2, nargout);
   else if (property == "status")
     return srl_status (serial, args2, nargout);
+  else if (property == "name")
+    return srl_name (serial, args2, nargout);
+  else if (property == "type")
+    return srl_type (serial, args2, nargout);
   else
     (*current_liboctave_error_handler) ("wrong keyword");
 #endif
