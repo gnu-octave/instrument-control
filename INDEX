@@ -75,6 +75,8 @@ UDP
   @octave_udp/fread
   @octave_udp/fwrite
   @octave_udp/fprintf
+  @octave_udp/flushinput
+  @octave_udp/flushoutput
   @octave_udp/get
   @octave_udp/set
   udp_read

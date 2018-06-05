@@ -442,4 +442,26 @@ octave_udp::close (void)
 
   return retval;
 }
+
+int
+octave_udp::flush (int mode)
+{
+  int retval = -1;
+
+  if (get_fd() > 0)
+    {
+      uint8_t tmpbuffer[1024];
+      if (mode == 0 || mode == 2)
+        {
+	  // we are sending data as we get it, so no outout
+	  // buffers to flush
+        }
+      if (mode == 1 || mode == 2)
+        {
+          while (read (tmpbuffer, 1024, 0) > 0) {}
+        }
+    }
+
+  return retval;
+}
 #endif

@@ -85,6 +85,7 @@ public:
   int set_timeout (int);
   int get_timeout (void) const { return timeout; }
 
+  int flush(int mode);
 private:
   int fd;
   int timeout;

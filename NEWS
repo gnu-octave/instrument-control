@@ -7,7 +7,10 @@ Summary of important user-visible changes for instrument-control 0.3.1+:
         flushinput
         flushoutput
 
-  ** UDP: added 'status' and 'bytesavailable' properties
+  ** UDP: added 'status' and 'bytesavailable' properties and the
+     following functions:
+        flushinput
+        flushoutput
 
   ** TCP: added properties to object, added overridden functions:
         get

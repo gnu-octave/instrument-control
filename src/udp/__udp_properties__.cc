@@ -82,6 +82,8 @@ Undocumented internal function.\n\
         (*current_liboctave_error_handler) ("can not set this property");
       else if (property == "timeout")
         return octave_value (udp->set_timeout (args(2).int_value ()));
+      else if (property == "flush")
+        return octave_value (udp->flush (args(2).int_value ()));
       else
         (*current_liboctave_error_handler) ("invalid property name");
     }
@@ -110,6 +112,15 @@ Undocumented internal function.\n\
 %! __udp_properties__ (a, 'name', "mytest");
 %! assert (__udp_properties__ (a,"name"), "mytest");
 %! fail ("__udp_properties__ (a,'invalid', 1)", "invalid property name");
+%! udp_close (a);
+
+%!test
+%! # test flush
+%! a = udp();
+%! __udp_properties__ (a, 'flush', 0);
+%! __udp_properties__ (a, 'flush', 1);
+%! __udp_properties__ (a, 'flush', 2);
+%! fail ("__udp_properties__ (a,'flush')", "invalid property name");
 %! udp_close (a);
 
 %!error <wrong number of arguments> __udp_properties__ ()
