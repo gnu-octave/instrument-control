@@ -40,6 +40,8 @@ TCP
   @octave_tcp/fprintf
   @octave_tcp/fread
   @octave_tcp/fwrite
+  @octave_tcp/flushinput
+  @octave_tcp/flushoutput
   @octave_tcp/get
   @octave_tcp/set
   tcp_read

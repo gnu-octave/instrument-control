@@ -83,6 +83,8 @@ Undocumented internal function.\n\
         (*current_liboctave_error_handler) ("can not set this property");
       else if (property == "timeout")
         return octave_value (tcp->set_timeout (args(2).int_value ()));
+      else if (property == "flush")
+        return octave_value (tcp->flush (args(2).int_value ()));
       else
         (*current_liboctave_error_handler) ("invalid property name");
     }
@@ -115,6 +117,16 @@ Undocumented internal function.\n\
 %! assert (__tcp_properties__ (a,"name"), "mytest");
 %! fail ("__tcp_properties__ (a,'invalid', 1)", "invalid property name");
 %! tcp_close (a);
+
+%!test
+%! # test flush
+%! a = tcp(ip, 80);
+%! __tcp_properties__ (a, 'flush', 0);
+%! __tcp_properties__ (a, 'flush', 1);
+%! __tcp_properties__ (a, 'flush', 2);
+%! fail ("__tcp_properties__ (a,'flush')", "invalid property name");
+%! tcp_close (a);
+
 
 %!error <wrong number of arguments> __tcp_properties__ ()
 

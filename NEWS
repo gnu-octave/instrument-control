@@ -18,6 +18,8 @@ Summary of important user-visible changes for instrument-control 0.3.1+:
         fprintf
         fread
         fwrite
+        flushinput
+        flushoutput
 
   ** tcpip(): added wrapper to be matlab compatible(ish)
 

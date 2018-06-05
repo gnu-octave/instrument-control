@@ -44,6 +44,8 @@ public:
   int close (void);
   int get_fd (void) const { return fd; }
 
+  int flush (int mode);
+
   int set_timeout (int);
   int get_timeout (void) const { return timeout; }
 
