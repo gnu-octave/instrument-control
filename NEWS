@@ -4,6 +4,8 @@ Summary of important user-visible changes for instrument-control 0.3.1+:
   ** SERIAL: added 'status' and 'bytesavailable', 'name' and 'type'
      properties, and the following functions:
         seriallist
+        flushinput
+        flushoutput
 
   ** UDP: added 'status' and 'bytesavailable' properties
 

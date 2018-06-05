@@ -4,6 +4,8 @@ Serial
   seriallist
   @octave_serial/fopen
   @octave_serial/fclose
+  @octave_serial/flushinput
+  @octave_serial/flushoutput
   @octave_serial/get
   @octave_serial/set
   srl_read
