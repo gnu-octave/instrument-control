@@ -15,7 +15,7 @@ BUILD_VXI11 = @BUILD_VXI11@
 CC_SOURCES  := $(wildcard *.cc)
 CC_TST_SOURCES := $(shell $(GREP) --files-with-matches '^%!' $(CC_SOURCES))
 TST_SOURCES := $(patsubst %.cc,../../inst/test/%.cc-tst,$(CC_TST_SOURCES))
-
+RPC_GENERATED_FILES := vxi11.h vxi11_clnt.c vxi11_xdr.c
 
 ifneq ($(BUILD_VXI11),1)
 VXI =
@@ -28,7 +28,7 @@ endif
 
 all: $(OCT) $(TST_SOURCES)
 
-vxi11.h vxi11_clnt.c vxi11_xdr.c : vxi11.x
+$(RPC_GENERATED_FILES): vxi11.x
 	$(RPCGEN) -M vxi11.x
 
 %.o: %.c
@@ -51,9 +51,13 @@ $(TST_SOURCES): ../../inst/test/%.cc-tst: %.cc | ../../inst/test
 
 clean:
 	rm -f $(OCT) *.o
-	rm -f vxi11.h vxi11_clnt.c vxi11_xdr.c vxi11_svc.c 
 	
 distclean: clean
 	rm Makefile
 
-.PHONY: all clean
+extraclean: distclean
+	rm -f $(RPC_GENERATED_FILES)
+
+prebuild: $(RPC_GENERATED_FILES)
+
+.PHONY: all clean prebuild extraclean

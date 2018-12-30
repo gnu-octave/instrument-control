@@ -189,19 +189,19 @@ AC_ARG_WITH([tirpcinclude],
     [tirpc_header_dir=$withval],
     [tirpc_header_dir=/usr/include/tirpc])
 
-AC_CHECK_PROG([HAVE_RPCGEN], [rpcgen], [yes], [no])
-if test "x$HAVE_RPCGEN" = "xyes"; then
-  AC_SEARCH_LIBS([clnt_create], [tirpc], [build_vxi11=yes])
-  AC_CHECK_HEADERS([rpc/rpc.h],[],
-    [AC_CHECK_HEADERS([${tirpc_header_dir}/netconfig.h],
-      [AC_SUBST([RPCINCLUDE], ["-I${tirpc_header_dir}"])],[build_vxi11=no])])
+AC_SEARCH_LIBS([clnt_create], [tirpc], [build_vxi11=yes])
+AC_CHECK_HEADERS([rpc/rpc.h],[],
+  [AC_CHECK_HEADERS([${tirpc_header_dir}/netconfig.h],
+    [AC_SUBST([RPCINCLUDE], ["-I${tirpc_header_dir}"])],[build_vxi11=no])])
 
-  if test "x$ac_cv_search_clnt_create" != "xno"; then
-    test "x$ac_cv_search_clnt_create" = "xnone required" || AC_SUBST(RPCLIBS, [$ac_cv_search_clnt_create])
+if test "x$ac_cv_search_clnt_create" != "xno"; then
+  test "x$ac_cv_search_clnt_create" = "xnone required" || AC_SUBST(RPCLIBS, [$ac_cv_search_clnt_create])
+
+  AC_CHECK_PROG([HAVE_RPCGEN], [rpcgen], [yes], [no])
+  if test "x$HAVE_RPCGEN" != "xyes"; then
+    AC_MSG_WARN([No rpcgen found - if rpc sources are modified, the build will fail])
   fi
-
 fi
-
 
 # Checks for openvisa
 AC_CHECK_HEADERS([visa/visa.h],
@@ -210,7 +210,6 @@ AC_CHECK_HEADERS([visa/visa.h],
 if test "x$ac_cv_search_viOpenDefaultRM" != "xno"; then
   test "x$ac_cv_search_viOpenDefaultRM" = "xnone required" || AC_SUBST(VISALIBS, [$ac_cv_search_viOpenDefaultRM])
 fi
-
 
 #
 

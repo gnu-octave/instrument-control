@@ -23,6 +23,8 @@ Summary of important user-visible changes for instrument-control 0.3.1+:
 
   ** tcpip(): added wrapper to be matlab compatible(ish)
 
+  ** distribute rpc generated files
+
 Summary of important user-visible changes for instrument-control 0.3.1:
 -------------------------------------------------------------------
 

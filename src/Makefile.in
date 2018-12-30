@@ -45,3 +45,8 @@ realclean:
 distclean: realclean $(DISTCLEANDIRS)
 	rm -rf autom4te.cache
 	rm -f Makefile config.status config.log config.h configure
+
+# and prebuild stuff we need do
+prebuild:
+	$(MAKE) -C vxi11 prebuild
+

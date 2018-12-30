@@ -134,8 +134,8 @@ ifneq (,$(wildcard src/bootstrap))
 endif
 ## Uncomment this if your src/Makefile.in has these targets for
 ## pre-building something for the release (e.g. documentation).
-#	cd "$@/src" && ./configure && $(MAKE) prebuild && \
-#	  $(MAKE) distclean && $(RM) Makefile
+	cd "$@/src" && ./configure && $(MAKE) prebuild && \
+	  $(MAKE) clean && $(RM) Makefile
 ##
 	${FIX_PERMISSIONS} "$@"
 
