@@ -1,5 +1,5 @@
 VXI := vxi11_clnt.o vxi11_xdr.o
-OBJ := vxi11.o vxi11_write.o vxi11_close.o vxi11_read.o
+OBJ := vxi11.o vxi11_write.o vxi11_close.o vxi11_read.o __vxi11_pkg_lock__.o
 OCT := ../vxi11.oct
 VXCLASS := vxi11_class.o 
 

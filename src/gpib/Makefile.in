@@ -1,5 +1,5 @@
 OCT := ../gpib.oct
-OBJ := gpib.o gpib_timeout.o gpib_write.o gpib_close.o gpib_read.o __gpib_spoll__.o __gpib_trigger__.o __gpib_clrdevice__.o gpib_class.o
+OBJ := gpib.o gpib_timeout.o gpib_write.o gpib_close.o gpib_read.o __gpib_spoll__.o __gpib_trigger__.o __gpib_clrdevice__.o gpib_class.o __gpib_pkg_lock__.o
 
 MKOCTFILE  ?= mkoctfile
 GREP ?= @GREP@

@@ -204,6 +204,9 @@ clean-install:
 run: $(install_stamp)
 	$(run_in_place) --persist
 
+rungui: $(install_stamp)
+	$(run_in_place) --gui --persist
+
 ## Test example blocks in the documentation.  Needs doctest package
 ##  https://octave.sourceforge.io/doctest/index.html
 doctest: $(install_stamp)

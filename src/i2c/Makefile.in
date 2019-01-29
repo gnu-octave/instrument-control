@@ -1,5 +1,5 @@
 OCT := ../i2c.oct
-OBJ := i2c.o i2c_close.o i2c_addr.o i2c_write.o i2c_read.o i2c_class.o
+OBJ := i2c.o i2c_close.o i2c_addr.o i2c_write.o i2c_read.o i2c_class.o __i2c_pkg_lock__.o
 
 MKOCTFILE ?= mkoctfile
 GREP ?= @GREP@
