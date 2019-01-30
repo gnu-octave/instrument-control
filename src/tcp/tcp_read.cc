@@ -128,7 +128,7 @@ The tcp_read() shall return number of bytes successfully read in @var{count} as 
 %! t = toc;
 %! assert (c, 0);
 %! assert (isempty (d));
-%! assert (t, 1.0, 0.01)
+%! assert (t, 1.0, 0.1)
 %!
 %! tcp_close (a);
 
