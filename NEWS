@@ -1,4 +1,4 @@
-Summary of important user-visible changes for instrument-control 0.3.1+:
+Summary of important user-visible changes for instrument-control 0.4.0
 -------------------------------------------------------------------
 
   ** SERIAL: added 'status', 'bytesavailable', 'name' and 'type'
