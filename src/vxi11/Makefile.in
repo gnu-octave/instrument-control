@@ -4,8 +4,10 @@ OCT := ../vxi11.oct
 VXCLASS := vxi11_class.o 
 
 MKOCTFILE  ?= mkoctfile
-RPCGEN     ?= rpcgen
 GREP       ?= @GREP@
+
+RPCGEN     ?= @RPCGEN@
+RPCGENOPTS ?= @RPCGENOPTS@
 
 CFLAGS      = @DEFS@
 LFLAGS      = 
@@ -29,7 +31,7 @@ endif
 all: $(OCT) $(TST_SOURCES)
 
 $(RPC_GENERATED_FILES): vxi11.x
-	$(RPCGEN) -M vxi11.x
+	$(RPCGEN) $(RPCGENOPTS) vxi11.x
 
 %.o: %.c
 	$(MKOCTFILE) $(CFLAGS) -c $^

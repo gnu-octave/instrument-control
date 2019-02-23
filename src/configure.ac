@@ -197,9 +197,32 @@ AC_CHECK_HEADERS([rpc/rpc.h],[],
 if test "x$ac_cv_search_clnt_create" != "xno"; then
   test "x$ac_cv_search_clnt_create" = "xnone required" || AC_SUBST(RPCLIBS, [$ac_cv_search_clnt_create])
 
-  AC_CHECK_PROG([HAVE_RPCGEN], [rpcgen], [yes], [no])
-  if test "x$HAVE_RPCGEN" != "xyes"; then
+  AC_CHECK_PROG([RPCGEN], [rpcgen], [rpcgen], [none])
+  #AC_CHECK_PROG([HAVE_RPCGEN], [rpcgen], [yes], [no])
+  if test "xRPCGEN" == "xnone"; then
     AC_MSG_WARN([No rpcgen found - if rpc sources are modified, the build will fail])
+  else
+    AC_MSG_CHECKING([whether rpcgen accepts -M option])
+    rm -f rpcgen_test.*
+cat > rpcgen_test.x <<END
+program STRLEN {
+  version STRLENVERS {
+    int strlen(string) = 1;
+  } = 1;
+} = 11;
+END
+    RPCGENOPTS=""
+    ${RPCGEN} -M rpcgen_test.x > /dev/null 2>&1
+    if test -f rpcgen_test.h; then
+      _rpcgen_result=yes
+      RPCGENOPTS="-M"
+    else
+      _rpcgen_result=no
+    fi
+    AC_MSG_RESULT([$_rpcgen_result])
+    AC_SUBST([RPCGENOPTS], [$RPCGENOPTS])
+    rm -f rpcgen_test.*
+    rm -f rpcgen_test_*
   fi
 fi
 
