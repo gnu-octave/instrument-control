@@ -25,6 +25,12 @@ Summary of important user-visible changes for instrument-control 0.4.0
 
   ** distribute rpc generated files
 
+  ** verify -M option will work on rpcgen
+
+  ** detect if rpc_error functions allow use of const inputs
+
+  ** prefer libtirpc over builtin rpc when detecting vxi11 functionality
+
   ** add lock functions used on pkg load/unlock to lock .oct files
 
 Summary of important user-visible changes for instrument-control 0.3.1:
