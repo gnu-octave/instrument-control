@@ -257,7 +257,7 @@ fi
 
 # Checks for openvisa
 AC_CHECK_HEADERS([visa/visa.h],
-  [AC_SEARCH_LIBS([viOpenDefaultRM], [openvisa], [build_vxi11=yes], [])] , [] )
+  [AC_SEARCH_LIBS([viOpenDefaultRM], [openvisa], [build_visa=yes], [])] , [] )
 
 if test "x$ac_cv_search_viOpenDefaultRM" != "xno"; then
   test "x$ac_cv_search_viOpenDefaultRM" = "xnone required" || AC_SUBST(VISALIBS, [$ac_cv_search_viOpenDefaultRM])
