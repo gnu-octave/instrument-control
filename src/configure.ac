@@ -226,12 +226,12 @@ fi
 if test "x${with_librpc}" = "xyes"; then
   build_vxi11=yes
 
-  AC_CHECK_PROG([RPCGEN], [rpcgen], [rpcgen], [none])
+  AC_CHECK_PROGS([RPCGEN], [rpcgen rpcgen-mt], [none])
 
-  if test "xRPCGEN" == "xnone"; then
+  if test "xRPCGEN" = "xnone"; then
     AC_MSG_WARN([No rpcgen found - if rpc sources are modified, the build will fail])
   else
-    AC_MSG_CHECKING([whether rpcgen accepts -M option])
+    AC_MSG_CHECKING([whether ${RPCGEN} accepts -M option])
     rm -f rpcgen_test.*
 cat > rpcgen_test.x <<END
 program STRLEN {
