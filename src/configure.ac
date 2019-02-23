@@ -225,7 +225,35 @@ fi
 
 if test "x${with_librpc}" = "xyes"; then
   build_vxi11=yes
+  
+  # we support const input into clnt_create ?
+  AC_MSG_CHECKING([const input allowed into clnt_perror])
+  const_clnt_perror=no
+  AC_LANG_PUSH([C++])
+  save_LIBS=$LIBS
+  save_CPPFLAGS=$CPPFLAGS
+  LIBS=$RPCLIBS
+  CPPFLAGS=$RPCINCLUDE
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+    #include <rpc/rpc.h>
+   ]], [[
+    const char * msg = "const message";
+    CLIENT *clnt = 0;
+    clnt_perror(clnt, msg);
+   ]])],
+   [AC_MSG_RESULT([yes])
+    const_clnt_perror=yes],
+   [AC_MSG_RESULT([no])]
+  )
+  LIBS=$save_LIBS=
+  CPPFLAGS=$save_CPPFLAGS
+  AC_LANG_POP([C++])
 
+  if test $const_clnt_perror = yes; then
+    AC_DEFINE([CONST_CLNT_SUPPORT], [1], [clnt allows const inputs])
+  fi
+
+  # we have rpcgen
   AC_CHECK_PROGS([RPCGEN], [rpcgen rpcgen-mt], [none])
 
   if test "xRPCGEN" = "xnone"; then

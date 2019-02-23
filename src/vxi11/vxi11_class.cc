@@ -22,6 +22,7 @@
 #include <octave/oct.h>
 
 #include <string>
+#include <cstring>
 
 // open or close vxi11 session only on call of vxi11 or vxi11_close
 #define OPENONCE
@@ -332,10 +333,18 @@ octave_vxi11::close (void)
 int
 octave_vxi11::openvxi (const char *ip, CLIENT **client, Create_LinkResp **link, const char *device)
 {
-  *client = clnt_create(ip, DEVICE_CORE, DEVICE_CORE_VERSION, "tcp");
+#ifdef CONST_CLNT_SUPPORT
+  const char * tmpip = ip;
+#else
+  char tmpip[256];
+  strncpy(tmpip, ip, 250);
+  tmpip[250] = '\0';
+#endif
+
+  *client = clnt_create(tmpip, DEVICE_CORE, DEVICE_CORE_VERSION, "tcp");
   if (*client == NULL)
     {
-      clnt_pcreateerror (ip);
+      clnt_pcreateerror (tmpip);
       error ("vxi11: Error creating client...");
       return -1;
     }
@@ -352,7 +361,7 @@ octave_vxi11::openvxi (const char *ip, CLIENT **client, Create_LinkResp **link, 
 
   if (create_link_1 (&link_parms, *link, *client) != RPC_SUCCESS)
     {
-      clnt_perror (*client, ip);
+      clnt_perror (*client, tmpip);
       error ("vxi11: Error creating client...");
       return -2;
     }
@@ -367,7 +376,14 @@ octave_vxi11::closevxi (const char *ip, CLIENT *client, Create_LinkResp *link)
 
   if (destroy_link_1 (&link->lid, &dev_error, client) != RPC_SUCCESS)
     {
-      clnt_perror (client,ip);
+#ifdef CONST_CLNT_SUPPORT
+      const char * tmpip = ip;
+#else
+      char tmpip[256];
+      strncpy(tmpip, ip, 250);
+      tmpip[250] = '\0';
+#endif
+      clnt_perror (client, tmpip);
       return -1;
     }
 
