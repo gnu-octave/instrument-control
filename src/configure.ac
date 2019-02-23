@@ -183,22 +183,51 @@ fi
 
 
 # Checks for RPC/VXI11
-AC_ARG_WITH([tirpcinclude],
-  [AC_HELP_STRING([--with-tirpcinclude=DIR],
-    [use TI-RPC headers in DIR])],
-    [tirpc_header_dir=$withval],
-    [tirpc_header_dir=/usr/include/tirpc])
+AC_ARG_WITH([librpc],
+  [AC_HELP_STRING([--with-librpc=tirpc|sunrpc|auto|none], [Choose use/selection of librpc used])],
+  [with_libtirpc="$with_librpc"], [with_librpc="auto"])
 
-AC_SEARCH_LIBS([clnt_create], [tirpc], [build_vxi11=yes])
-AC_CHECK_HEADERS([rpc/rpc.h],[],
-  [AC_CHECK_HEADERS([${tirpc_header_dir}/netconfig.h],
-    [AC_SUBST([RPCINCLUDE], ["-I${tirpc_header_dir}"])],[build_vxi11=no])])
+if test "x${with_librpc}" = "xyes"; then
+  with_librpc="auto"
+fi
+if test "x${with_librpc}" = "xno"; then
+  with_librpc="none"
+fi
 
-if test "x$ac_cv_search_clnt_create" != "xno"; then
-  test "x$ac_cv_search_clnt_create" = "xnone required" || AC_SUBST(RPCLIBS, [$ac_cv_search_clnt_create])
+if test "x${with_librpc}" = "xauto" || test "x${with_librpc}" = "xtirpc"; then
+  PKG_CHECK_MODULES([TIRPC], [libtirpc],
+    [with_librpc="yes"; build_vxi11=yes; RPCINCLUDE="$RPCINCLUDE $TIRPC_CFLAGS"; RPCLIBS="$RPCLIBS $TIRPC_LIBS";],
+    [RPCINCLUDE="$RPCINCLUDE"])
+fi
+
+if test "x${with_librpc}" = "xauto" || test "x${with_librpc}" = "xsunrpc"; then
+  AC_SEARCH_LIBS([clnt_create], [tirpc],
+    [with_librpc="yes"],
+    [])
+  if test "x$ac_cv_search_clnt_create" != "xnone required"; then
+    RPCLIBS="$RPCLIBS $ac_cv_search_clnt_create"
+  fi
+  AC_CHECK_HEADERS([rpc/rpc.h],[RPCINCLUDE="$RPC_CFLAGS"],[with_librpc="no"; build_vxi11=no])
+fi
+if test "x${with_librpc}" = "xauto"; then
+  with_librpc="none"
+fi
+
+AC_SUBST(RPCINCLUDE)
+AC_SUBST(RPCLIBS)
+
+# with_librpc should now be yes, if found
+# none if was never wanted or not auto detected
+
+if test "x${with_librpc}" != "xyes" && test "x${with_librpc}" != "xnone"; then
+  AC_MSG_WARN([Did not find valid rpc libraries])
+fi
+
+if test "x${with_librpc}" = "xyes"; then
+  build_vxi11=yes
 
   AC_CHECK_PROG([RPCGEN], [rpcgen], [rpcgen], [none])
-  #AC_CHECK_PROG([HAVE_RPCGEN], [rpcgen], [yes], [no])
+
   if test "xRPCGEN" == "xnone"; then
     AC_MSG_WARN([No rpcgen found - if rpc sources are modified, the build will fail])
   else
