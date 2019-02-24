@@ -71,6 +71,11 @@ function out = instrhwinfo (interface)
       [~, list] = dos(['REG QUERY ' Skey]);
       [~, ~, ~, out]=regexp (list, "COM[0-9]+");
 
+    elseif (ismac ())
+
+      tmp = glob ("/dev/tty.*");
+      out = strrep (tmp, "/dev/", "");
+
     elseif (isunix ()) # GNU/Linux, BSD...
 
       ## only devices with device/driver

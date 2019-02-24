@@ -33,6 +33,8 @@ Summary of important user-visible changes for instrument-control 0.4.0
 
   ** add lock functions used on pkg load/unlock to lock .oct files
 
+  ** implemented instrhwinfo serial list for mac
+
 Summary of important user-visible changes for instrument-control 0.3.1:
 -------------------------------------------------------------------
 
