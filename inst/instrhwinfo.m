@@ -1,4 +1,4 @@
-## Copyright (C) 2018 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
 ## Copyright (C) 2016 Andreas Weber <andy.weber.aw@gmail.com>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
@@ -23,13 +23,13 @@
 ## information and a list of supported interfaces.
 ##
 ## If an output variable is provided, the function will store the information
-## to the variable, otherwise it will be displayed to the screeen.
+## to the variable, otherwise it will be displayed to the screen.
 ##
 ## @example
 ## instrhwinfo
 ## scalar structure containing the fields:
 ##
-##    ToolboxVersion = 0.3.0
+##    ToolboxVersion = 0.4.0
 ##    ToolboxName = octave instrument control package
 ##    SupportedInterfaces =
 ##    @{

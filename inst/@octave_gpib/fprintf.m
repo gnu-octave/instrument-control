@@ -1,4 +1,4 @@
-## Copyright (C) 2013 Stefan Mahr <dac922@gmx.de>
+## Copyright (C) 2013-2019 Stefan Mahr <dac922@gmx.de>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -14,10 +14,10 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {} frintf (@var{obj}, @var{cmd})
-## @deftypefnx {Function File} {} frintf (@var{obj}, @var{format}, @var{cmd})
-## @deftypefnx {Function File} {} frintf (@var{obj}, @var{cmd}, @var{mode})
-## @deftypefnx {Function File} {} frintf (@var{obj}, @var{format}, @var{cmd}, @var{mode})
+## @deftypefn {Function File} {} fprintf (@var{obj}, @var{cmd})
+## @deftypefnx {Function File} {} fprintf (@var{obj}, @var{format}, @var{cmd})
+## @deftypefnx {Function File} {} fprintf (@var{obj}, @var{cmd}, @var{mode})
+## @deftypefnx {Function File} {} fprintf (@var{obj}, @var{format}, @var{cmd}, @var{mode})
 ## Writes string @var{cmd} to GPIB instrument
 ##
 ## @var{obj} is a GPIB object

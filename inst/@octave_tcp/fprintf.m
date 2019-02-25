@@ -1,4 +1,4 @@
-## Copyright (C) 2018 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -15,7 +15,7 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {@var{numbytes} =} fprintf (@var{obj}, @var{template} ...)
-## Writes formatted string @var{template} using optional paramters to 
+## Writes formatted string @var{template} using optional parameters to 
 ## TCP instrument
 ##
 ## @var{obj} is a TCP object
