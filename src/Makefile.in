@@ -39,12 +39,15 @@ $(DISTCLEANDIRS):
 clean: $(CLEANDIRS)
 
 realclean:
-	rm -f *.oct
-	rm -f make-pkg-add-file.cc:
+	-rm -f *.oct
+	-rm -f make-pkg-add-file.cc:
 
 distclean: realclean $(DISTCLEANDIRS)
-	rm -rf autom4te.cache
-	rm -f Makefile config.status config.log config.h configure
+	-rm -rf autom4te.cache
+	-rm -f Makefile config.status config.log config.h
+
+maintainer-clean: distclean
+	-rm -f configure
 
 # and prebuild stuff we need do
 prebuild:
