@@ -1,5 +1,4 @@
-// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
-// Copyright (C) 2014   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2014-2019 John Donoghue   <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -72,9 +71,16 @@ octave_serial::octave_serial(void)
 void 
 octave_serial::open (const std::string &path)
 {
-  fd = CreateFile(path.c_str (), GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
   portPath = path;
   name = "Serial-" + path;
+
+  // use full extended port names if not already specified
+  std::string fullPath = path;
+  if (fullPath.length() > 0 && fullPath[0] != '\\')
+    fullPath = "\\\\.\\" + path;
+
+  fd = CreateFile(fullPath.c_str (), GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+    
   if (! fd_is_valid())
     {
       error("serial: Error opening the interface: %s\n", winerror (errno));

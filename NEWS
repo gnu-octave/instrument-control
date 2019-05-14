@@ -1,3 +1,8 @@
+Summary of important user-visible changes for instrument-control 0.4.0+
+-------------------------------------------------------------------
+ 
+  ** SERIAL: use extended win32 serial name for comports so > 10 work
+
 Summary of important user-visible changes for instrument-control 0.4.0
 -------------------------------------------------------------------
 
