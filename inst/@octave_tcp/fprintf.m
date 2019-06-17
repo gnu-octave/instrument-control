@@ -18,7 +18,7 @@
 ## Writes formatted string @var{template} using optional parameters to 
 ## TCP instrument
 ##
-## @var{obj} is a TCP object
+## @var{obj} is a TCP object.@*
 ## @var{template} Format template string 
 ##
 ## @end deftypefn

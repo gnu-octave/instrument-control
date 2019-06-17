@@ -18,8 +18,8 @@
 ## Writes formatted string @var{template} using optional parameters to 
 ## UDP instrument
 ##
-## @var{obj} is a UDP object
-## @var{template} Format template string 
+## @var{obj} is a UDP object.@*
+## @var{template} Format template string.@*
 ##
 ## @end deftypefn
 

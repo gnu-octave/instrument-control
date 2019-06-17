@@ -18,10 +18,9 @@
 ## @deftypefnx {Function File} {@var{numbytes} =} fwrite (@var{obj}, @var{data}, @var{precision})
 ## Writes @var{data} to UDP instrument
 ##
-## @var{obj} is a UDP object
-##
-## @var{data} data to write
-## @var{precision} precision of data
+## @var{obj} is a UDP object.@*
+## @var{data} data to write.@*
+## @var{precision} precision of data.@*
 ##
 ## returns number of bytes written.
 ## @end deftypefn
