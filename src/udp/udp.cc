@@ -1,4 +1,4 @@
-// Copyright (C) 2016,2017 John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2016-2019 John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -32,12 +32,34 @@ DEFUN_DLD (udp, args, nargout,
 \n\
 Open udp interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{remoteipaddress} - the ip address of type String. If omitted defaults to '127.0.0.1'.@* \
 @var{remoteport} - the port number to connect. If omitted defaults to 23.@* \
 @var{localport} - the local port number to bind. If omitted defaults to 0@* \
 @var{timeout} - the interface timeout value. If omitted defaults to blocking call.\n \
 \n\
+@subsubheading Outputs\n \
 The udp() shall return instance of @var{octave_udp} class as the result @var{udp}.\n \
+@subsubheading Properties\n \
+The arduino object has the following public properties:\n \
+@table @asis\n \
+@item name\n \
+name assigned to the udp object\n \
+@item type\n \
+instrument type 'udp' (readonly)\n \
+@item localport\n \
+local port number (readonly)\n \
+@item remoteport\n \
+remote port number\n \
+@item remotehost\n \
+remote host\n \
+@item status\n \
+status of the object 'open' or 'closed' (readonly)\n \
+@item timeout\n \
+timeout value used for waiting for data\n \
+@item bytesavailable\n \
+number of bytes currently available to read (readonly)\n \
+@end table \n \
 @end deftypefn")
 {
 #ifndef BUILD_UDP

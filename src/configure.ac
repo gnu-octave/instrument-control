@@ -39,6 +39,15 @@ LIBS="-loctinterp $LIBS"
 
 OF_OCTAVE_LIST_ALT_SYMS([
 [dnl
+  [feval],
+  [octave::feval],
+  [[octave::feval ("date");]],
+  [OCTAVE__FEVAL],
+  [[#include <octave/parse.h>]],
+  [[#include <octave/parse.h>]]
+],
+
+[dnl
   [is_float_type],
   [isfloat],
   [[octave_value ().isfloat ();]],
