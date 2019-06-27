@@ -9,6 +9,8 @@ Summary of important user-visible changes for instrument-control 0.4.0+
         fwrite
 
   ** UDP: add .property access to the object
+
+  ** TCP: add .property access to the object
  
   ** minor document updates
 

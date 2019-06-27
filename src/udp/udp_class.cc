@@ -119,7 +119,7 @@ octave_udp::subsref (const std::string& type, const std::list<octave_value_list>
   switch (type[0])
     {
     default:
-      error ("octave_zeromq_socket object cannot be indexed with %c", type[0]);
+      error ("octave_udp object cannot be indexed with %c", type[0]);
       break;
     case '.':
       {

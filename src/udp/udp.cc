@@ -41,7 +41,7 @@ Open udp interface.\n \
 @subsubheading Outputs\n \
 The udp() shall return instance of @var{octave_udp} class as the result @var{udp}.\n \
 @subsubheading Properties\n \
-The arduino object has the following public properties:\n \
+The udp object has the following public properties:\n \
 @table @asis\n \
 @item name\n \
 name assigned to the udp object\n \

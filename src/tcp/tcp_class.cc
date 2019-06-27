@@ -1,4 +1,4 @@
-// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -73,7 +73,7 @@ to_ip_str (const sockaddr_in *in)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_tcp, "octave_tcp", "octave_tcp");
 
 octave_tcp::octave_tcp (void)
-: fd (-1), timeout(-1), name("")
+: fieldnames(8), fd (-1), timeout(-1), name("")
 {
   static bool type_registered = false;
 
@@ -82,6 +82,97 @@ octave_tcp::octave_tcp (void)
       type_registered = true;
       register_type ();
     }
+
+  fieldnames[0] = "type";
+  fieldnames[1] = "name";
+  fieldnames[2] = "remoteport";
+  fieldnames[3] = "remotehost";
+  fieldnames[4] = "localport";
+  fieldnames[5] = "status";
+  fieldnames[6] = "timeout";
+  fieldnames[7] = "bytesavailable";
+}
+
+octave_value_list
+octave_tcp::subsref (const std::string& type, const std::list<octave_value_list>& idx, int nargout)
+{
+  octave_value_list retval;
+  int skip = 1;
+
+  switch (type[0])
+    {
+    default:
+      error ("octave_tcp object cannot be indexed with %c", type[0]);
+      break;
+    case '.':
+      {
+        octave_value_list ovl;
+        // inc ref count as assign this to octave_value
+        count++; 
+        ovl (0) = octave_value (this);
+        ovl (1) = (idx.front ()) (0);
+        retval = OCTAVE__FEVAL (std::string ("__tcp_properties__"), ovl, 1);
+      }
+      break;
+    }
+
+  if (idx.size () > 1 && type.length () > 1)
+    retval = retval (0).next_subsref (nargout, type, idx, skip);
+
+  return retval;
+}
+
+octave_value
+octave_tcp::subsasgn (const std::string& type, const std::list<octave_value_list>& idx, const octave_value& rhs)
+{
+  octave_value retval;
+
+  switch (type[0])
+    {
+    default:
+      error ("octave_tcp object cannot be indexed with %c", type[0]);
+      break;
+    case '.':
+      if (type.length () == 1)
+        {
+          octave_value_list ovl;
+          // inc ref count as assign this to octave_value
+          count++; 
+          ovl (0) = octave_value (this);
+          ovl (1) = (idx.front ()) (0);
+          ovl (2) = rhs;
+          OCTAVE__FEVAL (std::string ("__tcp_properties__"), ovl, 1);
+ 
+          // property assignment
+          if (! error_state)
+            {
+              count++;
+              retval = octave_value (this);
+            }
+        }
+      else if (type.length () > 1 && type[1] == '.')
+        {
+          // pass along any further assignments
+          octave_value_list u = subsref (type.substr (0, 1), idx, 1);
+          if (! error_state)
+            {
+              std::list<octave_value_list> next_idx (idx);
+              next_idx.erase (next_idx.begin ());
+              u (0).subsasgn(type.substr (1), next_idx, rhs);
+              if (!error_state)
+                {
+                  count++;
+                  retval = octave_value (this);
+                }
+            } 
+        }
+      else
+        {
+          error ("octave_tcp invalid index");
+        }
+
+    }
+  return retval;
 }
 
 int

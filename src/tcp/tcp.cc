@@ -32,11 +32,33 @@ DEFUN_DLD (tcp, args, nargout,
 \n\
 Open tcp interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{ipaddress} - the ip address of type String. If omitted defaults to '127.0.0.1'.@* \
 @var{port} - the port number to connect. If omitted defaults to 23.@* \
 @var{timeout} - the interface timeout value. If omitted defaults to blocking call.\n \
 \n\
+@subsubheading Outputs\n \
 The tcp() shall return instance of @var{octave_tcp} class as the result @var{tcp}.\n \
+@subsubheading Properties\n \
+The tcp object has the following public properties:\n \
+@table @asis\n \
+@item name\n \
+name assigned to the tcp object\n \
+@item type\n \
+instrument type 'tcp' (readonly)\n \
+@item localport\n \
+local port number (readonly)\n \
+@item remoteport\n \
+remote port number\n \
+@item remotehost\n \
+remote host\n \
+@item status\n \
+status of the object 'open' or 'closed' (readonly)\n \
+@item timeout\n \
+timeout value used for waiting for data\n \
+@item bytesavailable\n \
+number of bytes currently available to read (readonly)\n \
+@end table \n \
 @end deftypefn")
 {
 #ifndef BUILD_TCP

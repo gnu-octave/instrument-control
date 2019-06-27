@@ -1,4 +1,4 @@
-// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -66,6 +66,23 @@ public:
   bool is_defined (void) const { return true;}
   bool is_object (void) const { return true; }
 
+  // required to use subsasn
+  string_vector map_keys (void) const { return fieldnames; }
+  dim_vector dims (void) const { static dim_vector dv(1, 1); return dv; }
+
+ /**
+  * overloaded methods to get properties
+  */
+  octave_value_list subsref (const std::string& type, const std::list<octave_value_list>& idx, int nargout);
+
+  octave_value subsref (const std::string& type, const std::list<octave_value_list>& idx)
+  {
+    octave_value_list retval = subsref (type, idx, 1);
+    return (retval.length () > 0 ? retval(0) : octave_value ());
+  }
+
+  octave_value subsasgn (const std::string& type, const std::list<octave_value_list>& idx, const octave_value& rhs);
+
   int get_bytesavailable (void) const;
 
   std::string get_name (void) const { return name; }
@@ -83,6 +100,8 @@ public:
 
   int get_local_port (void) const;
 private:
+  string_vector fieldnames;
+
   int fd;
   int timeout;
 
