@@ -79,7 +79,7 @@ If @var{timeout} parameter is omitted, the udp_timeout() shall return current ti
 %! assert(udp_timeout(a), -1);
 %! udp_timeout(a, 103);
 %! assert(udp_timeout(a), 103);
-%! close(a);
+%! udp_close(a);
 
 %!error <Invalid call to udp_timeout> udp_timeout()
 
