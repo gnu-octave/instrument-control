@@ -65,11 +65,14 @@ public:
   bool is_constant (void) const { return true;}
   bool is_defined (void) const { return true;}
   bool is_object (void) const { return true; }
+  // 4.4+
+  bool isobject (void) const { return true; }
 
   // required to use subsasn
   string_vector map_keys (void) const { return fieldnames; }
   dim_vector dims (void) const { static dim_vector dv(1, 1); return dv; }
 
+  octave_base_value * unique_clone (void) { return this; }
  /**
   * overloaded methods to get properties
   */
