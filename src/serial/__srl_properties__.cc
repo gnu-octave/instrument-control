@@ -101,6 +101,15 @@ octave_value_list srl_type (octave_serial* serial, const octave_value_list& args
   return octave_value (serial->get_type ());
 }
 
+octave_value_list srl_port (octave_serial* serial, const octave_value_list& args, int nargout)
+{
+  if (args.length () > 0)
+    (*current_liboctave_error_handler) ("read only value");
+
+  // Returning bytes available
+  return octave_value (serial->get_port ());
+}
+
 octave_value_list srl_name (octave_serial* serial, const octave_value_list& args, int nargout)
 {
   if (args.length() > 1)
@@ -334,6 +343,8 @@ Undocumented internal function.\n\
     return srl_name (serial, args2, nargout);
   else if (property == "type")
     return srl_type (serial, args2, nargout);
+  else if (property == "port")
+    return srl_port (serial, args2, nargout);
   else
     (*current_liboctave_error_handler) ("wrong keyword");
 #endif

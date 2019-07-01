@@ -1,5 +1,6 @@
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //               2018   John Donoghue   <john.donoghue@ieee.org>
+//               2019   John Donoghue   <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -63,6 +64,8 @@
 
 class octave_serial_common : public octave_base_value
 {
+protected:
+  octave_serial_common();
 public:
 
   // os dependent functions
@@ -78,6 +81,14 @@ public:
   bool is_constant (void) const { return true;}
   bool is_defined (void) const { return true;}
   bool is_object (void) const { return true;}
+  // 4.4+
+  bool isobject (void) const { return true;}
+
+  octave_base_value * unique_clone (void) { return this;}
+
+  // required to use subsasn
+  string_vector map_keys (void) const { return fieldnames; }
+  dim_vector dims (void) const { static dim_vector dv(1, 1); return dv; }
 
   void print (std::ostream& os, bool pr_as_read_syntax = false)
   {
@@ -117,6 +128,19 @@ public:
     return ! (this == &other);
   }
 
+ /**
+  * overloaded methods to get properties
+  */
+  octave_value_list subsref (const std::string& type, const std::list<octave_value_list>& idx, int nargout);
+
+  octave_value subsref (const std::string& type, const std::list<octave_value_list>& idx)
+  {
+    octave_value_list retval = subsref (type, idx, 1);
+    return (retval.length () > 0 ? retval(0) : octave_value ());
+  }
+
+  octave_value subsasgn (const std::string& type, const std::list<octave_value_list>& idx, const octave_value& rhs);
+
   std::string get_status () const
   {
     if (fd_is_valid ())
@@ -130,6 +154,11 @@ public:
     return "serial";
   }
 
+  std::string get_port () const
+  {
+    return portPath;
+  }
+
   std::string get_name () const
   {
     return name;
@@ -140,6 +169,8 @@ public:
     name = newname;
   }
 protected:
+  string_vector fieldnames;
+
   std::string name;
   std::string portPath;
 };

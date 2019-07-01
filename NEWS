@@ -8,6 +8,11 @@ Summary of important user-visible changes for instrument-control 0.4.0+
         fread
         fwrite
 
+     Added properties:
+        port
+
+     Added .property access
+
   ** UDP: add .property access to the object
 
   ** TCP: add .property access to the object

@@ -1,3 +1,4 @@
+// Copyright (C) 2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -38,11 +39,43 @@ DEFUN_DLD (serial, args, nargout,
 \n\
 Open serial interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{path} - the interface path of type String. @*\
 @var{baudrate} - the baudrate of interface. If omitted defaults to 115200. @*\
 @var{timeout} - the interface timeout value. If omitted defaults to blocking call.\n \
 \n\
+@subsubheading Outputs\n \
 The serial() shall return instance of @var{octave_serial} class as the result @var{serial}.\n \
+@subsubheading Properties\n \
+The serial object has the following public properties:\n \
+@table @asis\n \
+@item name\n \
+name assigned to the object\n \
+@item type\n \
+instrument type 'serial' (readonly)\n \
+@item port\n \
+OS specific port name (readonly)\n \
+@item status\n \
+status of the object 'open' or 'closed' (readonly)\n \
+@item timeout\n \
+timeout value used for waiting for data\n \
+@item bytesavailable\n \
+number of bytes currently available to read (readonly)\n \
+@item stopbits\n \
+number of stopbits to use\n \
+@item requesttosend\n \
+request to send state - 'on' or 'off'\n \
+@item parity\n \
+Parity setting 'none', 'even', 'odd'\n \
+@item bytesize\n \
+Number of bits to a byte (7 or 8)\n \
+@item baudrate\n \
+Baudrate setting\n \
+@item dataterminalready\n \
+state of dataterminal ready - 'on' or 'off'\n \
+@item pinstatus\n \
+current state of pins (readonly)\n \
+@end table \n \
 @end deftypefn")
 {
 #ifndef BUILD_SERIAL

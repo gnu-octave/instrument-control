@@ -1,5 +1,5 @@
 OCT := ../serial.oct
-OBJ := serial.o srl_write.o srl_read.o __srl_properties__.o __serial_pkg_lock__.o
+OBJ := serial.o srl_write.o srl_read.o __srl_properties__.o __serial_pkg_lock__.o serial_class.o
 
 ifeq ("@BUILD_FOR_WINDOWS@","1")
   OBJ += serial_class_win32.o 

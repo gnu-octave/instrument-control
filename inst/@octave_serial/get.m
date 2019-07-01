@@ -1,4 +1,5 @@
 ## Copyright (C) 2014 Stefan Mahr <dac922@gmx.de>
+## Copyright (C) 2019 John D <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -24,8 +25,9 @@
 function retval = get (serial, property)
 
   properties = {'name', 'type', 'status', 'baudrate', 'bytesize', 'parity', ...
-                'stopbits', 'timeout', 'requesttosend', 'dataterminalready', ...
-                'pinstatus', 'bytesavailable'};
+                'stopbits', 'timeout', 'requesttosend', ...
+		'dataterminalready', 'pinstatus', 'bytesavailable', ...
+                'port'};
 
   if (nargin == 1)
     property = properties;
