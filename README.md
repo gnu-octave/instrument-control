@@ -1,18 +1,18 @@
 Introduction
 ============
 
-Thus package provides low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
+The Instrument control package provides low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
 
 It attempts to provide the same function calls as the Matlab toolkit, as well as additional functionality.
 
 Requirements
 ============
 
-Octave >= 3.8.0
+* Octave >= 3.8.0
 
-linux-gpib (Linux only)
+* linux-gpib (Linux only)
 
-rpcgen and libtirpc for VXI11 support
+* rpcgen and libtirpc for VXI11 support
 
 
 Installing
@@ -29,7 +29,7 @@ To install, run the octave package manager:
 3. to install from a local tarball.
     pkg install instrument-control-XXXXXXX.tar.gz
 
-Where XXXXXXX is the version of the the downloaded tarball.
+   Where XXXXXXX is the version of the the downloaded tarball.
 
 Usage:
 ======
@@ -51,4 +51,4 @@ Read the Octave [instrument-control wiki](https://wiki.octave.org/Instrument_con
 Known limitations and bugs
 ==========================
 
-
+None provided
