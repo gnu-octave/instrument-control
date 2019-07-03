@@ -54,6 +54,28 @@ octave_value_list srl_flush (octave_serial* serial, const octave_value_list& arg
     return octave_value ();
 }
 
+octave_value_list srl_break (octave_serial* serial, const octave_value_list& args, int nargout)
+{
+  if (args.length() > 1) 
+    (*current_liboctave_error_handler) ("wrong number of arguments");
+    
+  // Default arguments
+  int ms = 2; // Input and Output
+    
+  if (args.length () > 0)
+    {
+      if (!(args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT ()))
+        (*current_liboctave_error_handler) ("argument must be integer");
+
+      ms = args (0).int_value ();
+    }
+
+    serial->sendbreak (ms);
+
+    return octave_value ();
+}
+
+
 octave_value_list srl_timeout (octave_serial* serial, const octave_value_list& args, int nargout)
 {
   if (args.length () > 1)
@@ -325,6 +347,8 @@ Undocumented internal function.\n\
     return srl_close (serial, args2, nargout);
   else if (property == "flush")
     return srl_flush (serial, args2, nargout);
+  else if (property == "break")
+    return srl_break (serial, args2, nargout);
   else if (property == "parity")
     return srl_parity (serial, args2, nargout);
   else if (property == "pinstatus")

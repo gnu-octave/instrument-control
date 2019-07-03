@@ -550,6 +550,17 @@ octave_serial::flush (unsigned short queue_selector)
   return ::tcflush (fd, flag);
 }
 
+int
+octave_serial::sendbreak (unsigned short ms)
+{
+  if (! fd_is_valid ())
+    {
+      error ("serial: Interface must be opened first...");
+      return -1;
+    }
+
+  return ::tcsendbreak (fd, ms);
+}
 
 int
 octave_serial::set_parity (const std::string &newparity)

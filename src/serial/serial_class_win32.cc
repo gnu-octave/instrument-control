@@ -410,6 +410,29 @@ octave_serial::flush (unsigned short queue_selector)
     return true;
 }
 
+int
+octave_serial::sendbreak (unsigned short ms)
+{
+  if (! fd_is_valid ())
+    {
+      error ("serial: Interface must be opened first...");
+      return -1;
+    }
+
+  if (ms > 5000)
+    ms = 5000;
+
+  if(SetCommBreak(fd) == TRUE)
+  {
+    Sleep(ms);
+
+    ClearCommBreak(fd);
+
+    return true;
+  }
+
+  return false;
+}
 
 int
 octave_serial::set_parity (const std::string &newparity)

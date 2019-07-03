@@ -36,6 +36,8 @@ public:
 
   int flush(unsigned short /* stream select */);
 
+  int sendbreak(unsigned short /* breaktime */);
+
   int set_timeout(short /* timeout */);
   int get_timeout(void) const;
 
