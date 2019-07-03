@@ -1,4 +1,4 @@
-// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -31,9 +31,11 @@ DEFUN_DLD (srl_write, args, nargout,
 \n\
 Write data to a serial interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{serial} - instance of @var{octave_serial} class.@*\
 @var{data} - data to be written to the serial interface. Can be either of String or uint8 type.\n \
 \n\
+@subsubheading Outputs\n \
 Upon successful completion, srl_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {

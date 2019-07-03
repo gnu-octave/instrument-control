@@ -18,8 +18,12 @@
 ## Writes formatted string @var{template} using optional parameters to 
 ## serial instrument
 ##
+## @subsubheading Inputs
 ## @var{obj} is a serial object.@*
 ## @var{template} Format template string 
+##
+## @subsubheading Outputs
+## @var{numbytes} - number of bytes written to the serial device.
 ##
 ## @end deftypefn
 

@@ -1,4 +1,5 @@
 ## Copyright (C) 2014 Stefan Mahr <dac922@gmx.de>
+## Copyright (C) 2019 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -19,12 +20,17 @@
 ##
 ## Set new or get existing serial interface parity parameter. Even/Odd/None values are supported.
 ##
-## @var{serial} - instance of @var{octave_serial} class.
-## @var{parity} - parity value of type String. Supported values: Even/Odd/None (case insensitive, can be abbreviated to the first letter only)
+## @subsubheading Inputs
+## @var{serial} - instance of @var{octave_serial} class.$@
+## @var{parity} - parity value of type String. Supported values: 
+## Even/Odd/None (case insensitive, can be abbreviated to the first letter only)$@
 ##
 ## If @var{parity} parameter is omitted, the srl_parity() shall return current parity value as the result @var{p}.
 ##
 ## This function is obsolete. Use get and set method instead.
+##
+## @subsubheading Outputs
+## @var{p} - The currently set parity
 ##
 ## @end deftypefn
 function retval = srl_parity (serial, parity)

@@ -36,9 +36,11 @@ DEFUN_DLD (srl_read, args, nargout,
 \n\
 Read from serial interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{serial} - instance of @var{octave_serial} class.@*\
 @var{n} - number of bytes to attempt to read of type Integer.\n \
 \n\
+@subsubheading Outputs\n \
 The srl_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
 @end deftypefn")
 {

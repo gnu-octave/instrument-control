@@ -17,6 +17,10 @@
 ## @deftypefn {Function File} {@var{list} = } seriallist ()
 ## Returns a list of all serial ports detected in the system.
 ##
+## @subsubheading Inputs
+## None
+##
+## @subsubheading Outputs
 ## @var{list} is a string cell array of serial ports names detected
 ## in the system.
 ##

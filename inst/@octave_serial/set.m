@@ -1,5 +1,5 @@
 ## Copyright (C) 2014 Stefan Mahr <dac922@gmx.de>
-## Copyright (C) 2018 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -19,11 +19,16 @@
 ## @deftypefnx {Function File} set (@var{obj}, @var{property},@var{value},@dots{})
 ## Set the properties of serial object.
 ##
+## @subsubheading Inputs
+## @var{serial} - instance of @var{octave_serial} class.@*
+## @var{property} - name of property.@*
+##
 ## If @var{property} is a cell so must be @var{value}, it sets the values of
 ## all matching properties.
 ##
 ## The function also accepts property-value pairs.
 ##
+## @subsubheading Properties
 ## @table @var
 ## @item 'baudrate'
 ## Set the baudrate of serial port. Supported values by instrument-control:
@@ -56,6 +61,9 @@
 ## Set the dataterminalready (DTR) line.
 ##
 ## @end table
+##
+## @subsubheading Outputs
+## None
 ##
 ## @seealso{@@octave_serial/get}
 ## @end deftypefn

@@ -18,9 +18,12 @@
 ## @deftypefnx {Function File} {} serialbreak (@var{serial}, @var{time})
 ## Send a break to the serial port
 ##
-## @var{serial} - serial object
-##
+## @subsubheading Inputs
+## @var{serial} - serial object@*
 ## @var{time} - number of milliseconds to break for. If not specified a value of 10 will be used.
+##
+## @subsubheading Outputs
+## None
 ##
 ## @seealso{serial}
 ## @end deftypefn

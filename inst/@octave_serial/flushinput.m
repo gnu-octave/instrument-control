@@ -1,4 +1,4 @@
-## Copyright (C) 2018 John Donoghue
+## Copyright (C) 2018-2019 John Donoghue
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -18,7 +18,11 @@
 ##
 ## Flush the pending input, which will also make the BytesAvailable property be 0.
 ##
+## @subsubheading Inputs
 ## @var{serial} - instance of @var{octave_serial} class.
+##
+## @subsubheading Outputs
+## None
 ##
 ## @seealso{srl_flush, flushoutput}
 ## @end deftypefn

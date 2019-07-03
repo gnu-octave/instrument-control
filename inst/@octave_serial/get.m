@@ -19,6 +19,14 @@
 ## @deftypefnx {Function File} {@var{field} = } get (@var{serial}, @var{property})
 ## Get the properties of serial object.
 ##
+## @subsubheading Inputs
+## @var{serial} - instance of @var{octave_serial} class.@*
+## @var{property} - name of property.@*
+##
+## @subsubheading Outputs
+## When @var{property} was specified, return the value of that property.@*
+## otherwise return the values of all properties as a structure.@*
+##
 ## @seealso{@@octave_serial/set}
 ## @end deftypefn
 

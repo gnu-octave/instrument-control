@@ -21,9 +21,13 @@
 ## @deftypefnx {Function File} {[@var{data},@var{count},@var{errmsg}] =} fread (@var{obj}, ...)
 ## Reads @var{data} from serial instrument
 ##
+## @subsubheading Inputs
 ## @var{obj} is a serial object.@*
 ## @var{size} Number of values to read. (Default: 100).@*
 ## @var{precision} precision of data.@*
+##
+## @subsubheading Outputs
+## @var{data} The read data.@*
 ## @var{count} values read.@*
 ## @var{errmsg} read operation error message.@*
 ##

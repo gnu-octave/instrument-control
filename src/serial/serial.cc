@@ -45,7 +45,7 @@ Open serial interface.\n \
 @var{timeout} - the interface timeout value. If omitted defaults to blocking call.\n \
 \n\
 @subsubheading Outputs\n \
-The serial() shall return instance of @var{octave_serial} class as the result @var{serial}.\n \
+The serial() shall return an instance of @var{octave_serial} class as the result @var{serial}.\n \
 @subsubheading Properties\n \
 The serial object has the following public properties:\n \
 @table @asis\n \

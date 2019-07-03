@@ -1,4 +1,5 @@
 ## Copyright (C) 2014 Stefan Mahr <dac922@gmx.de>
+## Copyright (C) 2019 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -18,10 +19,17 @@
 ##
 ##Flush the pending input/output.
 ##
+## @subsubheading Inputs
 ## @var{serial} - instance of @var{octave_serial} class.
-## @var{q} - queue selector of type Integer. Supported values: 0 - flush untransmitted output, 1 - flush pending input, 2 - flush both pending input and untransmitted output.
+## @var{q} - queue selector of type Integer. Supported values: 
+## 0 - flush untransmitted output$@
+## 1 - flush pending input$@
+## 2 - flush both pending input and untransmitted output.
 ##
 ## If @var{q} parameter is omitted, the srl_flush() shall flush both, input and output buffers.
+##
+## @subsubheading Outputs
+## None
 ##
 ## @end deftypefn
 function srl_flush (serial, q)

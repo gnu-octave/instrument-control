@@ -1,4 +1,5 @@
 ## Copyright (C) 2014 Stefan Mahr <dac922@gmx.de>
+## Copyright (C) 2019 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -19,9 +20,11 @@
 ##
 ## Set new or get existing serial interface stop bits parameter. Only 1 or 2 stop bits are supported.
 ##
-## @var{serial} - instance of @var{octave_serial} class.
-## @var{stopb} - number of stop bits used. Supported values: 1, 2.
+## @subsubheading Inputs
+## @var{serial} - instance of @var{octave_serial} class.$@
+## @var{stopb} - number of stop bits used. Supported values: 1, 2.$@
 ##
+## @subsubheading Outputs
 ## If @var{stopb} parameter is omitted, the srl_stopbits() shall return current stop bits value as the result @var{sb}.
 ##
 ## This function is obsolete. Use get and set method instead.

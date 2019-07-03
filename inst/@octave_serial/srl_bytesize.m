@@ -1,4 +1,5 @@
 ## Copyright (C) 2014 Stefan Mahr <dac922@gmx.de>
+## Copyright (C) 2019 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -19,12 +20,17 @@
 ##
 ## Set new or get existing serial interface byte size parameter.
 ##
+## @subsubheading Inputs
 ## @var{serial} - instance of @var{octave_serial} class.
 ## @var{bsize} - byte size of type Integer. Supported values: 5/6/7/8.
 ##
-## If @var{bsize} parameter is omitted, the srl_bytesize() shall return current byte size value or in case of unsupported setting -1, as the result @var{bs}.
+## If @var{bsize} parameter is omitted, the srl_bytesize() shall return current byte size value
+## or in case of unsupported setting -1, as the result @var{bs}.
 ##
 ## This function is obsolete. Use get and set method instead.
+##
+## @subsubheading Outputs
+## @var{bs} -the currently set  byte size.
 ##
 ## @end deftypefn
 function retval = srl_bytesize (serial, bytesize)
