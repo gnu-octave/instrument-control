@@ -17,11 +17,15 @@
 ## @deftypefn {Function File} {@var{tcp} = } tcpip (@var{host}, [@var{port}], [@var{PropertyName}, @var{PropertyValue}...])
 ## Matlab compatible wrapper to the tcp interface.
 ##
-## @var{host} - the host name or ip.
-## @var{port} - the port number to connect. If omitted defaults to 80.
-## @var{PropertyName}, @var{PropertyValue} - Optional property name, value pairs to set on the tcp object.
+## @subsubheading Inputs
+## @var{host} - the host name or ip.@*
+## @var{port} - the port number to connect. If omitted defaults to 80.@*
+## @var{PropertyName}, @var{PropertyValue} - Optional property name, value pairs to set on the tcp object.@*
+##
+## @subsubheading Properties
 ## Currently the only known properties are "timeout" and "name".
 ##
+## @subsubheading Outputs
 ## tcpip will return an instance of @var{octave_tcp} class as the result.
 ## @end deftypefn
 
