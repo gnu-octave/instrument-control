@@ -18,9 +18,12 @@
 ## Writes formatted string @var{template} using optional parameters to 
 ## UDP instrument
 ##
+## @subsubheading Inputs
 ## @var{obj} is a UDP object.@*
 ## @var{template} Format template string.@*
 ##
+## @subsubheading Outputs
+## @var{numbytes} is the number of bytes written to the device
 ## @end deftypefn
 
 function numbytes = fprintf (varargin)

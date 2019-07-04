@@ -18,7 +18,11 @@
 ##
 ## Flush the output buffer.
 ##
+## @subsubheading Inputs
 ## @var{udp} - instance of @var{octave_udp} class.
+##
+## @subsubheading Outputs
+## None
 ##
 ## @seealso{flushinput}
 ## @end deftypefn

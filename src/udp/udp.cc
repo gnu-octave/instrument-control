@@ -40,6 +40,7 @@ Open udp interface.\n \
 \n\
 @subsubheading Outputs\n \
 The udp() shall return instance of @var{octave_udp} class as the result @var{udp}.\n \
+\n \
 @subsubheading Properties\n \
 The udp object has the following public properties:\n \
 @table @asis\n \

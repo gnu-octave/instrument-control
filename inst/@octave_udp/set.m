@@ -18,11 +18,16 @@
 ## @deftypefnx {Function File} set (@var{obj}, @var{property},@var{value},@dots{})
 ## Set the properties of udp object.
 ##
+## @subsubheading Inputs
+## @var{obj} - instance of @var{octave_udp} class.@*
+## @var{property} - name of property.@*
+##
 ## If @var{property} is a cell so must be @var{value}, it sets the values of
 ## all matching properties.
 ##
 ## The function also accepts property-value pairs.
 ##
+## @subsubheading Properties
 ## @table @var
 ## @item 'name'
 ## Set the name for the udp socket.
@@ -38,6 +43,9 @@
 ## blocking call. Maximum value of 255 (i.e. 25.5 seconds).
 ##
 ## @end table
+##
+## @subsubheading Outputs
+## None
 ##
 ## @seealso{@@octave_udp/get}
 ## @end deftypefn

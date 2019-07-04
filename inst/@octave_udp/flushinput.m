@@ -18,7 +18,11 @@
 ##
 ## Flush the pending input, which will also make the BytesAvailable property be 0.
 ##
+## @subsubheading Inputs
 ## @var{udp} - instance of @var{octave_udp} class.
+##
+## @subsubheading Outputs
+## None
 ##
 ## @seealso{flushoutput}
 ## @end deftypefn

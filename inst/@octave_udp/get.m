@@ -1,4 +1,4 @@
-## Copyright (C) 2016 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2016-2019 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -17,6 +17,15 @@
 ## @deftypefn {Function File} {@var{struct} = } get (@var{udp})
 ## @deftypefnx {Function File} {@var{field} = } get (@var{udp}, @var{property})
 ## Get the properties of udp object.
+##
+## @subsubheading Inputs
+## @var{udp} - instance of @var{octave_udp} class.@*
+##
+## @var{property} - name of property.@*
+##
+## @subsubheading Outputs
+## When @var{property} was specified, return the value of that property.@*
+## otherwise return the values of all properties as a structure.@*
 ##
 ## @seealso{@@octave_udp/set}
 ## @end deftypefn

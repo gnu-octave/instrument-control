@@ -1,4 +1,4 @@
-// Copyright (C) 2016-2018 John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2016-2019 John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -37,10 +37,12 @@ DEFUN_DLD (udp_read, args, nargout,
 \n\
 Read from udp interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{udp} - instance of @var{octave_udp} class.@* \
 @var{n} - number of bytes to attempt to read of type Integer@* \
 @var{timeout} - timeout in ms if different from default of type Integer\n \
 \n\
+@subsubheading Outputs\n \
 The udp_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
 @end deftypefn")
 {

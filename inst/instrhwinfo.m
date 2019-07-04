@@ -22,9 +22,18 @@
 ## When run without any input parameters, instrhwinfo will provide the toolbox
 ## information and a list of supported interfaces.
 ##
+## @subsubheading Inputs
+## @var{interface} is the instrument interface to query. When provided, instrhwinfo
+## will provide information on the specified interface.
+##
+## Currently only interface "serial" is supported, which will provide a list of
+## available serial ports.
+##
+## @subsubheading Outputs
 ## If an output variable is provided, the function will store the information
 ## to the variable, otherwise it will be displayed to the screen.
 ##
+## @subsubheading Example
 ## @example
 ## instrhwinfo
 ## scalar structure containing the fields:
@@ -44,11 +53,6 @@
 ##
 ## @end example
 ##
-## @var{interface} is the instrument interface to query. When provided, instrhwinfo
-## will provide information on the specified interface.
-##
-## Currently only interface "serial" is supported, which will provide a list of
-## available serial ports.
 ## @end deftypefn
 
 function out = instrhwinfo (interface)

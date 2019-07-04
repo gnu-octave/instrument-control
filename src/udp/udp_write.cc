@@ -1,4 +1,4 @@
-// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -32,9 +32,11 @@ DEFUN_DLD (udp_write, args, nargout,
 \n\
 Write data to a udp interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{udp} - instance of @var{octave_udp} class.@* \
 @var{data} - data to be written to the udp interface. Can be either of String or uint8 type.\n \
 \n\
+@subsubheading Outputs\n \
 Upon successful completion, udp_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {

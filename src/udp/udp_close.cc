@@ -1,4 +1,4 @@
-// Copyright (C) 2016   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2016-2019  John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -32,7 +32,11 @@ DEFUN_DLD (udp_close, args, nargout,
 \n\
 Close the interface and release a file descriptor.\n \
 \n\
+@subsubheading Inputs\n \
 @var{udp} - instance of @var{octave_udp} class.\n \
+\n\
+@subsubheading Inputs\n \
+None\n \
 @end deftypefn")
 {
 #ifndef BUILD_UDP

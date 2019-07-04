@@ -1,4 +1,4 @@
-## Copyright (C) 2016 John Donoghue  <john.donoghue@ieee.org>
+## Copyright (C) 2016-2019 John Donoghue  <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -21,10 +21,14 @@
 ## @deftypefnx {Function File} {[@var{data},@var{count},@var{errmsg}] =} fread (@var{obj}, ...)
 ## Reads @var{data} from UDP instrument
 ##
+## @subsubheading Inputs
 ## @var{obj} is a UDP object.@*
 ## @var{size} Number of values to read. (Default: 100).@*
 ## @var{precision} precision of data.@*
-## @var{count} values read.@*
+##
+## @subsubheading Outputs
+## @var{data} data values.@*
+## @var{count} number of values read.@*
 ## @var{errmsg} read operation error message.@*
 ##
 ## @end deftypefn

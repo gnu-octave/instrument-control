@@ -1,4 +1,4 @@
-## Copyright (C) 2016 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2016-2019 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -18,10 +18,12 @@
 ## @deftypefnx {Function File} {@var{numbytes} =} fwrite (@var{obj}, @var{data}, @var{precision})
 ## Writes @var{data} to UDP instrument
 ##
+## @subsubheading Inputs
 ## @var{obj} is a UDP object.@*
 ## @var{data} data to write.@*
 ## @var{precision} precision of data.@*
 ##
+## @subsubheading Outputs
 ## returns number of bytes written.
 ## @end deftypefn
 
