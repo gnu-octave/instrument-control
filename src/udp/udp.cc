@@ -50,6 +50,8 @@ name assigned to the udp object\n \
 instrument type 'udp' (readonly)\n \
 @item localport\n \
 local port number (readonly)\n \
+@item localhost\n \
+local host address (readonly)\n \
 @item remoteport\n \
 remote port number\n \
 @item remotehost\n \

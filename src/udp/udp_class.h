@@ -99,6 +99,8 @@ public:
 
   int get_local_port (void) const;
 
+  std::string get_local_addr (void) const;
+
   bool is_open(void) const;
 
   std::string get_type (void) const { return "udp"; }

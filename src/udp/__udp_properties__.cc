@@ -1,6 +1,7 @@
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 // Copyright (C) 2014   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2016   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2019   John Donoghue   <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -57,6 +58,8 @@ Undocumented internal function.\n\
         return octave_value (udp->get_remote_addr ());
       else if (property == "localport")
         return octave_value (udp->get_local_port ());
+      else if (property == "localhost")
+        return octave_value (udp->get_local_addr ());
       else if (property == "status")
         return octave_value (udp->get_status ());
       else if (property == "timeout")
@@ -77,6 +80,8 @@ Undocumented internal function.\n\
       else if (property == "remotehost")
         return octave_value (udp->set_remote_addr (args(2).string_value ()));
       else if (property == "localport")
+        (*current_liboctave_error_handler) ("can not set this property");
+      else if (property == "localhost")
         (*current_liboctave_error_handler) ("can not set this property");
       else if (property == "status")
         (*current_liboctave_error_handler) ("can not set this property");
@@ -122,6 +127,18 @@ Undocumented internal function.\n\
 %! __udp_properties__ (a, 'flush', 2);
 %! fail ("__udp_properties__ (a,'flush')", "invalid property name");
 %! udp_close (a);
+
+%!test
+%! # test subsref and get/set
+%! a = udp ();
+%! a.name = "test1"
+%! assert (isa(a, "octave_udp"))
+%! assert (a.name, "test1")
+%! assert (get(a, 'name'), "test1")
+%!
+%! set (a, "name", "test2")
+%! assert (a.name, "test2")
+%! assert (get(a, 'name'), "test2")
 
 %!error <wrong number of arguments> __udp_properties__ ()
 

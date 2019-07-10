@@ -18,6 +18,9 @@ Summary of important user-visible changes for instrument-control 0.4.0+
 
   ** UDP: add .property access to the object
 
+     Added properties:
+        localhost
+
   ** TCP: add .property access to the object
  
   ** minor document updates

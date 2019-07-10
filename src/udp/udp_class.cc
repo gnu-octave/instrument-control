@@ -91,7 +91,7 @@ lookup_addr (const std::string &ip, sockaddr_in *in)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_udp, "octave_udp", "octave_udp");
 
 octave_udp::octave_udp (void)
-: fd(-1), timeout(-1), name(""), fieldnames(8)
+: fd(-1), timeout(-1), name(""), fieldnames(9)
 {
   static bool type_registered = false;
 
@@ -108,6 +108,7 @@ octave_udp::octave_udp (void)
   fieldnames[5] = "status";
   fieldnames[6] = "timeout";
   fieldnames[7] = "bytesavailable";
+  fieldnames[8] = "localhost";
 }
 
 octave_value_list
@@ -479,6 +480,13 @@ octave_udp::get_local_port (void) const
 {
   return ntohs (local_addr.sin_port);
 }
+
+std::string
+octave_udp::get_local_addr (void) const
+{
+  return  to_ip_str (&local_addr);
+}
+
 
 std::string
 octave_udp::set_name (const std::string &n)
