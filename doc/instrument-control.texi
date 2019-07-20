@@ -1,0 +1,268 @@
+\input texinfo @c -*-texinfo-*-
+@c Copyright (c) 2019, John Donoghue <john.donoghue@ieee.org>
+@c Octave Instrument Control Toolkit - Low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
+
+@c %*** Start of HEADER
+@setfilename instrument-control.info
+@settitle Octave Instrument Control Toolkit
+@afourpaper
+@paragraphindent 0
+@finalout
+@set VERSION 1.4.0
+@c @afourwide
+@c %*** End of the HEADER
+
+@c The following macro is used for the on-line help system, but we don't
+@c want lots of `See also: foo, bar, and baz' strings cluttering the
+@c printed manual (that information should be in the supporting text for
+@c each group of functions and variables).
+
+@macro seealso {args}
+@iftex
+@vskip 2pt
+@end iftex
+@ifnottex
+@c Texinfo @sp should work but in practice produces ugly results for HTML.
+@c A simple blank line produces the correct behavior.
+@c @sp 1
+
+@end ifnottex
+@noindent
+@strong{See also:} \args\.
+@end macro
+
+@c %*** Start of TITLEPAGE
+@titlepage
+@title Octave Instrument Control Toolkit @value{VERSION}
+@subtitle Low level instrumentation functions for @acronym{GNU} Octave.
+@author John Donoghue
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 2019 John Donoghue
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the same conditions as for modified versions.
+
+@page
+@heading Distribution
+The @acronym{GNU} Octave Instrument Control Toolkit is @dfn{free} software.
+Free software is a matter of the users' freedom to run, copy, distribute,
+study, change and improve the software.
+This means that everyone is free to use it and free to redistribute it
+on certain conditions.  The @acronym{GNU} Octave Instrument Control toolkit
+is not, however, in the public domain.  It is copyrighted and there are
+restrictions on its distribution, but the restrictions are designed to
+ensure that others will have the same freedom to use and redistribute
+Octave that you have.  The precise conditions can be found in the
+@acronym{GNU} General Public License that comes with the @acronym{GNU}
+Octave Instrument Control tookit and that also appears in @ref{Copying}.
+
+To download a copy of the @acronym{GNU} Octave Instrument Control Tookit, please visit
+@url{http://octave.sourceforge.net/instrument-control/}.
+
+@end titlepage
+@c %*** End of TITLEPAGE
+
+@c %*** Start of BODY
+@contents
+@ifnottex
+@node Top
+@top Introduction
+The Instrument Control toolkit is a set of low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces
+@end ifnottex
+
+@menu
+* Installing and loading::    Installing and loading the toolkit
+* Basic Usage Overview::      Basic Usage Overview
+* Function Reference::        Instrument Control functions
+* Copying::                   Copying
+* Index::                     Index
+@end menu
+
+@c -------------------------------------------------------------------------
+@node Installing and loading
+@chapter Installing and loading
+@cindex Installing and loading
+
+The Instrument Control toolkit must be installed and then loaded to be used.
+
+It can be installed in @acronym{GNU} Octave directly from octave-forge,
+or can be installed in an off-line mode via a downloaded tarball.
+
+The toolkit must be then be loaded once per each @acronym{GNU} Octave session in order to use its functionality.
+
+@section Requirements
+@cindex Requirements
+For GPIB support (linux only), linux-gpib must be installed before installing instrument-control. 
+GPIB suuport is also available for windows, folloiwing infomration from the wiki:
+https://wiki.octave.org/Instrument_control_package#Requirements
+
+For VXI11 support, rpcgen, and libtirpc-devel must be installed before installing instrument-control. 
+
+
+@section Windows install
+@cindex Windows install
+
+If using the @acronym{GNU} Octave installer in Windows, the toolkit will have already been installed, and does not need to be reinstalled
+unless a newer version is available.
+
+Run the following command to verify if the toolkit is available:
+
+@example
+pkg list instrument-control
+@end example
+
+@section Online Direct install
+@cindex Online install
+With an internet connection available, toolkit can be installed from
+octave-forge using the following command within @acronym{GNU} Octave:
+
+@example
+pkg install -forge instrument-control
+@end example
+
+The latest released version of the toolkit will be downloaded and installed.
+
+@section Off-line install
+@cindex Off-line install
+With the toolkit package already downloaded, and in the current directory when running
+@acronym{GNU} Octave, the package can be installed using the following command within @acronym{GNU} Octave:
+
+@example
+pkg install instrument-control-@value{VERSION}.tar.gz
+@end example
+
+@section Loading
+@cindex Loading
+Regardless of the method of installing the toolkit, in order to use its functions,
+the toolkit must be loaded using the pkg load command:
+
+@example
+pkg load instrument-control
+@end example
+
+The toolkit must be loaded on each @acronym{GNU} Octave session.
+
+@c -------------------------------------------------------------------------
+@node Basic Usage Overview
+@chapter Basic Usage Overview
+@cindex Basic Usage Overview
+
+@node  Authors
+@section  Authors
+The Instrument control package provides low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
+
+It was written  mainly by the following developers:
+
+@itemize
+@item Andrius Sutas <andrius.sutasg at mail.com>
+@item Stefan Mahr <dac922 at gmx.de>
+@item John Donoghue <john.donoghue at ieee.org>
+@end itemize
+
+@node  Available Interface
+@section  Available Interfaces
+The ability to use each interface is dependent on OS and what libraries were available duting install.
+
+To verify the available, run the following:
+
+@example
+instrhwinfo
+@end example
+
+The function will return information on the supported interfaces that are available, similar to below:
+
+@example
+    ToolboxVersion = 0.4.0
+    ToolboxName = octave instrument control package
+    SupportedInterfaces =
+    @{
+      [1,1] = gpib
+      [1,2] = i2c
+      [1,3] = parallel
+      [1,4] = serial
+      [1,5] = tcp
+      [1,6] = udp
+      [1,7] = usbtmc
+      [1,8] = vxi11
+    @}
+@end example
+
+Most interfaces have two types of functions:
+
+@itemize
+@item somewhat compatible matlab functions such as fread, fwrite
+
+@item interface specific lower level functions such as udp_read, udp_write
+@end itemize
+
+
+@node  Basic Serial
+@section  Basic Serial
+The serial port can be opened using the serial function:
+
+@example
+s = serial("/dev/ttyUSB1", 115200) 
+@end example
+
+The first parameter is the device name as is OK specific. The second parameter is the baudrate. 
+
+A list of available serial ports can be retrieved using the function:
+
+@example
+seriallist
+@end example
+
+
+After creating the interface object, properties of the device can be set or retrieved using get or set functions or as property access.
+
+@example
+s = serial("/dev/ttyUSB1", 115200) 
+br = get(s, "baudrate") # gets the baudrate
+br = s.baudrate  # also gets the baudrate
+
+set(s, "baudrate", 9600) # set the baudrate
+s.baudrate = 9600 # also sets the baudrate
+@end example
+
+The device can be writen and read from using fread, fwrite and srl_read and slr_write functions.
+
+@example
+srl_write(s, "hello world") # write hello world
+fprintf(s, "hello again")
+
+val = srl_read(s, 10) # attemp to read
+val = fread(s, 10)
+@end example
+
+The device can be closed usin fclose or srl_close.
+
+@c -------------------------------------------------------------------------
+@node Function Reference
+@chapter Function Reference
+@cindex Function Reference
+
+The functions currently available in the toolkit are described below;
+
+@include functions.texi
+
+@c -------------------------------------------------------------------------
+
+@include gpl.texi
+
+@c -------------------------------------------------------------------------
+@node Index 
+@unnumbered Index 
+ 
+@printindex cp
+ 
+@bye

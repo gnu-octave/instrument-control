@@ -17,6 +17,7 @@ TAR ?= tar
 GREP ?= grep
 CUT ?= cut
 TR ?= tr
+TEXI2PDF  ?= texi2pdf -q
 
 ## Note the use of ':=' (immediate set) and not just '=' (lazy set).
 ## http://stackoverflow.com/a/448939/1609556
@@ -145,6 +146,8 @@ endif
 	cd "$@/src" && ./configure && $(MAKE) prebuild && \
 	  $(MAKE) distclean && $(RM) Makefile
 ##
+	$(MAKE) -C "$@" docs
+	cd "$@" && $(RM) -rf "devel" && $(RM) -f doc/mkfuncdocs.py
 	${FIX_PERMISSIONS} "$@"
 
 run_in_place = $(OCTAVE) --eval ' pkg ("local_list", "$(package_list)"); ' \
@@ -152,7 +155,8 @@ run_in_place = $(OCTAVE) --eval ' pkg ("local_list", "$(package_list)"); ' \
 
 # html_options = --eval 'options = get_html_options ("octave-forge");'
 ## Uncomment this for package documentation.
-html_options = --eval 'options = get_html_options ("octave-forge");'
+html_options = --eval 'options = get_html_options ("octave-forge");' \
+               --eval 'options.package_doc = "$(package).texi";'
 $(html_dir): $(install_stamp)
 	$(RM) -r "$@";
 	$(run_in_place)                    \
@@ -165,6 +169,24 @@ clean-unpacked-release:
 	@echo "## Cleaning unpacked release tarballs (package + html)..."
 	-$(RM) -r $(release_dir) $(html_dir)
 	@echo
+
+.PHONY: docs
+docs: doc/$(package).pdf
+
+doc/$(package).pdf: doc/$(package).texi doc/functions.texi
+	cd doc && SOURCE_DATE_EPOCH=$(HG_TIMESTAMP) $(TEXI2PDF) $(package).texi
+	#cd doc && texi2html --split=n --output $(package).html $(package).texi
+	cd doc && $(RM) -f $(package).aux  $(package).cp  $(package).cps  $(package).fn  $(package).fns  $(package).log  $(package).toc
+
+doc/functions.texi:
+	$(eval src_dirs = $(shell cd doc && find ../src -type d -printf '--src-dir=%p '))
+	cd doc && ./mkfuncdocs.py --src-dir=../inst/ $(src_dirs) ../INDEX > functions.texi
+
+.PHONY: clean-docs
+clean-docs:
+	$(RM) -f doc/$(package).info
+	$(RM) -f doc/$(package).pdf
+	$(RM) -f doc/functions.texi
 
 ##
 ## Recipes for installing the package.
@@ -243,7 +265,7 @@ check: $(install_stamp)
 
 .PHONY: clean
 
-clean: clean-tarballs clean-unpacked-release clean-install
+clean: clean-tarballs clean-unpacked-release clean-install clean-docs
 	test -e inst/test && rmdir inst/test || true
 	test -e $(target_dir)/fntests.log && rm -f $(target_dir)/fntests.log || true
 	@echo "## Removing target directory (if empty)..."
