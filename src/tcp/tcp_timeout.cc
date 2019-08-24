@@ -1,4 +1,4 @@
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017,2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -33,9 +33,11 @@ DEFUN_DLD (tcp_timeout, args, nargout,
 \n\
 Set new or get existing tcp interface timeout parameter used for tcp_read() requests. The timeout value is specified in milliseconds.\n \
 \n\
+@subsubheading Inputs\n \
 @var{tcp} - instance of @var{octave_tcp} class.@* \
 @var{timeout} - tcp_read() timeout value in milliseconds. Value of -1 means a blocking call.\n \
 \n\
+@subsubheading Outputs\n \
 If @var{timeout} parameter is omitted, the tcp_timeout() shall return current timeout value as the result @var{t}.\n \
 @end deftypefn")
 {

@@ -18,7 +18,11 @@
 ##
 ## Flush the output buffer.
 ##
+## @subsubheading Inputs
 ## @var{tcp} - instance of @var{octave_tcp} class.
+##
+## @subsubheading Outputs
+## None.
 ##
 ## @seealso{flushinput}
 ## @end deftypefn

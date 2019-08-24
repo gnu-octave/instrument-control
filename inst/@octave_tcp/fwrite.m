@@ -18,10 +18,12 @@
 ## @deftypefnx {Function File} {@var{numbytes} =} fwrite (@var{obj}, @var{data}, @var{precision})
 ## Writes @var{data} to TCP instrument
 ##
+## @subsubheading Inputs
 ## @var{obj} is a TCP object.@*
 ## @var{data} data to write.@*
 ## @var{precision} precision of data.@*
 ##
+## @subsubheading Outputs
 ## returns number of bytes written.
 ## @end deftypefn
 

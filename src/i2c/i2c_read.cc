@@ -1,5 +1,4 @@
-// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017-2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -35,9 +34,11 @@ DEFUN_DLD (i2c_read, args, nargout,
 \n\
 Read from i2c slave device.\n \
 \n\
+@subsubheading Inputs\n \
 @var{i2c} - instance of @var{octave_i2c} class.@*\
 @var{n} - number of bytes to attempt to read of type Integer.\n \
 \n\
+@subsubheading Outputs\n \
 The i2c_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
 @end deftypefn")
 {

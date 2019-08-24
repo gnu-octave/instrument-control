@@ -16,6 +16,7 @@
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {@var{res} =} fopen (@var{obj}) (dummy)
 ## Opens TCP connection @var{obj}
+##
 ## This currently is a dummy function to improve compatibility to MATLAB
 ##
 ## @end deftypefn

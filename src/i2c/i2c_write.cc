@@ -1,4 +1,4 @@
-// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2018-2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -33,9 +33,11 @@ DEFUN_DLD (i2c_write, args, nargout,
 \n\
 Write data to a i2c slave device.\n \
 \n\
+@subsubheading Inputs\n \
 @var{i2c} - instance of @var{octave_i2c} class.@*\
 @var{data} - data, of type uint8, to be written to the slave device.\n \
 \n\
+@subsubheading Outputs\n \
 Upon successful completion, i2c_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {

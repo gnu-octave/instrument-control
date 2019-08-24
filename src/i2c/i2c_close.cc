@@ -30,7 +30,11 @@ DEFUN_DLD (i2c_close, args, nargout,
 \n\
 Close the interface and release a file descriptor.\n \
 \n\
+@subsubheading Inputs\n \
 @var{i2c} - instance of @var{octave_i2c} class.@*\
+\n \
+@subsubheading Outputs\n \
+None\n \
 @end deftypefn")
 {
 #ifndef BUILD_I2C

@@ -1,4 +1,4 @@
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017,2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -33,10 +33,12 @@ DEFUN_DLD (i2c, args, nargout,
 \n\
 Open i2c interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{path} - the interface path of type String. If omitted defaults to '/dev/i2c-0'. @*\
 @var{address} - the slave device address. If omitted must be set using i2c_addr() call.\n \
 \n\
-The i2c() shall return instance of @var{octave_i2c} class as the result @var{i2c}.\n \
+@subsubheading Outputs\n \
+@var{i2c} - An instance of @var{octave_i2c} class.\n \
 @end deftypefn")
 {
 #ifndef BUILD_I2C

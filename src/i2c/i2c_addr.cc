@@ -1,4 +1,4 @@
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017-2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -32,12 +32,14 @@ DEFUN_DLD (i2c_addr, args, nargout,
 \n\
 Set new or get existing i2c slave device address.\n \
 \n\
+@subsubheading Inputs\n \
 @var{i2c} - instance of @var{octave_i2c} class.@*\
 @var{address} - i2c slave device address of type Integer. \
 The address is passed in the 7 or 10 lower bits of the argument.\n \
 \n\
-If @var{address} parameter is omitted, the i2c_addr() shall return \
-current i2c slave device address as the result @var{addr}.\n \
+@subsubheading Outputs\n \
+@var{addr} - If @var{address} parameter is omitted, the i2c_addr() shall return \
+current i2c slave device address.\n \
 @end deftypefn")
 {
 #ifndef BUILD_I2C

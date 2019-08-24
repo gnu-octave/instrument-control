@@ -1,4 +1,4 @@
-## Copyright (C) 2018 John Donoghue <john.donoghue#ieee.org>
+## Copyright (C) 2018-2019 John Donoghue <john.donoghue#ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -18,11 +18,13 @@
 ## @deftypefnx {Function File} set (@var{obj}, @var{property},@var{value},@dots{})
 ## Set the properties of tcp object.
 ##
+## @subsubheading Inputs
 ## If @var{property} is a cell so must be @var{value}, it sets the values of
 ## all matching properties.
 ##
 ## The function also accepts property-value pairs.
 ##
+## @subsubheading Properties
 ## @table @var
 ## @item 'name'
 ## Set the name for the tcp socket.
@@ -38,6 +40,9 @@
 ## blocking call. Maximum value of 255 (i.e. 25.5 seconds).
 ##
 ## @end table
+##
+## @subsubheading Outputs
+## None
 ##
 ## @seealso{@@octave_tcp/get}
 ## @end deftypefn

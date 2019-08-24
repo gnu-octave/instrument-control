@@ -18,8 +18,12 @@
 ## Writes formatted string @var{template} using optional parameters to 
 ## TCP instrument
 ##
+## @subsubheading Inputs
 ## @var{obj} is a TCP object.@*
 ## @var{template} Format template string 
+##
+## @subsubheading Outputs
+## Number of characters written
 ##
 ## @end deftypefn
 

@@ -18,6 +18,14 @@
 ## @deftypefnx {Function File} {@var{field} = } get (@var{tcp}, @var{property})
 ## Get the properties of tcp object.
 ##
+## @subsubheading Inputs
+## @var{tcp} - instance of @var{octave_tcp} class.@*
+## @var{property} - name of property.@*
+##
+## @subsubheading Outputs
+## When @var{property} was specified, return the value of that property.@*
+## otherwise return the values of all properties as a structure.@*
+##
 ## @seealso{@@octave_tcp/set}
 ## @end deftypefn
 

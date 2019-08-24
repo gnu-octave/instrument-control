@@ -1,5 +1,4 @@
-// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2018-2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -38,11 +37,14 @@ DEFUN_DLD (tcp_read, args, nargout,
 \n\
 Read from tcp interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{tcp} - instance of @var{octave_tcp} class.@* \
 @var{n} - number of bytes to attempt to read of type Integer@* \
 @var{timeout} - timeout in ms if different from default of type Integer\n \
 \n\
-The tcp_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
+@subsubheading Outputs\n \
+@var{count} - number of bytes successfully read as an Integer@*\n \
+@var{data} - data bytes themselves as uint8 array.\n \
 @end deftypefn")
 {
 #ifndef BUILD_TCP
