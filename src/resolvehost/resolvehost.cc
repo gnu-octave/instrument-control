@@ -1,4 +1,4 @@
-// Copyright (C) 2016-2018   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2016-2019   John Donoghue   <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -62,13 +62,17 @@ DEFUN_DLD (resolvehost, args, nargout,
 \n\
 Resolve a network host name or address to network name and address\n \
 \n\
+@subsubheading Inputs\n \
 @var{host} - Host name or IP address string to resolve.@* \
 @var{name} - Resolved IP host name.@* \
-@var{address} - Resolved IP host address.@* \
 @var{returntype} - 'name' to get host name, 'address' to get IP address.\n \
 \n \
-Examples:\n \
+@subsubheading Outputs\n \
+@var{name} - Resolved IP host name.@* \
+@var{address} - Resolved IP host address.@* \
+@var{out} - host name if @var{returntype} is 'name', ipaddress if @var{returntype} is 'address'@* \
 \n \
+@subsubheading Example\n \
 @example\n \
 %% get resolved ip name and address pf www.gnu.org\n \
 [name, address] = resolvehost ('www.gnu.org');\n \
