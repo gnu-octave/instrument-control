@@ -20,11 +20,16 @@
 ##Flush the pending input/output.
 ##
 ## @subsubheading Inputs
-## @var{serial} - instance of @var{octave_serial} class.
-## @var{q} - queue selector of type Integer. Supported values: 
-## 0 - flush untransmitted output$@
-## 1 - flush pending input$@
-## 2 - flush both pending input and untransmitted output.
+## @var{serial} - instance of @var{octave_serial} class.@*
+## @var{q} - queue selector of type Integer. Supported values:@*
+## @table @asis
+## @item 0
+## flush untransmitted output
+## @item 1
+## flush pending input
+## @item 2
+## flush both pending input and untransmitted output.
+## @end table
 ##
 ## If @var{q} parameter is omitted, the srl_flush() shall flush both, input and output buffers.
 ##

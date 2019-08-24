@@ -21,8 +21,8 @@
 ## Set new or get existing serial interface byte size parameter.
 ##
 ## @subsubheading Inputs
-## @var{serial} - instance of @var{octave_serial} class.
-## @var{bsize} - byte size of type Integer. Supported values: 5/6/7/8.
+## @var{serial} - instance of @var{octave_serial} class.@*
+## @var{bsize} - byte size of type Integer. Supported values: 5/6/7/8.@*
 ##
 ## If @var{bsize} parameter is omitted, the srl_bytesize() shall return current byte size value
 ## or in case of unsupported setting -1, as the result @var{bs}.

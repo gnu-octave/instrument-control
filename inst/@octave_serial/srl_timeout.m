@@ -21,9 +21,9 @@
 ## Set new or get existing serial interface timeout parameter used for srl_read() requests. The timeout value is specified in tenths of a second.
 ##
 ## @subsubheading Inputs
-## @var{serial} - instance of @var{octave_serial} class.
-## @var{timeout} - srl_read() timeout value in tenths of a second. 
-## Value of -1 means a blocking call. Maximum value of 255 (i.e. 25.5 seconds).
+## @var{serial} - instance of @var{octave_serial} class.@*
+## @var{timeout} - srl_read() timeout value in tenths of a second.
+## A value of -1 means a blocking call. Maximum value of 255 (i.e. 25.5 seconds).@*
 ##
 ## @subsubheading Outputs
 ## If @var{timeout} parameter is omitted, the srl_timeout() shall return current timeout value as the result @var{t}.

@@ -103,7 +103,7 @@ The toolkit must be then be loaded once per each @acronym{GNU} Octave session in
 @section Requirements
 @cindex Requirements
 For GPIB support (linux only), linux-gpib must be installed before installing instrument-control. 
-GPIB suuport is also available for windows, folloiwing infomration from the wiki:
+GPIB support is also available for windows by following the information from the wiki:
 https://wiki.octave.org/Instrument_control_package#Requirements
 
 For VXI11 support, rpcgen, and libtirpc-devel must be installed before installing instrument-control. 
@@ -130,7 +130,7 @@ octave-forge using the following command within @acronym{GNU} Octave:
 pkg install -forge instrument-control
 @end example
 
-The latest released version of the toolkit will be downloaded and installed.
+The latest released version of the toolkit will be downloaded, compiled and installed.
 
 @section Off-line install
 @cindex Off-line install
@@ -171,9 +171,9 @@ It was written  mainly by the following developers:
 
 @node  Available Interface
 @section  Available Interfaces
-The ability to use each interface is dependent on OS and what libraries were available duting install.
+The ability to use each interface is dependent on OS and what libraries were available during the toolkit install.
 
-To verify the available, run the following:
+To verify the available interfaces, run the following command in octave:
 
 @example
 instrhwinfo
@@ -214,14 +214,13 @@ The serial port can be opened using the serial function:
 s = serial("/dev/ttyUSB1", 115200) 
 @end example
 
-The first parameter is the device name as is OK specific. The second parameter is the baudrate. 
+The first parameter is the device name and is OS specific. The second parameter is the baudrate. 
 
 A list of available serial ports can be retrieved using the function:
 
 @example
 seriallist
 @end example
-
 
 After creating the interface object, properties of the device can be set or retrieved using get or set functions or as property access.
 
@@ -234,7 +233,7 @@ set(s, "baudrate", 9600) # set the baudrate
 s.baudrate = 9600 # also sets the baudrate
 @end example
 
-The device can be writen and read from using fread, fwrite and srl_read and slr_write functions.
+The device can be written and read from using fread, fwrite and srl_read and slr_write functions.
 
 @example
 srl_write(s, "hello world") # write hello world
@@ -244,14 +243,62 @@ val = srl_read(s, 10) # attemp to read
 val = fread(s, 10)
 @end example
 
-The device can be closed usin fclose or srl_close.
+The device can be closed using fclose or srl_close.
+
+@example
+fclose(s)
+@end example
+
+@node  Basic TCP
+@section  Basic TCP
+A TCP connection can be opened using the tcp or tcpip function function:
+
+@example
+s = tcp("127.0.0.1", 80) 
+@end example
+
+The first parameter is the IP address to connect to. The second parameter is the port number. And optional timeout value can be also be provided.
+
+A more matlab compatible function is available as tcpip to also open a tcp port:
+
+@example
+s = tcpip("gnu.org", 80) 
+@end example
+
+The first  parameter is a hostname or ip address, the second the port number. Additional parameter/value pairs can be provided after the port.
+
+
+After creating the interface object, properties of the device can be set or retrieved using get or set functions or as property access.
+
+@example
+s = tcp("127.0.0.1", 80)
+oldtimeout = get(s, "timeout") # get timeout
+
+set(s, "timeout", 10) # set the timeout
+s.timeout = oldtimeout # also sets the timeout
+@end example
+
+The device can be written and read from using fread, fwrite and tcp_read and tcp_write functions.
+
+@example
+tcp_write(s, "HEAD / HTTP/1.1\r\n\r\n")
+
+val = tcp_read(s, 100, 500) # attempt to read 100 bytes
+@end example
+
+The device can be closed using fclose or tcp_close.
+
+@example
+fclose(s)
+@end example
+
 
 @c -------------------------------------------------------------------------
 @node Function Reference
 @chapter Function Reference
 @cindex Function Reference
 
-The functions currently available in the toolkit are described below;
+The functions currently available in the toolkit are described below.
 
 @include functions.texi
 

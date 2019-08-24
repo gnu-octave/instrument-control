@@ -21,8 +21,8 @@
 ## Set new or get existing serial interface baudrate parameter. Only standard values are supported.
 ##
 ## @subsubheading Inputs
-## @var{serial} - instance of @var{octave_serial} class.$@
-## @var{baudrate} - the baudrate value used. Supported values: 0, 50, 75, 110, 134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, 9600 19200, 38400, 57600, 115200 and 230400.$@
+## @var{serial} - instance of @var{octave_serial} class.@*
+## @var{baudrate} - the baudrate value used. Supported values: 0, 50, 75, 110, 134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, 9600 19200, 38400, 57600, 115200 and 230400.@*
 ##
 ## If @var{baudrate} parameter is omitted, the srl_baudrate() shall return current baudrate value as the result @var{br}.
 ##

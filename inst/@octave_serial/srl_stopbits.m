@@ -21,8 +21,8 @@
 ## Set new or get existing serial interface stop bits parameter. Only 1 or 2 stop bits are supported.
 ##
 ## @subsubheading Inputs
-## @var{serial} - instance of @var{octave_serial} class.$@
-## @var{stopb} - number of stop bits used. Supported values: 1, 2.$@
+## @var{serial} - instance of @var{octave_serial} class.@*
+## @var{stopb} - number of stop bits used. Supported values: 1, 2.@*
 ##
 ## @subsubheading Outputs
 ## If @var{stopb} parameter is omitted, the srl_stopbits() shall return current stop bits value as the result @var{sb}.

@@ -21,9 +21,9 @@
 ## Set new or get existing serial interface parity parameter. Even/Odd/None values are supported.
 ##
 ## @subsubheading Inputs
-## @var{serial} - instance of @var{octave_serial} class.$@
-## @var{parity} - parity value of type String. Supported values: 
-## Even/Odd/None (case insensitive, can be abbreviated to the first letter only)$@
+## @var{serial} - instance of @var{octave_serial} class.@*
+## @var{parity} - parity value of type String. Supported values:
+## Even/Odd/None (case insensitive, can be abbreviated to the first letter only)@*
 ##
 ## If @var{parity} parameter is omitted, the srl_parity() shall return current parity value as the result @var{p}.
 ##
