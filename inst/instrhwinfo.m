@@ -26,8 +26,8 @@
 ## @var{interface} is the instrument interface to query. When provided, instrhwinfo
 ## will provide information on the specified interface.
 ##
-## Currently only interface "serial" is supported, which will provide a list of
-## available serial ports.
+## Currently only interface "serial" and "i2c" is supported, which will provide a list of
+## available serial ports or i2c ports.
 ##
 ## @subsubheading Outputs
 ## If an output variable is provided, the function will store the information
@@ -88,6 +88,17 @@ function out = instrhwinfo (interface)
       out = strrep (tmp, "/device/driver", "");
 
     endif
+  elseif (strcmpi (interface, "i2c"))
+    if (isunix ()) # GNU/Linux, BSD...
+
+      ## only devices with device/driver
+      tmp = glob ("/sys/class/i2c-adapter/*/device/driver");
+      tmp = strrep (tmp, "/sys/class/i2c-adapter/", "");
+      out = strrep (tmp, "/device/driver", "");
+    else
+      out = [];
+    endif
+
    else
     error ("Interface '%s' not yet implemented...", interface);
   endif
@@ -103,6 +114,10 @@ endfunction
 %! assert(!isempty(instrhwinfo("serial")))
 
 %!error <Invalid call to instrhwinfo> instrhwinfo("serial", "2ndarg")
+
+%!xtest
+%! # could fail if no i2c ports or not configured
+%! assert(!isempty(instrhwinfo("i2c")))
 
 %!test
 %! p = pkg('describe', 'instrument-control');

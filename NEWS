@@ -22,6 +22,8 @@ Summary of important user-visible changes for instrument-control 0.4.0+
         localhost
 
   ** TCP: add .property access to the object
+
+  ** insthwinfo: updated to show i2c ports
  
   ** added toolkit manual
 
