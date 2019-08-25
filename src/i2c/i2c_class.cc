@@ -44,6 +44,7 @@
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_i2c, "octave_i2c", "octave_i2c");
 
 octave_i2c::octave_i2c (void)
+  : fieldnames(4)
 {
   static bool type_registered = false;
 
@@ -54,6 +55,12 @@ octave_i2c::octave_i2c (void)
     }
  
   fd = -1;
+  addr = -1;
+
+  fieldnames[0] = "status";
+  fieldnames[1] = "name";
+  fieldnames[2] = "remoteaddress";
+  fieldnames[3] = "port";
 }
 
 octave_i2c::~octave_i2c (void)
@@ -84,12 +91,24 @@ octave_i2c::print (std::ostream& os, bool pr_as_read_syntax ) const
 void
 octave_i2c::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 {
-  os << fd;
+  os << "  I2C Object " << this->get_name(); newline(os);
+  os << "    status:   " << this->get_status(); newline(os);
+  if (get_fd() > -1)
+    {
+      if (get_addr() > -1)
+        os << "    remoteaddress:   " << this->get_addr();
+      else 
+        os << "    remoteaddress:   None set";
+      newline(os);
+    }
 }
 
 int
 octave_i2c::open (const std::string &path, int flags)
 {
+  port = path;
+  name = "I2c=" + path;
+
   fd = ::open (path.c_str (), flags, 0);
 
   if (get_fd () < 0)
@@ -118,6 +137,8 @@ octave_i2c::set_addr (int addr)
         return -1;
     }
 #endif
+
+    this->addr = addr;
 
     return 1;
 }
@@ -217,4 +238,115 @@ octave_i2c::close (void)
 
   return retval;
 }
+
+std::string
+octave_i2c::get_port () const
+{
+  return port;
+}
+
+std::string
+octave_i2c::get_name () const
+{
+  return name;
+}
+
+std::string
+octave_i2c::set_name (const std::string &newname)
+{
+  name = newname;
+  return name;
+}
+
+std::string
+octave_i2c::get_status () const
+{
+  if (get_fd () > -1)
+    return "open";
+  else
+    return "closed";
+}
+
+octave_value_list
+octave_i2c::subsref (const std::string& type, const std::list<octave_value_list>& idx, int nargout)
+{
+  octave_value_list retval;
+  int skip = 1;
+
+  switch (type[0])
+    {
+    default:
+      error ("octave_i2c object cannot be indexed with %c", type[0]);
+      break;
+    case '.':
+      {
+        octave_value_list ovl;
+        // inc ref count as assign this to octave_value
+        count++; 
+        ovl (0) = octave_value (this);
+        ovl (1) = (idx.front ()) (0);
+        retval = OCTAVE__FEVAL (std::string ("__i2c_properties__"), ovl, 1);
+      }
+      break;
+    }
+
+  if (idx.size () > 1 && type.length () > 1)
+    retval = retval (0).next_subsref (nargout, type, idx, skip);
+
+  return retval;
+}
+
+octave_value
+octave_i2c::subsasgn (const std::string& type, const std::list<octave_value_list>& idx, const octave_value& rhs)
+{
+  octave_value retval;
+
+  switch (type[0])
+    {
+    default:
+      error ("octave_i2c object cannot be indexed with %c", type[0]);
+      break;
+    case '.':
+      if (type.length () == 1)
+        {
+          octave_value_list ovl;
+          // inc ref count as assign this to octave_value
+          count++; 
+          ovl (0) = octave_value (this);
+          ovl (1) = (idx.front ()) (0);
+          ovl (2) = rhs;
+          OCTAVE__FEVAL (std::string ("__i2c_properties__"), ovl, 1);
+ 
+          // property assignment
+          if (! error_state)
+            {
+              count++;
+              retval = octave_value (this);
+            }
+        }
+      else if (type.length () > 1 && type[1] == '.')
+        {
+          // pass along any further assignments
+          octave_value_list u = subsref (type.substr (0, 1), idx, 1);
+          if (! error_state)
+            {
+              std::list<octave_value_list> next_idx (idx);
+              next_idx.erase (next_idx.begin ());
+              u (0).subsasgn(type.substr (1), next_idx, rhs);
+              if (!error_state)
+                {
+                  count++;
+                  retval = octave_value (this);
+                }
+            } 
+        }
+      else
+        {
+          error ("octave_i2c invalid index");
+        }
+
+    }
+  return retval;
+}
+
 #endif

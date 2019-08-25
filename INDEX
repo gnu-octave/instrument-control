@@ -25,6 +25,10 @@ I2C
   i2c
   @octave_i2c/fopen
   @octave_i2c/fclose
+  @octave_i2c/fread
+  @octave_i2c/fwrite
+  @octave_i2c/get
+  @octave_i2c/set
   i2c_addr
   i2c_read
   i2c_write

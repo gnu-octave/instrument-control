@@ -39,6 +39,17 @@ Open i2c interface.\n \
 \n\
 @subsubheading Outputs\n \
 @var{i2c} - An instance of @var{octave_i2c} class.\n \
+\n\
+@subsubheading Properties\n \
+The i2c object has the following properties:\n \
+@table @asis\n \
+@item name\n \
+Name ob the object\n \
+@item remoteaddress\n \
+the slave device address\n \
+@item port\n \
+The drive port (readonly)\n \
+@end table\n \
 @end deftypefn")
 {
 #ifndef BUILD_I2C
