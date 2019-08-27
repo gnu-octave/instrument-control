@@ -107,7 +107,7 @@ int
 octave_i2c::open (const std::string &path, int flags)
 {
   port = path;
-  name = "I2c=" + path;
+  name = "I2C-" + path;
 
   fd = ::open (path.c_str (), flags, 0);
 
