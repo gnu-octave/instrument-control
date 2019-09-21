@@ -1,4 +1,4 @@
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017,2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -33,9 +33,11 @@ DEFUN_DLD (pp_data, args, nargout,
 \n\
 Sets or Read the Data lines.\
 \n\
+@subsubheading Inputs\n \
 @var{parallel} - instance of @var{octave_parallel} class.@*\
 @var{data} - data parameter to be set of type Byte.\n \
 \n\
+@subsubheading Outputs\n \
 If @var{data} parameter is omitted, the pp_data() shall return current Data lines state as the result @var{d}.\n \
 @end deftypefn")
 {

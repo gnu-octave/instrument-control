@@ -31,7 +31,10 @@ DEFUN_DLD (pp_close, args, nargout,
 \n\
 Close the interface and release a file descriptor.\n \
 \n\
+@subsubheading Inputs\n \
 @var{parallel} - instance of @var{octave_serial} class.@*\
+@subsubheading Outputs\n \
+None\n \
 @end deftypefn")
 {
 #ifndef BUILD_PARALLEL

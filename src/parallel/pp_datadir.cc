@@ -1,4 +1,4 @@
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017,2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -30,15 +30,19 @@ DEFUN_DLD (pp_datadir, args, nargout,
 @deftypefn {Loadable Function} {} pp_datadir (@var{parallel}, @var{direction})\n \
 @deftypefnx {Loadable Function} {@var{dir} = } pp_datadir (@var{parallel})\n \
 \n\
-Controls the Data line drivers. Normally the computer's parallel port will drive the data lines, \
+Controls the Data line drivers.\n \
+\n \
+Normally the computer's parallel port will drive the data lines, \
 but for byte-wide transfers from the peripheral to the host it is useful to turn off those drivers \
 and let the peripheral drive the signals. (If the drivers on the computer's parallel port are left \
 on when this happens, the port might be damaged.)\n \
 \n\
+@subsubheading Inputs\n \
 @var{parallel} - instance of @var{octave_parallel} class.@*\
 @var{direction} - direction parameter of type Integer. Supported values: 0 - the drivers are turned on \
 (Output/Forward direction); 1 - the drivers are turned off (Input/Reverse direction).\n \
 \n\
+@subsubheading Outputs\n \
 If @var{direction} parameter is omitted, the pp_datadir() shall return current Data direction as the result @var{dir}.\n \
 @end deftypefn")
 {

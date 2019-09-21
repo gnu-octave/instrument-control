@@ -1,3 +1,4 @@
+// Copyright (C) 2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -30,8 +31,10 @@ DEFUN_DLD (pp_stat, args, nargout,
 \n\
 Reads the Status lines.\n \
 \n\
+@subsubheading Inputs\n \
 @var{parallel} - instance of @var{octave_parallel} class.@*\
 \n\
+@subsubheading Outputs\n \
 The pp_stat() shall return current Status lines state as the result @var{stat}.\n \
 @end deftypefn")
 {

@@ -1,4 +1,4 @@
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017,2019  John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -53,10 +53,12 @@ DEFUN_DLD (parallel, args, nargout,
 \n\
 Open Parallel interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{path} - the interface path of type String. If omitted defaults to '/dev/parport0'.@*\
 @var{direction} - the direction of interface drivers of type Integer, see: PP_DATADIR for more info. \
 If omitted defaults to 1 (Input).\n \
 \n\
+@subsubheading Outputs\n \
 The parallel() shall return instance of @var{octave_parallel} class as the result @var{parallel}.\n \
 @end deftypefn")
 {

@@ -1,4 +1,4 @@
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017,2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -33,9 +33,11 @@ DEFUN_DLD (pp_ctrl, args, nargout,
 \n\
 Sets or Read the Control lines.\
 \n\
+@subsubheading Inputs\n \
 @var{parallel} - instance of @var{octave_parallel} class.@*\
 @var{ctrl} - control parameter to be set of type Byte.\n \
 \n\
+@subsubheading Outputs\n \
 If @var{ctrl} parameter is omitted, the pp_ctrl() shall return current Control lines state as the result @var{c}.\n \
 @end deftypefn")
 {
