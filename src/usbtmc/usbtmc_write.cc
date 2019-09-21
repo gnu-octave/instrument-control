@@ -1,3 +1,4 @@
+// Copyright (C) 2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
@@ -34,9 +35,11 @@ DEFUN_DLD (usbtmc_write, args, nargout,
 \n\
 Write data to a usbtmc slave device.\n \
 \n\
+@subsubheading Inputs\n \
 @var{usbtmc} - instance of @var{octave_usbtmc} class.@* \
 @var{data} - data, of type uint8, to be written to the slave device.\n \
 \n\
+@subsubheading Outputs\n \
 Upon successful completion, usbtmc_write() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {

@@ -16,9 +16,11 @@
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {@var{res} =} fclose (@var{obj})
 ## Closes USBTMC connection @var{obj} 
+##
+## @subsubheading Inputs
+## @var{obj} is a usbtmc object.@*
 ## @end deftypefn
 
-## TODO: 
 function fclose(fd)
 
 usbtmc_close(fd);

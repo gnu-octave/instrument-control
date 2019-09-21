@@ -1,3 +1,4 @@
+// Copyright (C) 2019   John DOnoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -31,7 +32,10 @@ DEFUN_DLD (usbtmc_close, args, nargout,
 \n\
 Close the interface and release a file descriptor.\n \
 \n\
+@subsubheading Inputs\n \
 @var{usbtmc} - instance of @var{octave_usbtmc} class.\n \
+@subsubheading Outputs\n \
+None\n \
 @end deftypefn")
 {
 #ifndef BUILD_USBTMC

@@ -1,3 +1,4 @@
+// Copyright (C) 2019   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
@@ -37,10 +38,13 @@ DEFUN_DLD (usbtmc_read, args, nargout,
 \n\
 Read from usbtmc slave device.\n \
 \n\
+@subsubheading Inputs\n \
 @var{usbtmc} - instance of @var{octave_usbtmc} class.@* \
 @var{n} - number of bytes to attempt to read of type Integer.\n \
 \n\
-The usbtmc_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
+@subsubheading Outputs\n \
+@var{count} - the number of bytes successfully read as an Integer.@*\n \
+@var{data} - the read bytes as a uint8 array.\n \
 @end deftypefn")
 {
 #ifndef BUILD_USBTMC

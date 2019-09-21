@@ -1,3 +1,4 @@
+// Copyright (C) 2019   John DOnoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2013   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
@@ -33,8 +34,10 @@ DEFUN_DLD (usbtmc, args, nargout,
 \n\
 Open usbtmc interface.\n \
 \n\
+@subsubheading Inputs\n \
 @var{path} - the interface path of type String. If omitted defaults to '/dev/usbtmc0'.\n \
 \n\
+@subsubheading Outputs\n \
 The usbtmc() shall return instance of @var{octave_usbtmc} class as the result @var{usbtmc}.\n \
 @end deftypefn")
 {
