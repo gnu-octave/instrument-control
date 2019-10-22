@@ -193,7 +193,7 @@ octave_serial::set_timeout (short newtimeout)
       return -1;
     }
 
-  if (timeout < -1 || timeout > 255)
+  if (newtimeout < -1 || newtimeout > 255)
     {
       error("srl_timeout: timeout value must be between [-1..255]...");
       return -1;
