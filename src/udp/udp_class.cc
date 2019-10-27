@@ -54,6 +54,23 @@
 #  define socklen_t int
 #endif
 
+static struct timeval
+to_timeval(int ms)
+{
+  struct timeval tv;
+  if(ms <= 0)
+    {
+      tv.tv_usec = 0;
+      tv.tv_sec = 0;
+    }
+    else
+    {
+      tv.tv_usec = (ms % 1000) * 1000;
+      tv.tv_sec = ms/1000;;
+    }
+  return tv;
+}
+
 static std::string 
 to_ip_str (const sockaddr_in *in)
 {
@@ -331,19 +348,7 @@ octave_udp::read (uint8_t *buf, unsigned int len, int readtimeout)
     {
       OCTAVE_QUIT;
 
-      if (readtimeout < 0) 
-        {
-          tv.tv_sec = 1;
-          tv.tv_usec = 0;
-        }
-      else
-        {
-          tv.tv_sec = 0;
-          if (readtimeout > 1000)
-            tv.tv_usec = 1000 * 1000;
-          else
-            tv.tv_usec = readtimeout * 1000;
-        }
+      tv = to_timeval((readtimeout < 0 || readtimeout > 1000) ? 1000 : readtimeout);
 
       FD_ZERO (&readfds);
       FD_SET (get_fd (), &readfds);
