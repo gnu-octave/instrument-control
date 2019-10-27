@@ -131,14 +131,14 @@ Undocumented internal function.\n\
 %!test
 %! # test subsref and get/set
 %! a = udp ();
-%! a.name = "test1"
-%! assert (isa(a, "octave_udp"))
-%! assert (a.name, "test1")
-%! assert (get(a, 'name'), "test1")
+%! a.name = "test1";
+%! assert (isa(a, "octave_udp"));
+%! assert (a.name, "test1");
+%! assert (get(a, 'name'), "test1");
 %!
-%! set (a, "name", "test2")
-%! assert (a.name, "test2")
-%! assert (get(a, 'name'), "test2")
+%! set (a, "name", "test2");
+%! assert (a.name, "test2");
+%! assert (get(a, 'name'), "test2");
 
 %!error <wrong number of arguments> __udp_properties__ ()
 
