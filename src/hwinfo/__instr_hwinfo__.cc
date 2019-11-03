@@ -49,6 +49,7 @@ Internal private function\n \
 
 #ifdef BUILD_SERIAL
   interfaces (int_count++) = "serial";
+  interfaces (int_count++) = "serialport";
 #endif
 
 #ifdef BUILD_TCP

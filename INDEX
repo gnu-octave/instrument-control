@@ -1,5 +1,5 @@
 instrument-control >> Low level I/O functions
-Serial
+Serial (Depreciated)
   serial
   seriallist
   @octave_serial/serialbreak
@@ -21,6 +21,20 @@ Serial
   @octave_serial/srl_stopbits
   @octave_serial/srl_timeout
   @octave_serial/srl_close
+Serial Port
+  serialport
+  serialportlist
+  @octave_serialport/serialbreak
+  @octave_serialport/flush
+  @octave_serialport/fprintf
+  @octave_serialport/get
+  @octave_serialport/set
+  @octave_serialport/read
+  @octave_serialport/write
+  @octave_serialport/setDTR
+  @octave_serialport/setRTS
+  @octave_serialport/getpinstatus
+  @octave_serialport/configureTerminator
 I2C
   i2c
   @octave_i2c/fopen

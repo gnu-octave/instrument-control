@@ -44,7 +44,7 @@
 ##    @{
 ##      [1,1] = i2c
 ##      [1,2] = parallel
-##      [1,3] = serial
+##      [1,3] = serialport
 ##      [1,4] = tcp
 ##      [1,5] = udp
 ##      [1,6] = usbtmc
@@ -88,6 +88,27 @@ function out = instrhwinfo (interface)
       out = strrep (tmp, "/device/driver", "");
 
     endif
+  elseif (strcmpi (interface, "serialport"))
+    if (ispc ()) # windoze
+
+      Skey = 'HKEY_LOCAL_MACHINE\HARDWARE\DEVICEMAP\SERIALCOMM';
+      ## Find connected serial devices and clean up the output
+      [~, list] = dos(['REG QUERY ' Skey]);
+      [~, ~, ~, out]=regexp (list, "COM[0-9]+");
+
+    elseif (ismac ())
+
+      out = glob ("/dev/tty.*");
+
+    elseif (isunix ()) # GNU/Linux, BSD...
+
+      ## only devices with device/driver
+      #/sys/class/tty/ttyS0/device/driver
+      tmp = glob ("/sys/class/tty/*/device/driver");
+      tmp = strrep (tmp, "/sys/class/tty", "/dev");
+      out = strrep (tmp, "/device/driver", "");
+    endif
+
   elseif (strcmpi (interface, "i2c"))
     if (isunix ()) # GNU/Linux, BSD...
 

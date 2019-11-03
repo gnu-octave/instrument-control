@@ -346,7 +346,9 @@ fi
 
 # all done
 
-AC_CONFIG_FILES([Makefile gpib/Makefile tcp/Makefile udp/Makefile vxi11/Makefile usbtmc/Makefile serial/Makefile parallel/Makefile i2c/Makefile resolvehost/Makefile hwinfo/Makefile])
+AC_CONFIG_FILES([Makefile gpib/Makefile tcp/Makefile udp/Makefile vxi11/Makefile usbtmc/Makefile
+		 serial/Makefile parallel/Makefile i2c/Makefile resolvehost/Makefile hwinfo/Makefile
+		 serialport/Makefile])
 AC_OUTPUT
 
 AC_MSG_NOTICE([

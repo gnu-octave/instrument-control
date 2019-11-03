@@ -1,6 +1,8 @@
 Summary of important user-visible changes for instrument-control 0.4.0+
 -------------------------------------------------------------------
  
+  ** SERIALPORT: added new serialport object and functions
+
   ** SERIAL: use extended win32 serial name for comports so > 10 work.
 
      New serial functions:
