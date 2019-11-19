@@ -87,7 +87,7 @@ end
 
 eoi=0; tmp=[]; count=0;
 while ((!eoi) && (toread > 0))
-  tmp1 = udp_read (obj, toread, get(obj, 'timeout'));
+  tmp1 = udp_read (obj, toread, get(obj, 'timeout')*1000);
   if !isempty(tmp1)
     wasread = numel(tmp1);
     count = count + wasread;

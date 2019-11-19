@@ -89,10 +89,10 @@ The udp_read() shall return number of bytes successfully read in @var{count} as 
   const octave_base_value& rep = args(0).get_rep();
   udp = &((octave_udp &)rep);
 
-  int timeout = udp->get_timeout();
+  double timeout = udp->get_timeout() * 1000;
   if (args.length() == 3)
     {
-      timeout = args(2).int_value();
+      timeout = args(2).double_value();
     }
 
   // Read data

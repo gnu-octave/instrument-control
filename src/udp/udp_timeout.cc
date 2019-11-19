@@ -65,13 +65,20 @@ If @var{timeout} parameter is omitted, the udp_timeout() shall return current ti
           return octave_value(-1);
         }
 
-      udp->set_timeout(args(1).int_value());
+      if(args(1).double_value() >= 0)
+        udp->set_timeout(args(1).double_value()/1000.0);
+      else
+        udp->set_timeout(-1);
 
       return octave_value(); // Should it return by default?
     }
 
-  // Returning current timeout
-  return octave_value(udp->get_timeout());
+  // Returning current timeout in ms
+  double timeout = udp->get_timeout();
+  if(timeout < 0)
+    return octave_value(-1);
+  else
+    return octave_value(timeout*1000.0);
 #endif
 }
 
@@ -82,6 +89,16 @@ If @var{timeout} parameter is omitted, the udp_timeout() shall return current ti
 %! udp_timeout(a, 103);
 %! assert(udp_timeout(a), 103);
 %! udp_close(a);
+
+%!test
+%! a = udp();
+%! assert(udp_timeout(a), -1);
+%! a.timeout = 2;
+%! assert(udp_timeout(a), 2000);
+%! a.timeout = 0;
+%! assert(udp_timeout(a), 0);
+%! a.timeout = -1;
+%! assert(udp_timeout(a), -1);
 
 %!error <Invalid call to udp_timeout> udp_timeout()
 

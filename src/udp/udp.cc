@@ -28,15 +28,17 @@
 // PKG_ADD: autoload ("udp", "udp.oct");
 DEFUN_DLD (udp, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{udp} = } udp ([@var{remoteipaddress}], [@var{remoteport}], [@var{localport}], [@var{timeout}])\n \
+@deftypefn {Loadable Function} {@var{udp} = } udp ()\n \
+@deftypefnx {Loadable Function} {@var{udp} = } udp (@var{remoteipaddress}, @var{remoteport})\n \
+@deftypefnx {Loadable Function} {@var{udp} = } udp (@var{remoteipaddress}, @var{remoteport}, [@var{propertyname}, @var{propertyvalue} ...])\n \
 \n\
 Open udp interface.\n \
 \n\
 @subsubheading Inputs\n \
-@var{remoteipaddress} - the ip address of type String. If omitted defaults to '127.0.0.1'.@* \
-@var{remoteport} - the port number to connect. If omitted defaults to 23.@* \
-@var{localport} - the local port number to bind. If omitted defaults to 0@* \
-@var{timeout} - the interface timeout value. If omitted defaults to blocking call.\n \
+@var{remoteipaddress} - the ip address of type String. If omitted defaults to '127.0.0.1'.@* \n \
+@var{remoteport} - the port number to connect. If omitted defaults to 23.@* \n \
+@var{localport} - the local port number to bind. If omitted defaults to 0@* \n \
+@var{propertyname}, @var{propertyvalue} - property name/value pair\n \
 \n\
 @subsubheading Outputs\n \
 The udp() shall return instance of @var{octave_udp} class as the result @var{udp}.\n \
@@ -59,7 +61,7 @@ remote host\n \
 @item status\n \
 status of the object 'open' or 'closed' (readonly)\n \
 @item timeout\n \
-timeout value used for waiting for data\n \
+timeout value in seconds used for waiting for data\n \
 @item bytesavailable\n \
 number of bytes currently available to read (readonly)\n \
 @end table \n \
@@ -77,9 +79,10 @@ number of bytes currently available to read (readonly)\n \
     }
 
   // Default values
+  std::string name = "";
   std::string address("127.0.0.1");
   int port = 23;
-  int timeout = -1;
+  double timeout = -1;
   int localport = 0;
 
   // Parse the function arguments
@@ -112,29 +115,62 @@ number of bytes currently available to read (readonly)\n \
         }
     }
 
-  if (args.length() > 2)
+  if (args.length() > 2 && ((args.length() & 1)  == 1))
     {
-      if (args(2).OV_ISINTEGER() || args(2).OV_ISFLOAT())
-        {
-          localport = args(2).int_value();
-        }
-      else
-        {
-          print_usage();
-          return octave_value();
-        }
+      error ("Expected property name/value pairs");
+      return octave_value ();
     }
 
-  if (args.length() > 3)
+  if (args.length() > 2)
     {
-      if (args(3).OV_ISINTEGER() || args(3).OV_ISFLOAT())
+      // go through the properties
+      for(int i=2;i<args.length();i+=2)
         {
-          timeout = args(3).int_value();
-        }
-      else
-        {
-          print_usage();
-          return octave_value();
+          if (!args(i).is_string())
+	    {
+              error ("Expected property name as a string");
+	      return octave_value ();
+	    }
+          std::string pname = args(i).string_value();
+          octave_value pval = args(i+1);
+
+          std::transform (pname.begin (), pname.end (), pname.begin (), ::tolower);
+
+          if (pname == "localport")
+            {
+              if (pval.OV_ISINTEGER () || pval.OV_ISFLOAT ())
+                localport = pval.int_value ();
+              else
+                {
+                  error ("localport must be a integer");
+                  return octave_value();
+                }
+	    }
+          else if (pname == "timeout")
+            {
+              if (pval.OV_ISINTEGER () || pval.OV_ISFLOAT ())
+                timeout = pval.double_value ();
+              else
+                {
+                  error ("timeout must be a integer or double");
+                  return octave_value();
+                }
+	    }
+          else if (pname == "name")
+            {
+              if (pval.is_string ())
+                name = pval.string_value ();
+              else
+                {
+                  error ("name must be a string");
+                  return octave_value();
+                }
+	    }
+          else
+            {
+              error ("unknown property '%s'", pname.c_str());
+              return octave_value();
+            }
         }
     }
 
@@ -148,7 +184,8 @@ number of bytes currently available to read (readonly)\n \
 
   retval->set_timeout(timeout);
 
-  //retval->flush(2);
+  if(name.length() > 0)
+    retval->set_name(name);
 
   return octave_value(retval);
 #endif
@@ -161,11 +198,22 @@ number of bytes currently available to read (readonly)\n \
 %! assert (isa (a, 'octave_udp'));
 %! udp_close (a);
 
-%!error <Invalid call to udp> udp (1)
+%!error <Invalid call to udp> a = udp (1)
+
+%!error <Expected property name/value pairs> a = udp ("127.0.0.1", 23, 0)
+
+%!error <Expected property name as a string> a = udp ("127.0.0.1", 23, 0, 0)
 
 %!test
-%! a = udp ('127.0.0.1', 23, 0, 0);
+%! a = udp ('127.0.0.1', 23);
 %! assert (! isnull (a));
+%! udp_close (a);
+
+%!test
+%! a = udp ('127.0.0.1', 23, "name", "test", "timeout", 2.5);
+%! assert (! isnull (a));
+%! assert (a.name, "test");
+%! assert (a.timeout, 2.5);
 %! udp_close (a);
 
 %!error <Invalid call to udp> udp ('127.0.0.1', 23,0,0,0)

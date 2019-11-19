@@ -326,7 +326,7 @@ octave_udp::get_bytesavailable () const
 }
 
 int
-octave_udp::read (uint8_t *buf, unsigned int len, int readtimeout)
+octave_udp::read (uint8_t *buf, unsigned int len, double readtimeout)
 {
   struct sockaddr_in addr;
   socklen_t addrlen = sizeof (addr);
@@ -420,7 +420,7 @@ octave_udp::write (uint8_t *buf, unsigned int len)
 }
 
 int
-octave_udp::set_timeout (int newtimeout)
+octave_udp::set_timeout (double newtimeout)
 {
   if (get_fd () < 0)
     {

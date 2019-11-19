@@ -39,8 +39,8 @@
 ## Set the remote port for the udp socket.
 ##
 ## @item 'timeout'
-## Set the timeout value in tenths of a second. Value of -1 means a
-## blocking call. Maximum value of 255 (i.e. 25.5 seconds).
+## Set the timeout value in seconds. Value of -1 means a
+## blocking call.
 ##
 ## @end table
 ##

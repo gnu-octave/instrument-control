@@ -86,7 +86,7 @@ Undocumented internal function.\n\
       else if (property == "status")
         (*current_liboctave_error_handler) ("can not set this property");
       else if (property == "timeout")
-        return octave_value (udp->set_timeout (args(2).int_value ()));
+        return octave_value (udp->set_timeout (args(2).double_value ()));
       else if (property == "flush")
         return octave_value (udp->flush (args(2).int_value ()));
       else

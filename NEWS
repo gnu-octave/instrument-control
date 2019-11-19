@@ -23,6 +23,10 @@ Summary of important user-visible changes for instrument-control 0.4.0+
      Added properties:
         localhost
 
+     Updates property timeout to be seconds
+
+     Updated udp constructor to be closer to matlab compatible
+
   ** TCP: add .property access to the object
 
   ** I2C: 

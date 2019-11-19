@@ -38,7 +38,7 @@ public:
   int write (const std::string &str);
   int write (uint8_t *buf, unsigned int len);
 
-  int read (uint8_t *buf, unsigned int len, int readtimeout);
+  int read (uint8_t *buf, unsigned int len, double readtimeout);
 
   int open (const std::string &address, int port, int localport);
 
@@ -107,13 +107,13 @@ public:
 
   std::string get_status (void) const;
 
-  int set_timeout (int);
-  int get_timeout (void) const { return timeout; }
+  int set_timeout (double);
+  double get_timeout (void) const { return timeout; }
 
   int flush(int mode);
 private:
   int fd;
-  int timeout;
+  double timeout;
   std::string name;
   sockaddr_in remote_addr;
   sockaddr_in local_addr;
