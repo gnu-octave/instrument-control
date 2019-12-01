@@ -78,6 +78,8 @@ TCP
   tcp_close
 USBTMC
   usbtmc
+  @octave_usbtmc/fread
+  @octave_usbtmc/fwrite
   @octave_usbtmc/fopen
   @octave_usbtmc/fclose
   usbtmc_read
