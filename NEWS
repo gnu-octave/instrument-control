@@ -45,6 +45,11 @@ Summary of important user-visible changes for instrument-control 0.4.0+
         fread
         fwrite
 
+  ** VXI11:
+     Added overload functions for: 
+        fread
+        fwrite
+
   ** insthwinfo: updated to show i2c ports
  
   ** added toolkit manual

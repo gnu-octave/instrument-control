@@ -118,6 +118,8 @@ VXI11
   vxi11
   @octave_vxi11/fopen
   @octave_vxi11/fclose
+  @octave_vxi11/fread
+  @octave_vxi11/fwrite
   vxi11_read
   vxi11_write
   vxi11_close
