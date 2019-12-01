@@ -54,6 +54,10 @@ Parallel
   pp_ctrl
   pp_stat
   pp_close
+  @octave_parallel/fclose
+  @octave_parallel/fopen
+  @octave_parallel/fread
+  @octave_parallel/fwrite
 TCP
   tcp
   tcpip
