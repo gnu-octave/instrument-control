@@ -27,6 +27,8 @@ Serial Port
   @octave_serialport/serialbreak
   @octave_serialport/flush
   @octave_serialport/fprintf
+  @octave_serialport/fread
+  @octave_serialport/fwrite
   @octave_serialport/get
   @octave_serialport/set
   @octave_serialport/read
