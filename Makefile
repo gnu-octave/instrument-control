@@ -171,7 +171,10 @@ clean-unpacked-release:
 	@echo
 
 .PHONY: docs
-docs: doc/$(package).pdf
+docs: doc/$(package).pdf doc/$(package).info
+
+doc/$(package).info: doc/$(package).texi doc/functions.texi
+	cd doc && $(MAKEINFO) $(package).texi
 
 doc/$(package).pdf: doc/$(package).texi doc/functions.texi
 	cd doc && SOURCE_DATE_EPOCH=$(HG_TIMESTAMP) $(TEXI2PDF) $(package).texi

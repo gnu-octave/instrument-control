@@ -129,5 +129,6 @@ VXI11
   vxi11_write
   vxi11_close
 General
+  instrhelp
   instrhwinfo
   resolvehost
