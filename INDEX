@@ -1,4 +1,7 @@
 instrument-control >> Low level I/O functions
+Common Functions
+  flushinput
+  flushoutput
 Serial (Depreciated)
   serial
   seriallist

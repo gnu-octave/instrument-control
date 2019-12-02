@@ -1,5 +1,9 @@
 Summary of important user-visible changes for instrument-control 0.4.0+
 -------------------------------------------------------------------
+
+  ** Added common functions
+     flushinput
+     flushoutput
  
   ** SERIALPORT: added new serialport object and functions
 
