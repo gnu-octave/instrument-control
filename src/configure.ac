@@ -261,15 +261,16 @@ if test "x${with_librpc}" = "xyes"; then
   if test $const_clnt_perror = yes; then
     AC_DEFINE([CONST_CLNT_SUPPORT], [1], [clnt allows const inputs])
   fi
+fi
 
-  # we have rpcgen
-  AC_CHECK_PROGS([RPCGEN], [rpcgen rpcgen-mt], [none])
+# we have rpcgen ?
+AC_CHECK_PROGS([RPCGEN], [rpcgen rpcgen-mt], [none])
 
-  if test "xRPCGEN" = "xnone"; then
-    AC_MSG_WARN([No rpcgen found - if rpc sources are modified, the build will fail])
-  else
-    AC_MSG_CHECKING([whether ${RPCGEN} accepts -M option])
-    rm -f rpcgen_test.*
+if test "xRPCGEN" = "xnone"; then
+  AC_MSG_WARN([No rpcgen found - if rpc sources are modified, the build will fail])
+else
+  AC_MSG_CHECKING([whether ${RPCGEN} accepts -M option])
+  rm -f rpcgen_test.*
 cat > rpcgen_test.x <<END
 program STRLEN {
   version STRLENVERS {
@@ -277,19 +278,18 @@ program STRLEN {
   } = 1;
 } = 11;
 END
-    RPCGENOPTS=""
-    ${RPCGEN} -M rpcgen_test.x > /dev/null 2>&1
-    if test -f rpcgen_test.h; then
-      _rpcgen_result=yes
-      RPCGENOPTS="-M"
-    else
-      _rpcgen_result=no
-    fi
-    AC_MSG_RESULT([$_rpcgen_result])
-    AC_SUBST([RPCGENOPTS], [$RPCGENOPTS])
-    rm -f rpcgen_test.*
-    rm -f rpcgen_test_*
+  RPCGENOPTS=""
+  ${RPCGEN} -M rpcgen_test.x > /dev/null 2>&1
+  if test -f rpcgen_test.h; then
+    _rpcgen_result=yes
+    RPCGENOPTS="-M"
+  else
+    _rpcgen_result=no
   fi
+  AC_MSG_RESULT([$_rpcgen_result])
+  AC_SUBST([RPCGENOPTS], [$RPCGENOPTS])
+  rm -f rpcgen_test.*
+  rm -f rpcgen_test_*
 fi
 
 # Checks for openvisa
