@@ -158,10 +158,8 @@ octave_tcp::subsasgn (const std::string& type, const std::list<octave_value_list
           ovl (0) = octave_value (this);
           ovl (1) = (idx.front ()) (0);
           ovl (2) = rhs;
-          OCTAVE__FEVAL (std::string ("__tcp_properties__"), ovl, 1);
- 
-          // property assignment
-          if (! error_state)
+          octave_value_list u = OCTAVE__FEVAL (std::string ("__tcp_properties__"), ovl, 1);
+          if (u.length() > 0)
             {
               count++;
               retval = octave_value (this);
@@ -171,16 +169,13 @@ octave_tcp::subsasgn (const std::string& type, const std::list<octave_value_list
         {
           // pass along any further assignments
           octave_value_list u = subsref (type.substr (0, 1), idx, 1);
-          if (! error_state)
+          if (! u.length () > 0)
             {
               std::list<octave_value_list> next_idx (idx);
               next_idx.erase (next_idx.begin ());
               u (0).subsasgn(type.substr (1), next_idx, rhs);
-              if (!error_state)
-                {
-                  count++;
-                  retval = octave_value (this);
-                }
+              count++;
+              retval = octave_value (this);
             } 
         }
       else
