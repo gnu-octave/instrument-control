@@ -90,10 +90,10 @@ Read from tcp interface.\n \
   const octave_base_value& rep = args (0).get_rep ();
   tcp = &((octave_tcp &)rep);
 
-  int timeout = tcp->get_timeout ();
+  double timeout = tcp->get_timeout ();
   if (args.length () == 3)
     {
-      timeout = args (2).int_value ();
+      timeout = args (2).double_value ();
     }
 
   // Read data

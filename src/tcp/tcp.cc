@@ -28,14 +28,28 @@
 // PKG_ADD: autoload ("tcp", "tcp.oct");
 DEFUN_DLD (tcp, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{tcp} = } tcp ([@var{ipaddress}], [@var{port}], [@var{timeout}])\n \
+@deftypefn {Loadable Function} {@var{tcp} = } tcp ()\n \
+@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress})\n \
+@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress}, @var{port})\n \
+@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress}, @var{port}, @var{timeout})\n \
+@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress}, [@var{propertyname}, @var{propertyvalue}])\n \
+@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress}, @var{port}, [@var{propertyname}, @var{propertyvalue}])\n \
 \n\
 Open tcp interface.\n \
 \n\
 @subsubheading Inputs\n \
 @var{ipaddress} - the ip address of type String. If omitted defaults to '127.0.0.1'.@* \
 @var{port} - the port number to connect. If omitted defaults to 23.@* \
-@var{timeout} - the interface timeout value. If omitted defaults to blocking call.\n \
+@var{timeout} - the interface timeout value. If omitted defaults to blocking call.@*\n \
+@var{propname},@var{propvalue} - property name/value pairs.\n \
+\n \
+Known input properties:\n \
+@table @asis\n \
+@item name\n \
+name value\n \
+@item timeout\n \
+Numeric timeout value or -1 to wait forever\n \
+@end table\n \
 \n\
 @subsubheading Outputs\n \
 The tcp() shall return instance of @var{octave_tcp} class as the result @var{tcp}.\n \
@@ -55,7 +69,7 @@ remote host\n \
 @item status\n \
 status of the object 'open' or 'closed' (readonly)\n \
 @item timeout\n \
-timeout value used for waiting for data\n \
+timeout value in seconds used for waiting for data\n \
 @item bytesavailable\n \
 number of bytes currently available to read (readonly)\n \
 @end table \n \
@@ -74,8 +88,10 @@ number of bytes currently available to read (readonly)\n \
 
   // Default values
   std::string address ("127.0.0.1");
+  std::string name = "";
   int port = 23;
-  int timeout = -1;
+  double timeout = -1;
+
 
   // Parse the function arguments
   if (args.length () > 0)
@@ -91,8 +107,9 @@ number of bytes currently available to read (readonly)\n \
         }
     }
 
-    // is_float_type() is or'ed to allow expression like ("", 123), without user
-    // having to use ("", int32(123)), as we still only take "int_value"
+  // is_float_type() is or'ed to allow expression like ("", 123), without user
+  // having to use ("", int32(123)), as we still only take "int_value"
+  int property_start = -1;
   if (args.length () > 1)
     {
       if (args (1).OV_ISINTEGER () || args (1).OV_ISFLOAT ())
@@ -101,12 +118,11 @@ number of bytes currently available to read (readonly)\n \
         }
       else
         {
-          print_usage ();
-          return octave_value ();
+          property_start = 1;
         }
     }
 
-  if (args.length () > 2)
+  if (args.length () > 2 && property_start == -1)
     {
       if (args (2).OV_ISINTEGER () || args (2).OV_ISFLOAT ())
         {
@@ -114,9 +130,58 @@ number of bytes currently available to read (readonly)\n \
         }
       else
         {
-          print_usage ();
-          return octave_value ();
+          property_start = 2;
         }
+    }
+
+  if (args.length () > 3 && property_start == -1)
+    {
+       property_start = 2;
+    }
+
+  if (property_start != -1)
+    {
+       if (((args.length () - property_start) & 1) == 1)
+         {
+           error ("Expected property name/value pairs");
+           return octave_value ();
+         }
+
+      // go through the properties
+      for(int i=property_start;i<args.length();i+=2)
+        {
+          std::string propname = args(i).string_value();
+          octave_value propval = args(i+1);
+
+          std::transform (propname.begin (), propname.end (), propname.begin (), ::tolower);
+
+          if (propname == "name")
+            {
+              if (propval.is_string ())
+                name = propval.string_value ();
+              else
+                {
+                  error ("name must be a string");
+                  return octave_value ();
+                }
+            }
+          else if (propname == "timeout")
+            {
+              if (propval.OV_ISINTEGER () || propval.OV_ISFLOAT ())
+                timeout = propval.double_value ();
+              else
+                {
+                  error ("timeout must be a integer or double");
+                  return octave_value ();
+                }
+            }
+          else
+            {
+              error ("unknown property '%s'", propname.c_str ());
+              return octave_value ();
+            }
+        }
+
     }
 
   // Open the interface and connect
@@ -130,6 +195,8 @@ number of bytes currently available to read (readonly)\n \
   retval->set_timeout (timeout);
 
   //retval->flush (2);
+  if (name.length() > 0)
+    retval->set_name (name);
 
   return octave_value (retval);
 #endif
@@ -143,8 +210,19 @@ number of bytes currently available to read (readonly)\n \
 %! assert (isa (a, 'octave_tcp'));
 %! tcp_close (a);
 
+%!test
+%! addr = resolvehost ('gnu.org', 'address');
+%! a = tcp (addr, 80, 'name', 'test', 'timeout', 2.5);
+%! assert (! isnull (a));
+%! assert (isa (a, 'octave_tcp'));
+%! assert (get(a, 'name'), 'test');
+%! assert (get(a, 'timeout'), 2.5);
+%! tcp_close (a);
+
 %!error <Invalid call to tcp> tcp (1)
 
 %!error <Invalid call to tcp> tcp (1, 1)
+
+%!error <Invalid call to tcp> tcp ('127.0.0.1', '80', 'prop1')
 
 #endif

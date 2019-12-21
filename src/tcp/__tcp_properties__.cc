@@ -1,7 +1,7 @@
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 // Copyright (C) 2014   Stefan Mahr     <dac922@gmx.de>
 // Copyright (C) 2016   John Donoghue   <john.donoghue@ieee.org>
-// Copyright (C) 2018   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2018-2019   John Donoghue   <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ Undocumented internal function.\n\
       else if (property == "status")
         (*current_liboctave_error_handler) ("can not set this property");
       else if (property == "timeout")
-        return octave_value (tcp->set_timeout (args(2).int_value ()));
+        return octave_value (tcp->set_timeout (args(2).double_value ()));
       else if (property == "flush")
         return octave_value (tcp->flush (args(2).int_value ()));
       else

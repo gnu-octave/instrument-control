@@ -64,13 +64,33 @@ If @var{timeout} parameter is omitted, the tcp_timeout() shall return current ti
           print_usage ();
           return octave_value (-1);
         }
-
-      tcp->set_timeout (args (1).int_value ());
+      if (args (1).double_value() >= 0.0)
+        tcp->set_timeout (args (1).double_value ()/1000.0);
+      else
+        tcp->set_timeout (-1);
 
       return octave_value (); // Should it return by default?
     }
 
   // Returning current timeout
-  return octave_value (tcp->get_timeout ());
+  double timeout = tcp->get_timeout ();
+  if (timeout < 0)
+    return octave_value (-1);
+  else
+    return octave_value (timeout*1000.0);
 #endif
 }
+
+#if 0
+%!test
+%! addr = resolvehost ('gnu.org', 'address');
+%! a = tcp (addr, 80);
+%! assert(tcp_timeout(a), -1);
+%! a.timeout = 2.5;
+%! assert(tcp_timeout(a), 2500);
+%! a.timeout = 0;
+%! assert(tcp_timeout(a), 0);
+%! a.timeout = -1;
+%! assert(tcp_timeout(a), -1);
+%! tcp_close(a);
+#endif

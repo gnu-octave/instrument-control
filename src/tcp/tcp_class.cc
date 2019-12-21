@@ -278,7 +278,7 @@ octave_tcp::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 }
 
 int
-octave_tcp::read (uint8_t *buf, unsigned int len, int readtimeout)
+octave_tcp::read (uint8_t *buf, unsigned int len, double readtimeout)
 {
   struct timeval tv;
 
@@ -299,7 +299,7 @@ octave_tcp::read (uint8_t *buf, unsigned int len, int readtimeout)
 
       OCTAVE_QUIT;
 
-      tv = to_timeval((readtimeout < 0 || readtimeout > 1000) ? 1000 : readtimeout);
+      tv = to_timeval((readtimeout < 0 || readtimeout > 1000) ? 1000 : (int)readtimeout);
 
       FD_ZERO (&readfds);
       FD_SET (get_fd (), &readfds);
@@ -372,7 +372,7 @@ octave_tcp::write (uint8_t *buf, unsigned int len)
 }
 
 int
-octave_tcp::set_timeout (int newtimeout)
+octave_tcp::set_timeout (double newtimeout)
 {
   if (get_fd () < 0)
     {

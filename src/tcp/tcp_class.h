@@ -38,7 +38,7 @@ public:
   int write (const std::string &);
   int write (uint8_t *, unsigned int);
 
-  int read (uint8_t *, unsigned int, int);
+  int read (uint8_t *, unsigned int, double);
 
   int open (const std::string &, int);
   int close (void);
@@ -46,8 +46,8 @@ public:
 
   int flush (int mode);
 
-  int set_timeout (int);
-  int get_timeout (void) const { return timeout; }
+  int set_timeout (double);
+  double get_timeout (void) const { return timeout; }
 
   // Overloaded base functions
   double tcp_value (void) const { return (double)fd; }
@@ -106,7 +106,7 @@ private:
   string_vector fieldnames;
 
   int fd;
-  int timeout;
+  double timeout;
 
   std::string name;
   sockaddr_in remote_addr;

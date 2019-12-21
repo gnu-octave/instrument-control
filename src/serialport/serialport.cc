@@ -45,7 +45,7 @@ Open serial port interface.\n \
 @var{baudrate} - the baudrate of interface.@*\n \
 @var{propname},@var{propvalue} - property name/value pairs.\n \
 \n \
-Known inout properties:\n \
+Known input properties:\n \
 @table @asis\n \
 @item baudrate\n \
 Numeric baudrate value\n \
