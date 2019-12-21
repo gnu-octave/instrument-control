@@ -130,7 +130,7 @@ octave_serialport::read(uint8_t *buf, unsigned int len)
 {
   if (! fd_is_valid ())
     {
-      error ("srl_read: Interface must be opened first...");
+      error ("serialport: Interface must be opened first...");
       return 0;
     }
 
@@ -218,7 +218,7 @@ octave_serialport::set_timeout (double newtimeout)
 
   if (newtimeout < -1 || newtimeout > 255)
     {
-      error ("srl_timeout: timeout value must be between [-1..255]...");
+      error ("serialport: timeout value must be between [-1..255]...");
       return -1;
     }
 
@@ -285,13 +285,13 @@ octave_serialport::set_stopbits (unsigned short stopbits)
     }
   else
     {
-      error ("srl_stopbits: Only 1 or 2 stop bits are supported...");
+      error ("serialport: Only 1 or 2 stop bits are supported...");
       return false;
     }
 
   if (SetCommState (fd,&config) == FALSE)
     {
-      error ("srl_stopbits: error setting stop bits: %s\n", winerror (errno));
+      error ("serialport: error setting stop bits: %s\n", winerror (errno));
       return false;
     }
 
@@ -402,7 +402,7 @@ octave_serialport::flush (unsigned short queue_selector)
     case 1: flag = PURGE_RXCLEAR; break;
     case 2: flag = PURGE_RXCLEAR|PURGE_TXCLEAR; break;
     default:
-      error ("srl_flush: only [0..2] values are accepted...");
+      error ("serialport: only [0..2] values are accepted...");
       return false;
     }
 
@@ -470,13 +470,13 @@ octave_serialport::set_parity (const std::string &newparity)
     }
   else
     {
-      error ("srl_parity: Only [N]one, [E]ven or [O]dd parities are supported...");
+      error ("serialport: Only [N]one, [E]ven or [O]dd parities are supported...");
       return false;
     }
 
   if (SetCommState (fd, &config) == FALSE)
     {
-      error ("srl_parity: error setting parity: %s\n", winerror (errno));
+      error ("serialport: error setting parity: %s\n", winerror (errno));
       return false;
     }
 

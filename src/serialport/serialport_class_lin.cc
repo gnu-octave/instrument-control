@@ -119,7 +119,7 @@ octave_serialport::read (uint8_t *buf, unsigned int len)
 {
   if (! fd_is_valid ())
     {
-      error ("srl_read: Interface must be opened first...");
+      error ("serialport: Interface must be opened first...");
       return 0;
     }
 
@@ -137,7 +137,7 @@ octave_serialport::read (uint8_t *buf, unsigned int len)
 
       if (read_retval < 0)
         {
-          error ("srl_read: Error while reading: %s\n", strerror (errno));
+          error ("serialport: Error while reading: %s\n", strerror (errno));
           break;
         }
 
@@ -199,7 +199,7 @@ octave_serialport::set_timeout (double newtimeout)
 
   if (newtimeout < -1)
     {
-      error("srl_timeout: timeout value must be between -1 or greater");
+      error("serialport: timeout value must be between -1 or greater");
       return -1;
     }
 
@@ -228,7 +228,7 @@ octave_serialport::set_timeout (double newtimeout)
 
   if (tcsetattr (fd, TCSANOW, &config) < 0)
     {
-      error ("srl_timeout: error setting timeout...");
+      error ("serialport: error setting timeout...");
       return -1;
     }
 
@@ -269,13 +269,13 @@ octave_serialport::set_stopbits (unsigned short stopbits)
     }
   else
     {
-      error ("srl_stopbits: Only 1 or 2 stop bits are supported...");
+      error ("serialport: Only 1 or 2 stop bits are supported...");
       return false;
     }
 
   if (tcsetattr (fd, TCSANOW, &config) < 0)
     {
-      error ("srl_stopbits: error setting stop bits: %s\n", strerror (errno));
+      error ("serialport: error setting stop bits: %s\n", strerror (errno));
       return false;
     }
 
@@ -465,7 +465,7 @@ octave_serialport::set_baudrate (unsigned int baud)
 
   if (tcsetattr (fd, TCSANOW, &config) < 0) 
     {
-      error ("srl_baudrate: error setting baud rate: %s\n", strerror (errno));
+      error ("serialport: error setting baud rate: %s\n", strerror (errno));
       return false;
     }
 
@@ -550,7 +550,7 @@ octave_serialport::flush (unsigned short queue_selector)
     case 1: flag = TCIFLUSH; break;
     case 2: flag = TCIOFLUSH; break;
     default:
-      error("srl_flush: only [0..2] values are accepted...");
+      error("serialport: only [0..2] values are accepted...");
       return false;
     }
 
@@ -612,13 +612,13 @@ octave_serialport::set_parity (const std::string &newparity)
     }
   else
     {
-      error ("srl_parity: Only [N]one, [E]ven or [O]dd parities are supported...");
+      error ("serialport: Only [N]one, [E]ven or [O]dd parities are supported...");
       return false;
     }
 
   if (tcsetattr (fd, TCSANOW, &config) < 0) 
     {
-      error ("srl_parity: error setting parity: %s\n", strerror (errno));
+      error ("serialport: error setting parity: %s\n", strerror (errno));
       return false;
     }
 
