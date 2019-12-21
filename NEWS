@@ -1,6 +1,8 @@
 Summary of important user-visible changes for instrument-control 0.4.0+
 -------------------------------------------------------------------
 
+  ** General updates to support Octave 6+
+
   ** Added common functions
      flushinput
      flushoutput
@@ -33,6 +35,10 @@ Summary of important user-visible changes for instrument-control 0.4.0+
      Updated udp constructor to be closer to matlab compatible
 
   ** TCP: add .property access to the object
+
+     Updates property timeout to be seconds
+
+     Updated constructor to be closer to matlab compatible
 
   ** I2C: 
      Implement object properties 
