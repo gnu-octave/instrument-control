@@ -50,7 +50,7 @@ Known input properties:\n \
 @item baudrate\n \
 Numeric baudrate value\n \
 @item timeout\n \
-Numeric timeout value or -1 to wait forever\n \
+Numeric timeout value in seconds or -1 to wait forever\n \
 @end table\n \
 \n\
 @subsubheading Outputs\n \
