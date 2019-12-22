@@ -86,13 +86,9 @@ octave_serial_common::subsasgn (const std::string& type, const std::list<octave_
           ovl (0) = octave_value (this);
           ovl (1) = (idx.front ()) (0);
           ovl (2) = rhs;
-          octave_value_list u = OCTAVE__FEVAL (std::string ("__srl_properties__"), ovl, 1);
- 
-          if (u.length() > 0)
-            {
-              count++;
-              retval = octave_value (this);
-            }
+          OCTAVE__FEVAL (std::string ("__srl_properties__"), ovl, 1);
+          count++;
+          retval = octave_value (this);
         }
       else if (type.length () > 1 && type[1] == '.')
         {
@@ -103,9 +99,9 @@ octave_serial_common::subsasgn (const std::string& type, const std::list<octave_
               std::list<octave_value_list> next_idx (idx);
               next_idx.erase (next_idx.begin ());
               u (0).subsasgn(type.substr (1), next_idx, rhs);
-              count++;
-              retval = octave_value (this);
             } 
+          count++;
+          retval = octave_value (this);
         }
       else
         {
