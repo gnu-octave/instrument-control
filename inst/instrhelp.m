@@ -17,8 +17,11 @@
 ## Display instrument help
 ##
 ## @subsubheading Inputs
-## @var{funcname} - function to display help about
-## @var{obj} - object to display help about
+## @var{funcname} - function to display help about.@*
+## @var{obj} - object to display help about.@*
+##
+## If no input is provided, the function will display and overview
+## of the package functionality.
 ##
 ## @subsubheading Outputs
 ## None
