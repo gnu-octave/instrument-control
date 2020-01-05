@@ -166,7 +166,7 @@ octave_tcp::subsasgn (const std::string& type, const std::list<octave_value_list
         {
           // pass along any further assignments
           octave_value_list u = subsref (type.substr (0, 1), idx, 1);
-          if (! u.length () > 0)
+          if (u.length () > 0)
             {
               std::list<octave_value_list> next_idx (idx);
               next_idx.erase (next_idx.begin ());
