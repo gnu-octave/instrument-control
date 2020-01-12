@@ -1,4 +1,4 @@
-// Copyright (C) 2018-2019   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2018-2020   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -64,7 +64,7 @@ Upon successful completion, i2c_write() shall return the number of bytes written
 
       if (buf == NULL)
         {
-          error ("i2c_write: cannot allocate requested memory: %s\n", strerror (errno));
+          error ("i2c_write: cannot allocate requested memory: %s", strerror (errno));
           return octave_value (-1);  
         }
 
@@ -75,7 +75,7 @@ Upon successful completion, i2c_write() shall return the number of bytes written
     }
   else
     {
-      print_usage ();
+      error ("i2c_write: expected uint8 data");
       return octave_value (-1);
     }
 
