@@ -102,7 +102,7 @@ The toolkit must be then be loaded once per each @acronym{GNU} Octave session in
 
 @section Requirements
 @cindex Requirements
-For GPIB support (linux only), linux-gpib must be installed before installing instrument-control. 
+For GPIB support (Linux only), linux-gpib must be installed before installing instrument-control. 
 GPIB support is also available for windows by following the information from the wiki:
 https://wiki.octave.org/Instrument_control_package#Requirements
 
@@ -112,7 +112,7 @@ For VXI11 support, rpcgen, and libtirpc-devel must be installed before installin
 @section Windows install
 @cindex Windows install
 
-If using the @acronym{GNU} Octave installer in Windows, the toolkit will have already been installed, and does not need to be reinstalled
+If using the @acronym{GNU} Octave installer in Windows, the toolkit will have already been installed, and does not need to be re-installed
 unless a newer version is available.
 
 Run the following command to verify if the toolkit is available:
@@ -239,7 +239,7 @@ The device can be written and read from using fread, fwrite and srl_read and slr
 srl_write(s, "hello world") # write hello world
 fprintf(s, "hello again")
 
-val = srl_read(s, 10) # attemp to read
+val = srl_read(s, 10) # attempt to read
 val = fread(s, 10)
 @end example
 
