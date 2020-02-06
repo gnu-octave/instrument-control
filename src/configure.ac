@@ -229,7 +229,7 @@ AC_SUBST(RPCLIBS)
 # none if was never wanted or not auto detected
 
 if test "x${with_librpc}" != "xyes" && test "x${with_librpc}" != "xnone"; then
-  AC_MSG_WARN([Did not find valid rpc libraries])
+  AC_MSG_WARN([Did not find valid rpc libraries - disabling vxi11 interface])
 fi
 
 if test "x${with_librpc}" = "xyes"; then
