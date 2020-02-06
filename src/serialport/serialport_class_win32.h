@@ -49,6 +49,9 @@ public:
   int set_parity(const std::string& /* parity */);
   std::string get_parity(void) const;
 
+  int set_flowcontrol(const std::string& /* flow */);
+  std::string get_flowcontrol() const;
+
   int set_stopbits(unsigned short /* stop bits */);
   int get_stopbits(void) const;
 

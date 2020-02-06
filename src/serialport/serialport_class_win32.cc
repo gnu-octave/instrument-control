@@ -548,7 +548,7 @@ octave_serialport::get_flowcontrol (void) const
 {
   if (config.fOutxCtsFlow == 1)
     return "hardware";
-  else if (config,fOutX == 1)
+  else if (config.fOutX == 1)
     return "software";
   else
     return "none";
