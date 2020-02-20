@@ -1,4 +1,4 @@
-// Copyright (C) 2019   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2019-2020 John Donoghue <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,13 +25,6 @@
 #endif
 
 #ifdef BUILD_SERIAL
-/*
-octave_value_list srlp_close (octave_serialport* serialport, const octave_value_list& args, int nargout)
-{
-  serialport->close ();
-  return octave_value ();
-}
-*/
 
 octave_value_list srlp_flush (octave_serialport* serialport, const octave_value_list& args, int nargout)
 {
@@ -217,26 +210,6 @@ octave_value_list srlp_numbyteswritten (octave_serialport* serialport, const oct
   return octave_value (serialport->get_numbyteswritten ());
 }
 
-/*
- * octave_value_list srlp_status (octave_serialport* serialport, const octave_value_list& args, int nargout)
-{
-  if (args.length () > 0)
-    (*current_liboctave_error_handler) ("wrong number of arguments");
-
-  // Returning bytes available
-  return octave_value (serialport->get_status ());
-}
-
-octave_value_list srlp_type (octave_serialport* serialport, const octave_value_list& args, int nargout)
-{
-  if (args.length () > 0)
-    (*current_liboctave_error_handler) ("wrong number of arguments");
-
-  // Returning bytes available
-  return octave_value (serialport->get_type ());
-}
-*/
-
 octave_value_list srlp_port (octave_serialport* serialport, const octave_value_list& args, int nargout)
 {
   if (args.length () > 0)
@@ -245,28 +218,6 @@ octave_value_list srlp_port (octave_serialport* serialport, const octave_value_l
   // Returning bytes available
   return octave_value (serialport->get_port ());
 }
-
-/*
-octave_value_list srlp_name (octave_serialport* serialport, const octave_value_list& args, int nargout)
-{
-  if (args.length() > 1)
-    (*current_liboctave_error_handler) ("wrong number of arguments");
-    
-  // Setting new name
-  if (args.length () > 0)
-    {
-      if (! (args (0).is_string ()))
-        (*current_liboctave_error_handler) ("argument must be string");
-
-      serialport->set_name (args (0).string_value ());
-
-      return octave_value ();
-    }
-
-  // Returning current baud rate
-  return octave_value (serialport->get_name ());
-}
-*/
 
 octave_value_list srlp_baudrate (octave_serialport* serialport, const octave_value_list& args, int nargout)
 {
@@ -353,20 +304,16 @@ octave_value_list srlp_requesttosend (octave_serialport* serialport, const octav
   if (args.length () > 1)
     (*current_liboctave_error_handler) ("wrong number of arguments");
 
- // std::string onoff = "";
-
   // Setting RTS
   if (args.length () > 0)
     {
-      //if ( !(args (0).is_string ()) )
       if (! (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT () || args(0).OV_ISLOGICAL ()) )
         (*current_liboctave_error_handler) ("argument must be boolean or a number");
 
       int onoff = args (0).int_value ();
-//      std::transform (onoff.begin (), onoff.end (), onoff.begin (), ::tolower);
       if (onoff)
         serialport->set_control_line ("RTS", true);
-      else //if (onoff == "off")
+      else
         serialport->set_control_line ("RTS", false);
     }
 
@@ -387,15 +334,13 @@ octave_value_list srlp_dataterminalready (octave_serialport* serialport, const o
   // Setting DTR
   if (args.length () > 0)
     {
-      //if ( !(args (0).is_string ()) )
       if (! (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT () || args(0).OV_ISLOGICAL ()) )
-        (*current_liboctave_error_handler) ("argument must be string");
+        (*current_liboctave_error_handler) ("argument must be boolean or a number");
 
       int onoff = args (0).int_value ();
-//      std::transform (onoff.begin (), onoff.end (), onoff.begin (), ::tolower);
-      if (onoff) // == "on")
+      if (onoff)
         serialport->set_control_line ("DTR", true);
-      else //if (onoff == "off")
+      else
         serialport->set_control_line ("DTR", false);
     }
 
@@ -486,26 +431,6 @@ Undocumented internal function.\n\
     return srlp_requesttosend (serialport, args2, nargout);
   else if (property == "__dataterminalready__")
     return srlp_dataterminalready (serialport, args2, nargout);
-/*
-  else if (property == "dataterminalready")
-    return srlp_dataterminalready (serialport, args2, nargout);
-  else if (property == "close")
-    return srlp_close (serialport, args2, nargout);
-  else if (property == "flush")
-    return srlp_flush (serialport, args2, nargout);
-  else if (property == "break")
-    return srlp_break (serialport, args2, nargout);
-  else if (property == "pinstatus")
-    return srlp_pinstatus (serialport, args2, nargout);
-  else if (property == "requesttosend")
-    return srlp_requesttosend (serialport, args2, nargout);
-  else if (property == "status")
-    return srlp_status (serialport, args2, nargout);
-  else if (property == "name")
-    return srlp_name (serialport, args2, nargout);
-  else if (property == "type")
-    return srlp_type (serialport, args2, nargout);
-*/
   else
     (*current_liboctave_error_handler) ("wrong keyword");
 #endif

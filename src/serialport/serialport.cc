@@ -1,5 +1,4 @@
-// Copyright (C) 2019   John Donoghue   <john.donoghue@ieee.org>
-// Copyright (C) 2017   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017-2020 John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -14,9 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
-
-// TODO: Implement Flow Control
-// TODO: Implement H/W handshaking
 
 #include <octave/oct.h>
 
@@ -51,6 +47,14 @@ Known input properties:\n \
 Numeric baudrate value\n \
 @item timeout\n \
 Numeric timeout value in seconds or -1 to wait forever\n \
+@item stopbits\n \
+number of stopbits to use\n \
+@item parity\n \
+Parity setting 'none', 'even', 'odd'\n \
+@item databits\n \
+Number of bits to a byte (5 to 8)\n \
+@item flowcontrol\n \
+Number of bits to a byte 'none', 'hardware', 'software'\n \
 @end table\n \
 \n\
 @subsubheading Outputs\n \
@@ -72,16 +76,14 @@ timeout value used for waiting for data\n \
 number of bytes currently available to read (readonly)\n \
 @item stopbits\n \
 number of stopbits to use\n \
-@item requesttosend\n \
-request to send state - 'on' or 'off'\n \
 @item parity\n \
 Parity setting 'none', 'even', 'odd'\n \
 @item databits\n \
 Number of bits to a byte (5 to 8)\n \
 @item baudrate\n \
 Baudrate setting\n \
-@item dataterminalready\n \
-state of dataterminal ready - 'on' or 'off'\n \
+@item flowcontrol\n \
+Number of bits to a byte 'none', 'hardware', 'software'\n \
 @item pinstatus\n \
 current state of pins (readonly)\n \
 @end table \n \
