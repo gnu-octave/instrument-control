@@ -359,7 +359,7 @@ octave_value_list srlp_requesttosend (octave_serialport* serialport, const octav
   if (args.length () > 0)
     {
       //if ( !(args (0).is_string ()) )
-      if (! (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT () || args(0).islogical ()) )
+      if (! (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT () || args(0).OV_ISLOGICAL ()) )
         (*current_liboctave_error_handler) ("argument must be boolean or a number");
 
       int onoff = args (0).int_value ();
@@ -388,7 +388,7 @@ octave_value_list srlp_dataterminalready (octave_serialport* serialport, const o
   if (args.length () > 0)
     {
       //if ( !(args (0).is_string ()) )
-      if (! (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT () || args(0).islogical ()) )
+      if (! (args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT () || args(0).OV_ISLOGICAL ()) )
         (*current_liboctave_error_handler) ("argument must be string");
 
       int onoff = args (0).int_value ();

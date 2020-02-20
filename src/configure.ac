@@ -66,6 +66,15 @@ OF_OCTAVE_LIST_ALT_SYMS([
 ],
 
 [dnl
+  [is_bool_type],
+  [islogical],
+  [[octave_value ().islogical ();]],
+  [OV_ISLOGICAL],
+  [],
+  []
+],
+
+[dnl
   [unwind_protect],
   [octave::unwind_protect],
   [[octave::unwind_protect frame;]],
