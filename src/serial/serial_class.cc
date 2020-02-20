@@ -1,4 +1,4 @@
-// Copyright (C) 2019   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2019-2020  John Donoghue   <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,6 +12,8 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
+
+#include <octave/oct.h>
 
 #ifdef HAVE_CONFIG_H
 #include "../config.h"
