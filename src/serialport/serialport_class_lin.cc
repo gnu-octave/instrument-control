@@ -83,7 +83,8 @@ octave_serialport::open (const std::string &path)
       config.c_oflag = 0; // Output modes
       config.c_cflag = CS8 | CREAD | CLOCAL; // Control modes, 8n1
       config.c_lflag = 0; // Local modes
-      config.c_cc[VMIN] = 1;
+      config.c_cc[VMIN] = 0;
+      config.c_cc[VTIME] = 5;
 
       if (tcsetattr (fd, TCSANOW, &config) < 0)
         {
@@ -128,13 +129,13 @@ octave_serialport::read (uint8_t *buf, unsigned int len)
   ssize_t read_retval = -1;
 
   double maxwait = timeout;
+
   // While not interrupted in blocking mode
   while (bytes_read < len)
     {
       OCTAVE_QUIT;
 
       read_retval = ::read (fd, (void *)(buf + bytes_read), len - bytes_read);
-      //printf("read_retval: %d\n\r", read_retval);
 
       if (read_retval < 0)
         {
@@ -220,12 +221,13 @@ octave_serialport::set_timeout (double newtimeout)
     {
       blocking_read = false;
       if(newtimeout > 10) newtimeout = 5;
+      if(newtimeout < 1) newtimeout = 1;
     }
 
 
   BITMASK_CLEAR (config.c_lflag, ICANON); // Set non-canonical mode
   config.c_cc[VMIN] = 0;
-  config.c_cc[VTIME] = (unsigned) newtimeout; // Set timeout of 'timeout * 10' seconds
+  config.c_cc[VTIME] = (unsigned) newtimeout; 
 
   if (tcsetattr (fd, TCSANOW, &config) < 0)
     {
