@@ -109,7 +109,7 @@ current state of pins (readonly)\n \
   std::string flow("none");
   unsigned short stopbits = 1;
   // Parse the function arguments
-  if ((args.length () == 0) || !args(0 ).is_string ())
+  if ((args.length () == 0) || !args (0).is_string ())
     {
       print_usage ();
       return octave_value ();
@@ -142,8 +142,15 @@ current state of pins (readonly)\n \
     // go through the properties
     for(int i=1;i<args.length();i+=2)
     {
-      std::string name = args(i).string_value();
-      octave_value val = args(i+1);
+      // first pair should be a property name
+      if (! args (i).is_string ())
+        {
+          error ("Expected property name string");
+          return octave_value ();
+        }
+
+      std::string name = args (i).string_value ();
+      octave_value val = args (i+1);
 
       std::transform (name.begin (), name.end (), name.begin (), ::tolower);
 
@@ -236,7 +243,10 @@ current state of pins (readonly)\n \
 #if 0
 %!test
 %! if any(strcmp(instrhwinfo().SupportedInterfaces, "serial"))
-%!   fail ("serialport ()", "Invalid call to serial");
+%!   fail ("a = serialport ()", "Invalid call to serial");
+%!   fail ("a = serialport ('noport', 'a')", "Invalid call to serial");
+%!   fail ("a = serialport ('noport', 9600, 1)", "Expected property name string");
+%!   fail ("a = serialport ('noport', 9600, 1, 1)", "Expected property name/value pairs");
 %! else
 %!   fail ("serialport ()", "serial: Your system doesn't support the serial interface");
 %! endif
