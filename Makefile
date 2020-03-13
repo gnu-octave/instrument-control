@@ -183,7 +183,7 @@ doc/$(package).pdf: doc/$(package).texi doc/functions.texi
 
 doc/functions.texi:
 	$(eval src_dirs = $(shell cd doc && find ../src -type d -printf '--src-dir=%p '))
-	cd doc && ./mkfuncdocs.py --src-dir=../inst/ $(src_dirs) ../INDEX > functions.texi
+	cd doc && ./mkfuncdocs.py --src-dir=../inst/ $(src_dirs) ../INDEX | $(SED) 's/@seealso/@xseealso/g' > functions.texi
 
 .PHONY: clean-docs
 clean-docs:
