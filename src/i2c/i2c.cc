@@ -1,4 +1,4 @@
-// Copyright (C) 2017,2019   John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2017-2020   John Donoghue   <john.donoghue@ieee.org>
 // Copyright (C) 2012   Andrius Sutas   <andrius.sutas@gmail.com>
 //
 // This program is free software; you can redistribute it and/or modify
@@ -29,12 +29,13 @@
 // PKG_ADD: autoload ("i2c", "i2c.oct");
 DEFUN_DLD (i2c, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{i2c} = } i2c ([@var{path}], [@var{address}])\n \
+@deftypefn {Loadable Function} {@var{i2c} = } i2c ([@var{port_path}], [@var{address}])\n \
 \n\
 Open i2c interface.\n \
 \n\
 @subsubheading Inputs\n \
-@var{path} - the interface path of type String. If omitted defaults to '/dev/i2c-0'. @*\
+@var{port_path} - the interface device port/path of type String. If omitted defaults to \n \
+'/dev/i2c-0'. @*\n \
 @var{address} - the slave device address. If omitted must be set using i2c_addr() call.\n \
 \n\
 @subsubheading Outputs\n \
@@ -48,7 +49,7 @@ Name of the object\n \
 @item remoteaddress\n \
 the slave device address\n \
 @item port\n \
-The drive port (readonly)\n \
+The interface driver port (readonly)\n \
 @end table\n \
 @end deftypefn")
 {
