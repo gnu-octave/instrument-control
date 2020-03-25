@@ -32,15 +32,8 @@
 ## @item 'name'
 ## Set the name for the i2c socket.
 ##
-## @item 'remotehost'
-## Set the remote host name for the i2c socket.
-##
-## @item 'remoteport'
-## Set the remote port for the i2c socket.
-##
-## @item 'timeout'
-## Set the timeout value in tenths of a second. Value of -1 means a
-## blocking call. Maximum value of 255 (i.e. 25.5 seconds).
+## @item 'remoteaddress'
+## Set the remote address for the i2c socket.
 ##
 ## @end table
 ##
@@ -59,7 +52,7 @@ function set (i2c, varargin)
     func  = @(x) getfield (varargin{1}, x);
     value = cellfun (func, property, 'UniformOutput', false);
   elseif numel (varargin) == 2 && iscell (varargin{1}) && iscell (varargin{2})
-  %% The arguments are two cells, expecting fields and values.
+    %% The arguments are two cells, expecting fields and values.
     property = varargin{1};
     value = varargin{2};
   else
