@@ -192,6 +192,10 @@ Most interfaces have two types of functions:
 
 @node  Basic Serial
 @section  Basic Serial
+
+@subsection Serial
+The serial object has been depreciated and may not appear in newer versions of the instructment-control toolbox. Instead new code should use the serialport object.
+
 The serial port can be opened using the serial function:
 
 @example
@@ -231,6 +235,49 @@ The device can be closed using fclose or srl_close.
 
 @example
 fclose(s)
+@end example
+
+@subsection SerialPort
+
+The recommended method of accessing serial ports is through the serialport object.
+
+The serial port can be opened using the serialport function:
+
+@example
+s = serialport("/dev/ttyUSB1", 115200) 
+@end example
+
+The first parameter is the device name and is OS specific. The second parameter is the baudrate. 
+
+A list of available serial ports can be retrieved using the function:
+
+@example
+serialportlist
+@end example
+
+After creating the interface object, properties of the device can be set or retrieved using get or set functions or as property access.
+
+@example
+s = serialport("/dev/ttyUSB1", 115200) 
+br = get(s, "baudrate") # gets the baudrate
+br = s.baudrate  # also gets the baudrate
+
+set(s, "baudrate", 9600) # set the baudrate
+s.baudrate = 9600 # also sets the baudrate
+@end example
+
+The device can be written and read from using read and write functions.
+
+@example
+write(s, "hello world") # write hello world
+
+val = read(s, 10)
+@end example
+
+The device can be closed by clearing the serialport object.
+
+@example
+clear s
 @end example
 
 @node  Basic TCP
