@@ -88,6 +88,12 @@ Read from usbtmc slave device.\n \
 
   retval = usbtmc->read (buffer, buffer_len);
 
+  if (retval < 0)
+    {
+      // read has already displayed a message, so just exit
+      return octave_value (-1);
+    }
+
   octave_value_list return_list;
   uint8NDArray data (dim_vector (1, retval));
 
