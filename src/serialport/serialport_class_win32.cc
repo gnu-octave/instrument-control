@@ -28,10 +28,9 @@ using std::string;
 
 #include "serialport_class.h"
 
-char *
+std::string
 winerror (int err)
 {
-  static char errstring[100];
 
   if (err != 0) 
     return strerror (err);
@@ -41,14 +40,26 @@ winerror (int err)
 
      e = GetLastError ();
 
-     if (FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, 0, e,
+#if HAVE_OCTAVE_U8_TO_WSTRING
+     wchar_t errstring[100+1];
+     if (FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM, 0, e,
                         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), errstring,
-                        sizeof(errstring)-1, 0) == 0)
+                        100, 0) == 0)
        {
          errstring[0] = '\0';
        }
+     return octave::sys::u8_from_wstring (errstring);
+#else
+     char errstring[100+1];
+     if (FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, 0, e,
+                        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), errstring,
+                        100, 0) == 0)
+       {
+         errstring[0] = '\0';
+       }
+     return errstring;
+#endif
     }
-  return errstring;
 }
 
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_serialport, "octave_serialport", "octave_serialport");
@@ -81,7 +92,7 @@ octave_serialport::open (const std::string &path)
     
   if (! fd_is_valid())
     {
-      error("serialport: Error opening the interface: %s\n", winerror (errno));
+      error("serialport: Error opening the interface: %s\n", winerror (errno).c_str ());
       return;
     }
 
@@ -97,7 +108,7 @@ octave_serialport::open (const std::string &path)
   
   if(GetCommState (fd, &config) == FALSE)
     {
-      error ("serialport: Failed to get terminal attributes: %s\n", winerror (errno));
+      error ("serialport: Failed to get terminal attributes: %s\n", winerror (errno).c_str ());
       octave_serialport::close ();
       return;
     }
@@ -112,7 +123,7 @@ octave_serialport::open (const std::string &path)
 
   if (SetCommTimeouts(fd, &timeouts) == FALSE)
     {
-      error ("serialport: Failed to disable timeouts: %s\n", winerror (errno));
+      error ("serialport: Failed to disable timeouts: %s\n", winerror (errno).c_str ());
       octave_serialport::close ();
       return;
     }
@@ -152,7 +163,7 @@ octave_serialport::read(uint8_t *buf, unsigned int len)
 
       if(read_retval < 0)
         {
-          error ("serialport.read: Error while reading: %s\n", winerror (errno));
+          error ("serialport.read: Error while reading: %s\n", winerror (errno).c_str ());
           break;
         }
 
@@ -291,7 +302,7 @@ octave_serialport::set_stopbits (unsigned short stopbits)
 
   if (SetCommState (fd,&config) == FALSE)
     {
-      error ("serialport: error setting stop bits: %s\n", winerror (errno));
+      error ("serialport: error setting stop bits: %s\n", winerror (errno).c_str ());
       return false;
     }
 
@@ -331,7 +342,7 @@ octave_serialport::set_databits (unsigned short bytesize)
 
   if (SetCommState (fd, &config) == FALSE)
     {
-      error ("serialport: error setting data size: %s\n", winerror (errno));
+      error ("serialport: error setting data size: %s\n", winerror (errno).c_str ());
       return false;
     }
 
@@ -365,7 +376,7 @@ octave_serialport::set_baudrate (unsigned int baud)
 
   if (SetCommState (fd, &config) == FALSE)
     {
-      error ("serialport: error setting baud rate: %s\n", winerror (errno));
+      error ("serialport: error setting baud rate: %s\n", winerror (errno).c_str ());
       config.BaudRate = old_baud;
       return false;
     }
@@ -476,7 +487,7 @@ octave_serialport::set_parity (const std::string &newparity)
 
   if (SetCommState (fd, &config) == FALSE)
     {
-      error ("serialport: error setting parity: %s\n", winerror (errno));
+      error ("serialport: error setting parity: %s\n", winerror (errno).c_str ());
       return false;
     }
 

@@ -1,4 +1,4 @@
-// Copyright (C) 2014-2019 John Donoghue   <john.donoghue@ieee.org>
+// Copyright (C) 2014-2020 John Donoghue   <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -28,10 +28,9 @@ using std::string;
 
 #include "serial_class.h"
 
-char *
+std::string
 winerror (int err)
 {
-  static char errstring[100];
 
   if (err != 0) 
     return strerror (err);
@@ -41,15 +40,28 @@ winerror (int err)
 
      e = GetLastError ();
 
-     if (FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, 0, e,
+#if HAVE_OCTAVE_U8_TO_WSTRING
+     wchar_t errstring[100+1];
+     if (FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM, 0, e,
                         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), errstring,
-                        sizeof(errstring)-1, 0) == 0)
+                        100, 0) == 0)
        {
          errstring[0] = '\0';
        }
+     return octave::sys::u8_from_wstring (errstring);
+#else
+     char errstring[100+1];
+     if (FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, 0, e,
+                        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), errstring,
+                        100, 0) == 0)
+       {
+         errstring[0] = '\0';
+       }
+     return errstring;
+#endif
     }
-  return errstring;
 }
+
 
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_serial, "octave_serial", "octave_serial");
 
@@ -83,7 +95,7 @@ octave_serial::open (const std::string &path)
     
   if (! fd_is_valid())
     {
-      error("serial: Error opening the interface: %s\n", winerror (errno));
+      error("serial: Error opening the interface: %s\n", winerror (errno).c_str ());
       return;
     }
 
@@ -99,7 +111,7 @@ octave_serial::open (const std::string &path)
   
   if(GetCommState (fd, &config) == FALSE)
     {
-      error ("serial: Failed to get terminal attributes: %s\n", winerror (errno));
+      error ("serial: Failed to get terminal attributes: %s\n", winerror (errno).c_str ());
       octave_serial::close ();
       return;
     }
@@ -114,7 +126,7 @@ octave_serial::open (const std::string &path)
 
   if (SetCommTimeouts(fd, &timeouts) == FALSE)
     {
-      error ("serial: Failed to disable timeouts: %s\n", winerror (errno));
+      error ("serial: Failed to disable timeouts: %s\n", winerror (errno).c_str ());
       octave_serial::close ();
       return;
     }
@@ -154,7 +166,7 @@ octave_serial::read(uint8_t *buf, unsigned int len)
 
       if(read_retval < 0)
         {
-          error ("srl_read: Error while reading: %s\n", winerror (errno));
+          error ("srl_read: Error while reading: %s\n", winerror (errno).c_str ());
           break;
         }
 
@@ -289,7 +301,7 @@ octave_serial::set_stopbits (unsigned short stopbits)
 
   if (SetCommState (fd,&config) == FALSE)
     {
-      error ("srl_stopbits: error setting stop bits: %s\n", winerror (errno));
+      error ("srl_stopbits: error setting stop bits: %s\n", winerror (errno).c_str ());
       return false;
     }
 
@@ -329,7 +341,7 @@ octave_serial::set_bytesize (unsigned short bytesize)
 
   if (SetCommState (fd, &config) == FALSE)
     {
-      error ("serial: error setting byte size: %s\n", winerror (errno));
+      error ("serial: error setting byte size: %s\n", winerror (errno).c_str ());
       return false;
     }
 
@@ -363,7 +375,7 @@ octave_serial::set_baudrate (unsigned int baud)
 
   if (SetCommState (fd, &config) == FALSE)
     {
-      error ("serial: error setting baud rate: %s\n", winerror (errno));
+      error ("serial: error setting baud rate: %s\n", winerror (errno).c_str ());
       config.BaudRate = old_baud;
       return false;
     }
@@ -474,7 +486,7 @@ octave_serial::set_parity (const std::string &newparity)
 
   if (SetCommState (fd, &config) == FALSE)
     {
-      error ("srl_parity: error setting parity: %s\n", winerror (errno));
+      error ("srl_parity: error setting parity: %s\n", winerror (errno).c_str ());
       return false;
     }
 

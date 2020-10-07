@@ -93,3 +93,24 @@ m4_foreach([it], [$1], [m4_apply([OF_OCTAVE_ALT_SYMS], [it, $2])])
 AH_BOTTOM([#include "$2"])
 
 ])
+
+# check whether can compile
+# arguments:
+# $1: symbol
+# $2: test for symbol version 2
+# $3: macro name define if sucessfull
+# $4: include directives
+AC_DEFUN([OF_OCTAVE_CHECK_SYM], [
+AC_MSG_CHECKING([$1])
+  AC_COMPILE_IFELSE(
+    [AC_LANG_PROGRAM([[#include <octave/oct.h>]
+                      $4],
+                     [$2])],
+    [AC_DEFINE($3,
+               [1],
+               [Have $1])
+     AC_MSG_RESULT([yes])
+    ],
+    [AC_MSG_RESULT(no)]
+)
+])

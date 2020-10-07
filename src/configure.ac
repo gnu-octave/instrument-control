@@ -124,6 +124,17 @@ if test $ac_cv_octsym_OCTAVE__REGISTER_BINARY_OP == "octave::type_info::register
   AC_DEFINE([OCTAVE__NEW_REGISTER_OP], [], [Use new register_binary_op]) 
 fi
 
+OF_OCTAVE_CHECK_SYM(
+  [for octave::sys::u8_to_wstring],
+  [
+    std::wstring s = octave::sys::u8_to_wstring("test");
+  ],
+  [HAVE_OCTAVE_U8_TO_WSTRING],
+  [
+    #include <octave/lo-sysdep.h>
+  ]
+)
+
 CXX=$save_altsyms_CXX
 CXXFLAGS=$save_altsyms_CXXFLAGS
 LDFLAGS=$save_altsyms_LDFLAGS
