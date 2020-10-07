@@ -43,7 +43,7 @@ winerror (int err)
 
      if (FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, 0, e,
                         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), errstring,
-                        sizeof(errstring)-1, 0) < 0)
+                        sizeof(errstring)-1, 0) == 0)
        {
          errstring[0] = '\0';
        }
