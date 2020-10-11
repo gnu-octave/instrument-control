@@ -1,4 +1,4 @@
-## Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2018-2020 John Donoghue <john.donoghue@ieee.org>
 ## Copyright (C) 2016 Andreas Weber <andy.weber.aw@gmail.com>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
@@ -26,7 +26,7 @@
 ## @var{interface} is the instrument interface to query. When provided, instrhwinfo
 ## will provide information on the specified interface.
 ##
-## Currently only interface "serial" and "i2c" is supported, which will provide a list of
+## Currently only interface "serialport","i2c" and "spi" and is supported, which will provide a list of
 ## available serial ports or i2c ports.
 ##
 ## @subsubheading Outputs
@@ -115,6 +115,17 @@ function out = instrhwinfo (interface)
       ## only devices with device/driver
       tmp = glob ("/sys/class/i2c-adapter/*/device/driver");
       tmp = strrep (tmp, "/sys/class/i2c-adapter/", "");
+      out = strrep (tmp, "/device/driver", "");
+    else
+      out = [];
+    endif
+
+  elseif (strcmpi (interface, "spi"))
+    if (isunix ()) # GNU/Linux, BSD...
+
+      ## only devices with device/driver
+      tmp = glob ("/sys/class/spidev/*/device/driver");
+      tmp = strrep (tmp, "/sys/class/spidev/", "");
       out = strrep (tmp, "/device/driver", "");
     else
       out = [];

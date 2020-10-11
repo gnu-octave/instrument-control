@@ -1,7 +1,8 @@
 Introduction
 ============
 
-The Instrument control package provides low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
+The Instrument control package provides low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, vxi11,
+udp and usbtmc interfaces.
 
 It attempts to provide the same function calls as the Matlab toolkit, as well as additional functionality.
 

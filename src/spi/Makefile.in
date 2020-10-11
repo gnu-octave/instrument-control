@@ -1,0 +1,39 @@
+OCT := ../spi.oct
+OBJ := spi.o spi_close.o spi_write.o spi_read.o spi_writeAndRead.o spi_class.o __spi_pkg_lock__.o __spi_properties__.o
+
+MKOCTFILE ?= mkoctfile
+GREP ?= @GREP@
+
+CFLAGS     = @DEFS@
+
+CC_SOURCES  := $(wildcard *.cc)
+CC_TST_SOURCES := $(shell $(GREP) --files-with-matches '^%!' $(CC_SOURCES))
+TST_SOURCES := $(patsubst %.cc,../../inst/test/%.cc-tst,$(CC_TST_SOURCES))
+
+all: $(OCT) $(TST_SOURCES)
+
+%.o: %.cc
+	$(MKOCTFILE) $(CFLAGS) -c $^
+
+../%.oct: $(OBJ)
+	$(MKOCTFILE) $^ -o $@
+
+%.oct: $(OBJ)
+	$(MKOCTFILE) $^ -o $@
+
+../../inst/test:
+	@mkdir -p "$@"
+
+$(TST_SOURCES): ../../inst/test/%.cc-tst: %.cc | ../../inst/test
+	@echo "Extracting tests from $< ..."
+	@$(RM) -f "$@" "$@-t"
+	@(      echo "## Generated from $<"; \
+	        $(GREP) '^%!' "$<") > "$@"
+
+clean:
+	rm -f $(OCT) *.o
+
+distclean: clean
+	rm Makefile
+
+.PHONY: all clean

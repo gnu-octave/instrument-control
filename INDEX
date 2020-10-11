@@ -52,6 +52,21 @@ I2C
   i2c_read
   i2c_write
   i2c_close
+SPI
+  spi
+  @octave_spi/fopen
+  @octave_spi/fclose
+  @octave_spi/fread
+  @octave_spi/fwrite
+  @octave_spi/get
+  @octave_spi/set
+  @octave_spi/read
+  @octave_spi/write
+  @octave_spi/writeAndRead
+  spi_read
+  spi_write
+  spi_close
+  spi_writeAndRead
 Parallel
   parallel
   pp_datadir

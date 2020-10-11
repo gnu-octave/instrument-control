@@ -143,6 +143,7 @@ LIBS=$save_altsyms_LIBS
 build_parallel=no
 build_serial=no
 build_i2c=no
+build_spi=no
 build_usbtmc=no
 build_tcp=no
 build_udp=no
@@ -175,6 +176,9 @@ fi
 # if linux/i2c-dev.h exists we are probably under linux, so build usbtmc as well
 AC_CHECK_HEADERS([linux/i2c-dev.h],[build_i2c=yes build_usbtmc=yes])
 AC_CHECK_HEADERS([dev/iicbus/iic.h],[build_i2c=yes])
+
+# check for spi
+AC_CHECK_HEADERS([linux/spi/spidev.h],[build_spi=yes])
 
 # check for serial
 AC_CHECK_HEADERS([termios.h],[build_serial=yes])
@@ -350,6 +354,10 @@ if test $build_i2c = yes; then
   AC_DEFINE([BUILD_I2C], [], [build I2C interface functions])
 fi
 
+if test $build_spi = yes; then
+  AC_DEFINE([BUILD_SPI], [], [build SPI interface functions])
+fi
+
 if test $build_usbtmc = yes; then
   AC_DEFINE([BUILD_USBTMC], [], [build USBTMC interface functions])
 fi
@@ -382,8 +390,10 @@ fi
 
 # all done
 
-AC_CONFIG_FILES([Makefile gpib/Makefile tcp/Makefile udp/Makefile vxi11/Makefile usbtmc/Makefile
-		 serial/Makefile parallel/Makefile i2c/Makefile resolvehost/Makefile hwinfo/Makefile
+AC_CONFIG_FILES([Makefile gpib/Makefile tcp/Makefile udp/Makefile
+		 vxi11/Makefile usbtmc/Makefile spi/Makefile
+		 serial/Makefile parallel/Makefile i2c/Makefile
+		 resolvehost/Makefile hwinfo/Makefile
 		 serialport/Makefile])
 AC_OUTPUT
 
@@ -394,6 +404,7 @@ $PACKAGE_NAME is now configured with
    BUILD SERIAL:      $build_serial
    BUILD PARALLEL:    $build_parallel
    BUILD I2C:         $build_i2c
+   BUILD SPI:         $build_spi
    BUILD TCP:         $build_tcp
    BUILD UDP:         $build_udp
    BUILD USBTMC:      $build_usbtmc
