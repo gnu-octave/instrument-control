@@ -158,7 +158,7 @@ octave_tcp::subsasgn (const std::string& type, const std::list<octave_value_list
           ovl (0) = octave_value (this);
           ovl (1) = (idx.front ()) (0);
           ovl (2) = rhs;
-          OCTAVE__FEVAL (std::string ("__tcp_properties__"), ovl, 1);
+          OCTAVE__FEVAL (std::string ("__tcp_properties__"), ovl, 0);
           count++;
           retval = octave_value (this);
         }

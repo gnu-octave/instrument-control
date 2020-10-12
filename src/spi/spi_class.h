@@ -80,7 +80,7 @@ public:
   // 4.4+
   bool isobject (void) const { return true;}
 
-  octave_base_value * unique_clone (void) { return this;}
+  octave_base_value * unique_clone (void) { count++; return this;}
 
  /**
   * overloaded methods to get properties

@@ -73,7 +73,7 @@ public:
   dim_vector dims (void) const { static dim_vector dv(1, 1); return dv; }
 
   // use single copy of each udp socket
-  octave_base_value * unique_clone (void) { return this; }
+  octave_base_value * unique_clone (void) { count++; return this; }
 
  /**
   * overloaded methods to get properties
