@@ -81,6 +81,7 @@ Parallel
 TCP
   tcp
   tcpip
+  tcpclient
   @octave_tcp/fopen
   @octave_tcp/fclose
   @octave_tcp/fprintf

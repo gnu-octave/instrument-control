@@ -1,4 +1,4 @@
-## Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2018-2020 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -14,50 +14,42 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{tcp} = } tcpip (@var{host}, [@var{port}], [@var{PropertyName}, @var{PropertyValue}...])
+## @deftypefn {Function File} {@var{tcp} = } tcpclient (@var{host}, @var{port})
+## @deftypefnx {Function File} {@var{tcp} = } tcpclient (@var{host}, @var{port}, [@var{PropertyName}, @var{PropertyValue}...])
 ## Matlab compatible wrapper to the tcp interface.
-##
-## NOTE: tcpip has been depreciated. Use tcpclient instead
 ##
 ## @subsubheading Inputs
 ## @var{host} - the host name or ip.@*
-## @var{port} - the port number to connect. If omitted defaults to 80.@*
+## @var{port} - the port number to connect.@*
 ## @var{PropertyName}, @var{PropertyValue} - Optional property name, value pairs to set on the tcp object.@*
 ##
 ## @subsubheading Properties
 ## Currently the only known properties are "timeout" and "name".
 ##
 ## @subsubheading Outputs
-## tcpip will return an instance of @var{octave_tcp} class as the result.
+## tcpclient will return an instance of @var{octave_tcp} class as the result.
 ## @end deftypefn
 
-function out = tcpip (varargin)
+function out = tcpclient (varargin)
 
-  persistent warned = false;
-  if (! warned)
-    warned = true;
-    warning ("Octave:deprecated-function",
-             "tcpip is obsolete and will be removed from a future version of instrument-control, please use 'tcpclient' instead");
-  endif
-
-  if nargin == 0 || (nargin > 1 && !isnumeric(varargin{2}))
+  if nargin < 2
     print_usage ();
   endif
 
   host = varargin{1};
 
-  if nargin > 1
-    port = varargin{2};
+  if !isnumeric(varargin{2})
+    error ("tcpclient: expected port number");
   else
-    port = 80;
+    port = varargin{2};
   endif
 
   if nargin > 2
     if mod(nargin, 2) != 0
-      error ("tcpip: expected property name, value pairs");
+      error ("tcpclient: expected property name, value pairs");
     endif
     if !iscellstr (varargin(3:2:nargin))
-      error ("tcpip: expected property names to be strings");
+      error ("tcpclient: expected property names to be strings");
     endif
   endif
 
@@ -73,6 +65,6 @@ function out = tcpip (varargin)
 endfunction
 
 %!test
-%! a = tcpip ("octave.org", 80);
+%! a = tcpclient ("octave.org", 80);
 %! assert(isa(a, "octave_tcp"));
 %! fclose(a);
