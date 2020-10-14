@@ -133,6 +133,9 @@ UDP
   @octave_udp/flushoutput
   @octave_udp/get
   @octave_udp/set
+  @octave_udp/read
+  @octave_udp/write
+  @octave_udp/flush
   udp_read
   udp_write
   udp_timeout
