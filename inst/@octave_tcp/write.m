@@ -21,7 +21,7 @@
 ## @subsubheading Inputs
 ## @var{obj} is a TCP object.@*
 ## @var{data} data to write.@*
-## @var{datatype} datatype of data.@*
+## @var{datatype} datatype of data. If not specified, it defaults to "uint8".@*
 ##
 ## @subsubheading Outputs
 ## returns number of bytes written.
@@ -32,7 +32,7 @@ function numbytes = write(obj, data, datatype)
   if (nargin < 2)
     print_usage ();
   elseif (nargin < 3)
-    datatype = [];
+    datatype = "uint8";
   endif
 
   switch (datatype)
@@ -56,8 +56,6 @@ function numbytes = write(obj, data, datatype)
       data = single (data);
     case {"double" "float64"}
       data = double (data);
-    case []
-      %% use data as it is
     otherwise
       error ("precision not supported");
   endswitch
