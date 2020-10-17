@@ -2,7 +2,7 @@
 ## Copyright 2015-2016 Oliver Heimlich
 ## Copyright 2017 Julien Bect <jbect@users.sf.net>
 ## Copyright 2017 Olaf Till <i7tiol@t-online.de>
-## Copyright 2018-2019 John Donoghue <john.donoghue@ieee.org>
+## Copyright 2018-2020 John Donoghue <john.donoghue@ieee.org>
 ##
 ## Copying and distribution of this file, with or without modification,
 ## are permitted in any medium without royalty provided the copyright
@@ -244,9 +244,8 @@ rungui: $(install_stamp)
 ##  https://octave.sourceforge.io/doctest/index.html
 doctest: $(install_stamp)
 	$(run_in_place) --eval 'pkg load doctest;'                                                          \
-	  --eval "targets = '$(shell (ls inst; ls src | $(GREP) .oct) | $(CUT) -f2 -d@ | $(CUT) -f1 -d.)';" \
-	  --eval "targets = strsplit (targets, ' ');  doctest (targets);"
-
+	  --eval "targets = pkg('list', '$(package)'){1}.dir;" \
+	  --eval "doctest (targets);"
 
 ## Test package.
 octave_test_commands = \
