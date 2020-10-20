@@ -20,6 +20,9 @@
 #endif
 
 #ifdef BUILD_SERIAL
+#if HAVE_OCTAVE_U8_TO_WSTRING
+  #include <octave/lo-sysdep.h>
+#endif
 #include <iostream>
 #include <string>
 #include <algorithm>
