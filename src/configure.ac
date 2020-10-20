@@ -39,6 +39,9 @@ if [test "$MKOCTFILE" = "none"]; then
   AC_MSG_ERROR([mkoctfile required to install $PACKAGE_NAME])
 fi
 
+AC_CHECK_PROG(OCTAVE_CONFIG,octave-config,octave-config)
+test -z "$OCTAVE_CONFIG" && OCTAVE_CONFIG=$MKOCTFILE
+
 AC_PROG_GREP
 
 ## Simple symbol alternatives of different Octave versions.
@@ -390,7 +393,7 @@ fi
 
 # all done
 
-AC_CONFIG_FILES([Makefile gpib/Makefile tcp/Makefile udp/Makefile
+AC_CONFIG_FILES([common.mk Makefile gpib/Makefile tcp/Makefile udp/Makefile
 		 vxi11/Makefile usbtmc/Makefile spi/Makefile
 		 serial/Makefile parallel/Makefile i2c/Makefile
 		 resolvehost/Makefile hwinfo/Makefile

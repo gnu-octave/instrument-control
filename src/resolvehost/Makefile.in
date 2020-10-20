@@ -1,37 +1,5 @@
 OCT := ../resolvehost.oct
 OBJ := resolvehost.o
-
-MKOCTFILE ?= mkoctfile
-GREP ?= @GREP@
-
-CFLAGS     = @DEFS@
 LFLAGS     = @TCPLIBS@
 
-CC_SOURCES  := $(wildcard *.cc)
-CC_TST_SOURCES := $(shell $(GREP) --files-with-matches '^%!' $(CC_SOURCES))
-TST_SOURCES := $(patsubst %.cc,../../inst/test/%.cc-tst,$(CC_TST_SOURCES))
-
-all: $(OCT) $(TST_SOURCES)
-
-%.o: %.cc
-	$(MKOCTFILE) $(CFLAGS) -c $^
-
-%.oct: $(OBJ)
-	$(MKOCTFILE) $^ $(LFLAGS) $(TCPLIBS) -o $@
-
-../../inst/test:
-	@mkdir -p "$@"
-
-$(TST_SOURCES): ../../inst/test/%.cc-tst: %.cc | ../../inst/test
-	@echo "Extracting tests from $< ..."
-	@$(RM) -f "$@" "$@-t"
-	@(      echo "## Generated from $<"; \
-	        $(GREP) '^%!' "$<") > "$@"
-
-clean:
-	rm -f $(OCT) *.o
-
-distclean: clean
-	rm Makefile
-
-.PHONY: all clean
+include ../common.mk

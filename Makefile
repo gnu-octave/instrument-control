@@ -47,6 +47,7 @@ OCTAVE := octave
 endif
 OCTAVE := $(OCTAVE) --no-gui --silent --norc
 MKOCTFILE ?= mkoctfile
+OCTAVE_CONFIG ?= octave-config
 
 ## Command used to set permissions before creating tarballs
 FIX_PERMISSIONS ?= chmod -R a+rX,u+w,go-w,ug-s
@@ -267,8 +268,9 @@ check: $(install_stamp)
 
 .PHONY: clean
 
+ARCHDIR   := "$(shell $(OCTAVE_CONFIG) -p CANONICAL_HOST_TYPE)-$(shell $(OCTAVE_CONFIG) -p API_VERSION)"
 clean: clean-tarballs clean-unpacked-release clean-install clean-docs
-	test -e inst/test && rmdir inst/test || true
+	test -e inst/$(ARCHDIR) && rmdir inst/$(ARCHDIR) || true
 	test -e $(target_dir)/fntests.log && rm -f $(target_dir)/fntests.log || true
 	@echo "## Removing target directory (if empty)..."
 	test -e $(target_dir) && rmdir $(target_dir) || true

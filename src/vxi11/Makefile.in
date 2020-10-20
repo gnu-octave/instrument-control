@@ -3,20 +3,14 @@ OBJ := vxi11.o vxi11_write.o vxi11_close.o vxi11_read.o __vxi11_pkg_lock__.o
 OCT := ../vxi11.oct
 VXCLASS := vxi11_class.o 
 
-MKOCTFILE  ?= mkoctfile
-GREP       ?= @GREP@
-
 RPCGEN     ?= @RPCGEN@
 RPCGENOPTS ?= @RPCGENOPTS@
 
-CFLAGS      = @DEFS@
-LFLAGS      = 
+LFLAGS = 
+CFLAGS = @DEFS@
 
 BUILD_VXI11 = @BUILD_VXI11@
 
-CC_SOURCES  := $(wildcard *.cc)
-CC_TST_SOURCES := $(shell $(GREP) --files-with-matches '^%!' $(CC_SOURCES))
-TST_SOURCES := $(patsubst %.cc,../../inst/test/%.cc-tst,$(CC_TST_SOURCES))
 RPC_GENERATED_FILES := vxi11.h vxi11_clnt.c vxi11_xdr.c
 
 ifneq ($(BUILD_VXI11),1)
@@ -28,38 +22,18 @@ CFLAGS      += @RPCINCLUDE@
 LFLAGS      += @RPCLIBS@
 endif
 
-all: $(OCT) $(TST_SOURCES)
+OBJ += $(VXI) $(VXCLASS)
+
+default: all
 
 $(RPC_GENERATED_FILES): vxi11.x
 	$(RPCGEN) $(RPCGENOPTS) vxi11.x
 
-%.o: %.c
-	$(MKOCTFILE) $(CFLAGS) -c $^
-	
-%.o: %.cc
-	$(MKOCTFILE) $(CFLAGS) -c $^
-
-%.oct: $(OBJ) $(VXI) $(VXCLASS)
-	$(MKOCTFILE) $^ $(LFLAGS) -o $@
-
-../../inst/test:
-	@mkdir -p "$@"
-
-$(TST_SOURCES): ../../inst/test/%.cc-tst: %.cc | ../../inst/test
-	@echo "Extracting tests from $< ..."
-	@$(RM) -f "$@" "$@-t"
-	@(      echo "## Generated from $<"; \
-	        $(GREP) '^%!' "$<") > "$@"
-
-clean:
-	rm -f $(OCT) *.o
-	
-distclean: clean
-	rm Makefile
+include ../common.mk
 
 extraclean: distclean
 	rm -f $(RPC_GENERATED_FILES)
 
 prebuild: $(RPC_GENERATED_FILES)
 
-.PHONY: all clean prebuild extraclean
+.PHONY: prebuild extraclean
