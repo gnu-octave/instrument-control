@@ -105,7 +105,7 @@ The interface driver port (readonly)\n \
 
     }
 
-  if (args.length() > 1 && (args.length() & 1)  == 1)
+  if (args.length() > 1 && (args.length() & 1)  == 0)
     {
       error ("Expected property name/value pairs");
           return octave_value ();
