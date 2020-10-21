@@ -19,7 +19,7 @@
 ## @deftypefnx {Function File} {@var{data} =} fread (@var{obj}, @var{size}, @var{precision})
 ## @deftypefnx {Function File} {[@var{data},@var{count}] =} fread (@var{obj}, ...)
 ## @deftypefnx {Function File} {[@var{data},@var{count},@var{errmsg}] =} fread (@var{obj}, ...)
-## Reads @var{data} from I2C instrument
+## Reads @var{data} from a SPI instrument
 ##
 ## @subsubheading Inputs
 ## @var{obj} is a SPI object.@*

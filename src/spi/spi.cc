@@ -31,12 +31,11 @@ DEFUN_DLD (spi, args, nargout,
 @deftypefn {Loadable Function} {@var{spi} = } spi ([@var{port_path}])\n \
 @deftypefnx {Loadable Function} {@var{spi} = } spi ([@var{port_path}], [@var{propname}, @var{provalue}])\n \
 \n\
-Open spi interface.\n \
+Open a spi interface.\n \
 \n\
 @subsubheading Inputs\n \
 @var{port_path} - the interface device port/path of type String. If omitted defaults to \n \
 '/dev/spi-0'. @*\n \
-@var{address} - the slave device address. If omitted must be set using spi_addr() call.@*\n \
 @var{propname},@var{propvalue} - property name/value pairs.\n \
 \n\
 Known input properties:\n \
@@ -59,12 +58,14 @@ The spi object has the following properties:\n \
 @table @asis\n \
 @item name\n \
 Name of the object\n \
+@item status\n \
+Open or closed status of object (readonly).\n \
 @item bitrate\n \
 Numeric bitrate value\n \
 @item clockpolarity\n \
 Clock polarity: idlehigh or idlelow.\n \
 @item clockphase\n \
-Clock phase value: firstededge or secondedge\n \
+Clock phase value: firstedge or secondedge\n \
 @item port\n \
 The interface driver port (readonly)\n \
 @end table\n \

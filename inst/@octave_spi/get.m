@@ -23,6 +23,27 @@
 ##
 ## @var{property} - name of property.@*
 ##
+## @subsubheading Properties
+## @table @var
+## @item 'name'
+## Name for the spi socket.
+##
+## @item 'bitrate'
+## The bitrate for the spi object.
+##
+## @item 'clockpolarity'
+## The clock polarity for the spi object of 'idlehigh' or 'idlelow'.
+##
+## @item 'clockphase'
+## The clock phase for the spi object of 'firstedge' or 'secondedge'.
+##
+## @item 'port'
+## The device port name.
+##
+## @item 'status'
+## The device status of 'open' or 'closed'
+## @end table
+##
 ## @subsubheading Outputs
 ## When @var{property} was specified, return the value of that property.@*
 ## otherwise return the values of all properties as a structure.@*

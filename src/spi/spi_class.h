@@ -48,7 +48,7 @@ public:
 
   std::string get_port () const;
 
-  // Simple i2c commands
+  // Simple spi commands
   int write (uint8_t* /* buffer */, unsigned int /* buffer size */);
   int read (uint8_t* /* buffer */, unsigned int /* buffer size */);
 
@@ -100,8 +100,6 @@ private:
   std::string port;
   int bitrate;
   int mode;
-  //int clockpolarity;
-  //int clockphase;
 
   string_vector fieldnames;
 

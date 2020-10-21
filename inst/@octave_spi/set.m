@@ -35,6 +35,12 @@
 ## @item 'bitrate'
 ## Set the bitrate for the spi object.
 ##
+## @item 'clockpolarity'
+## Set the clock polarity for the spi object of 'idlehigh' or 'idlelow'.
+##
+## @item 'clockphase'
+## Set the clock phase for the spi object of 'firstedge' or 'secondedge'.
+##
 ## @end table
 ##
 ## @subsubheading Outputs
