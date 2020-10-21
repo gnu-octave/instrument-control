@@ -61,7 +61,7 @@ To download a copy of the @acronym{GNU} Octave Instrument Control Tookit, please
 @ifnottex
 @node Top
 @top Introduction
-The Instrument Control toolkit is a set of low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces
+The Instrument Control toolkit is a set of low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces
 @end ifnottex
 
 @menu
@@ -143,7 +143,7 @@ The toolkit must be loaded on each @acronym{GNU} Octave session.
 
 @node  Authors
 @section  Authors
-The Instrument control package provides low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
+The Instrument control package provides low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
 
 It was written  mainly by the following developers:
 
