@@ -31,17 +31,17 @@
 function flush (dev, flushdir)
 
   if nargin < 2
-    __tcp_properties__ (dev, '__flush__', 0);
-    __tcp_properties__ (dev, '__flush__', 1);
+    __tcp_properties__ (dev, 'flush', 0);
+    __tcp_properties__ (dev, 'flush', 1);
   else
     if  !ischar (flushdir)
       error("flush: expected flushdir to be a string");
     endif
 
     if strcmp(flushdir, "output")
-      __tcp_properties__ (dev, '__flush__', 0);
+      __tcp_properties__ (dev, 'flush', 0);
     elseif strcmp(flushdir, "input")
-      __tcp_properties__ (dev, '__flush__', 1);
+      __tcp_properties__ (dev, 'flush', 1);
     else
       error("flush: invalid flushdir '%s'", flushdir);
     endif
