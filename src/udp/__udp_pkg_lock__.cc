@@ -21,6 +21,10 @@
 #  include "../config.h"
 #endif
 
+#ifdef HAVE_OCTAVE_INTERPRETER_H
+# include <octave/interpreter.h>
+#endif
+
 // PKG_ADD: autoload ("__udp_pkg_lock__", "udp.oct");
 // PKG_ADD: __udp_pkg_lock__(1);
 // PKG_DEL: __udp_pkg_lock__(0);

@@ -1,5 +1,6 @@
 OCT := ../resolvehost.oct
 OBJ := resolvehost.o
-LFLAGS     = @TCPLIBS@
+LFLAGS     = $(LIBS) @TCPLIBS@
+CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
 
 include ../common.mk

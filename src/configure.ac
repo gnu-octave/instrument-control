@@ -56,6 +56,19 @@ CXXFLAGS="$OCTINCLUDEDIR $CXXFLAGS"
 LDFLAGS="-L$OCTLIBDIR $LDFLAGS"
 LIBS="-loctinterp $LIBS"
 
+# includes
+AC_CHECK_HEADERS([octave/interpreter.h],
+  [],
+  [],
+  [#include <octave/oct.h>]
+)
+
+AC_CHECK_HEADERS([octave/lo-sysdep.h],
+  [],
+  [],
+  [#include <octave/oct.h>]
+)
+
 OF_OCTAVE_LIST_ALT_SYMS([
 [dnl
   [feval],

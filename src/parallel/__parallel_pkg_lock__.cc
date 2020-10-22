@@ -21,6 +21,10 @@
 #  include "../config.h"
 #endif
 
+#ifdef HAVE_OCTAVE_INTERPRETER_H
+# include <octave/interpreter.h>
+#endif
+
 // PKG_ADD: autoload ("__parallel_pkg_lock__", "parallel.oct");
 // PKG_ADD: __parallel_pkg_lock__(1);
 // PKG_DEL: __parallel_pkg_lock__(0);

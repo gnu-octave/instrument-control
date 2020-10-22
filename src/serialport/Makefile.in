@@ -1,6 +1,7 @@
 OCT := ../serialport.oct
 OBJ := serialport.o __srlp_write__.o __srlp_read__.o __srlp_properties__.o __serialport_pkg_lock__.o serialport_class.o
-LFLAGS = 
+LFLAGS = $(LIBS)
+CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
 ifeq ("@BUILD_FOR_WINDOWS@","1")
   OBJ += serialport_class_win32.o 
 else

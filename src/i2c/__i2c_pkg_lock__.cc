@@ -21,6 +21,10 @@
 #  include "../config.h"
 #endif
 
+#ifdef HAVE_OCTAVE_INTERPRETER_H
+# include <octave/interpreter.h>
+#endif
+
 // PKG_ADD: autoload ("__i2c_pkg_lock__", "i2c.oct");
 // PKG_ADD: __i2c_pkg_lock__(1);
 // PKG_DEL: __i2c_pkg_lock__(0);

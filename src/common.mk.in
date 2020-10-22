@@ -2,9 +2,6 @@ OCTAVE_CONFIG ?= octave-config
 MKOCTFILE ?= mkoctfile 
 GREP ?= @GREP@
 
-CFLAGS  ?= @DEFS@
-
-
 all: $(OCT) archtests
 
 

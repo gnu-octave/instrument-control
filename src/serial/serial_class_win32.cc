@@ -20,7 +20,7 @@
 #endif
 
 #ifdef BUILD_SERIAL
-#if HAVE_OCTAVE_U8_TO_WSTRING
+#if HAVE_OCTAVE_LO_SYSDEP_H
   #include <octave/lo-sysdep.h>
 #endif
 

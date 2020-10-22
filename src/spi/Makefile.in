@@ -1,5 +1,6 @@
 OCT := ../spi.oct
 OBJ := spi.o spi_close.o spi_write.o spi_read.o spi_writeAndRead.o spi_class.o __spi_pkg_lock__.o __spi_properties__.o
-LFLAGS = 
+LFLAGS = $(LIBS)
+CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
 
 include ../common.mk

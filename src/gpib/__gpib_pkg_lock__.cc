@@ -21,6 +21,10 @@
 #  include "../config.h"
 #endif
 
+#ifdef HAVE_OCTAVE_INTERPRETER_H
+# include <octave/interpreter.h>
+#endif
+
 // PKG_ADD: autoload ("__gpib_pkg_lock__", "gpib.oct");
 // PKG_ADD: __gpib_pkg_lock__(1);
 // PKG_DEL: __gpib_pkg_lock__(0);

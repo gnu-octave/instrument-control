@@ -21,6 +21,10 @@
 #  include "../config.h"
 #endif
 
+#ifdef HAVE_OCTAVE_INTERPRETER_H
+# include <octave/interpreter.h>
+#endif
+
 // PKG_ADD: autoload ("__vxi11_pkg_lock__", "vxi11.oct");
 // PKG_ADD: __vxi11_pkg_lock__(1);
 // PKG_DEL: __vxi11_pkg_lock__(0);

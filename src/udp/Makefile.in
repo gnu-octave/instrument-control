@@ -1,5 +1,6 @@
 OCT := ../udp.oct
 OBJ := udp.o udp_timeout.o udp_write.o udp_close.o udp_read.o __udp_properties__.o udp_class.o __udp_pkg_lock__.o
-LFLAGS     = @TCPLIBS@
+LFLAGS     = $(LIBS) @TCPLIBS@
+CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
 
 include ../common.mk

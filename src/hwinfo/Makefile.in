@@ -1,6 +1,7 @@
 OCT := ../__instr_hwinfo__.oct
 OBJ := __instr_hwinfo__.o
-LFLAGS     = @TCPLIBS@
+LFLAGS     = $(LIBS) @TCPLIBS@
+CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
 
 include ../common.mk
 

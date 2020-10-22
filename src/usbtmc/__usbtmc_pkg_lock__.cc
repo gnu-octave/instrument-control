@@ -21,6 +21,10 @@
 #  include "../config.h"
 #endif
 
+#ifdef HAVE_OCTAVE_INTERPRETER_H
+# include <octave/interpreter.h>
+#endif
+
 // PKG_ADD: autoload ("__usbtmc_pkg_lock__", "usbtmc.oct");
 // PKG_ADD: __usbtmc_pkg_lock__(1);
 // PKG_DEL: __usbtmc_pkg_lock__(0);
