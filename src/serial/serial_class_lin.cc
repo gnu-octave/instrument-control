@@ -38,6 +38,9 @@
 
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_serial, "octave_serial", "octave_serial");
 
+DEFBINOP_CLASS_OP (eq_serial_serial, serial, serial, ==)
+DEFBINOP_CLASS_OP (ne_serial_serial, serial, serial, !=)
+
 octave_serial::octave_serial (void)
 : fd (-1)
 {

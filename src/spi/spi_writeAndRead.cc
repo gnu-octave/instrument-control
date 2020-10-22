@@ -70,7 +70,6 @@ Upon successful completion, spi_writeAndRead() shall return the bytes read.\n \
       for (int i = 0; i < data.numel (); i++)
         buf[i] =  static_cast<uint8_t>(data (i));
 
-      unsigned int buffer_len = args (1).int_value ();
       OCTAVE_LOCAL_BUFFER (uint8_t, rdbuffer, (data.numel () +1));
       if (rdbuffer == NULL)
         {

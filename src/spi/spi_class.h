@@ -98,7 +98,7 @@ private:
   int fd;
   std::string name;
   std::string port;
-  int bitrate;
+  unsigned int bitrate;
   int mode;
 
   string_vector fieldnames;

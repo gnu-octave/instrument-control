@@ -49,12 +49,11 @@ triggers gpib device.\n \
     }
 
   octave_gpib* gpib = NULL;
-  int retval;
 
   const octave_base_value& rep = args (0).get_rep ();
   gpib = &((octave_gpib &)rep);
 
-  retval = gpib->trigger ();
+  gpib->trigger ();
 
   return octave_value ();
 #endif

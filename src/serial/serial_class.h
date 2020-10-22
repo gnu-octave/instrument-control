@@ -182,7 +182,7 @@ protected:
  #include "serial_class_lin.h"
 #endif
 
-DEFBINOP_CLASS_OP (eq_serial_serial, serial, serial, ==)
-DEFBINOP_CLASS_OP (ne_serial_serial, serial, serial, !=)
+//DEFBINOP_CLASS_OP (eq_serial_serial, serial, serial, ==)
+//DEFBINOP_CLASS_OP (ne_serial_serial, serial, serial, !=)
 
 #endif
