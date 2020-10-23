@@ -1,4 +1,4 @@
-## Copyright (C) 2019 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2019-202 John Donoghue <john.donoghue@ieee.org>
 ## 
 ## This program is free software: you can redistribute it and/or modify it
 ## under the terms of the GNU General Public License as published by
@@ -12,7 +12,8 @@
 
 ## -*- texinfo -*- 
 ## @subsubheading Overview
-## The Instrument control package provides low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
+## The Instrument control package provides low level I/O functions for serial, i2c, parallel, spi, tcp, gpib, 
+## vxi11, udp and usbtmc interfaces.
 ##
 ## It attempts to provide the same function calls as the Matlab toolkit, as well as additional functionality.
 ##
@@ -23,12 +24,14 @@
 ## serial port functionality. It has been depreciated in favor of the serialport interface.
 ## @item serialport
 ## serial port functionality. 
+## @item spi
+## spi device functionality. 
 ## @item tcp / tcpip
 ## tcp socket functionality
 ## @item udp
 ## udp socket functionality
 ## @item i2c
-## i2c socket functionality
+## i2c device functionality
 ## @item usbtmc
 ## usbtmc device functionality
 ## @item vxi11
