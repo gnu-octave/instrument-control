@@ -28,7 +28,7 @@
 ##
 ## @end deftypefn
 
-function ret = instrhelp (varargin)
+function out = instrhelp (varargin)
    if nargin < 1
      v = "__instrument_control__";
    else
@@ -51,7 +51,6 @@ function ret = instrhelp (varargin)
 
 endfunction
 
-%!test
-%! instrhelp ("instrhelp")
+%!assert (! isempty (strfind (help ("instrhelp"), "Display instrument help")))
 
 %!error instrhelp (1)
