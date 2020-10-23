@@ -8,7 +8,7 @@
 @afourpaper
 @paragraphindent 0
 @finalout
-@set VERSION 1.5.0
+@set VERSION 0.6.0
 @set COPYRIGHT_DATE 2019-2020
 @c @afourwide
 @c %*** End of the HEADER
@@ -166,7 +166,7 @@ instrhwinfo
 The function will return information on the supported interfaces that are available, similar to below:
 
 @example
-    ToolboxVersion = 0.4.0
+    ToolboxVersion = 0.6.0
     ToolboxName = octave instrument control package
     SupportedInterfaces =
     @{
