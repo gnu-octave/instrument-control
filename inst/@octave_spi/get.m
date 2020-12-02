@@ -77,8 +77,10 @@ function retval = get (spi, property)
   endif
 
   property = {property{valid}};
-  func     = @(x) __spi_properties__ (spi, x);
-  retval   = cellfun (func, property, 'UniformOutput', false);
+  retval = {};
+  for i=1:length(property)
+    retval{end+1} = __spi_properties__ (spi, property{i});
+  endfor
 
   if numel(property) == 1
     retval = retval{1};

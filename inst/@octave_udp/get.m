@@ -57,8 +57,10 @@ function retval = get (udp, property)
   end
 
   property = {property{valid}};
-  func     = @(x) __udp_properties__ (udp, x);
-  retval   = cellfun (func, property, 'UniformOutput', false);
+  retval = {};
+  for i=1:length(property)
+    retval{end+1} = __udp_properties__ (udp, property{i});
+  endfor
 
   if numel(property) == 1
     retval = retval{1};

@@ -31,68 +31,6 @@
 
 function retval = get (serial, property)
 
-%{
-s = 
-
-Serialport with properties
-
-                 Port: "COM4"
-             BaudRate: 9600
-    NumBytesAvailable: 0
-      NumBytesWritten: 0
-
-Show all properties
-
-                      Port: "COM4"
-                  BaudRate: 9600
-         NumBytesAvailable: 0
-           NumBytesWritten: 0
-
-                 ByteOrder: "little-endian"
-                  DataBits: 8
-                  StopBits: 1
-                    Parity: "none"
-               FlowControl: "none"
-                   Timeout: 10
-                Terminator: "LF"
-
-     BytesAvailableFcnMode: "off"
-    BytesAvailableFcnCount: 64
-         BytesAvailableFcn: []
-
-          ErrorOccurredFcn: []
-                  UserData: []
-
-###
-as.NumBytesAvailable
-no status any more ?
-
-currently we have:
-  scalar structure containing the fields:
-
-    name = Serial-/dev/ttyS0
-    type = serial
-    status = open
-    baudrate =  600
-    datasize =  8
-    parity = None
-    stopbits =  1
-    timeout = -1
-    requesttosend = on
-    dataterminalready = on
-    pinstatus =
-
-      scalar structure containing the fields:
-
-        CarrierDetect = off
-        ClearToSend = off
-        DataSetReady = off
-        RingIndicator = off
-
-    bytesavailable = 0
-    port = /dev/ttyS0
-%}
-
   properties = {'port', 'baudrate', 'numbytesavailable', 'numbyteswritten', ...
 		'byteorder', 'databits', 'stopbits', 'parity', 'flowcontrol', ...
 		'timeout', 'terminator', 'userdata'};
@@ -119,8 +57,10 @@ currently we have:
   end
 
   property = {property{valid}};
-  func     = @(x) __srlp_properties__ (serial, x);
-  retval   = cellfun (func, property, 'UniformOutput', false);
+  retval = {};
+  for i=1:length(property)
+    retval{end+1} = __srlp_properties__ (serial, property{i});
+  endfor
 
   if numel(property) == 1
     retval = retval{1};

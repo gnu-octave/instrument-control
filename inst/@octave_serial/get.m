@@ -58,8 +58,10 @@ function retval = get (serial, property)
   end
 
   property = {property{valid}};
-  func     = @(x) __srl_properties__ (serial, x);
-  retval   = cellfun (func, property, 'UniformOutput', false);
+  retval = {};
+  for i=1:length(property)
+    retval{end+1} = __srl_properties__ (serial, property{i});
+  endfor
 
   if numel(property) == 1
     retval = retval{1};

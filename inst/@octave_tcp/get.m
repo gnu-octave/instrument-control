@@ -56,8 +56,10 @@ function retval = get (tcp, property)
   end
 
   property = {property{valid}};
-  func     = @(x) __tcp_properties__ (tcp, x);
-  retval   = cellfun (func, property, 'UniformOutput', false);
+  retval = {};
+  for i=1:length(property)
+    retval{end+1} = __tcp_properties__ (tcp, property{i});
+  endfor
 
   if numel(property) == 1
     retval = retval{1};

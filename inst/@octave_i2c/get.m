@@ -56,8 +56,10 @@ function retval = get (i2c, property)
   end
 
   property = {property{valid}};
-  func     = @(x) __i2c_properties__ (i2c, x);
-  retval   = cellfun (func, property, 'UniformOutput', false);
+  retval = {};
+  for i=1:length(property)
+    retval{end+1} = __i2c_properties__ (i2c, property{i});
+  endfor
 
   if numel(property) == 1
     retval = retval{1};
