@@ -1,0 +1,6 @@
+OCT := ../udpport.oct
+OBJ := udpport.o udpport_write.o udpport_read.o __udpport_properties__.o udpport_class.o __udpport_pkg_lock__.o
+LFLAGS     = $(LIBS) @TCPLIBS@
+CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
+
+include ../common.mk

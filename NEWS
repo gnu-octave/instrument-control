@@ -3,6 +3,8 @@ Summary of important user-visible changes for instrument-control 0.6.0+
 
   ** Update get function for instrument controls to not use cellfun (Bug #59581)
 
+  ** UDPPORT: Added new udpport class
+
 Summary of important user-visible changes for instrument-control 0.6.0
 -------------------------------------------------------------------
 
