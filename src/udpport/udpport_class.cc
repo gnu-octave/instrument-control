@@ -115,7 +115,7 @@ int to_ip_port (const sockaddr_in *in, std::string &ip, int &port)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_udpport, "octave_udpport", "octave_udpport");
 
 octave_udpport::octave_udpport (void)
-: fd(-1), timeout(-1), name(""), fieldnames(11)
+: fd(-1), timeout(-1), name(""), fieldnames(16)
 {
   static bool type_registered = false;
 
@@ -125,6 +125,11 @@ octave_udpport::octave_udpport (void)
       register_type ();
     }
   userData = Matrix ();
+  byteswritten = 0;
+  byteOrder = "little-endian";
+  enableportsharing = 0;
+  enablemulticastloopback = 0;
+  enablebroadcast = 0;
 
   fieldnames[0] = "Type";
   fieldnames[1] = "Name";
@@ -132,11 +137,16 @@ octave_udpport::octave_udpport (void)
   fieldnames[3] = "LocalHost";
   fieldnames[4] = "Status";
   fieldnames[5] = "Timeout";
-  fieldnames[6] = "NumBytesaAailable";
-  fieldnames[7] = "UserData";
-  fieldnames[8] = "MulticastGroup";
-  fieldnames[9] = "EnableMulticast";
-  fieldnames[10] = "EnablePortSharing";
+  fieldnames[6] = "NumBytesAvailable";
+  fieldnames[7] = "NumBytesWritten";
+  fieldnames[8] = "ByteOrder";
+  fieldnames[9] = "UserData";
+  fieldnames[10] = "MulticastGroup";
+  fieldnames[11] = "EnableMulticast";
+  fieldnames[12] = "EnableMulticastLoopback";
+  fieldnames[13] = "EnableBroadcast";
+  fieldnames[14] = "EnablePortSharing";
+  fieldnames[15] = "IPAddressVersion";
 }
 
 octave_value_list
@@ -252,7 +262,7 @@ octave_udpport::open (const std::string &address, int port, int portshare)
   enableportsharing = portshare;
   if(portshare)
     {
-#ifdef SO_REUSEPORT,
+#ifdef SO_REUSEPORT
       setsockopt(SOL_SOCKET, SO_REUSEPORT, (void*)&portshare, sizeof(portshare));
 #else
       setsockopt(SOL_SOCKET, SO_REUSEADDR, (void*)&portshare, sizeof(portshare));
@@ -463,8 +473,12 @@ octave_udpport::write (const std::string &str, const std::string &destip, int de
           return -1;
         }
     }
-  return ::sendto (get_fd (), str.c_str(), str.length(), 0, 
+  int wrote = ::sendto (get_fd (), str.c_str(), str.length(), 0, 
                   (struct sockaddr *)&remote_addr, sizeof(remote_addr));
+  if(wrote > 0)
+    byteswritten += wrote;
+
+  return wrote;
 }
 
 int
@@ -499,8 +513,12 @@ octave_udpport::write (uint8_t *buf, unsigned int len, const std::string &destip
         }
     }
 
-  return ::sendto (get_fd(), reinterpret_cast<const char *>(buf), 
+  int wrote = ::sendto (get_fd(), reinterpret_cast<const char *>(buf), 
                    len, 0, (struct sockaddr *)&remote_addr, sizeof (remote_addr));
+  if(wrote > 0)
+    byteswritten += wrote;
+
+  return wrote;
 }
 
 int
@@ -652,7 +670,7 @@ octave_udpport::flush (int mode)
 }
 
 int
-octave_udpport::loopback (int enable)
+octave_udpport::set_enablebroadcast (int enable)
 {
 
   if (get_fd () < 0)
@@ -660,6 +678,23 @@ octave_udpport::loopback (int enable)
       error ("udpport: Interface must be opened first...");
       return -1;
     }
+
+  enablebroadcast = enable;
+
+  return setsockopt(SOL_SOCKET, SO_BROADCAST, (void*)&enable, sizeof(enable));
+}
+
+int
+octave_udpport::set_multicastloopback (int enable)
+{
+
+  if (get_fd () < 0)
+    {
+      error ("udpport: Interface must be opened first...");
+      return -1;
+    }
+
+  enablemulticastloopback = enable;
 
   return setsockopt(IPPROTO_IP, IP_MULTICAST_LOOP, (void*)&enable, sizeof(enable));
 }
@@ -739,5 +774,21 @@ octave_udpport::set_multicastgroup (const std::string &addr)
 
   return retval;
 }
+
+int
+octave_udpport::set_byteorder(const std::string& neworder)
+{
+  std::string order = neworder;
+  std::transform (order.begin (), order.end (), order.begin (), ::tolower);
+  if (order == "big" || order == "big-endian")
+    byteOrder = "big-endian";
+  else if (order == "little" || order == "little-endian")
+    byteOrder = "little-endian";
+ else
+    error ("octave_udpport invalid byteorder");
+
+ return 1;
+}
+
 
 #endif

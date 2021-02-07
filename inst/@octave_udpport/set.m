@@ -49,7 +49,7 @@
 
 function set (udpport, varargin)
 
-  properties = {'UserData','Timeout', 'Name' };
+  properties = {'UserData','Timeout', 'Name', 'EnableBroadcast' };
 
   if numel (varargin) == 1 && isstruct (varargin{1})
     property = fieldnames (varargin{1});

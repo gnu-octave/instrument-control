@@ -52,6 +52,7 @@ public:
   int get_fd (void) const { return fd; }
 
   int get_bytesavailable (void) const;
+  unsigned int get_byteswritten (void) const { return byteswritten; }
 
   // Overloaded base functions
   double udpport_value (void) const { return (double)fd; }
@@ -119,9 +120,14 @@ public:
 
   int set_multicastgroup (const std::string &);
   std::string get_multicastgroup () const;
-  int loopback (int enable);
 
   int get_enableportsharing() const { return enableportsharing; }
+
+  int get_enablebroadcast() const { return enablebroadcast; }
+  int set_enablebroadcast (int enable);
+
+  int get_multicastloopback() const { return enablemulticastloopback; }
+  int set_multicastloopback (int enable);
 
   octave_value get_userdata () const
   {
@@ -133,6 +139,14 @@ public:
     userData = newv;
   }
 
+  std::string get_ipaddressversion () const { return "IPV4"; }
+
+  int set_byteorder(const std::string& /* order */);
+
+  std::string get_byteorder() const
+  {
+    return byteOrder;
+  }
 private:
   int fd;
   double timeout;
@@ -143,6 +157,10 @@ private:
   std::vector<sockaddr_in> multicastaddr;
   octave_value userData;
   int enableportsharing;
+  int enablemulticastloopback;
+  int enablebroadcast;
+  std::string byteOrder;
+  unsigned int byteswritten;
 
   DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };

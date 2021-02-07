@@ -64,14 +64,24 @@ Undocumented internal function.\n\
         return octave_value (udpport->get_timeout ());
       else if (property == "numbytesavailable")
         return octave_value (udpport->get_bytesavailable ());
+      else if (property == "numbyteswritten")
+        return octave_value (udpport->get_byteswritten ());
       else if (property == "userdata")
         return octave_value (udpport->get_userdata ());
       else if (property == "multicastgroup")
         return octave_value (udpport->get_multicastgroup ());
       else if (property == "enablemulticast")
         return octave_value (udpport->get_multicastgroup ().length () > 0 ? 1 : 0);
+      else if (property == "enablemulticastloopback")
+        return octave_value (udpport->get_multicastloopback ()); 
       else if (property == "enableportsharing")
         return octave_value (udpport->get_enableportsharing ()); 
+      else if (property == "enablebroadcast")
+        return octave_value (udpport->get_enablebroadcast ()); 
+      else if (property == "ipaddressversion")
+        return octave_value (udpport->get_ipaddressversion ()); 
+      else if (property == "byteorder")
+        return octave_value (udpport->get_byteorder ()); 
       else
         (*current_liboctave_error_handler) ("invalid property name");
     }
@@ -81,10 +91,6 @@ Undocumented internal function.\n\
         return octave_value (udpport->set_name (args(2).string_value ()));
       else if (property == "type")
         (*current_liboctave_error_handler) ("can not set this property");
-      //else if (property == "remoteport")
-      //  return octave_value (udpport->set_remote_port (args(2).int_value ()));
-      //else if (property == "remotehost")
-      //  return octave_value (udpport->set_remote_addr (args(2).string_value ()));
       else if (property == "localport")
         (*current_liboctave_error_handler) ("can not set this property");
       else if (property == "localhost")
@@ -99,8 +105,12 @@ Undocumented internal function.\n\
         { udpport->set_userdata (args(2)); return octave_value(); } 
       else if (property == "multicastgroup")
         return octave_value (udpport->set_multicastgroup (args(2).string_value ()));
-      //else if (property == "loopback")
-      //  return octave_value (udpport->loopback (args(2).int_value ()));
+      else if (property == "byteorder")
+        return octave_value (udpport->set_byteorder (args(2).string_value ())); 
+      else if (property == "enablemulticastloopback")
+        return octave_value (udpport->set_multicastloopback (args(2).int_value ()));
+      else if (property == "enablebroadcast")
+        return octave_value (udpport->set_enablebroadcast (args(2).int_value ()));
       else
         (*current_liboctave_error_handler) ("invalid property name");
     }

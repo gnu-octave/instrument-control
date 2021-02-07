@@ -40,5 +40,10 @@ function configureMulticast(dev, address, loopback)
     error("configureMulticast: expected address to be a string");
   endif
 
+  if !islogical(loopback) && !isscalar(loopback)
+    error("configureMulticast: expected loopback to be a boolean");
+  endif
+
   __udpport_properties__ (dev, 'multicastgroup', address);
+  __udpport_properties__ (dev, 'enablemulticastloopback', loopback);
 endfunction
