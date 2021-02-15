@@ -200,7 +200,7 @@ Undocumented internal function.\n\
 %!test
 %! # test subsref and get/set
 %! a = udpport ();
-%! a.name = "test1";
+%! a.Name = "test1";
 %! assert (isa(a, "octave_udpport"));
 %! assert (a.Name, "test1");
 %! assert (get(a, 'Name'), "test1");

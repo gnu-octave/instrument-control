@@ -161,8 +161,9 @@ public:
     return outterminator;
   }
 
-
 private:
+  bool has_property(const std::string &name) const;
+
   int fd;
   double timeout;
   std::string name;

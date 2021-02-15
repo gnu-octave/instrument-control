@@ -152,6 +152,15 @@ octave_udpport::octave_udpport (void)
   fieldnames[16] = "Terminator";
 }
 
+bool octave_udpport::has_property(const std::string &name) const
+{
+  for (octave_idx_type i=0; i<fieldnames.numel(); i++)
+    {
+      if (fieldnames[i] == name) return true;
+    }
+  return false;
+}
+
 octave_value_list
 octave_udpport::subsref (const std::string& type, const std::list<octave_value_list>& idx, int nargout)
 {
@@ -162,15 +171,24 @@ octave_udpport::subsref (const std::string& type, const std::list<octave_value_l
     {
     default:
       error ("octave_udpport object cannot be indexed with %c", type[0]);
-      break;
+      return retval;
     case '.':
       {
-        octave_value_list ovl;
-        // inc ref count as assign this to octave_value
-        count++; 
-        ovl (0) = octave_value (this);
-        ovl (1) = (idx.front ()) (0);
-        retval = OCTAVE__FEVAL (std::string ("__udpport_properties__"), ovl, 1);
+	std::string property = (idx.front ()) (0).string_value ();
+        if (!has_property(property))
+	  {
+            error ("Unknown property '%s'", property.c_str());
+            return retval;
+          }
+        else
+	  {
+            octave_value_list ovl;
+            // inc ref count as assign this to octave_value
+            count++; 
+            ovl (0) = octave_value (this);
+            ovl (1) = (idx.front ()) (0);
+            retval = OCTAVE__FEVAL (std::string ("__udpport_properties__"), ovl, 1);
+	  }
       }
       break;
     }
@@ -194,6 +212,13 @@ octave_udpport::subsasgn (const std::string& type, const std::list<octave_value_
     case '.':
       if (type.length () == 1)
         {
+          std::string property = (idx.front ()) (0).string_value ();
+          if (! has_property(property))
+	    {
+              error ("Unknown property '%s'", property.c_str());
+              return retval;
+            }
+
           octave_value_list ovl;
           // inc ref count as assign this to octave_value
           count++; 
