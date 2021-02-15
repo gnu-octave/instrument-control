@@ -136,6 +136,16 @@ octave_tcpclient::octave_tcpclient (void)
   fieldnames[10] = "Terminator";
 }
 
+bool
+octave_tcpclient::has_property(const std::string &name) const
+{
+  for (octave_idx_type i=0; i<fieldnames.numel(); i++)
+    {
+      if (fieldnames[i] == name) return true;
+    }
+  return false;
+}
+
 octave_value_list
 octave_tcpclient::subsref (const std::string& type, const std::list<octave_value_list>& idx, int nargout)
 {
@@ -146,9 +156,16 @@ octave_tcpclient::subsref (const std::string& type, const std::list<octave_value
     {
     default:
       error ("octave_tcpclient object cannot be indexed with %c", type[0]);
-      break;
+      return retval;
     case '.':
       {
+        std::string property = (idx.front ()) (0).string_value ();
+        if (!has_property(property))
+          {
+            error ("Unknown property '%s'", property.c_str());
+            return retval;
+          }
+
         octave_value_list ovl;
         // inc ref count as assign this to octave_value
         count++; 
@@ -178,6 +195,13 @@ octave_tcpclient::subsasgn (const std::string& type, const std::list<octave_valu
     case '.':
       if (type.length () == 1)
         {
+          std::string property = (idx.front ()) (0).string_value ();
+          if (!has_property(property))
+            {
+              error ("Unknown property '%s'", property.c_str());
+              return retval;
+            }
+
           octave_value_list ovl;
           // inc ref count as assign this to octave_value
           count++; 

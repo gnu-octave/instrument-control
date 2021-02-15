@@ -132,6 +132,8 @@ public:
 
 
 private:
+  bool has_property(const std::string &name) const;
+
   string_vector fieldnames;
 
   int fd;
