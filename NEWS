@@ -7,6 +7,8 @@ Summary of important user-visible changes for instrument-control 0.6.0+
 
   ** TCPCLIENT:  Added new tcppclient class
 
+  ** SERIALPORT: update property access to proper case usage
+
 Summary of important user-visible changes for instrument-control 0.6.0
 -------------------------------------------------------------------
 
