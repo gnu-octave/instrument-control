@@ -49,6 +49,7 @@ User data value.\n \
 \n\
 @subsubheading Outputs\n \
 The tcpclient() shall return instance of @var{octave_tcpclient} class as the result @var{tcpclient}.\n \
+\n \
 @subsubheading Properties\n \
 The tcpclient object has the following public properties:\n \
 @table @asis\n \
@@ -68,6 +69,10 @@ timeout value in seconds used for waiting for data\n \
 number of bytes currently available to read (readonly)\n \
 @item NumBytesWritten\n \
 number of bytes currently available to read (readonly)\n \
+@item ByteOrder\n \
+Byte order  for data (currently not used)\n \
+@item Terminator\n \
+Terminator value used for string data (currently not used)\n \
 @item UserData\n \
 User data\n \
 @end table \n \

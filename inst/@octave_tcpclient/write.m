@@ -19,7 +19,7 @@
 ## Writes @var{data} to TCP instrument
 ##
 ## @subsubheading Inputs
-## @var{obj} is a TCP object.@*
+## @var{obj} is a TCPclient  object.@*
 ## @var{data} data to write.@*
 ## @var{datatype} datatype of data. If not specified, it defaults to "uint8".@*
 ##
@@ -36,6 +36,8 @@ function numbytes = write(obj, data, datatype)
   endif
 
   switch (datatype)
+    case {"string"}
+      data = int8 (data);
     case {"char" "schar" "int8"}
       data = int8 (data);
     case {"uchar" "uint8"}

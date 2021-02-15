@@ -60,6 +60,8 @@ multicast group socket  is subscribed to (readonly)\n \
 Boolean if the socket has any multicast group it is subscribed to (readonly)\n \
 @item EnablePortSharing\n \
 Boolean if the socket has port sharing enabled (readonly)\n \
+@item Terminator\n \
+Terminator value used for string data (currently not used)\n \
 @end table \n \
 @end deftypefn")
 {
