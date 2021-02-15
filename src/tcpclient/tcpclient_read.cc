@@ -88,7 +88,7 @@ Read from tcpclient interface.\n \
   const octave_base_value& rep = args (0).get_rep ();
   tcpclient = &((octave_tcpclient &)rep);
 
-  double timeout = tcpclient->get_timeout ();
+  double timeout = tcpclient->get_timeout () * 1000;
   if (args.length () == 3)
     {
       timeout = args (2).double_value ();

@@ -61,7 +61,7 @@ to_timeval(int ms)
       tv.tv_usec = 0;
       tv.tv_sec = 0;
     }
-    else
+  else
     {
       tv.tv_usec = (ms % 1000) * 1000;
       tv.tv_sec = ms/1000;;
