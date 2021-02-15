@@ -23,7 +23,7 @@
 #  include "../config.h"
 #endif
 
-#ifdef BUILD_UDP
+#ifdef BUILD_TCP
 #  include "tcp_class.h"
 #endif
 
@@ -35,7 +35,7 @@ DEFUN_DLD (__tcp_properties__, args, nargout,
 Undocumented internal function.\n\
 @end deftypefn")
 {
-#ifdef BUILD_UDP
+#ifdef BUILD_TCP
   if (args.length () < 2 || args.length () > 3 ||
     args(0).type_id () != octave_tcp::static_type_id () || 
     !args(1).is_string ())
@@ -91,7 +91,7 @@ Undocumented internal function.\n\
 
 #endif
     /* never reached in normal operation */
-  (*current_liboctave_error_handler) ("Your system doesn't support the UDP interface");
+  (*current_liboctave_error_handler) ("Your system doesn't support the TCP interface");
 }
 #if 0
 %!shared ip
