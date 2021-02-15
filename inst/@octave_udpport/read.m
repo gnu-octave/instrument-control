@@ -74,12 +74,16 @@ function data = read (obj, cnt, datatype)
   endswitch
 
   if (nargin < 2)
-    cnt = int32(obj.bytesavailable/tosize);
-  else
-    cnt = cnt*tosize;
+    cnt = int32(obj.numbytesavailable/tosize);
   endif
 
-  tmp = udpport_read (obj, cnt, get(obj, 'Timeout')*1000);
+  cnt = cnt*tosize;
+
+  if cnt > 0
+    tmp = udpport_read (obj, cnt, get(obj, 'Timeout')*1000);
+  else
+    tmp = [];
+  endif
 
   data = typecast(tmp,toclass);
 
