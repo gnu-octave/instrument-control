@@ -24,6 +24,52 @@
 #  include "udpport_class.h"
 #endif
 
+static octave_value_list get_terminator (octave_udpport* udp)
+{
+  // may have a single terminator or a start and stop
+  std::string in = udp->get_input_terminator ();
+  std::string out = udp->get_output_terminator ();
+
+  if (in == out)
+    return octave_value (in);
+  else
+    {
+      octave_value_list ret;
+      ret(0) = octave_value(in);
+      ret(1) = octave_value(out);
+      return octave_value (ret);
+    }
+}
+
+static octave_value set_terminator(octave_udpport* udp, const octave_value_list& args)
+{
+  if (args.length () == 1)
+    {
+      if ( !(args (0).is_string ()) )
+        (*current_liboctave_error_handler) ("argument must be a string");
+
+      udp->set_input_terminator (args (0).string_value());
+      udp->set_output_terminator (args (0).string_value());
+
+      return octave_value (); // Should it return by default?
+    }
+  else if (args.length () == 2)
+    {
+      if ( !(args (0).is_string ()) )
+        (*current_liboctave_error_handler) ("argument must be a string");
+      if ( !(args (1).is_string ()) )
+        (*current_liboctave_error_handler) ("argument must be a string");
+
+      udp->set_input_terminator (args (0).string_value());
+      udp->set_output_terminator (args (1).string_value());
+
+      return octave_value (); // Should it return by default?
+    }
+  else if (args.length () > 2)
+    (*current_liboctave_error_handler) ("wrong number of arguments");
+
+  return octave_value();
+}
 
 // PKG_ADD: autoload ("__udpport_properties__", "udpport.oct");
 DEFUN_DLD (__udpport_properties__, args, nargout,
@@ -68,6 +114,8 @@ Undocumented internal function.\n\
         return octave_value (udpport->get_byteswritten ());
       else if (property == "userdata")
         return octave_value (udpport->get_userdata ());
+      else if (property == "terminator")
+        return get_terminator (udpport);
       else if (property == "multicastgroup")
         return octave_value (udpport->get_multicastgroup ());
       else if (property == "enablemulticast")
@@ -101,6 +149,8 @@ Undocumented internal function.\n\
         return octave_value (udpport->set_timeout (args(2).double_value ()));
       else if (property == "flush")
         return octave_value (udpport->flush (args(2).int_value ()));
+      else if (property == "terminator")
+        return set_terminator (udpport, args.slice (2, args.length ()-2));
       else if (property == "userdata")
         { udpport->set_userdata (args(2)); return octave_value(); } 
       else if (property == "multicastgroup")

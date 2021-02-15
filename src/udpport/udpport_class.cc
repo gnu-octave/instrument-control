@@ -115,7 +115,7 @@ int to_ip_port (const sockaddr_in *in, std::string &ip, int &port)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_udpport, "octave_udpport", "octave_udpport");
 
 octave_udpport::octave_udpport (void)
-: fd(-1), timeout(-1), name(""), fieldnames(16)
+: fd(-1), timeout(-1), name(""), fieldnames(17)
 {
   static bool type_registered = false;
 
@@ -130,6 +130,8 @@ octave_udpport::octave_udpport (void)
   enableportsharing = 0;
   enablemulticastloopback = 0;
   enablebroadcast = 0;
+  interminator = "lf";
+  outterminator = "lf";
 
   fieldnames[0] = "Type";
   fieldnames[1] = "Name";
@@ -147,6 +149,7 @@ octave_udpport::octave_udpport (void)
   fieldnames[13] = "EnableBroadcast";
   fieldnames[14] = "EnablePortSharing";
   fieldnames[15] = "IPAddressVersion";
+  fieldnames[16] = "Terminator";
 }
 
 octave_value_list
@@ -790,5 +793,30 @@ octave_udpport::set_byteorder(const std::string& neworder)
  return 1;
 }
 
+int
+octave_udpport::set_input_terminator(const std::string& t)
+{
+  std::string term = t;
+  std::transform (term.begin (), term.end (), term.begin (), ::tolower);
+  if (term != "lf" && term != "cr" && term != "cr/lf")
+    error ("octave_udpport invalid input terminator");
+  else
+    interminator = term;
+
+ return 1;
+}
+
+int
+octave_udpport::set_output_terminator(const std::string& t)
+{
+  std::string term = t;
+  std::transform (term.begin (), term.end (), term.begin (), ::tolower);
+  if (term != "lf" && term != "cr" && term != "cr/lf")
+    error ("octave_udpport invalid output terminator");
+  else
+    outterminator = term;
+
+ return 1;
+}
 
 #endif

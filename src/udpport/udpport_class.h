@@ -147,6 +147,21 @@ public:
   {
     return byteOrder;
   }
+
+  int set_input_terminator(const std::string& /* term */);
+  int set_output_terminator(const std::string& /* term */);
+
+  std::string get_input_terminator() const
+  {
+    return interminator;
+  }
+
+  std::string get_output_terminator() const
+  {
+    return outterminator;
+  }
+
+
 private:
   int fd;
   double timeout;
@@ -161,6 +176,8 @@ private:
   int enablebroadcast;
   std::string byteOrder;
   unsigned int byteswritten;
+  std::string interminator;
+  std::string outterminator;
 
   DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
