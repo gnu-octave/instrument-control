@@ -43,49 +43,54 @@ Open serial port interface.\n \
 \n \
 Known input properties:\n \
 @table @asis\n \
-@item baudrate\n \
+@item BaudRate\n \
 Numeric baudrate value\n \
-@item timeout\n \
+@item Timeout\n \
 Numeric timeout value in seconds or -1 to wait forever\n \
-@item stopbits\n \
+@item StopBits\n \
 number of stopbits to use\n \
-@item parity\n \
+@item Parity\n \
 Parity setting 'none', 'even', 'odd'\n \
-@item databits\n \
+@item DataBits\n \
 Number of bits to a byte (5 to 8)\n \
-@item flowcontrol\n \
+@item FlowControl\n \
 Number of bits to a byte 'none', 'hardware', 'software'\n \
 @end table\n \
 \n\
 @subsubheading Outputs\n \
 The serialport() shall return an instance of @var{octave_serialport} class as the result @var{serial}.\n \
+\n \
 @subsubheading Properties\n \
 The serial object has the following public properties:\n \
 @table @asis\n \
-@item name\n \
+@item Name\n \
 name assigned to the object\n \
-@item type\n \
+@item Type\n \
 instrument type 'serial' (readonly)\n \
-@item port\n \
+@item Port\n \
 OS specific port name (readonly)\n \
-@item status\n \
+@item Status\n \
 status of the object 'open' or 'closed' (readonly)\n \
-@item timeout\n \
+@item Timeout\n \
 timeout value used for waiting for data\n \
-@item bytesavailable\n \
+@item NumBytesAvailable\n \
 number of bytes currently available to read (readonly)\n \
-@item stopbits\n \
+@item NumBytesWritten\n \
+number of bytes written (readonly)\n \
+@item StopBits\n \
 number of stopbits to use\n \
-@item parity\n \
+@item Parity\n \
 Parity setting 'none', 'even', 'odd'\n \
-@item databits\n \
+@item DataBits\n \
 Number of bits to a byte (5 to 8)\n \
-@item baudrate\n \
+@item BaudRate\n \
 Baudrate setting\n \
-@item flowcontrol\n \
+@item FlowControl\n \
 Number of bits to a byte 'none', 'hardware', 'software'\n \
-@item pinstatus\n \
+@item PinStatus\n \
 current state of pins (readonly)\n \
+@item UserData\n \
+user defined data\n \
 @end table \n \
 @end deftypefn")
 {

@@ -26,7 +26,7 @@
 #include <algorithm>
 
 octave_serialport_common::octave_serialport_common ()
- : fieldnames(12)
+ : fieldnames(13)
 {
   byteswritten = 0;
   userData = Matrix ();
@@ -35,17 +35,27 @@ octave_serialport_common::octave_serialport_common ()
   outterminator = "lf";
   byteOrder = "little-endian";
 
-  fieldnames[0] = "baudrate";
-  fieldnames[1] = "databits";
-  fieldnames[3] = "parity";
-  fieldnames[4] = "stopbits";
-  fieldnames[5] = "timeout";
-  fieldnames[6] = "numbytesavailable";
-  fieldnames[7] = "numbyteswritten";
-  fieldnames[8] = "port";
-  fieldnames[9] = "flowcontrol";
-  fieldnames[10] = "userdata";
-  fieldnames[11] = "byteorder";
+  fieldnames[0] = "BaudRate";
+  fieldnames[1] = "DataBits";
+  fieldnames[3] = "Parity";
+  fieldnames[4] = "StopBits";
+  fieldnames[5] = "Timeout";
+  fieldnames[6] = "NumBytesAvailable";
+  fieldnames[7] = "NumBytesWritten";
+  fieldnames[8] = "Port";
+  fieldnames[9] = "FlowControl";
+  fieldnames[10] = "UserData";
+  fieldnames[11] = "ByteOrder";
+  fieldnames[12] = "Terminator";
+}
+
+bool octave_serialport_common::has_property(const std::string &name) const
+{
+  for (octave_idx_type i=0; i<fieldnames.numel(); i++)
+    {
+      if (fieldnames[i] == name) return true;
+    }
+  return false;
 }
 
 octave_value_list
@@ -58,15 +68,24 @@ octave_serialport_common::subsref (const std::string& type, const std::list<octa
     {
     default:
       error ("octave_serialport object cannot be indexed with %c", type[0]);
-      break;
+      return retval;
     case '.':
       {
-        octave_value_list ovl;
-        // inc ref count as assign this to octave_value
-        count++; 
-        ovl (0) = octave_value (this);
-        ovl (1) = (idx.front ()) (0);
-        retval = OCTAVE__FEVAL (std::string ("__srlp_properties__"), ovl, 1);
+	std::string property = (idx.front ()) (0).string_value ();
+        if (!has_property(property))
+	  {
+            error ("Unknown property '%s'", property.c_str());
+            return retval;
+          }
+        else
+	  {
+            octave_value_list ovl;
+            // inc ref count as assign this to octave_value
+            count++; 
+            ovl (0) = octave_value (this);
+            ovl (1) = (idx.front ()) (0);
+            retval = OCTAVE__FEVAL (std::string ("__srlp_properties__"), ovl, 1);
+	  }
       }
       break;
     }
@@ -90,15 +109,25 @@ octave_serialport_common::subsasgn (const std::string& type, const std::list<oct
     case '.':
       if (type.length () == 1)
         {
-          octave_value_list ovl;
-          // inc ref count as assign this to octave_value
-          count++; 
-          ovl (0) = octave_value (this);
-          ovl (1) = (idx.front ()) (0);
-          ovl (2) = rhs;
-          OCTAVE__FEVAL (std::string ("__srlp_properties__"), ovl, 0);
-          count++;
-          retval = octave_value (this);
+          std::string property = (idx.front ()) (0).string_value ();
+          if (! has_property(property))
+	    {
+              error ("Unknown property '%s'", property.c_str());
+              return retval;
+            }
+          else
+	    {
+   
+              octave_value_list ovl;
+              // inc ref count as assign this to octave_value
+              count++; 
+              ovl (0) = octave_value (this);
+              ovl (1) = (idx.front ()) (0);
+              ovl (2) = rhs;
+              OCTAVE__FEVAL (std::string ("__srlp_properties__"), ovl, 0);
+              count++;
+              retval = octave_value (this);
+	    }
         }
       else if (type.length () > 1 && type[1] == '.')
         {

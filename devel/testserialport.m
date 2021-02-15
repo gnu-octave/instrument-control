@@ -23,7 +23,7 @@ function testserialport
       unwind_protect
         portname = ports{i};
         printf("* trying comport %s\n", portname);
-        s = serialport (portname, 'baudrate', 9600, 'timeout', 1);
+        s = serialport (portname, 'BaudRate', 9600, 'Timeout', 1);
         pause(2);
 	flush(s);
 

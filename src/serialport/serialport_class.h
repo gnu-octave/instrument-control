@@ -63,6 +63,8 @@ class octave_serialport_common : public octave_base_value
 {
 protected:
   octave_serialport_common();
+
+  bool has_property(const std::string &name) const;
 public:
 
   // os dependent functions

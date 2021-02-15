@@ -394,6 +394,8 @@ Undocumented internal function.\n\
   octave_serialport* serialport = &((octave_serialport &)rep);
     
   std::string property = args (1).string_value ();
+  std::transform (property.begin (), property.end (), property.begin (), ::tolower);
+
   octave_value_list args2 = args.slice (2, args.length ()-2);
     
   if (property == "port")

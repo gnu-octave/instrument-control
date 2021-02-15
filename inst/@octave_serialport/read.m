@@ -45,6 +45,9 @@ function data = read (dev, count, precision)
   toread = count;
 
   switch (precision)
+  case {"string"}
+    toclass = "char";
+    tosize = 1;
   case {"char" "schar" "int8"}
     toclass = "int8";
     tosize = 1;

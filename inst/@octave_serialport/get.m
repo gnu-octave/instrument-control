@@ -31,9 +31,9 @@
 
 function retval = get (serial, property)
 
-  properties = {'port', 'baudrate', 'numbytesavailable', 'numbyteswritten', ...
-		'byteorder', 'databits', 'stopbits', 'parity', 'flowcontrol', ...
-		'timeout', 'terminator', 'userdata'};
+  properties = {'Port', 'BaudRate', 'NumBytesAvailable', 'NumBytesWritten', ...
+		'ByteOrder', 'DataBits', 'StopBits', 'Parity', 'FlowControl', ...
+		'Timeout', 'Terminator', 'UserData'};
 
   if (nargin == 1)
     property = properties;
@@ -45,7 +45,6 @@ function retval = get (serial, property)
   if !iscell (property)
     property = {property};
   end
-  property = tolower(property);
 
   valid     = ismember (property, properties);
   not_found = {property{!valid}};

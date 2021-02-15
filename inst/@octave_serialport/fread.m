@@ -36,7 +36,7 @@
 function [data, count, errmsg] = fread (obj, size, precision)
 
 if (nargin < 2)
-  size = get(obj, 'numbytesavailable');
+  size = get(obj, 'NumBytesAvailable');
 end
 
 if (nargin < 3)
