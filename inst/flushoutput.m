@@ -49,6 +49,8 @@ function flushoutput (dev)
       __udpport_properties__ (dev, 'flush', 0);
     elseif (isa (dev,'octave_tcp'))
       __tcp_properties__ (dev, 'flush', 0);
+    elseif (isa (dev,'octave_tcpclient'))
+      __tcpclient_properties__ (dev, 'flush', 0);
     elseif (isa (dev,'octave_gpib'))
       __gpib_clrdevice__ (obj);
     endif

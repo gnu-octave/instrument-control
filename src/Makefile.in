@@ -1,5 +1,5 @@
 
-SUBDIRS = serial parallel i2c spi usbtmc tcp udp udpport gpib vxi11 resolvehost hwinfo serialport
+SUBDIRS = serial parallel i2c spi usbtmc tcp tcpclient udp udpport gpib vxi11 resolvehost hwinfo serialport
 
 MKOCTFILE ?= mkoctfile
 GREP ?= grep

@@ -78,10 +78,9 @@ Parallel
   @octave_parallel/fopen
   @octave_parallel/fread
   @octave_parallel/fwrite
-TCP
+TCP (Depreciated)
   tcp
   tcpip
-  tcpclient
   @octave_tcp/fopen
   @octave_tcp/fclose
   @octave_tcp/fprintf
@@ -98,6 +97,16 @@ TCP
   tcp_write
   tcp_timeout
   tcp_close
+TCP Client
+  tcpclient
+  @octave_tcpclient/configureTerminator
+  @octave_tcpclient/flush
+  @octave_tcpclient/get
+  @octave_tcpclient/set
+  @octave_tcpclient/read
+  @octave_tcpclient/write
+  tcpclient_read
+  tcpclient_write
 USBTMC
   usbtmc
   @octave_usbtmc/fread

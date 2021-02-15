@@ -5,6 +5,8 @@ Summary of important user-visible changes for instrument-control 0.6.0+
 
   ** UDPPORT: Added new udpport class
 
+  ** TCPCLIENT:  Added new tcppclient class
+
 Summary of important user-visible changes for instrument-control 0.6.0
 -------------------------------------------------------------------
 
