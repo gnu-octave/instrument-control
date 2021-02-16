@@ -2,10 +2,53 @@ instrument-control >> Low level I/O functions
 Common Functions
   flushinput
   flushoutput
+General
+  instrhelp
+  instrhwinfo
+  resolvehost
+GPIB
+  clrdevice
+  gpib
+  gpib_read
+  gpib_write
+  gpib_timeout
+  gpib_close
+  spoll
+  trigger
+  @octave_gpib/fclose
+  @octave_gpib/fopen
+  @octave_gpib/fprintf
+  @octave_gpib/fread
+  @octave_gpib/fscanf
+  @octave_gpib/fwrite
+I2C
+  i2c
+  i2c_addr
+  i2c_close
+  i2c_read
+  i2c_write
+  @octave_i2c/fclose
+  @octave_i2c/fopen
+  @octave_i2c/fread
+  @octave_i2c/fwrite
+  @octave_i2c/get
+  @octave_i2c/set
+Parallel
+  parallel
+  pp_close
+  pp_ctrl
+  pp_data
+  pp_datadir
+  pp_stat
+  @octave_parallel/fclose
+  @octave_parallel/fopen
+  @octave_parallel/fread
+  @octave_parallel/fwrite
 Serial (Depreciated)
   serial
   seriallist
-  @octave_serial/serialbreak
+  srl_read
+  srl_write
   @octave_serial/fopen
   @octave_serial/fclose
   @octave_serial/flushinput
@@ -14,166 +57,123 @@ Serial (Depreciated)
   @octave_serial/fread
   @octave_serial/fwrite
   @octave_serial/get
+  @octave_serial/serialbreak
   @octave_serial/set
-  srl_read
-  srl_write
   @octave_serial/srl_baudrate
   @octave_serial/srl_bytesize
+  @octave_serial/srl_close
   @octave_serial/srl_flush
   @octave_serial/srl_parity
   @octave_serial/srl_stopbits
   @octave_serial/srl_timeout
-  @octave_serial/srl_close
 Serial Port
   serialport
   serialportlist
-  @octave_serialport/serialbreak
+  @octave_serialport/configureTerminator
   @octave_serialport/flush
   @octave_serialport/fprintf
   @octave_serialport/fread
   @octave_serialport/fwrite
   @octave_serialport/get
-  @octave_serialport/set
+  @octave_serialport/getpinstatus
   @octave_serialport/read
-  @octave_serialport/write
+  @octave_serialport/serialbreak
+  @octave_serialport/set
   @octave_serialport/setDTR
   @octave_serialport/setRTS
-  @octave_serialport/getpinstatus
-  @octave_serialport/configureTerminator
-I2C
-  i2c
-  @octave_i2c/fopen
-  @octave_i2c/fclose
-  @octave_i2c/fread
-  @octave_i2c/fwrite
-  @octave_i2c/get
-  @octave_i2c/set
-  i2c_addr
-  i2c_read
-  i2c_write
-  i2c_close
+  @octave_serialport/write
 SPI
   spi
-  @octave_spi/fopen
+  spi_close
+  spi_read
+  spi_write
+  spi_writeAndRead
   @octave_spi/fclose
+  @octave_spi/fopen
   @octave_spi/fread
   @octave_spi/fwrite
   @octave_spi/get
-  @octave_spi/set
   @octave_spi/read
+  @octave_spi/set
   @octave_spi/write
   @octave_spi/writeAndRead
-  spi_read
-  spi_write
-  spi_close
-  spi_writeAndRead
-Parallel
-  parallel
-  pp_datadir
-  pp_data
-  pp_ctrl
-  pp_stat
-  pp_close
-  @octave_parallel/fclose
-  @octave_parallel/fopen
-  @octave_parallel/fread
-  @octave_parallel/fwrite
 TCP (Depreciated)
   tcp
-  tcpip
-  @octave_tcp/fopen
-  @octave_tcp/fclose
-  @octave_tcp/fprintf
-  @octave_tcp/fread
-  @octave_tcp/fwrite
-  @octave_tcp/flushinput
-  @octave_tcp/flushoutput
-  @octave_tcp/flush
-  @octave_tcp/get
-  @octave_tcp/set
-  @octave_tcp/read
-  @octave_tcp/write
+  tcp_close
   tcp_read
   tcp_write
   tcp_timeout
-  tcp_close
+  tcpip
+  @octave_tcp/fclose
+  @octave_tcp/flush
+  @octave_tcp/flushinput
+  @octave_tcp/flushoutput
+  @octave_tcp/fopen
+  @octave_tcp/fprintf
+  @octave_tcp/fread
+  @octave_tcp/fwrite
+  @octave_tcp/get
+  @octave_tcp/read
+  @octave_tcp/set
+  @octave_tcp/write
 TCP Client
   tcpclient
+  tcpclient_read
+  tcpclient_write
   @octave_tcpclient/configureTerminator
   @octave_tcpclient/flush
   @octave_tcpclient/get
-  @octave_tcpclient/set
   @octave_tcpclient/read
+  @octave_tcpclient/set
   @octave_tcpclient/write
-  tcpclient_read
-  tcpclient_write
-USBTMC
-  usbtmc
-  @octave_usbtmc/fread
-  @octave_usbtmc/fwrite
-  @octave_usbtmc/fopen
-  @octave_usbtmc/fclose
-  usbtmc_read
-  usbtmc_write
-  usbtmc_close
-GPIB
-  gpib
-  gpib_read
-  gpib_write
-  gpib_timeout
-  gpib_close
-  @octave_gpib/fopen
-  @octave_gpib/fclose
-  @octave_gpib/fread
-  @octave_gpib/fwrite
-  @octave_gpib/fprintf
-  @octave_gpib/fscanf
-  spoll
-  trigger
-  clrdevice
 UDP (Depreciated)
   udp
-  @octave_udp/fopen
-  @octave_udp/fclose
-  @octave_udp/fread
-  @octave_udp/fwrite
-  @octave_udp/fprintf
-  @octave_udp/flushinput
-  @octave_udp/flushoutput
-  @octave_udp/get
-  @octave_udp/set
-  @octave_udp/read
-  @octave_udp/write
-  @octave_udp/flush
-  udp_read
-  udp_write
-  udp_timeout
   udp_close
   udp_demo
+  udp_read
+  udp_timeout
+  udp_write
+  @octave_udp/fclose
+  @octave_udp/flush
+  @octave_udp/flushinput
+  @octave_udp/flushoutput
+  @octave_udp/fopen
+  @octave_udp/fprintf
+  @octave_udp/fread
+  @octave_udp/fwrite
+  @octave_udp/get
+  @octave_udp/read
+  @octave_udp/set
+  @octave_udp/write
 UDP Port
   udpport
+  udpport_read
+  udpport_write
   @octave_udpport/configureMulticast
   @octave_udpport/configureTerminator
+  @octave_udpport/flush
   @octave_udpport/fread
   @octave_udpport/fwrite
   @octave_udpport/fprintf
   @octave_udpport/get
-  @octave_udpport/set
   @octave_udpport/read
+  @octave_udpport/set
   @octave_udpport/write
-  @octave_udpport/flush
-  udpport_read
-  udpport_write
+USBTMC
+  usbtmc
+  usbtmc_read
+  usbtmc_write
+  usbtmc_close
+  @octave_usbtmc/fclose
+  @octave_usbtmc/fopen
+  @octave_usbtmc/fread
+  @octave_usbtmc/fwrite
 VXI11
   vxi11
-  @octave_vxi11/fopen
-  @octave_vxi11/fclose
-  @octave_vxi11/fread
-  @octave_vxi11/fwrite
+  vxi11_close
   vxi11_read
   vxi11_write
-  vxi11_close
-General
-  instrhelp
-  instrhwinfo
-  resolvehost
+  @octave_vxi11/fclose
+  @octave_vxi11/fopen
+  @octave_vxi11/fread
+  @octave_vxi11/fwrite
