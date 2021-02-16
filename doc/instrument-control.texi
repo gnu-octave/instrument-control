@@ -166,7 +166,7 @@ instrhwinfo
 The function will return information on the supported interfaces that are available, similar to below:
 
 @example
-    ToolboxVersion = 0.6.0
+    ToolboxVersion = 0.7.0
     ToolboxName = octave instrument control package
     SupportedInterfaces =
     @{
@@ -174,10 +174,13 @@ The function will return information on the supported interfaces that are availa
       [1,2] = i2c
       [1,3] = parallel
       [1,4] = serial
-      [1,5] = tcp
-      [1,6] = udp
-      [1,7] = usbtmc
-      [1,8] = vxi11
+      [1,5] = serialport
+      [1,6] = tcp
+      [1,7] = tcpclient
+      [1,8] = udp
+      [1,9] = udpport
+      [1,10] = usbtmc
+      [1,11] = vxi11
     @}
 @end example
 
@@ -282,7 +285,11 @@ clear s
 
 @node  Basic TCP
 @section  Basic TCP
-A TCP connection can be opened using the tcp or tcpip function function:
+
+@subsection TCP
+The TCP object has been depreciated and may not appear in newer versions of the instructment-control toolbox. Instead new code should use the tcpclient object.
+
+A TCP connection can be opened using the tcp or tcpip function:
 
 @example
 s = tcp("127.0.0.1", 80) 
@@ -323,6 +330,129 @@ The device can be closed using fclose or tcp_close.
 fclose(s)
 @end example
 
+@subsection TCP Client
+
+The recommended method of creating a tcp connection is through the tcpclient object.
+
+A TCP connection can be opened using the tcpclient function:
+
+@example
+s = tcpclient("127.0.0.1", 80) 
+@end example
+
+The first parameter is the IP address ior hostname to connect to. The second parameter is the port number.
+
+Additional parameter/value pairs can be provided after the port.
+
+After creating the interface object, properties of the device can be set or retrieved using get or set functions or as property access.
+
+@example
+s = tcpclient("127.0.0.1", 80)
+oldtimeout = get(s, "Timeout") # get timeout
+
+set(s, "Timeout", 10) # set the timeout
+s.Timeout = oldtimeout # also sets the timeout
+@end example
+
+The device can be written and read from using read, write and tcpclient_read and tcpclient_write functions.
+
+@example
+write(s, "HEAD / HTTP/1.1\r\n\r\n")
+
+val = read(s, 100) # attempt to read 100 bytes
+@end example
+
+The device can be closed by clearing the object variable.
+
+@example
+clear s
+@end example
+
+@node  Basic UDP
+@section  Basic UDP
+
+@subsection UDP
+The UDP object has been depreciated and may not appear in newer versions of the instructment-control toolbox. Instead new code should use the udpport object.
+
+A UDP connection can be opened using the udp function:
+
+@example
+s = udp("127.0.0.1", 80) 
+@end example
+
+The first parameter is the IP address data will be to. The second parameter is the port number. 
+
+If and ip address and port is not provides, it will default to "127.0.0.1" and 23.
+
+The address and port can be changed after creation using the remotehost and remoteport properties.
+
+@example
+s = udp() 
+s.remotehost = "127.0.0.1";
+s.remoteport = 100;
+@end example
+
+After creating the interface object, other properties of the device can be set or retrieved using get or set functions or as property access.
+
+@example
+s = udp("127.0.0.1", 80)
+oldtimeout = get(s, "timeout") # get timeout
+
+set(s, "timeout", 10) # set the timeout
+s.timeout = oldtimeout # also sets the timeout
+@end example
+
+The device can be written and read from using fread, fwrite and udp_read and udp_write functions.
+
+@example
+udp_write(s, "test")
+
+val = udp_read(s, 5)
+@end example
+
+The device can be closed using fclose or udp_close.
+
+@example
+fclose(s)
+@end example
+
+@subsection UDP Port
+
+The recommended method of creating a udp socket is through the udpport object.
+
+A udpport object can be created using the udpport function:
+
+@example
+s = udpport()
+@end example
+
+Additional parameter/value pairs can be provided during creation of the object.
+
+After creating the interface object, properties of the device can be set or retrieved using get or set functions or as property access.
+
+@example
+s = udpport()
+oldtimeout = get(s, "Timeout") # get timeout
+
+set(s, "Timeout", 10) # set the timeout
+s.Timeout = oldtimeout # also sets the timeout
+@end example
+
+The device can be written and read from using read, write and udpport_read and udp_write functions.
+
+The destination address and port to send data to must be specified at least on the first time write is used.
+
+@example
+write(s, "test", "127.0.0.1", s.LocalPort)
+
+val = read(s)
+@end example
+
+The device can be closed by clearing the object variable.
+
+@example
+clear s
+@end example
 
 @c -------------------------------------------------------------------------
 @node Function Reference

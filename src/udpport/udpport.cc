@@ -34,6 +34,20 @@ Open udpport interface.\n \
 @subsubheading Inputs\n \
 @var{propertyname}, @var{propertyvalue} - property name/value pair\n \
 \n\
+Known input properties:\n \
+@table @asis\n \
+@item Name\n \
+name assigned to the udp object\n \
+@item LocalPort\n \
+local port number\n \
+@item LocalHost\n \
+local host address\n \
+@item Timeout\n \
+timeout value in seconds used for waiting for data\n \
+@item EnablePortSharing\n \
+Boolean if the socket has port sharing enabled (readonly)\n \
+@end table \n \
+\n\
 @subsubheading Outputs\n \
 The udpport() shall return instance of @var{octave_udp} class as the result @var{udp}.\n \
 \n \
