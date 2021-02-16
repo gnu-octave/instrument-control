@@ -772,7 +772,7 @@ octave_udpport::set_multicastgroup (const std::string &addr)
           sockaddr_in in;
           if (! lookup_addr (addr, &in))
            {
-              error ("Could not resolve address %s", addr);
+              error ("Could not resolve address %s", addr.c_str());
            }
          else
            {
