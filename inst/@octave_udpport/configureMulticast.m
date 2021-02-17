@@ -13,12 +13,12 @@
 ## -*- texinfo -*- 
 ## @deftypefn {} {@var{data} =} configureMulticast((@var{dev}, @var{address})
 ## @deftypefnx {} {@var{data} =} configureMulticast((@var{dev}, @var{"off"})
-## Configure udpiport device to recieve multicast data
+## Configure udpport device to receive multicast data
 ##
 ## @subsubheading Inputs
 ## @var{dev} - open udpport device
 ##
-## If @var{address}  is 'off' disable udp multicast. Otherwise it is the multcast address to use.
+## If @var{address}  is 'off' disable udp multicast. Otherwise it is the multicast address to use.
 ##
 ## @subsubheading Outputs
 ## None

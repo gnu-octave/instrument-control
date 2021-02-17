@@ -48,9 +48,9 @@ restrictions on its distribution, but the restrictions are designed to
 ensure that others will have the same freedom to use and redistribute
 Octave that you have.  The precise conditions can be found in the
 @acronym{GNU} General Public License that comes with the @acronym{GNU}
-Octave Instrument Control tookit and that also appears in @ref{Copying}.
+Octave Instrument Control toolkit and that also appears in @ref{Copying}.
 
-To download a copy of the @acronym{GNU} Octave Instrument Control Tookit, please visit
+To download a copy of the @acronym{GNU} Octave Instrument Control Toolkit, please visit
 @url{http://octave.sourceforge.net/instrument-control/}.
 
 @end titlepage
@@ -197,7 +197,7 @@ Most interfaces have two types of functions:
 @section  Basic Serial
 
 @subsection Serial
-The serial object has been depreciated and may not appear in newer versions of the instructment-control toolbox. Instead new code should use the serialport object.
+The serial object has been depreciated and may not appear in newer versions of the instrument-control toolbox. Instead new code should use the serialport object.
 
 The serial port can be opened using the serial function:
 
@@ -287,7 +287,7 @@ clear s
 @section  Basic TCP
 
 @subsection TCP
-The TCP object has been depreciated and may not appear in newer versions of the instructment-control toolbox. Instead new code should use the tcpclient object.
+The TCP object has been depreciated and may not appear in newer versions of the instrument-control toolbox. Instead new code should use the tcpclient object.
 
 A TCP connection can be opened using the tcp or tcpip function:
 
@@ -340,7 +340,7 @@ A TCP connection can be opened using the tcpclient function:
 s = tcpclient("127.0.0.1", 80) 
 @end example
 
-The first parameter is the IP address ior hostname to connect to. The second parameter is the port number.
+The first parameter is the IP address or hostname to connect to. The second parameter is the port number.
 
 Additional parameter/value pairs can be provided after the port.
 
@@ -372,7 +372,7 @@ clear s
 @section  Basic UDP
 
 @subsection UDP
-The UDP object has been depreciated and may not appear in newer versions of the instructment-control toolbox. Instead new code should use the udpport object.
+The UDP object has been depreciated and may not appear in newer versions of the instrument-control toolbox. Instead new code should use the udpport object.
 
 A UDP connection can be opened using the udp function:
 

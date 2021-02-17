@@ -16,7 +16,7 @@
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {} configureTerminator (@var{serial}, @var{term})
 ## @deftypefnx {Function File} {} configureTerminator (@var{serial}, @var{readterm}, @var{writeterm})
-## Set terminator for ascii string manipulation
+## Set terminator for ASCII string manipulation
 ##
 ## @subsubheading Inputs
 ## @var{serial} - serialport object@*

@@ -29,7 +29,7 @@
 DEFUN_DLD (spi, args, nargout, 
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{spi} = } spi ([@var{port_path}])\n \
-@deftypefnx {Loadable Function} {@var{spi} = } spi ([@var{port_path}], [@var{propname}, @var{provalue}])\n \
+@deftypefnx {Loadable Function} {@var{spi} = } spi ([@var{port_path}], [@var{propname}, @var{propvalue}])\n \
 \n\
 Open a spi interface.\n \
 \n\
@@ -47,7 +47,7 @@ Numeric bitrate value\n \
 @item clockpolarity\n \
 Clock polarity: idlehigh or idlelow.\n \
 @item clockphase\n \
-Clock phase value: firstededge or secondedge\n \
+Clock phase value: firstedge or secondedge\n \
 @end table\n \
 \n\
 @subsubheading Outputs\n \

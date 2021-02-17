@@ -16,7 +16,7 @@
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {} configureTerminator (@var{tcp}, @var{term})
 ## @deftypefnx {Function File} {} configureTerminator (@var{tcp}, @var{readterm}, @var{writeterm})
-## Set terminator on a tcpclient object for ascii string manipulation
+## Set terminator on a tcpclient object for ASCII string manipulation
 ##
 ## @subsubheading Inputs
 ## @var{tcp} - tcpclient object@*
