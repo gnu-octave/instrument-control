@@ -147,8 +147,6 @@ UDP (Depreciated)
   @octave_udp/write
 UDP Port
   udpport
-  udpport_read
-  udpport_write
   @octave_udpport/configureMulticast
   @octave_udpport/configureTerminator
   @octave_udpport/flush

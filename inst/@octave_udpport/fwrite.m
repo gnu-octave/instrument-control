@@ -62,6 +62,6 @@ function numbytes = fwrite(obj, data, precision)
       error ("precision not supported");
   endswitch
 
-  numbytes = udpport_write (obj, typecast(data,'uint8'));
+  numbytes = __udpport_write__ (obj, typecast(data,'uint8'));
 
 endfunction

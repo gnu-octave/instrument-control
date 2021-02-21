@@ -80,7 +80,7 @@ function data = read (obj, cnt, datatype)
   cnt = cnt*tosize;
 
   if cnt > 0
-    tmp = udpport_read (obj, cnt, get(obj, 'Timeout')*1000);
+    tmp = __udpport_read__ (obj, cnt, get(obj, 'Timeout')*1000);
   else
     tmp = [];
   endif

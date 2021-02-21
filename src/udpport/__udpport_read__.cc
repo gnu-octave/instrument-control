@@ -28,13 +28,13 @@
 
 #endif
 
-// PKG_ADD: autoload ("udpport_read", "udpport.oct");
-DEFUN_DLD (udpport_read, args, nargout,
+// PKG_ADD: autoload ("__udpport_read__", "udpport.oct");
+DEFUN_DLD (__udpport_read__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } udpport_read (@var{udpport}, @var{n}, @var{timeout})\n \
-@deftypefnx {Loadable Function} {[@var{data}, @var{count}. @var{srcip}, @var{srcport}] = } udpport_read (@var{udpport}, @var{n}, @var{timeout})\n \
+@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } __udpport_read__ (@var{udpport}, @var{n}, @var{timeout})\n \
+@deftypefnx {Loadable Function} {[@var{data}, @var{count}. @var{srcip}, @var{srcport}] = } __udpport_read__ (@var{udpport}, @var{n}, @var{timeout})\n \
 \n\
-Read from udpport interface.\n \
+Provate function to read from udpport interface.\n \
 \n\
 @subsubheading Inputs\n \
 @var{udpport} - instance of @var{octave_udpport} class.@* \
@@ -42,7 +42,7 @@ Read from udpport interface.\n \
 @var{timeout} - timeout in ms if different from default of type Integer\n \
 \n\
 @subsubheading Outputs\n \
-The udpport_read() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
+The __udpport_read__() shall return number of bytes successfully read in @var{count} as Integer and the bytes themselves in @var{data} as uint8 array.\n \
 Optional outputs are provided for the source ip address and port of the read data.\n \
 @end deftypefn")
 {
@@ -130,16 +130,16 @@ Optional outputs are provided for the source ip address and port of the read dat
 %!test
 %! a = udpport ();
 %! assert (! isnull (a));
-%! [d,c] = udpport_read (a, 1, 0);
+%! [d,c] = __udpport_read__ (a, 1, 0);
 %! assert (c == 0);
 %! assert (isempty (d));
 %! clear a;
 
-%!error <Invalid call to udpport_read> udpport_read(1, 10, 0)
+%!error <Invalid call to __udpport_read__> __udpport_read__(1, 10, 0)
 
 %!test
 %! a = udpport ();
-%! fail ("udpport_read (a, 10, 0, 0)", "Invalid call to udpport_read");
+%! fail ("__udpport_read__ (a, 10, 0, 0)", "Invalid call to __udpport_read__");
 %! clear a;
 
 %!test
@@ -147,7 +147,7 @@ Optional outputs are provided for the source ip address and port of the read dat
 %! a = udpport ();
 %! assert (! isnull (a));
 %! tic;
-%! [d,c] = udpport_read (a, 1, 1000);
+%! [d,c] = __udpport_read__ (a, 1, 1000);
 %! t = toc;
 %! assert (c, 0);
 %! assert (isempty (d));

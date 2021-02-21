@@ -23,13 +23,13 @@
 #  include "udpport_class.h"
 #endif
 
-// PKG_ADD: autoload ("udpport_write", "udpport.oct");
-DEFUN_DLD (udpport_write, args, nargout,
+// PKG_ADD: autoload ("__udpport_write__", "udpport.oct");
+DEFUN_DLD (__udpport_write__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } udpport_write (@var{udpport}, @var{data})\n \
-@deftypefnx {Loadable Function} {@var{n} = } udpport_write (@var{udpport}, @var{data}, @var{destipaddress}, @var{destport})\n \
+@deftypefn {Loadable Function} {@var{n} = } __udpport_write__ (@var{udpport}, @var{data})\n \
+@deftypefnx {Loadable Function} {@var{n} = } __udpport_write__ (@var{udpport}, @var{data}, @var{destipaddress}, @var{destport})\n \
 \n\
-Write data to a udpport interface.\n \
+Provate function to write data to a udpport interface.\n \
 \n\
 @subsubheading Inputs\n \
 @var{udpport} - instance of @var{octave_udpport} class.@* \
@@ -41,7 +41,7 @@ If @var{destipaddress}, @var{destport} is not provided, write will go to the add
 creation or last used for write.\n \
 \n\
 @subsubheading Outputs\n \
-Upon successful completion, udpport_write() shall return the number of bytes written as the result @var{n}.\n \
+Upon successful completion, __udpport_write__() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {
 #ifndef BUILD_UDP
@@ -117,25 +117,25 @@ Upon successful completion, udpport_write() shall return the number of bytes wri
 %! a = udpport ();
 %! b = udpport ();
 %! port = get (b, 'LocalPort');
-%! assert (5, udpport_write (a, uint8 ([104  101  108  108  111]), "127.0.0.1", port));
-%! [d, c] = udpport_read (b, 5, 1000);
+%! assert (5, __udpport_write__ (a, uint8 ([104  101  108  108  111]), "127.0.0.1", port));
+%! [d, c] = __udpport_read__ (b, 5, 1000);
 %! assert (c, 5);
 %! assert (d, uint8 ([104  101  108  108  111]));
 %! clear a;
 %! clear b;
 
-%!error <Invalid call to udpport_write> udpport_write (1, uint8([104  101  108  108  111]))
+%!error <Invalid call to __udpport_write__> __udpport_write__ (1, uint8([104  101  108  108  111]))
 
-%!error <Invalid call to udpport_write> udpport_write ()
+%!error <Invalid call to __udpport_write__> __udpport_write__ ()
 
 %!test
 %! a = udpport ();
-%! fail ("udpport_write (a, uint8([104  101  108  108  111]), 0)", "Invalid call to udpport_write")
+%! fail ("__udpport_write__ (a, uint8([104  101  108  108  111]), 0)", "Invalid call to __udpport_write__")
 %! clear a;
 
 %!test
 %! a = udpport ();
-%! fail ("udpport_write (a)", "Invalid call to udpport_write")
+%! fail ("__udpport_write__ (a)", "Invalid call to __udpport_write__")
 %! clear a;
 #endif
 

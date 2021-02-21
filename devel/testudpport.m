@@ -18,10 +18,10 @@ function testudpport
   flush(sock);
 
   # should be nothing to read
-  data = udpport_read(sock, 10);
+  data = read(sock, 10);
 
-  udpport_write(sock, "hello", "127.0.0.1", sock.LocalPort);
-  data = udpport_read(sock, 10);
+  write(sock, "hello", "127.0.0.1", sock.LocalPort);
+  data = read(sock, 10);
 
   flush(sock);
   wdata = read(sock, 10) 

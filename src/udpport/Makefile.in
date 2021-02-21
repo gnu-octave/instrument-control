@@ -1,5 +1,5 @@
 OCT := ../udpport.oct
-OBJ := udpport.o udpport_write.o udpport_read.o __udpport_properties__.o udpport_class.o __udpport_pkg_lock__.o
+OBJ := udpport.o __udpport_write__.o __udpport_read__.o __udpport_properties__.o udpport_class.o __udpport_pkg_lock__.o
 LFLAGS     = $(LIBS) @TCPLIBS@
 CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
 

@@ -83,8 +83,8 @@ function numbytes = write(obj, data, varargin)
     if !ischar(destinationAddress)
       error ("Expected address as a string");
     endif
-    numbytes = udpport_write (obj, typecast(data,'uint8'), destinationAddress, destinationPort);
+    numbytes = __udpport_write__ (obj, typecast(data,'uint8'), destinationAddress, destinationPort);
   else
-    numbytes = udpport_write (obj, typecast(data,'uint8'));
+    numbytes = __udpport_write__ (obj, typecast(data,'uint8'));
   endif
 endfunction

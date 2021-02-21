@@ -87,7 +87,7 @@ function [data, count, errmsg] = fread (obj, size, precision)
 
   eoi=0; tmp=[]; count=0;
   while ((!eoi) && (toread > 0))
-    tmp1 = udpport_read (obj, toread, get(obj, 'Timeout')*1000);
+    tmp1 = __udpport_read__ (obj, toread, get(obj, 'Timeout')*1000);
     if !isempty(tmp1)
       wasread = numel(tmp1);
       count = count + wasread;

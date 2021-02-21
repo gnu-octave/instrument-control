@@ -44,6 +44,6 @@ function numbytes = fprintf (varargin)
     print_usage ();
   endif
 
-  numbytes = udpport_write (varargin{1}, sprintf (format, formargs{:}));
+  numbytes = __udpport_write__ (varargin{1}, sprintf (format, formargs{:}));
 
 endfunction
