@@ -23,19 +23,19 @@
 #include "tcpclient_class.h"
 #endif
 
-// PKG_ADD: autoload ("tcpclient_write", "tcpclient.oct");
-DEFUN_DLD (tcpclient_write, args, nargout,
+// PKG_ADD: autoload ("__tcpclient_write__", "tcpclient.oct");
+DEFUN_DLD (__tcpclient_write__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } tcpclient_write (@var{tcpclient}, @var{data})\n \
+@deftypefn {Loadable Function} {@var{n} = } __tcpclient_write__ (@var{tcpclient}, @var{data})\n \
 \n\
-Write data to a tcpclient interface.\n \
+Private function to write data to a tcpclient interface.\n \
 \n\
 @subsubheading Inputs\n \
 @var{tcpclient} - instance of @var{octave_tcpclient} class.@* \
 @var{data} - data to be written to the tcpclient interface. Can be either of String or uint8 type.\n \
 \n\
 @subsubheading Outputs\n \
-Upon successful completion, tcpclient_write() shall return the number of bytes written as the result @var{n}.\n \
+Upon successful completion, __tcpclient_write__() shall return the number of bytes written as the result @var{n}.\n \
 @end deftypefn")
 {
 #ifndef BUILD_TCP
@@ -87,17 +87,17 @@ Upon successful completion, tcpclient_write() shall return the number of bytes w
 }
 
 #if 0
-%!error <Invalid call to tcpclient_write> tcpclient_write(1, uint8([104  101  108  108  111]))
+%!error <Invalid call to __tcpclient_write> __tcpclient_write__(1, uint8([104  101  108  108  111]))
 
-%!error <Invalid call to tcpclient_write> tcpclient_write()
+%!error <Invalid call to __tcpclient_write__> __tcpclient_write__()
 
 %!test
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcpclient (addr, 80);;
 %! # call HTTP HEAD
 %! req = "HEAD / HTTP/1.1\r\n\r\n";
-%! assert (length (req), tcpclient_write (a, req));
-%! [d, c] = tcpclient_read (a, 12, 5000);
+%! assert (length (req), __tcpclient_write__ (a, req));
+%! [d, c] = __tcpclient_read__ (a, 12, 5000);
 %! clear a
 %! assert (12, c);
 %! assert (c, length (d));

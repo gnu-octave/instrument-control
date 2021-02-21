@@ -28,12 +28,12 @@
 
 #endif
 
-// PKG_ADD: autoload ("tcpclient_read", "tcpclient.oct");
-DEFUN_DLD (tcpclient_read, args, nargout,
+// PKG_ADD: autoload ("__tcpclient_read__", "tcpclient.oct");
+DEFUN_DLD (__tcpclient_read__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } tcpclient_read (@var{tcpclient}, @var{n}, @var{timeout})\n \
+@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } __tcpclient_read__ (@var{tcpclient}, @var{n}, @var{timeout})\n \
 \n\
-Read from tcpclient interface.\n \
+Private function t read from tcpclient interface.\n \
 \n\
 @subsubheading Inputs\n \
 @var{tcpclient} - instance of @var{octave_tcpclient} class.@* \
@@ -117,14 +117,14 @@ Read from tcpclient interface.\n \
 %! a = tcpclient (addr, 80);
 %! assert (! isnull (a));
 %! # server should be waiting for us to send request
-%! fail ("tcpclient_read (a, 10, 0, 0)", "Invalid call to tcpclient_read");
+%! fail ("__tcpclient_read__ (a, 10, 0, 0)", "Invalid call to __tcpclient_read__");
 %!
-%! [d,c] = tcpclient_read (a, 1, 0);
+%! [d,c] = __tcpclient_read__ (a, 1, 0);
 %! assert (0, c);
 %! assert (isempty (d));
 %!
 %! tic;
-%! [d,c] = tcpclient_read (a, 1, 1000);
+%! [d,c] = __tcpclient_read__ (a, 1, 1000);
 %! t = toc;
 %! assert (c, 0);
 %! assert (isempty (d));
@@ -132,8 +132,8 @@ Read from tcpclient interface.\n \
 %!
 %! clear a
 
-%!error <Invalid call to tcpclient_read> tcpclient_read (1)
+%!error <Invalid call to __tcpclient_read__> __tcpclient_read__ (1)
 
-%!error <Invalid call to tcpclient_read> tcpclient_read (1, 10, 0)
+%!error <Invalid call to __tcpclient_read__> __tcpclient_read__ (1, 10, 0)
 
 #endif

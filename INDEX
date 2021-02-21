@@ -118,8 +118,6 @@ TCP (Depreciated)
   @octave_tcp/write
 TCP Client
   tcpclient
-  tcpclient_read
-  tcpclient_write
   @octave_tcpclient/configureTerminator
   @octave_tcpclient/flush
   @octave_tcpclient/get

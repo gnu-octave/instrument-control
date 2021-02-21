@@ -62,6 +62,6 @@ function numbytes = write(obj, data, datatype)
       error ("precision not supported");
   endswitch
 
-  numbytes = tcpclient_write (obj, typecast(data,'uint8'));
+  numbytes = __tcpclient_write__ (obj, typecast(data,'uint8'));
 
 endfunction

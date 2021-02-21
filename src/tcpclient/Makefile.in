@@ -1,5 +1,5 @@
 OCT := ../tcpclient.oct
-OBJ := tcpclient.o tcpclient_write.o tcpclient_read.o tcpclient_class.o __tcpclient_properties__.o __tcpclient_pkg_lock__.o
+OBJ := tcpclient.o __tcpclient_write__.o __tcpclient_read__.o tcpclient_class.o __tcpclient_properties__.o __tcpclient_pkg_lock__.o
 LFLAGS     = $(LIBS) @TCPLIBS@
 CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
 

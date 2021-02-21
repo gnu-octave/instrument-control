@@ -38,7 +38,7 @@ write(fd,echostr);
 
 % read 4 chars, no timeout
 start=tic;
-result = tcpclient_read(fd,4);
+result = read(fd,4);
 timeout2 = double(tic - start)/1000;
 testresult2 = timeout2 < timeout;
 
