@@ -54,7 +54,7 @@ result4 = read(fd,4);
 timeout4 = toc(start)*1000;
 testresult4 = tol > abs(1 - timeout4/500);
 
-fd.timeout = 2;
+fd.Timeout = 2;
 start=tic;
 result5 = read(fd,4);
 timeout5 = toc(start)*1000;
