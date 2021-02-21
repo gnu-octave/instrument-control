@@ -16,7 +16,7 @@ function testi2c
   instrhwinfo("i2c")
 
   i2c_device = "/dev/i2c-1";
-  i2c_adddress = 0x40;
+  i2c_address = 0x40;
 
   i2cdev = i2c(i2c_device, i2c_address)
 
