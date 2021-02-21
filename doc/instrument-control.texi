@@ -262,11 +262,11 @@ After creating the interface object, properties of the device can be set or retr
 
 @example
 s = serialport("/dev/ttyUSB1", 115200) 
-br = get(s, "baudrate") # gets the baudrate
-br = s.baudrate  # also gets the baudrate
+br = get(s, "BaudRate") # gets the baudrate
+br = s.BaudRate  # also gets the baudrate
 
-set(s, "baudrate", 9600) # set the baudrate
-s.baudrate = 9600 # also sets the baudrate
+set(s, "BaudRate", 9600) # set the baudrate
+s.BaudRate = 9600 # also sets the baudrate
 @end example
 
 The device can be written and read from using read and write functions.
@@ -354,7 +354,7 @@ set(s, "Timeout", 10) # set the timeout
 s.Timeout = oldtimeout # also sets the timeout
 @end example
 
-The device can be written and read from using read, write and tcpclient_read and tcpclient_write functions.
+The device can be written and read from using read and write functions.
 
 @example
 write(s, "HEAD / HTTP/1.1\r\n\r\n")
@@ -438,7 +438,7 @@ set(s, "Timeout", 10) # set the timeout
 s.Timeout = oldtimeout # also sets the timeout
 @end example
 
-The device can be written and read from using read, write and udpport_read and udp_write functions.
+The device can be written and read from using read and write functions.
 
 The destination address and port to send data to must be specified at least on the first time write is used.
 
