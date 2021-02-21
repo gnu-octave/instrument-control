@@ -107,12 +107,12 @@ public:
     //os << "    status:   " << this->get_status(); newline(os);
     if (this->fd_is_valid())
       {
-        os << "    port:     " << this->portPath; newline(os);
-        os << "    baudrate: " << this->get_baudrate(); newline(os);
-        os << "    parity:   " << this->get_parity(); newline(os);
-        os << "    databits: " << this->get_databits(); newline(os);
-        os << "    stopbits: " << this->get_stopbits(); newline(os);
-        os << "    timeout:  " << this->get_timeout(); newline(os);
+        os << "    Port:     " << this->portPath; newline(os);
+        os << "    BaudRate: " << this->get_baudrate(); newline(os);
+        os << "    Parity:   " << this->get_parity(); newline(os);
+        os << "    DataBits: " << this->get_databits(); newline(os);
+        os << "    StopBits: " << this->get_stopbits(); newline(os);
+        os << "    Timeout:  " << this->get_timeout(); newline(os);
         //os << "Mode:     " << blockmode; newline(os);
       }
   }

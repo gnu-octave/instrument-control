@@ -348,13 +348,13 @@ octave_udpport::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 {
   os << "  UDPPort Object " << get_name ();
   newline(os);
-  os << "          type: " << get_type (); 
+  os << "          Type: " << get_type (); 
   newline(os);
-  os << "        status: " << get_status ();
+  os << "        Status: " << get_status ();
   newline(os);
-  os << "    localhost: " << get_local_addr ();
+  os << "    LocalHost: " << get_local_addr ();
   newline(os);
-  os << "     localport: " << get_local_port ();
+  os << "     LocalPort: " << get_local_port ();
   newline (os);
 }
 
