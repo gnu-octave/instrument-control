@@ -1,6 +1,6 @@
 Name: instrument-control
-Version: 0.6.0
-Date: 2020-10-24
+Version: 0.7.0
+Date: 2021-02-22
 Author: Andrius Sutas <andrius.sutas@gmail.com>, Stefan Mahr <dac922@gmx.de>, John Donoghue <john.donoghue@ieee.org>
 Maintainer: Stefan Mahr <dac922@gmx.de>, John Donoghue <john.donoghue@ieee.org>
 Title: Instrument Control
