@@ -20,8 +20,8 @@
 ## @subsubheading Interfaces
 ## The following interfaces have been implemented:
 ## @table @asis
-## @item serial (depreciated)
-## serial port functionality. It has been depreciated in favor of the serialport interface.
+## @item serial (deprecated)
+## serial port functionality. It has been deprecated in favor of the serialport interface.
 ## @item serialport
 ## serial port functionality. 
 ## @item spi

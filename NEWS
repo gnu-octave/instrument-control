@@ -15,7 +15,7 @@ Summary of important user-visible changes for instrument-control 0.6.0
   ** SPI: added new spi object and functions
 
   ** TCP: 
-    added tcpclient, depreciated tcpip
+    added tcpclient, deprecated tcpip
 
     added methods flush, read, write
 

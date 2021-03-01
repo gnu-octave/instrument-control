@@ -17,7 +17,7 @@
 ## @deftypefn {Function File} {@var{tcp} = } tcpip (@var{host}, [@var{port}], [@var{PropertyName}, @var{PropertyValue}...])
 ## Matlab compatible wrapper to the tcp interface.
 ##
-## NOTE: tcpip has been depreciated. Use tcpclient instead
+## NOTE: tcpip has been deprecated. Use tcpclient instead
 ##
 ## @subsubheading Inputs
 ## @var{host} - the host name or ip.@*

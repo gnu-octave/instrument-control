@@ -44,7 +44,7 @@ Parallel
   @octave_parallel/fopen
   @octave_parallel/fread
   @octave_parallel/fwrite
-Serial (Depreciated)
+Serial (Deprecated)
   serial
   seriallist
   srl_read
@@ -97,7 +97,7 @@ SPI
   @octave_spi/set
   @octave_spi/write
   @octave_spi/writeAndRead
-TCP (Depreciated)
+TCP (Deprecated)
   tcp
   tcp_close
   tcp_read
@@ -124,7 +124,7 @@ TCP Client
   @octave_tcpclient/read
   @octave_tcpclient/set
   @octave_tcpclient/write
-UDP (Depreciated)
+UDP (Deprecated)
   udp
   udp_close
   udp_demo
