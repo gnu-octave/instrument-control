@@ -63,6 +63,7 @@ function [data, count, errmsg] = fread (obj, size, precision)
       toread = toread * 2;
     case {"uint16" "ushort"}
       toclass = "uint16";
+      toread = toread * 2;
     case {"int32" "int"}
       toclass = "int32";
       toread = toread * 4;

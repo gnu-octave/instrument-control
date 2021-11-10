@@ -1,4 +1,4 @@
-## Copyright (C) 2019 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2019-2021 John Donoghue <john.donoghue@ieee.org>
 ## 
 ## This program is free software: you can redistribute it and/or modify it
 ## under the terms of the GNU General Public License as published by
@@ -61,6 +61,7 @@ function data = read (dev, count, precision)
   case {"uint16" "ushort"}
     toclass = "uint16";
     tosize = 2;
+    toread = toread * 2;
   case {"int32" "int"}
     toclass = "int32";
     tosize = 4;
@@ -98,9 +99,9 @@ function data = read (dev, count, precision)
       toread = toread - wasread;
     else
       break;
-    end
+    endif
     tmp = [tmp tmp1];
-  end
+  endwhile
 
   data = typecast(tmp,toclass);
 

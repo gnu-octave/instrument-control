@@ -1,4 +1,4 @@
-## Copyright (C) 2015 Stefan Mahr <dac922@gmx.de>
+## Copyright (C) 2015-2021 Stefan Mahr <dac922@gmx.de>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -33,74 +33,75 @@
 
 function [data, count, errmsg] = fread (obj, size, precision)
 
-if (nargin < 2)
-  ## TODO: InputBufferSize property not implemented yet
-  warning("fread: InputBufferSize property not implemented yet, using 100 as default");
-  size = 100;
-end
-
-if (nargin < 3)
-  precision = 'uchar';
-end
-
-if ((rows(size) == 1) && (columns(size) == 2))
-  toread = size(1) * size(2);
-elseif (numel(size) == 1)
-  toread = size;
-else
-  print_usage();
-endif
-
-switch (precision)
-  case {"char" "schar" "int8"}
-    toclass = "int8";
-  case {"uchar" "uint8"}
-    toclass = "uint8";
-  case {"int16" "short"}
-    toclass = "int16";
-    toread = toread * 2;
-  case {"uint16" "ushort"}
-    toclass = "uint16";
-  case {"int32" "int"}
-    toclass = "int32";
-    toread = toread * 4;
-  case {"uint32" "uint"}
-    toclass = "uint32";
-    toread = toread * 4;
-  case {"long" "int64"}
-    toclass = "int64";
-    toread = toread * 8;
-  case {"ulong" "uint64"}
-    toclass = "uint64";
-    toread = toread * 8;
-  case {"single" "float" "float32"}
-    toclass = "single";
-    toread = toread * 4;
-  case {"double" "float64"}
-    toclass = "double";
-    toread = toread * 8;
-  otherwise
-    error ("precision not supported");
-end
-
-eoi=0; tmp=[]; count=0;
-while ((!eoi) && (toread > 0))
-  [tmp1,wasread,eoi] = gpib_read (obj, toread);
-  %% if successful tmp is never negative (uint8)
-  count = count + wasread;
-  toread = toread - wasread;
-  if ((eoi) || (tmp1 < 0))
-    break;
+  if (nargin < 2)
+    ## TODO: InputBufferSize property not implemented yet
+    warning("fread: InputBufferSize property not implemented yet, using 100 as default");
+    size = 100;
   end
-  tmp = [tmp tmp1];
-end
 
-## TODO: omit warning messages (if any) and output warning text to errmsg instead
-errmsg = '';
+  if (nargin < 3)
+    precision = 'uchar';
+  end
 
-data = typecast(tmp,toclass);
-if (numel(size) > 1)
-  data = reshape(data,size);
-end
+  if ((rows(size) == 1) && (columns(size) == 2))
+    toread = size(1) * size(2);
+  elseif (numel(size) == 1)
+    toread = size;
+  else
+    print_usage();
+  endif
+
+  switch (precision)
+    case {"char" "schar" "int8"}
+      toclass = "int8";
+    case {"uchar" "uint8"}
+      toclass = "uint8";
+    case {"int16" "short"}
+      toclass = "int16";
+      toread = toread * 2;
+    case {"uint16" "ushort"}
+      toclass = "uint16";
+      toread = toread * 2;
+    case {"int32" "int"}
+      toclass = "int32";
+      toread = toread * 4;
+    case {"uint32" "uint"}
+      toclass = "uint32";
+      toread = toread * 4;
+    case {"long" "int64"}
+      toclass = "int64";
+      toread = toread * 8;
+    case {"ulong" "uint64"}
+      toclass = "uint64";
+      toread = toread * 8;
+    case {"single" "float" "float32"}
+      toclass = "single";
+      toread = toread * 4;
+    case {"double" "float64"}
+      toclass = "double";
+      toread = toread * 8;
+    otherwise
+      error ("precision not supported");
+  endswitch
+
+  eoi=0; tmp=[]; count=0;
+  while ((!eoi) && (toread > 0))
+    [tmp1,wasread,eoi] = gpib_read (obj, toread);
+    %% if successful tmp is never negative (uint8)
+    count = count + wasread;
+    toread = toread - wasread;
+    if ((eoi) || (tmp1 < 0))
+      break;
+    endif
+    tmp = [tmp tmp1];
+  endwhile
+
+  ## TODO: omit warning messages (if any) and output warning text to errmsg instead
+  errmsg = '';
+
+  data = typecast(tmp,toclass);
+  if (numel(size) > 1)
+    data = reshape(data,size);
+  endif
 
 endfunction
