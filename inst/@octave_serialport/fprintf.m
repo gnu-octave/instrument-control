@@ -1,4 +1,4 @@
-## Copyright (C) 2019 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2019-2021 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -36,7 +36,7 @@ function numbytes = fprintf (varargin)
   elseif (nargin < 3)
     formargs = varargin(2);
     format = defaultformat;
-  else(nargin < 4)
+  else
     formargs = varargin(3:nargin);
     format = varargin{2};
   endif

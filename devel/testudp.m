@@ -35,6 +35,10 @@ function testudp
   write(sock, "hello")
   wdata = read(sock, 10) 
 
+  # fprintf
+  fprintf(sock, "%d %d", 1, 2)
+  xdata = read(sock) 
+
   clear sock
 
 endfunction

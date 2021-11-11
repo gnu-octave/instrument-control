@@ -1,4 +1,4 @@
-## Copyright (C) 2018-2019 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2018-2021 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -29,22 +29,22 @@
 
 function numbytes = fprintf (varargin)
 
-defaultformat = '%s\n';
+  defaultformat = '%s\n';
 
-if (nargin < 2)
-  print_usage ();
-elseif (nargin < 3)
-  formargs = varargin(2);
-  format = defaultformat;
-else(nargin < 4)
-  formargs = varargin(3:nargin);
-  format = varargin{2};
-end
+  if (nargin < 2)
+    print_usage ();
+  elseif (nargin < 3)
+    formargs = varargin(2);
+    format = defaultformat;
+  else
+    formargs = varargin(3:nargin);
+    format = varargin{2};
+  endif
 
-if (! ( ischar (format)))
-  print_usage ();
-end
+  if (! ( ischar (format)))
+    print_usage ();
+  endif
 
-numbytes = tcp_write (varargin{1}, sprintf (format, formargs{:}));
+  numbytes = tcp_write (varargin{1}, sprintf (format, formargs{:}));
 
-end
+endfunction

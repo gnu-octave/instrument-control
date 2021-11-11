@@ -35,7 +35,7 @@ function numbytes = fprintf (varargin)
   elseif (nargin < 3)
     formargs = varargin(2);
     format = defaultformat;
-  else(nargin < 4)
+  else
     formargs = varargin(3:nargin);
     format = varargin{2};
   endif

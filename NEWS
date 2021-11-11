@@ -2,6 +2,7 @@ Summary of important user-visible changes for instrument-control 0.7.0+
 -------------------------------------------------------------------
   ** Updated common functions
      fread - set correct size of uint16
+     fprintf - fix else for multiple args
 
 Summary of important user-visible changes for instrument-control 0.7.0
 -------------------------------------------------------------------
