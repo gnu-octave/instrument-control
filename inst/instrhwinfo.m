@@ -145,7 +145,7 @@ endfunction
 %! # could fail if no serial ports?
 %! assert(!isempty(instrhwinfo("serial")))
 
-%!error <Invalid call to instrhwinfo> instrhwinfo("serial", "2ndarg")
+%!error instrhwinfo("serial", "2ndarg")
 
 %!xtest
 %! # could fail if no i2c ports or not configured
