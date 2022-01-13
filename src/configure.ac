@@ -186,6 +186,8 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 if test $have_windows = yes; then
   build_serial=yes
   AC_SUBST([BUILD_FOR_WINDOWS], [1], [build using native windows functions])
+  # prevent some warnings by defining this ...
+  AC_DEFINE([_NO_SYS_GUID_OPERATOR_EQ_], [1], [Dont define guid == ops])
 fi
 
 # check for i2c
