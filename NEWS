@@ -1,5 +1,8 @@
-Summary of important user-visible changes for instrument-control 0.7.0+
+Summary of important user-visible changes for instrument-control 0.7.1
 -------------------------------------------------------------------
+
+  ** General updates to support Octave 7+
+
   ** Updated common functions
      fread - set correct size of uint16
      fprintf - fix else for multiple args
