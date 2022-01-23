@@ -167,6 +167,7 @@ build_gpib=no
 build_vxi11=no
 build_visa=no
 build_resolvehost=no
+build_modbus=no
 
 # Check for Windows
 AC_MSG_CHECKING([for windows])
@@ -358,7 +359,12 @@ if test "x$ac_cv_search_viOpenDefaultRM" != "xno"; then
   test "x$ac_cv_search_viOpenDefaultRM" = "xnone required" || AC_SUBST(VISALIBS, [$ac_cv_search_viOpenDefaultRM])
 fi
 
-#
+# Checks for libmodbus
+PKG_CHECK_MODULES([LIBMODBUS], [libmodbus],
+    [build_modbus=yes;]
+    [])
+AC_SUBST(MODBUSLIBS, [$LIBMODBUS_LIBS])
+AC_SUBST(MODBUSINCLUDES, [$LIBMODBUS_CFLAGS])
 
 if test $build_parallel = yes; then
   AC_DEFINE([BUILD_PARALLEL], [], [build PARALLEL interface functions])
@@ -405,6 +411,9 @@ if test $build_resolvehost = yes; then
   AC_DEFINE([BUILD_RESOLVEHOST], [], [build resolvehost function])
 fi
 
+if test $build_modbus = yes; then
+  AC_DEFINE([BUILD_MODBUS], [], [build MODBUS interface functions]) 
+fi
 
 # all done
 
@@ -414,7 +423,7 @@ AC_CONFIG_FILES([common.mk Makefile gpib/Makefile
 		 vxi11/Makefile usbtmc/Makefile spi/Makefile
 		 serial/Makefile parallel/Makefile i2c/Makefile
 		 resolvehost/Makefile hwinfo/Makefile
-		 serialport/Makefile])
+		 serialport/Makefile modbus/Makefile])
 AC_OUTPUT
 
 AC_MSG_NOTICE([
@@ -431,11 +440,13 @@ $PACKAGE_NAME is now configured with
    BUILD GPIB:        $build_gpib
    BUILD VXI11:       $build_vxi11
    BUILD RESOLVEHOST: $build_resolvehost
+   BUILD MODBUS:      $build_modbus
 
    GPIB LIBS:         $GPIBLIBS
    VXI11 LIBS:        $RPCLIBS
    VXI11 INCLUDE:     $RPCINCLUDE
    VISA LIBS:         $VISALIBS
    TCP LIBS:          $TCPLIBS
-
+   MODBUS LIBS:       $MODBUSLIBS
+   MODBUS INCLUDE:    $MODBUSINCLUDE
 ])

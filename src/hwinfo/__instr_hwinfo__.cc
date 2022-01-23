@@ -43,9 +43,11 @@ Internal private function\n \
 #ifdef BUILD_I2C
   interfaces (int_count++) = "i2c";
 #endif
-#ifdef BUILD_SPI
-  interfaces (int_count++) = "spi";
+
+#ifdef BUILD_MODBUS
+  interfaces (int_count++) = "modbus";
 #endif
+
 #ifdef BUILD_PARALLEL
   interfaces (int_count++) = "parallel";
 #endif
@@ -53,6 +55,10 @@ Internal private function\n \
 #ifdef BUILD_SERIAL
   interfaces (int_count++) = "serial";
   interfaces (int_count++) = "serialport";
+#endif
+
+#ifdef BUILD_SPI
+  interfaces (int_count++) = "spi";
 #endif
 
 #ifdef BUILD_TCP

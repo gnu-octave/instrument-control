@@ -61,7 +61,7 @@ To download a copy of the @acronym{GNU} Octave Instrument Control Toolkit, pleas
 @ifnottex
 @node Top
 @top Introduction
-The Instrument Control toolkit is a set of low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces
+The Instrument Control toolkit is a set of low level I/O functions for serial, i2c, spi, modbus, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces
 @end ifnottex
 
 @menu
@@ -92,6 +92,7 @@ https://wiki.octave.org/Instrument_control_package#Requirements
 
 For VXI11 support, rpcgen, and libtirpc-devel must be installed before installing instrument-control. 
 
+For MODBUS support, the libmodbus-devel must be installed before installing instrument-control.
 
 @section Windows install
 @cindex Windows install

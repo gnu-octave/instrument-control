@@ -33,6 +33,14 @@ I2C
   @octave_i2c/fwrite
   @octave_i2c/get
   @octave_i2c/set
+Modbus
+  modbus
+  @octave_modbus/get
+  @octave_modbus/maskWrite
+  @octave_modbus/read
+  @octave_modbus/set
+  @octave_modbus/write
+  @octave_modbus/writeRead
 Parallel
   parallel
   pp_close

@@ -1,8 +1,8 @@
 Introduction
 ============
 
-The Instrument control package provides low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, vxi11,
-udp and usbtmc interfaces.
+The Instrument control package provides low level I/O functions for serial, i2c, spi, parallel, tcp,
+gpib, vxi11, modbus, udp and usbtmc interfaces.
 
 It attempts to provide the same function calls as the Matlab toolkit, as well as additional functionality.
 
@@ -12,6 +12,8 @@ Requirements
 * Octave >= 3.8.0
 
 * linux-gpib (Linux only)
+
+* libmodbus for MOSBUS support
 
 * rpcgen and libtirpc for VXI11 support
 

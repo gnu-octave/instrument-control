@@ -1,0 +1,7 @@
+OCT := ../modbus.oct
+OBJ := modbus.o modbus_class.o __modbus_read__.o __modbus_write__.o __modbus_write_read__.o __modbus_pkg_lock__.o __modbus_properties__.o
+
+CFLAGS     = $(CXXFLAGS) $(CPPFLAGS) @DEFS@ @MODBUSINCLUDES@
+LFLAGS     = $(LIBS) @MODBUSLIBS@ 
+
+include ../common.mk
