@@ -419,6 +419,7 @@ fi
 
 AC_CONFIG_FILES([common.mk Makefile gpib/Makefile
 		 tcp/Makefile tcpclient/Makefile
+		 tcpserver/Makefile
 		 udp/Makefile udpport/Makefile
 		 vxi11/Makefile usbtmc/Makefile spi/Makefile
 		 serial/Makefile parallel/Makefile i2c/Makefile

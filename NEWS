@@ -3,6 +3,8 @@ Summary of important user-visible changes for instrument-control 0.7.1+
 
   ** MODBUS: Added new modbus class
 
+  ** TCPSERVER: Added new tcpserver class
+
 Summary of important user-visible changes for instrument-control 0.7.1
 -------------------------------------------------------------------
 

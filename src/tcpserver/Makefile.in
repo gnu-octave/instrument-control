@@ -1,0 +1,7 @@
+OCT := ../tcpserver.oct
+OBJ := tcpserver.o __tcpserver_write__.o __tcpserver_read__.o tcpserver_class.o __tcpserver_properties__.o __tcpserver_pkg_lock__.o
+LFLAGS     = $(LIBS) @TCPLIBS@
+CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
+
+include ../common.mk
+

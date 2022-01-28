@@ -132,6 +132,14 @@ TCP Client
   @octave_tcpclient/read
   @octave_tcpclient/set
   @octave_tcpclient/write
+TCP Server
+  tcpserver
+  @octave_tcpserver/configureTerminator
+  @octave_tcpserver/flush
+  @octave_tcpserver/get
+  @octave_tcpserver/read
+  @octave_tcpserver/set
+  @octave_tcpserver/write
 UDP (Deprecated)
   udp
   udp_close

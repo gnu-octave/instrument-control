@@ -64,6 +64,7 @@ Internal private function\n \
 #ifdef BUILD_TCP
   interfaces (int_count++) = "tcp";
   interfaces (int_count++) = "tcpclient";
+  interfaces (int_count++) = "tcpserver";
 #endif
 
 #ifdef BUILD_UDP
