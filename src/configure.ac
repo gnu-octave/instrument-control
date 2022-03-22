@@ -136,7 +136,7 @@ OF_OCTAVE_LIST_ALT_SYMS([
 
 ],[oct-alt-includes.h])
 
-if test $ac_cv_octsym_OCTAVE__REGISTER_BINARY_OP == "octave::type_info::register_binary_op"; then
+if test $ac_cv_octsym_OCTAVE__REGISTER_BINARY_OP = "octave::type_info::register_binary_op"; then
   AC_DEFINE([OCTAVE__NEW_REGISTER_OP], [], [Use new register_binary_op]) 
 fi
 

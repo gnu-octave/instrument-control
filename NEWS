@@ -5,6 +5,8 @@ Summary of important user-visible changes for instrument-control 0.7.1+
 
   ** TCPSERVER: Added new tcpserver class
 
+  ** minor bug fixes in configure
+
 Summary of important user-visible changes for instrument-control 0.7.1
 -------------------------------------------------------------------
 
