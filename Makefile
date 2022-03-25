@@ -19,6 +19,22 @@ CUT ?= cut
 TR ?= tr
 TEXI2PDF  ?= texi2pdf -q
 
+# work out a possible help generator
+ifeq ($(strip $(QHELPGENERATOR)),)
+  ifneq ($(shell qhelpgenerator -qt5 -v 2>/dev/null),)
+    QHELPGENERATOR = qhelpgenerator -qt5
+  else ifneq ($(shell qhelpgenerator-qt5 -v 2>/dev/null),)
+    QHELPGENERATOR = qhelpgenerator-qt5
+  else ifneq ($(shell qcollectiongenerator -qt5 -v 2>/dev/null),)
+    QHELPGENERATOR = qcollectiongenerator -qt5
+  else ifneq ($(shell qcollectiongenerator-qt5 -v 2>/dev/null),)
+    QHELPGENERATOR = qcollectiongenerator-qt5
+  else
+    QHELPGENERATOR = true
+  endif
+endif
+
+
 ## Note the use of ':=' (immediate set) and not just '=' (lazy set).
 ## http://stackoverflow.com/a/448939/1609556
 package := $(shell $(GREP) "^Name: " DESCRIPTION | $(CUT) -f2 -d" " | \
@@ -148,7 +164,7 @@ endif
 	  $(MAKE) distclean && $(RM) Makefile
 ##
 	$(MAKE) -C "$@" docs
-	cd "$@" && $(RM) -rf "devel" && $(RM) -f doc/mkfuncdocs.py
+	cd "$@" && $(RM) -rf "devel" && $(RM) -f doc/mkfuncdocs.py doc/mkqhcp.py
 	${FIX_PERMISSIONS} "$@"
 
 run_in_place = $(OCTAVE) --eval ' pkg ("local_list", "$(package_list)"); ' \
@@ -172,7 +188,14 @@ clean-unpacked-release:
 	@echo
 
 .PHONY: docs
-docs: doc/$(package).pdf doc/$(package).info
+docs: doc/$(package).pdf doc/$(package).info doc/$(package).qhc
+	echo $(shell qhelpgenerator-qt5 2>/dev/null)
+
+doc/$(package).qhc: doc/$(package).texi doc/functions.texi
+	# try also create qch file if can
+	cd doc && SOURCE_DATE_EPOCH=$(HG_TIMESTAMP) $(MAKEINFO) --html --css-ref=$(package).css  --no-split $(package).texi
+	cd doc && ./mkqhcp.py $(package) && $(QHELPGENERATOR) $(package).qhcp -o $(package).qhc
+	cd doc && $(RM) -f $(package).html $(package).qhcp $(package).qhp
 
 doc/$(package).info: doc/$(package).texi doc/functions.texi
 	cd doc && $(MAKEINFO) $(package).texi

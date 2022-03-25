@@ -7,6 +7,8 @@ Summary of important user-visible changes for instrument-control 0.7.1+
 
   ** minor bug fixes in configure
 
+  ** added QT help doc generation
+
 Summary of important user-visible changes for instrument-control 0.7.1
 -------------------------------------------------------------------
 
