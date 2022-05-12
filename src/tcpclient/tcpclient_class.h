@@ -117,15 +117,15 @@ public:
     return byteOrder;
   }
 
-  int set_input_terminator(const std::string& /* term */);
-  int set_output_terminator(const std::string& /* term */);
+  int set_input_terminator(const octave_value& /* term */);
+  int set_output_terminator(const octave_value& /* term */);
 
-  std::string get_input_terminator() const
+  octave_value get_input_terminator() const
   {
     return interminator;
   }
 
-  std::string get_output_terminator() const
+  octave_value get_output_terminator() const
   {
     return outterminator;
   }
@@ -145,8 +145,8 @@ private:
   octave_value userData;
   std::string byteOrder;
   unsigned int byteswritten;
-  std::string interminator;
-  std::string outterminator;
+  octave_value interminator;
+  octave_value outterminator;
 
   DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };

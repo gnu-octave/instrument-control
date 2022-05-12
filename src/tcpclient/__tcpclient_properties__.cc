@@ -27,16 +27,18 @@
 static octave_value_list get_terminator (octave_tcpclient* tcp)
 {
   // may have a single terminator or a start and stop
-  std::string in = tcp->get_input_terminator ();
-  std::string out = tcp->get_output_terminator ();
+  octave_value in = tcp->get_input_terminator ();
+  octave_value out = tcp->get_output_terminator ();
 
-  if (in == out)
-    return octave_value (in);
+  if(in.is_string() && out.is_string() && in.string_value() == out.string_value())
+    return in;
+  else if(in.is_scalar_type() && out.is_scalar_type() && in.int_value() == out.int_value())
+    return in;
   else
     {
-      octave_value_list ret;
-      ret(0) = octave_value(in);
-      ret(1) = octave_value(out);
+      Cell ret = Cell(dim_vector(1, 2));
+      ret(0) = in;
+      ret(1) = out;
       return octave_value (ret);
     }
 }
@@ -45,23 +47,23 @@ static octave_value set_terminator(octave_tcpclient* tcp, const octave_value_lis
 {
   if (args.length () == 1)
     {
-      if ( !(args (0).is_string ()) )
-        (*current_liboctave_error_handler) ("argument must be a string");
+      if ( !(args (0).is_string ()) && !(args (0).is_scalar_type ()))
+        (*current_liboctave_error_handler) ("argument must be a number or string");
 
-      tcp->set_input_terminator (args (0).string_value());
-      tcp->set_output_terminator (args (0).string_value());
+      tcp->set_input_terminator (args (0));
+      tcp->set_output_terminator (args (0));
 
       return octave_value (); // Should it return by default?
     }
   else if (args.length () == 2)
     {
-      if ( !(args (0).is_string ()) )
-        (*current_liboctave_error_handler) ("argument must be a string");
-      if ( !(args (1).is_string ()) )
-        (*current_liboctave_error_handler) ("argument must be a string");
+      if ( !(args (0).is_string ()) && !(args (0).is_scalar_type ()))
+        (*current_liboctave_error_handler) ("argument must be a number or string");
+      if ( !(args (1).is_string ()) && !(args (1).is_scalar_type ()))
+        (*current_liboctave_error_handler) ("argument must be a number or string");
 
-      tcp->set_input_terminator (args (0).string_value());
-      tcp->set_output_terminator (args (1).string_value());
+      tcp->set_input_terminator (args (0));
+      tcp->set_output_terminator (args (1));
 
       return octave_value (); // Should it return by default?
     }
@@ -79,7 +81,7 @@ Undocumented internal function.\n\
 @end deftypefn")
 {
 #ifdef BUILD_TCP
-  if (args.length () < 2 || args.length () > 3 ||
+  if (args.length () < 2 ||
     args(0).type_id () != octave_tcpclient::static_type_id () || 
     !args(1).is_string ())
       (*current_liboctave_error_handler) ("wrong number of arguments");
@@ -89,6 +91,13 @@ Undocumented internal function.\n\
     
   std::string property = args(1).string_value ();
   std::transform (property.begin (), property.end (), property.begin (), ::tolower);
+
+  int maxinputs = 3;
+  if (property == "terminator")
+    maxinputs = 4;
+
+  if (args.length () > maxinputs)
+    (*current_liboctave_error_handler) ("wrong number of arguments");
 
   if (args.length () == 2) // get
     {

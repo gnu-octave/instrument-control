@@ -31,8 +31,8 @@ octave_serialport_common::octave_serialport_common ()
   byteswritten = 0;
   userData = Matrix ();
 
-  interminator = "lf";
-  outterminator = "lf";
+  interminator = octave_value("lf");
+  outterminator = octave_value("lf");
   byteOrder = "little-endian";
 
   fieldnames[0] = "BaudRate";
@@ -167,30 +167,63 @@ octave_serialport_common::set_byteorder(const std::string& neworder)
 }
 
 int
-octave_serialport_common::set_input_terminator(const std::string& t)
+octave_serialport_common::set_input_terminator(const octave_value& t)
 {
-  std::string term = t;
-  std::transform (term.begin (), term.end (), term.begin (), ::tolower);
-  if (term != "lf" && term != "cr" && term != "cr/lf")
-    error ("octave_serialport invalid input terminator");
+  if(t.is_string())
+  {
+    std::string term = t.string_value();
+    std::transform (term.begin (), term.end (), term.begin (), ::tolower);
+    if (term != "lf" && term != "cr" && term != "cr/lf")
+      error ("octave_serialport invalid input terminator");
+    else
+      interminator = term;
+    }
+  else if(t.is_scalar_type())
+    {
+      int x = t.int_value();
+      if(x < 0 || x > 255)
+        {
+          error ("octave_serialport invalid input terminator");
+        }
+      else
+        {
+          interminator = octave_value(x);
+        }
+    }
   else
-    interminator = term;
+    error ("octave_serialport invalid input terminator");
 
  return 1;
 }
 
 int
-octave_serialport_common::set_output_terminator(const std::string& t)
+octave_serialport_common::set_output_terminator(const octave_value& t)
 {
-  std::string term = t;
-  std::transform (term.begin (), term.end (), term.begin (), ::tolower);
-  if (term != "lf" && term != "cr" && term != "cr/lf")
-    error ("octave_serialport invalid output terminator");
+  if(t.is_string())
+  {
+    std::string term = t.string_value();
+    std::transform (term.begin (), term.end (), term.begin (), ::tolower);
+    if (term != "lf" && term != "cr" && term != "cr/lf")
+      error ("octave_serialport invalid output terminator");
+    else
+      outterminator = term;
+    }
+  else if(t.is_scalar_type())
+    {
+      int x = t.int_value();
+      if(x < 0 || x > 255)
+        {
+          error ("octave_serialport invalid output terminator");
+        }
+      else
+        {
+          outterminator = octave_value(x);
+        }
+    }
   else
-    outterminator = term;
+    error ("octave_serialport invalid output terminator");
 
  return 1;
 }
-
 
 #endif

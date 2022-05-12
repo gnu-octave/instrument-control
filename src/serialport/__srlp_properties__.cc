@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2020 John Donoghue <john.donoghue@ieee.org>
+// Copyright (C) 2019-2022 John Donoghue <john.donoghue@ieee.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -132,25 +132,25 @@ octave_value_list srlp_terminator (octave_serialport* serialport, const octave_v
   // Setting new timeout
   if (args.length () == 1)
     {
-      if ( !(args (0).is_string ()) )
-        (*current_liboctave_error_handler) ("argument must be a string");
+      if ( !(args (0).is_string ()) && !(args (0).is_scalar_type()))
+        (*current_liboctave_error_handler) ("argument must be a string or number");
 
-      serialport->set_input_terminator (args (0).string_value());
-      serialport->set_output_terminator (args (0).string_value());
+      serialport->set_input_terminator (args (0));
+      serialport->set_output_terminator (args (0));
 
       return octave_value (); // Should it return by default?
     }
   else if (args.length () == 2)
     {
-      if ( !(args (0).is_string ()) )
-        (*current_liboctave_error_handler) ("argument must be a string");
-      if ( !(args (1).is_string ()) )
-        (*current_liboctave_error_handler) ("argument must be a string");
+      if ( !(args (0).is_string ()) && !(args (0).is_scalar_type()))
+        (*current_liboctave_error_handler) ("argument must be a string or number");
+      if ( !(args (1).is_string ()) && !(args (0).is_scalar_type()))
+        (*current_liboctave_error_handler) ("argument must be a string or numer");
 
       // could be 1 or 2 args here
 
-      serialport->set_input_terminator (args (0).string_value());
-      serialport->set_output_terminator (args (1).string_value());
+      serialport->set_input_terminator (args (0));
+      serialport->set_output_terminator (args (1));
 
       return octave_value (); // Should it return by default?
     }
@@ -158,18 +158,21 @@ octave_value_list srlp_terminator (octave_serialport* serialport, const octave_v
     (*current_liboctave_error_handler) ("wrong number of arguments");
 
   // may have a single terminator or a start and stop
-  std::string in = serialport->get_input_terminator ();
-  std::string out = serialport->get_output_terminator ();
+  octave_value in = serialport->get_input_terminator ();
+  octave_value out = serialport->get_output_terminator ();
 
-  if (in == out)
-    return octave_value (in);
+  if(in.is_string() && out.is_string() && in.string_value() == out.string_value())
+    return in;
+  else if(in.is_scalar_type() && out.is_scalar_type() && in.int_value() == out.int_value())
+    return in;
   else
-  {
-    octave_value_list ret;
-    ret(0) = octave_value(in);
-    ret(1) = octave_value(out);
-    return octave_value (ret);
-  }
+    {
+      Cell ret = Cell(dim_vector(1, 2));
+      ret(0) = in;
+      ret(1) = out;
+      return octave_value (ret);
+    }
+  return octave_value_list();
 }
 
 octave_value_list srlp_byteorder (octave_serialport* serialport, const octave_value_list& args, int nargout)

@@ -120,8 +120,8 @@ octave_tcpclient::octave_tcpclient (void)
   userData = Matrix ();
   byteswritten = 0;
   byteOrder = "little-endian";
-  interminator = "lf";
-  outterminator = "lf";
+  interminator = octave_value("lf");
+  outterminator = octave_value("lf");
 
   fieldnames[0] = "Type";
   fieldnames[1] = "Name";
@@ -556,29 +556,63 @@ octave_tcpclient::set_byteorder(const std::string& neworder)
 }
 
 int
-octave_tcpclient::set_input_terminator(const std::string& t)
+octave_tcpclient::set_input_terminator(const octave_value& t)
 {
-  std::string term = t;
-  std::transform (term.begin (), term.end (), term.begin (), ::tolower);
-  if (term != "lf" && term != "cr" && term != "cr/lf")
-    error ("octave_tcpclient invalid input terminator");
+  if(t.is_string())
+    {
+      std::string term = t.string_value();
+      std::transform (term.begin (), term.end (), term.begin (), ::tolower);
+      if (term != "lf" && term != "cr" && term != "cr/lf")
+        error ("octave_tcpclient invalid input terminator");
+      else
+        interminator = term;
+    }
+  else if(t.is_scalar_type())
+    {
+      int x = t.int_value();
+      if(x < 0 || x > 255)
+        {
+          error ("octave_tcpclient invalid input terminator");
+        }
+      else
+        {
+          interminator = octave_value(x);
+        }
+    }
   else
-    interminator = term;
+    error ("octave_tcpclient invalid input terminator");
 
- return 1;
+  return 1;
 }
 
 int
-octave_tcpclient::set_output_terminator(const std::string& t)
+octave_tcpclient::set_output_terminator(const octave_value& t)
 {
-  std::string term = t;
-  std::transform (term.begin (), term.end (), term.begin (), ::tolower);
-  if (term != "lf" && term != "cr" && term != "cr/lf")
-    error ("octave_tcpclient invalid output terminator");
+  if(t.is_string())
+  {
+    std::string term = t.string_value();
+    std::transform (term.begin (), term.end (), term.begin (), ::tolower);
+    if (term != "lf" && term != "cr" && term != "cr/lf")
+      error ("octave_tcpclient invalid output terminator");
+    else
+      outterminator = term;
+    }
+  else if(t.is_scalar_type())
+    {
+      int x = t.int_value();
+      if(x < 0 || x > 255)
+        {
+         error ("octave_tcpclient invalid output terminator");
+        }
+      else
+        {
+          outterminator = octave_value(x);
+        }
+    }
   else
-    outterminator = term;
+    error ("octave_tcpclient invalid output terminator");
 
- return 1;
+  return 1;
 }
 
 #endif

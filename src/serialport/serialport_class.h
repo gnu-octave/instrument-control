@@ -172,15 +172,15 @@ public:
     return byteOrder;
   }
 
-  int set_input_terminator(const std::string& /* term */);
-  int set_output_terminator(const std::string& /* term */);
+  int set_input_terminator(const octave_value& /* term */);
+  int set_output_terminator(const octave_value& /* term */);
 
-  std::string get_input_terminator() const
+  octave_value get_input_terminator() const
   {
     return interminator;
   }
 
-  std::string get_output_terminator() const
+  octave_value get_output_terminator() const
   {
     return outterminator;
   }
@@ -192,8 +192,8 @@ protected:
   std::string name;
   std::string portPath;
   std::string byteOrder;
-  std::string interminator;
-  std::string outterminator;
+  octave_value interminator;
+  octave_value outterminator;
   octave_value userData;
 };
 
