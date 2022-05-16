@@ -12,6 +12,8 @@ Summary of important user-visible changes for instrument-control 0.7.1+
   ** added common functions:
      writeline
      readline
+     readbinblock
+     writebinblock
 
 Summary of important user-visible changes for instrument-control 0.7.1
 -------------------------------------------------------------------

@@ -77,7 +77,7 @@ endfunction
 %! a = udp ();
 %! a.remoteport = a.localport;
 %! a.remotehost = '127.0.0.1';
-%! a.timeout = 1
+%! a.timeout = 1;
 %!
 %! writeline(a, "hello");
 %! clear a

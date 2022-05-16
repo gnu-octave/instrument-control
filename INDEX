@@ -4,6 +4,8 @@ Common Functions
   flushoutput
   readline
   writeline
+  readbinblock
+  writebinblock
 General
   instrhelp
   instrhwinfo
