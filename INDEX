@@ -2,10 +2,11 @@ instrument-control >> Low level I/O functions
 Common Functions
   flushinput
   flushoutput
-  readline
-  writeline
   readbinblock
+  readline
   writebinblock
+  writeline
+  writeread
 General
   instrhelp
   instrhwinfo
