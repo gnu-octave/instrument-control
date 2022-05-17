@@ -68,6 +68,7 @@ function data = readbinblock (dev, varargin)
     toclass = "uint8";
   endif
 
+  # read and numbytesavailable
   types_with_read = { "octave_udpport", "octave_serialport", ...
                       "octave_tcpclient", "octave_tcpserver", "octave_udpport" };
 
@@ -83,7 +84,12 @@ function data = readbinblock (dev, varargin)
   # need read ?????? # D <dsizenumn> <data...> \n
    
   if has_read
-    tdata = read (dev);
+    len = dev.NumBytesAvailable;
+    if(len == 0)
+      len = 100;
+    endif
+
+    tdata = read (dev, len);
   else
     tdata = fread(dev, 100);
   endif

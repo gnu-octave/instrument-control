@@ -57,7 +57,13 @@ function data = readline (dev)
 
     data = "";
     idx = 0;
-    tdata = read (dev)
+
+    len = dev.NumBytesAvailable;
+    if(len == 0)
+      len = 100;
+    endif
+
+    tdata = read (dev, len);
     while !isempty (tdata) && idx == 0
       data = [data char(tdata)];
       idx = index (data, terminator);
@@ -76,7 +82,7 @@ function data = readline (dev)
 
     data = "";
     idx = 0;
-    tdata = fread(dev, 100)
+    tdata = fread(dev, 100);
     while !isempty(tdata) && idx == 0
       data = [data  char(tdata)];
       idx = index(data, terminator);
@@ -102,7 +108,7 @@ endfunction
 %! a = udp ();
 %! a.remoteport = a.localport;
 %! a.remotehost = '127.0.0.1';
-%! a.timeout = 1
+%! a.timeout = 1;
 %!
 %! writeline(a, "hello");
 %! assert(readline(a), "hello");
