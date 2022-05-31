@@ -23,14 +23,13 @@ TEXI2PDF  ?= texi2pdf -q
 ifeq ($(strip $(QHELPGENERATOR)),)
   ifneq ($(shell qhelpgenerator-qt5 -v 2>/dev/null),)
     QHELPGENERATOR = qhelpgenerator-qt5
-  else ifneq ($(shell qhelpgenerator -qt5 -v 2>/dev/null),)
-    QHELPGENERATOR = qhelpgenerator -qt5
-  else ifneq ($(shell qhelpgenerator-qt5 -v 2>/dev/null),)
-    QHELPGENERATOR = qhelpgenerator-qt5
-  else ifneq ($(shell qcollectiongenerator -qt5 -v 2>/dev/null),)
-    QHELPGENERATOR = qcollectiongenerator -qt5
   else ifneq ($(shell qcollectiongenerator-qt5 -v 2>/dev/null),)
     QHELPGENERATOR = qcollectiongenerator-qt5
+  #else ifneq ($(shell qhelpgenerator -qt5 -v 2>/dev/null),)
+  # v4 doesnt work
+  #  QHELPGENERATOR = qhelpgenerator -qt5
+  else ifneq ($(shell qcollectiongenerator -qt5 -v 2>/dev/null),)
+    QHELPGENERATOR = qcollectiongenerator -qt5
   else
     QHELPGENERATOR = true
   endif
