@@ -189,14 +189,16 @@ clean-unpacked-release:
 	@echo
 
 .PHONY: docs
-docs: doc/$(package).pdf doc/$(package).info doc/$(package).qhc
+docs: doc/$(package).pdf doc/$(package).info doc/$(package).qhc doc/$(package).html
 	echo $(shell qhelpgenerator-qt5 2>/dev/null)
 
-doc/$(package).qhc: doc/$(package).texi doc/functions.texi
-	# try also create qch file if can
+doc/$(package).html: doc/$(package).texi doc/functions.texi
 	cd doc && SOURCE_DATE_EPOCH=$(HG_TIMESTAMP) $(MAKEINFO) --html --css-ref=$(package).css  --no-split $(package).texi
+
+doc/$(package).qhc: doc/$(package).html
+	# try also create qch file if can
 	cd doc && ./mkqhcp.py $(package) && $(QHELPGENERATOR) $(package).qhcp -o $(package).qhc
-	cd doc && $(RM) -f $(package).html $(package).qhcp $(package).qhp
+	cd doc && $(RM) -f $(package).qhcp $(package).qhp
 
 doc/$(package).info: doc/$(package).texi doc/functions.texi
 	cd doc && $(MAKEINFO) $(package).texi
@@ -214,6 +216,7 @@ doc/functions.texi:
 clean-docs:
 	$(RM) -f doc/$(package).info
 	$(RM) -f doc/$(package).pdf
+	$(RM) -f doc/$(package).html
 	$(RM) -f doc/functions.texi
 
 ##
