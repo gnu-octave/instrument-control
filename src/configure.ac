@@ -360,11 +360,26 @@ if test "x$ac_cv_search_viOpenDefaultRM" != "xno"; then
 fi
 
 # Checks for libmodbus
+build_modbus=no
 PKG_CHECK_MODULES([LIBMODBUS], [libmodbus],
-    [build_modbus=yes;]
-    [])
-AC_SUBST(MODBUSLIBS, [$LIBMODBUS_LIBS])
-AC_SUBST(MODBUSINCLUDES, [$LIBMODBUS_CFLAGS])
+    [AC_CHECK_HEADERS([modbus/modbus.h],[build_modbus=yes], [])],
+    [build_modbus=no])
+
+if test $build_modbus = yes; then
+  AC_SUBST(MODBUSLIBS, [$LIBMODBUS_LIBS])
+  AC_SUBST(MODBUSINCLUDES, [$LIBMODBUS_CFLAGS])
+
+AC_MSG_CHECKING([modbus_set_response_timeout(modbus_t*,uint32,uint32)])
+AC_COMPILE_IFELSE(
+  [AC_LANG_PROGRAM([[#include <modbus/modbus.h>]],
+   [[
+     modbus_t *m=0;
+     modbus_set_response_timeout(m,0,0);
+   ]])],
+ [AC_MSG_RESULT([yes])
+  AC_DEFINE([HAVE_MODBUS_SET_RESPONSE_TIMEOUT2], [], [Defined if have modbus_set_response_timeout(modbus_t*,uint32,uint32)])],
+ [AC_MSG_RESULT([no])])
+fi
 
 if test $build_parallel = yes; then
   AC_DEFINE([BUILD_PARALLEL], [], [build PARALLEL interface functions])

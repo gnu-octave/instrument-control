@@ -508,8 +508,11 @@ octave_modbus::set_timeout (double newtimeout)
     }
 
   struct timeval tv = to_timeval((long)(newtimeout*1000L));
-
+#ifdef HAVE_MODBUS_SET_RESPONSE_TIMEOUT2
+  modbus_set_response_timeout(this->modbus, tv.tv_sec, tv.tv_usec);
+#else
   modbus_set_response_timeout(this->modbus, &tv);
+#endif
 
   timeout = newtimeout;
 
