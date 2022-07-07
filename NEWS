@@ -16,6 +16,10 @@ Summary of important user-visible changes for instrument-control 0.7.1+
      writebinblock
      writeread
 
+  ** TCPCLIENT: bugfix read when used with no size parameter
+
+  ** UDPPORT: bugfix read when used with no size parameter
+
 Summary of important user-visible changes for instrument-control 0.7.1
 -------------------------------------------------------------------
 

@@ -74,7 +74,7 @@ function data = read (obj, cnt, datatype)
   endswitch
 
   if (nargin < 2)
-    cnt = int32(obj.numbytesavailable/tosize);
+    cnt = int32(obj.NumBytesAvailable/tosize);
   endif
 
   cnt = cnt*tosize;
