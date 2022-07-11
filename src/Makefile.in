@@ -44,7 +44,7 @@ realclean:
 
 distclean: realclean $(DISTCLEANDIRS)
 	-rm -rf autom4te.cache
-	-rm -f common.h oct-alt-includes.h
+	-rm -f common.mk oct-alt-includes.h
 	-rm -f Makefile config.status config.log config.h
 
 maintainer-clean: distclean
