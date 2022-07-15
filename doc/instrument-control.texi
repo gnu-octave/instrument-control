@@ -15,6 +15,13 @@
 
 @include macros.texi
 
+@macro boxnote {args}
+@cartouche
+@strong{NOTE}: \args\
+@end cartouche
+@end macro
+
+
 @c %*** Start of TITLEPAGE
 @titlepage
 @title Octave Instrument Control Toolkit @value{VERSION}
@@ -198,7 +205,7 @@ Most interfaces have two types of functions:
 @section  Basic Serial
 
 @subsection Serial
-The serial object has been deprecated and may not appear in newer versions of the instrument-control toolbox. Instead new code should use the serialport object.
+@boxnote{The serial object has been deprecated and may not appear in newer versions of the instrument-control toolbox. Instead new code should use the serialport object.}
 
 The serial port can be opened using the serial function:
 
@@ -288,7 +295,7 @@ clear s
 @section  Basic TCP
 
 @subsection TCP
-The TCP object has been deprecated and may not appear in newer versions of the instrument-control toolbox. Instead new code should use the tcpclient object.
+@boxnote{The TCP object has been deprecated and may not appear in newer versions of the instrument-control toolbox. Instead new code should use the tcpclient object.}
 
 A TCP connection can be opened using the tcp or tcpip function:
 
@@ -373,7 +380,7 @@ clear s
 @section  Basic UDP
 
 @subsection UDP
-The UDP object has been deprecated and may not appear in newer versions of the instrument-control toolbox. Instead new code should use the udpport object.
+@boxnote{The UDP object has been deprecated and may not appear in newer versions of the instrument-control toolbox. Instead new code should use the udpport object.}
 
 A UDP connection can be opened using the udp function:
 
