@@ -69,11 +69,14 @@ function out = instrhwinfo (interface)
   elseif (strcmpi (interface, "serial"))
 
     if (ispc ()) # windoze
-
-      Skey = 'HKEY_LOCAL_MACHINE\HARDWARE\DEVICEMAP\SERIALCOMM';
-      ## Find connected serial devices and clean up the output
-      [~, list] = dos(['REG QUERY ' Skey]);
-      [~, ~, ~, out]=regexp (list, "COM[0-9]+");
+      try
+        Skey = 'HKEY_LOCAL_MACHINE\HARDWARE\DEVICEMAP\SERIALCOMM';
+        ## Find connected serial devices and clean up the output
+        [~, list] = dos(['REG QUERY ' Skey ' 2>nul']);
+        [~, ~, ~, out]=regexp (list, "COM[0-9]+");
+      catch
+        out = [];
+      end_try_catch
 
     elseif (ismac ())
 
@@ -90,12 +93,14 @@ function out = instrhwinfo (interface)
     endif
   elseif (strcmpi (interface, "serialport"))
     if (ispc ()) # windoze
-
-      Skey = 'HKEY_LOCAL_MACHINE\HARDWARE\DEVICEMAP\SERIALCOMM';
-      ## Find connected serial devices and clean up the output
-      [~, list] = dos(['REG QUERY ' Skey]);
-      [~, ~, ~, out]=regexp (list, "COM[0-9]+");
-
+      try
+        Skey = 'HKEY_LOCAL_MACHINE\HARDWARE\DEVICEMAP\SERIALCOMM';
+        ## Find connected serial devices and clean up the output
+        [~, list] = dos(['REG QUERY ' Skey ' 2>nul']);
+        [~, ~, ~, out]=regexp (list, "COM[0-9]+");
+      catch
+        out = [];
+      end_try_catch
     elseif (ismac ())
 
       out = glob ("/dev/tty.*");
