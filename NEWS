@@ -1,4 +1,4 @@
-Summary of important user-visible changes for instrument-control 0.7.1+
+Summary of important user-visible changes for instrument-control 0.8.0
 -------------------------------------------------------------------
 
   ** MODBUS: Added new modbus class
@@ -8,6 +8,8 @@ Summary of important user-visible changes for instrument-control 0.7.1+
   ** minor bug fixes in configure
 
   ** added QT help doc generation
+
+  ** updates to package documentation
 
   ** added common functions:
      writeline
@@ -19,6 +21,8 @@ Summary of important user-visible changes for instrument-control 0.7.1+
   ** TCPCLIENT: bugfix read when used with no size parameter
 
   ** UDPPORT: bugfix read when used with no size parameter
+
+  ** Min octave version is now 4.0  
 
 Summary of important user-visible changes for instrument-control 0.7.1
 -------------------------------------------------------------------
