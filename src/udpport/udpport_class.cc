@@ -750,7 +750,7 @@ octave_udpport::set_multicastgroup (const std::string &addr)
         {
           sockaddr_in in;
 
-          for (int i=0; i<multicastaddr.size (); i++)
+          for (int i=0; i<(int)multicastaddr.size (); i++)
             {
               struct ip_mreq multicastRequest;  /* Multicast address join structure */
 

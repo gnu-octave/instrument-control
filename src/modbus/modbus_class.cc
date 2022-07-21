@@ -48,7 +48,7 @@ to_timeval(long ms)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_modbus, "octave_modbus", "octave_modbus");
 
 octave_modbus::octave_modbus (void)
-: modbus(0), timeout(-1), ipport(0), retries(0), name(""), slaveid(-1), fieldnames(15)
+: fieldnames(15)
 {
   static bool type_registered = false;
 
@@ -59,6 +59,11 @@ octave_modbus::octave_modbus (void)
     }
   userData = Matrix ();
   modbus = 0;
+  ipport = 0;
+  name = "";
+  timeout = -1;
+  retries = 0;
+  slaveid = -1;
 
   wordorder = "big-endian";
   byteorder = "big-endian";
@@ -597,7 +602,6 @@ octave_modbus::flush (int mode)
 
   if (is_open())
     {
-      uint8_t tmpbuffer[1024];
       if (mode == 0 || mode == 2)
         {
 	  // we are sending data as we get it, so no outout
