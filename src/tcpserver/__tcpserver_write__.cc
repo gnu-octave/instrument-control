@@ -94,6 +94,7 @@ Upon successful completion, __tcpserver_write__() shall return the number of byt
 %!test
 %! a = tcpserver (0);
 %! b = tcpclient ("127.0.0.1", a.ServerPort);
+%! pause(0.5);
 %! assert (a.Connected == true);
 %! req = "hello";
 %! assert (length(req), __tcpserver_write__(a, req));

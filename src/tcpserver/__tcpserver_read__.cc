@@ -119,6 +119,7 @@ Private function t read from tcpserver interface.\n \
 %! b = tcpclient ("127.0.0.1", a.ServerPort);
 %! assert (! isnull (b));
 %! # server should be waiting for
+%! pause(0.5);
 %! assert (a.Connected == true);
 %! # try read when nothing
 %! fail ("__tcpserver_read__ (a, 10, 0, 0)", "Invalid call to __tcpserver_read__");
@@ -144,6 +145,7 @@ Private function t read from tcpserver interface.\n \
 %! [d,c] = __tcpserver_read__ (a, 1, 0);
 %! assert (0, c);
 %!
+%! pause(0.5);
 %! assert (a.Connected == false);
 %!
 %! clear a
