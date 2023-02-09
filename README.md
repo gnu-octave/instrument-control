@@ -9,7 +9,7 @@ It attempts to provide the same function calls as the Matlab toolkit, as well as
 Requirements
 ============
 
-* Octave >= 3.8.0
+* Octave >= 4.0.0
 
 * linux-gpib (Linux only)
 
