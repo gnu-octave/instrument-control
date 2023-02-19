@@ -31,11 +31,12 @@ using std::string;
 // PKG_ADD: autoload ("vxi11", "vxi11.oct");
 DEFUN_DLD (vxi11, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{vxi11} = } vxi11 (@var{ip})\n \
+@deftypefn {Loadable Function} {@var{vxi11} = } vxi11 (@var{ip},@var{instr})\n \
 \n\
 Open vxi11 interface.\n \
 \n\
-@var{path} - the ip address of type String. If omitted defaults to '127.0.0.1'.\n \
+@var{ip} - the ip address of type String. If omitted defaults to '127.0.0.1'.\n \
+@var{instr} - the instrument name of type String. If omitted defaults to 'instr0'.\n \
 \n\
 The vxi11() shall return instance of @var{octave_vxi11} class as the result @var{vxi11}.\n \
 @end deftypefn")
@@ -53,6 +54,7 @@ The vxi11() shall return instance of @var{octave_vxi11} class as the result @var
 
   // Default values
   string path ("127.0.0.1");
+  string device ("instr0");
 
   // Parse the function arguments
   if (args.length () > 0)
@@ -60,6 +62,13 @@ The vxi11() shall return instance of @var{octave_vxi11} class as the result @var
       if (args(0).is_string ())
         {
           path = args (0).string_value ();
+          if (args.length () > 1)
+            {
+              if (args(1).is_string ())
+                {
+                  device = args (1).string_value ();
+                }
+            }
         }
       else
         {
@@ -71,7 +80,7 @@ The vxi11() shall return instance of @var{octave_vxi11} class as the result @var
   // Open the interface
   octave_vxi11* retval = new octave_vxi11;
 
-  if (retval->open (path) < 0)
+  if (retval->open (path, device) < 0)
     {
       error("vxi11: Error opening the interface: %s\n", strerror (errno));
       return octave_value ();

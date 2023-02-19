@@ -84,14 +84,13 @@ octave_vxi11::print_raw (std::ostream& os, bool pr_as_read_syntax) const
 }
 
 int
-octave_vxi11::open (string ip)
+octave_vxi11::open (string ip, string inst)
 {
-  std::string inst="inst0";
-
   this->ip=ip;
+  this->inst=inst;
 
 #ifdef OPENONCE
-  if (this->openvxi (this->ip.c_str(),&this->client,&this->link,inst.c_str ()))
+  if (this->openvxi (this->ip.c_str(),&this->client,&this->link,this->inst.c_str()))
     {
       error ("vxi11: Cannot open VXI11...");
       return -1;
@@ -118,8 +117,8 @@ octave_vxi11::read(char *buf, unsigned int len)
   client = this->client;
   link = this->link;
 #else
-  std::string inst="inst0";
-  if (this->openvxi(this->ip.c_str(),&client,&link,inst.c_str()))
+  //std::string inst="inst0";
+  if (this->openvxi(this->ip.c_str(),&client,&link,this->inst.c_str()))
     {
       error("vxi11: Cannot open VXI11...");
       return -1;
@@ -224,8 +223,8 @@ octave_vxi11::write (const char *buf, int len)
   client = this->client;
   link = this->link;
 #else
-  std::string inst="inst0";
-  if (this->openvxi (this->ip.c_str (),&client,&link,inst.c_str ()))
+  //std::string inst="inst0";
+  if (this->openvxi (this->ip.c_str (),&client,&link,this->inst.c_str ()))
     {
       error ("vxi11: Cannot open VXI11...");
       return -1;

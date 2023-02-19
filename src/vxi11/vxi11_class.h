@@ -36,7 +36,7 @@ public:
   octave_vxi11 (void);
   ~octave_vxi11 (void);
 
-    int open (string);
+    int open (string, string);
     int close (void);
 
     // Simple vxi11 commands
@@ -67,6 +67,7 @@ private:
     CLIENT *client;
     Create_LinkResp *link;
     std::string ip;
+    std::string inst;
     std::string device;
 
     int openvxi (const char *, CLIENT **, Create_LinkResp **, const char *);
