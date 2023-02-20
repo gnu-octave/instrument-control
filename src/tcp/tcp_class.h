@@ -76,7 +76,7 @@ public:
   string_vector map_keys (void) const { return fieldnames; }
   dim_vector dims (void) const { static dim_vector dv(1, 1); return dv; }
 
-  octave_base_value * unique_clone (void) { count++; return this; }
+  octave_base_value * unique_clone (void) { OV_COUNT++; return this; }
  /**
   * overloaded methods to get properties
   */

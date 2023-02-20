@@ -383,7 +383,7 @@ octave_spi::subsref (const std::string& type, const std::list<octave_value_list>
       {
         octave_value_list ovl;
         // inc ref count as assign this to octave_value
-        count++; 
+        OV_COUNT++; 
         ovl (0) = octave_value (this);
         ovl (1) = (idx.front ()) (0);
         retval = OCTAVE__FEVAL (std::string ("__spi_properties__"), ovl, 1);
@@ -412,13 +412,13 @@ octave_spi::subsasgn (const std::string& type, const std::list<octave_value_list
         {
           octave_value_list ovl;
           // inc ref count as assign this to octave_value
-          count++; 
+          OV_COUNT++; 
           ovl (0) = octave_value (this);
           ovl (1) = (idx.front ()) (0);
           ovl (2) = rhs;
           OCTAVE__FEVAL (std::string ("__spi_properties__"), ovl, 0);
  
-          count++;
+          OV_COUNT++;
           retval = octave_value (this);
         }
       else if (type.length () > 1 && type[1] == '.')
@@ -430,7 +430,7 @@ octave_spi::subsasgn (const std::string& type, const std::list<octave_value_list
               std::list<octave_value_list> next_idx (idx);
               next_idx.erase (next_idx.begin ());
               u (0).subsasgn(type.substr (1), next_idx, rhs);
-              count++;
+              OV_COUNT++;
               retval = octave_value (this);
             } 
         }

@@ -160,6 +160,30 @@ OF_OCTAVE_CHECK_SYM(
   ]
 )
 
+AC_MSG_CHECKING([for octave_base_value count field])
+octave_count_field=count
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+   #include <octave/oct.h>
+   #ifdef HAVE_CONFIG_H
+   #  include "config.h"
+   #endif
+   class test_base_class : public octave_base_value
+   {
+   public:
+     test_base_class() {}
+     ~test_base_class() {}
+     void test() { m_count ++; }
+     bool is_object (void) const { return true; }
+   };
+  ]], [
+    test_base_class t;  t.is_object();
+  ])],
+ [octave_count_field=m_count],
+ [octave_count_field=count]
+)
+AC_MSG_RESULT([$octave_count_field])
+AC_DEFINE_UNQUOTED([OV_COUNT],$octave_count_field,[octave_base_value ref count field])
+
 CXX=$save_altsyms_CXX
 CXXFLAGS=$save_altsyms_CXXFLAGS
 LDFLAGS=$save_altsyms_LDFLAGS
