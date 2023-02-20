@@ -17,8 +17,8 @@
 ### along with this program; if not, see
 ### <http://www.gnu.org/licenses/>.
 
-AC_PREREQ([2.67])
-AC_INIT([octave instrument control package], [0.8.0])
+AC_PREREQ([2.69])
+AC_INIT([octave instrument control package],[0.8.0])
 AC_CONFIG_HEADERS([config.h])
 
 # Avoid warnings for redefining AH-generated preprocessor symbols of
@@ -252,7 +252,7 @@ fi
 
 # Checks for RPC/VXI11
 AC_ARG_WITH([librpc],
-  [AC_HELP_STRING([--with-librpc=tirpc|sunrpc|auto|none], [Choose use/selection of librpc used])],
+  [AS_HELP_STRING([--with-librpc=tirpc|sunrpc|auto|none],[Choose use/selection of librpc used])],
   [with_libtirpc="$with_librpc"], [with_librpc="auto"])
 
 if test "x${with_librpc}" = "xyes"; then
