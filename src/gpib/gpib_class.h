@@ -22,7 +22,11 @@
 
 #include <string>
 
-class octave_gpib : public octave_base_value
+#ifdef HAVE_CONFIG_H
+#  include "../config.h"
+#endif
+
+class octave_gpib : public OCTAVE_BASE_CLASS
 {
 public:
   octave_gpib();

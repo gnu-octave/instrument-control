@@ -59,7 +59,11 @@
      CONCAT2(oct_binop_, f));
 #endif
 
-class octave_serialport_common : public octave_base_value
+#ifdef HAVE_CONFIG_H
+#  include "../config.h"
+#endif
+
+class octave_serialport_common : public OCTAVE_BASE_CLASS
 {
 protected:
   octave_serialport_common();

@@ -23,7 +23,11 @@
 
 using std::string;
 
-class octave_parallel : public octave_base_value
+#ifdef HAVE_CONFIG_H
+#  include "../config.h"
+#endif
+
+class octave_parallel : public OCTAVE_BASE_CLASS
 {
 public:
   octave_parallel (void);

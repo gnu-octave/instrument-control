@@ -29,9 +29,13 @@
 typedef int socklen_t;
 #endif
 
+#ifdef HAVE_CONFIG_H
+#  include "../config.h"
+#endif
+
 int to_ip_port (const sockaddr_in *in, std::string &ip, int &port);
 
-class octave_udpport : public octave_base_value
+class octave_udpport : public OCTAVE_BASE_CLASS
 {
 public:
   octave_udpport (void);

@@ -26,7 +26,11 @@
 
 using std::string;
 
-class octave_vxi11 : public octave_base_value
+#ifdef HAVE_CONFIG_H
+#  include "../config.h"
+#endif
+
+class octave_vxi11 : public OCTAVE_BASE_CLASS
 {
 public:
   octave_vxi11 (void);

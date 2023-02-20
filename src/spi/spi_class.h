@@ -20,9 +20,13 @@
 
 #include <string>
 
+#ifdef HAVE_CONFIG_H
+#  include "../config.h"
+#endif
+
 #include <linux/spi/spidev.h>
 
-class octave_spi : public octave_base_value
+class octave_spi : public OCTAVE_BASE_CLASS
 {
 public:
   octave_spi (void);

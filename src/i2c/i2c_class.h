@@ -20,7 +20,11 @@
 
 #include <string>
 
-class octave_i2c : public octave_base_value
+#ifdef HAVE_CONFIG_H
+#  include "../config.h"
+#endif
+
+class octave_i2c : public OCTAVE_BASE_CLASS
 {
 public:
   octave_i2c (void);

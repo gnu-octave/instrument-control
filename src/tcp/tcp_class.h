@@ -29,7 +29,11 @@
 # include <winsock2.h>
 #endif
 
-class octave_tcp : public octave_base_value
+#ifdef HAVE_CONFIG_H
+#  include "../config.h"
+#endif
+
+class octave_tcp : public OCTAVE_BASE_CLASS
 {
 public:
   octave_tcp (void);
