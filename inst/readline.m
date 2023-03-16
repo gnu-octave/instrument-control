@@ -11,7 +11,7 @@
 ## GNU General Public License for more details.
 
 ## -*- texinfo -*- 
-## @deftypefn {} {@var{data} =} readline (@var{dev}, @var{data})
+## @deftypefn {} {@var{data} =} readline (@var{dev})
 ## read data from a instrument device excluding terminator value
 ##
 ## @subsubheading Inputs
