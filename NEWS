@@ -3,6 +3,10 @@ Summary of important user-visible changes for instrument-control 0.8.0+
 
   ** General updates to support Octave 8+
 
+  ** readline: updated docs, minor bug fixes
+
+  ** VXI11: add instrument name support
+
 
 Summary of important user-visible changes for instrument-control 0.8.0
 -------------------------------------------------------------------
