@@ -58,10 +58,7 @@ function data = readline (dev)
     data = "";
     idx = 0;
 
-    len = dev.NumBytesAvailable;
-    if(len == 0)
-      len = 100;
-    endif
+    len = length(terminator);
 
     tdata = read (dev, len);
     while !isempty (tdata) && idx == 0
@@ -74,7 +71,8 @@ function data = readline (dev)
           data = "";
         endif
       else
-        tdata = read (dev);
+        # read more data
+        tdata = read (dev, 1);
       endif
     endwhile
   else
@@ -82,7 +80,7 @@ function data = readline (dev)
 
     data = "";
     idx = 0;
-    tdata = fread(dev, 100);
+    tdata = fread(dev, 1);
     while !isempty(tdata) && idx == 0
       data = [data  char(tdata)];
       idx = index(data, terminator);
@@ -93,7 +91,7 @@ function data = readline (dev)
           data = "";
         endif
       else
-        tdata = fread(dev, 100);
+        tdata = fread(dev, 1);
       endif
     endwhile
  
