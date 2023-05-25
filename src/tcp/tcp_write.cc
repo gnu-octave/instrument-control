@@ -95,7 +95,7 @@ Upon successful completion, tcp_write() shall return the number of bytes written
 
 %!test
 %! addr = resolvehost ('gnu.org', 'address');
-%! a = tcp (addr, 80);;
+%! a = tcp (addr, 80);
 %! # call HTTP HEAD
 %! req = "HEAD / HTTP/1.1\r\n\r\n";
 %! assert (length (req), tcp_write (a, req));

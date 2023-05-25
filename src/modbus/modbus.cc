@@ -32,7 +32,7 @@ DEFUN_DLD (modbus, args, nargout,
 @deftypefnx {Loadable Function} {@var{dev} = } modbus ('serialrtu', @var{serialport})\n \
 @deftypefnx {Loadable Function} {@var{dev} = } modbus ('serialrtu', @var{serialport}, @var{name}, @var{value})\n \
 \n\
-Open modbus interface using a specified transaport of 'tcpip' or 'serialrtu'.\n \
+Open modbus interface using a specified transport of 'tcpip' or 'serialrtu'.\n \
 \n\
 @subsubheading Inputs\n \
 @var{deviceaddress} - the device ip address of type String.@*\n \

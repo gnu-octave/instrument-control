@@ -12,7 +12,7 @@
 
 ## -*- texinfo -*- 
 ## @deftypefn {} {} writeline (@var{dev}, @var{data})
-## Write data to a instrument device inclding terminator value
+## Write data to a instrument device including terminator value
 ##
 ## @subsubheading Inputs
 ## @var{dev} - connected device

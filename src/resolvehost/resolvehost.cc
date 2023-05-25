@@ -74,7 +74,7 @@ Resolve a network host name or address to network name and address\n \
 \n \
 @subsubheading Example\n \
 @example\n \
-%% get resolved ip name and address pf www.gnu.org\n \
+%% get resolved ip name and address of www.gnu.org\n \
 [name, address] = resolvehost ('www.gnu.org');\n \
 \n \
 %% get ip address of www.gnu.org\n \
