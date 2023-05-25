@@ -115,7 +115,7 @@ int to_ip_port (const sockaddr_in *in, std::string &ip, int &port)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_udpport, "octave_udpport", "octave_udpport");
 
 octave_udpport::octave_udpport (void)
-: fd(-1), timeout(-1), name(""), fieldnames(17)
+: buffer_len(0), fd(-1), timeout(-1), name(""), fieldnames(17)
 {
   static bool type_registered = false;
 
@@ -271,6 +271,11 @@ octave_udpport::open (const std::string &address, int port, int portshare)
       return -1;
     }
 #endif
+  // default size for now
+  input_buffer = new uint8_t[1024];
+  buffer_len = 1024;
+  buffer_pos = 0;
+  memset (&read_addr, 0, sizeof (read_addr));
 
   memset (&remote_addr, 0, sizeof (remote_addr));
   remote_addr.sin_family = AF_INET;
@@ -367,6 +372,9 @@ octave_udpport::get_bytesavailable () const
     {
       return 0;
     }
+  if (buffer_pos > 0)
+    return buffer_pos;
+
   ioctl (get_fd (), FIONREAD, &available);
 
   return available;
@@ -395,8 +403,8 @@ octave_udpport::setsockopt (int level, int opt, const void *buf, socklen_t len)
 int
 octave_udpport::read (uint8_t *buf, unsigned int len, double readtimeout, sockaddr_in *rdinfo)
 {
-  struct sockaddr_in addr;
-  socklen_t addrlen = sizeof (addr);
+  //struct sockaddr_in addr;
+  socklen_t addrlen = sizeof (read_addr);
   struct timeval tv;
 
   fd_set readfds;
@@ -414,58 +422,80 @@ octave_udpport::read (uint8_t *buf, unsigned int len, double readtimeout, sockad
   while (bytes_read < len)
     {
       OCTAVE_QUIT;
-
-      tv = to_timeval((readtimeout < 0 || readtimeout > 1000) ? 1000 : readtimeout);
-
-      FD_ZERO (&readfds);
-      FD_SET (get_fd (), &readfds);
-
-      if (::select(get_fd ()+1, &readfds, NULL, NULL, &tv) < 0)
+      // need get some data in the buffer
+      if (buffer_pos == 0)
         {
-            error("udpport_read: Error while reading/select: %d - %s\n", SOCKETERR, STRSOCKETERR);
-            break;
+          // need read some data first
+          tv = to_timeval((readtimeout < 0 || readtimeout > 1000) ? 1000 : readtimeout);
+ 
+          FD_ZERO (&readfds);
+          FD_SET (get_fd (), &readfds);
+
+          if (::select(get_fd ()+1, &readfds, NULL, NULL, &tv) < 0)
+            {
+                error("udpport_read: Error while reading/select: %d - %s\n", SOCKETERR, STRSOCKETERR);
+                break;
+            }
+
+          if (FD_ISSET (get_fd (), &readfds))
+            {
+              addrlen = sizeof (read_addr);
+              read_retval = ::recvfrom (get_fd (), reinterpret_cast<char *>(input_buffer), buffer_len,
+                                        0, (struct sockaddr*)&read_addr, &addrlen);
+            
+              if (read_retval < 0)
+                {
+                    error ("udpport_read: Error while reading: %d - %s\n", SOCKETERR, STRSOCKETERR);
+                    break;
+                } 
+              else if (read_retval == 0)
+                {
+                    error ("udpport_read: Connection lost: %d - %s\n", SOCKETERR, STRSOCKETERR);
+                    break;
+                }
+              else
+                {
+                  buffer_pos = read_retval;
+                }
+            }
+            else 
+              {
+                // Timeout
+                if (readtimeout >= 0)
+                  {
+                    // real timeout
+                    if (readtimeout <= 1000)
+                      break;
+                    // timed out 1 sec of an actual timeout
+                    else
+	              readtimeout -= 1000;
+                  }
+              }
         }
 
-      if (FD_ISSET (get_fd (), &readfds))
+      if (buffer_pos > 0)
         {
-          addrlen = sizeof (addr);
-          read_retval = ::recvfrom (get_fd (), reinterpret_cast<char *>((buf + bytes_read)), len - bytes_read,
-                                    0, (struct sockaddr*)&addr, &addrlen);
-            
-          if (read_retval < 0)
-            {
-                error ("udpport_read: Error while reading: %d - %s\n", SOCKETERR, STRSOCKETERR);
-                break;
-            } 
-          else if (read_retval == 0)
-            {
-                error ("udpport_read: Connection lost: %d - %s\n", SOCKETERR, STRSOCKETERR);
-                break;
+          if (len - bytes_read < buffer_pos)
+	    {
+              read_retval = len - bytes_read;
+              memcpy(buf, input_buffer, read_retval);
+              memcpy(&input_buffer[0], &input_buffer[read_retval], buffer_pos-read_retval);
+              buffer_pos -= read_retval;
+
             }
           else
             {
-              bytes_read += read_retval;
-
-              if (rdinfo)
-                *rdinfo = addr;
+              read_retval = buffer_pos;
+              memcpy(buf, input_buffer, buffer_pos);
+              buffer_pos = 0;
             }
+
+          if (rdinfo)
+            *rdinfo = read_addr;
+          bytes_read += read_retval;
         }
-        else 
-          {
-            // Timeout
-            if (readtimeout >= 0)
-              {
-                // real timeout
-                if (readtimeout <= 1000)
-                  break;
-                // timed out 1 sec of an actual timeout
-                else
-	          readtimeout -= 1000;
-              }
-          }
 
     }
-
 
   return bytes_read;
 }
@@ -672,6 +702,12 @@ octave_udpport::close (void)
       fd = -1;
     }
 
+  if (buffer_len)
+    {
+      delete [] input_buffer;
+      buffer_len = 0;
+    }
+
   return retval;
 }
 
@@ -691,6 +727,7 @@ octave_udpport::flush (int mode)
       if (mode == 1 || mode == 2)
         {
           while (read (tmpbuffer, 1024, 0) > 0) {}
+          buffer_pos = 0;
         }
     }
 

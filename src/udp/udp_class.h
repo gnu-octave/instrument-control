@@ -116,6 +116,10 @@ public:
 
   int flush(int mode);
 private:
+  uint8_t *input_buffer;
+  int buffer_len;
+  int buffer_pos;
+
   int fd;
   double timeout;
   std::string name;

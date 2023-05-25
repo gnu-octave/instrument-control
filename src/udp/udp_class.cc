@@ -108,7 +108,7 @@ lookup_addr (const std::string &ip, sockaddr_in *in)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_udp, "octave_udp", "octave_udp");
 
 octave_udp::octave_udp (void)
-: fd(-1), timeout(-1), name(""), fieldnames(9)
+: buffer_len(0), fd(-1), timeout(-1), name(""), fieldnames(9)
 {
   static bool type_registered = false;
 
@@ -232,6 +232,11 @@ octave_udp::open (const std::string &address, int port, int localport)
       return -1;
     }
 
+  // default size for now
+  input_buffer = new uint8_t[1024];
+  buffer_len = 1024;
+  buffer_pos = 0;
+
   remote_addr.sin_family = AF_INET;
   remote_addr.sin_port = htons(port);
 
@@ -312,6 +317,9 @@ octave_udp::get_bytesavailable () const
     {
       return 0;
     }
+  if (buffer_pos > 0)
+    return buffer_pos;
+
   ioctl (get_fd (), FIONREAD, &available);
 
   return available;
@@ -340,52 +348,77 @@ octave_udp::read (uint8_t *buf, unsigned int len, double readtimeout)
     {
       OCTAVE_QUIT;
 
-      tv = to_timeval((readtimeout < 0 || readtimeout > 1000) ? 1000 : readtimeout);
-
-      FD_ZERO (&readfds);
-      FD_SET (get_fd (), &readfds);
-
-      if (::select(get_fd ()+1, &readfds, NULL, NULL, &tv) < 0)
+      // need get some data in the buffer
+      if (buffer_pos == 0)
         {
-            error("udp_read: Error while reading/select: %d - %s\n", SOCKETERR, STRSOCKETERR);
-            break;
-        }
+          // need read some data first
+          tv = to_timeval((readtimeout < 0 || readtimeout > 1000) ? 1000 : readtimeout);
 
-      if (FD_ISSET (get_fd (), &readfds))
-        {
-          addrlen = sizeof (addr);
-          read_retval = ::recvfrom (get_fd (), reinterpret_cast<char *>((buf + bytes_read)), len - bytes_read,
-                                    0, (struct sockaddr*)&addr, &addrlen);
-            
-          if (read_retval < 0)
+          FD_ZERO (&readfds);
+          FD_SET (get_fd (), &readfds);
+
+          if (::select(get_fd ()+1, &readfds, NULL, NULL, &tv) < 0)
             {
-                error ("udp_read: Error while reading: %d - %s\n", SOCKETERR, STRSOCKETERR);
-                break;
-            } 
-          else if (read_retval == 0)
-            {
-                error ("udp_read: Connection lost: %d - %s\n", SOCKETERR, STRSOCKETERR);
+                error("udp_read: Error while reading/select: %d - %s\n", SOCKETERR, STRSOCKETERR);
                 break;
             }
+
+          if (FD_ISSET (get_fd (), &readfds))
+            {
+              addrlen = sizeof (addr);
+              read_retval = ::recvfrom (get_fd (), reinterpret_cast<char *>(input_buffer), buffer_len,
+                                        0, (struct sockaddr*)&addr, &addrlen);
+            
+              if (read_retval < 0)
+                {
+                    error ("udp_read: Error while reading: %d - %s\n", SOCKETERR, STRSOCKETERR);
+                    break;
+                } 
+              else if (read_retval == 0)
+                {
+                    error ("udp_read: Connection lost: %d - %s\n", SOCKETERR, STRSOCKETERR);
+                    break;
+                }
+              else
+                {
+                  //bytes_read += read_retval;
+	          buffer_pos = read_retval;
+                }
+            }
+          else 
+            {
+              // Timeout
+              if (readtimeout >= 0)
+                {
+                  // real timeout
+                  if (readtimeout <= 1000)
+                    break;
+                  // timed out 1 sec of an actual timeout
+                  else
+                    readtimeout -= 1000;
+                }
+            }
+        }
+
+      // buffered data can read ?
+      if (buffer_pos > 0)
+        {
+          if (len - bytes_read < buffer_pos)
+            {
+              read_retval = len - bytes_read;
+              memcpy(buf, input_buffer, read_retval);
+              memcpy(&input_buffer[0], &input_buffer[read_retval], buffer_pos-read_retval);
+              buffer_pos -= read_retval;
+	    }
           else
             {
-              bytes_read += read_retval;
+              read_retval = buffer_pos;
+              memcpy(buf, input_buffer, buffer_pos);
+	      buffer_pos = 0;
             }
-        }
-        else 
-          {
-            // Timeout
-            if (readtimeout >= 0)
-              {
-                // real timeout
-                if (readtimeout <= 1000)
-                  break;
-                // timed out 1 sec of an actual timeout
-                else
-	          readtimeout -= 1000;
-              }
-          }
 
+          bytes_read += read_retval;
+        }
     }
 
   return bytes_read;
@@ -534,6 +567,12 @@ octave_udp::close (void)
       fd = -1;
     }
 
+  if (buffer_len)
+    {
+      delete [] input_buffer;
+      buffer_len = 0;
+    }
+
   return retval;
 }
 
@@ -553,6 +592,7 @@ octave_udp::flush (int mode)
       if (mode == 1 || mode == 2)
         {
           while (read (tmpbuffer, 1024, 0) > 0) {}
+	  buffer_pos = 0;
         }
     }
 

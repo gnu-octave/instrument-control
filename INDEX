@@ -176,6 +176,7 @@ UDP Port
   @octave_udpport/read
   @octave_udpport/set
   @octave_udpport/write
+  @octave_udpport/writeline
 USBTMC
   usbtmc
   usbtmc_read

@@ -167,6 +167,10 @@ public:
 
 private:
   bool has_property(const std::string &name) const;
+  uint8_t *input_buffer;
+  int buffer_len;
+  int buffer_pos;
+  sockaddr_in read_addr;
 
   int fd;
   double timeout;

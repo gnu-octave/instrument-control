@@ -110,4 +110,32 @@ endfunction
 %!
 %! writeline(a, "hello");
 %! assert(readline(a), "hello");
+%! # no more data
+%! assert(readline(a), "");
 %! clear a
+
+%!test
+%! # new interface
+%! a = udpport ();
+%! a.Timeout = 1;
+%! writeline(a, "hello", '127.0.0.1', a.LocalPort)
+%!
+%! assert(readline(a), "hello");
+%! # no more data
+%! assert(readline(a), "");
+%! clear a
+
+%!test
+%! s = tcpserver(0);
+%! c = tcpclient("127.0.0.1", s.ServerPort, 'Timeout', 1);
+%! st = s.Connected; % NOTE: currently need look at status to ensure opened
+%! writeline(s, "hello");
+%! assert(readline(c), "hello");
+%! # no more data
+%! assert(readline(c), "");
+%!
+%! writeline(c, "hello1");
+%! assert(readline(s), "hello1");
+%! clear a
+
+

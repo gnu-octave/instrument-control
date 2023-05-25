@@ -7,6 +7,9 @@ Summary of important user-visible changes for instrument-control 0.8.0+
 
   ** VXI11: add instrument name support
 
+  ** UDPPORT: add new writeline function, buffer reading
+
+  ** UDP: buffer reading
 
 Summary of important user-visible changes for instrument-control 0.8.0
 -------------------------------------------------------------------
