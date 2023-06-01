@@ -145,7 +145,7 @@ Additional data to attach to the object\n \
         {
           if (args (2).OV_ISINTEGER () || args (2).OV_ISFLOAT ())
             {
-              ipport = args (1).int_value ();
+              ipport = args (2).int_value ();
             }
           else
             {
