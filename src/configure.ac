@@ -27,8 +27,14 @@ AH_TOP([#include "undef-ah-octave.h"])
 
 AC_CONFIG_MACRO_DIRS([m4])
 
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+
 # Checks for programs.
 AC_PROG_CXX
+AC_PROG_GREP
+AC_PROG_SED
+
 AC_LANG(C++)
 
 # Define macros needed
@@ -42,17 +48,52 @@ fi
 AC_CHECK_PROG(OCTAVE_CONFIG,octave-config,octave-config)
 test -z "$OCTAVE_CONFIG" && OCTAVE_CONFIG=$MKOCTFILE
 
-AC_PROG_GREP
+# try get around possible spaces in the path
+if test "X${IGNORE_MINGW_PATH_MODIFICATION}" == "X"; then
+case $host_os in
+  mingw*)
+    # try demangle spaces in escaped input strings
+    MKOCTFILE=`echo $MKOCTFILE | $SED "s,\\\\\ ,?,g"`
+    OCTAVE_CONFIG=`echo $OCTAVE_CONFIG | $SED "s,\\\\\ ,?,g"`
+    ;;
+  *)
+    ;;
+esac
+fi
 
 ## Simple symbol alternatives of different Octave versions.
 save_altsyms_CXX="$CXX"
 save_altsyms_CXXFLAGS="$CXXFLAGS"
 save_altsyms_LDFLAGS="$LDFLAGS"
 save_altsyms_LIBS="$LIBS"
-OCTINCLUDEDIR=${OCTINCLUDEDIR:-`$MKOCTFILE -p INCFLAGS`}
+OCTINCLUDEDIR="${OCTINCLUDEDIR:-`$MKOCTFILE -p OCTINCLUDEDIR`}/.."
 OCTLIBDIR=${OCTLIBDIR:-`$MKOCTFILE -p OCTLIBDIR`}
+
+if test "X${IGNORE_MINGW_PATH_MODIFICATION}" == "X"; then
+  MSYSTEM="${MSYSTEM}"
+else
+  MSYSTEM="none"
+fi
+
+case X$MSYSTEM in
+  XMINGW64*)
+    OCTAVE_HOME=`${MKOCTFILE} -p OCTAVE_HOME | $SED 's,\\\\,/,g'`
+    # change \ to / and replace octave home part with mingw part
+    OCTINCLUDEDIR=`echo $OCTINCLUDEDIR | $SED -e 's,\\\\,/,g' -e "s,${OCTAVE_HOME},/mingw64,g"`
+    OCTLIBDIR=`echo $OCTLIBDIR | $SED -e 's,\\\\,/,g' -e "s,${OCTAVE_HOME},/mingw64,g"`
+    ;;
+  XMINGW32*)
+    OCTAVE_HOME=`${MKOCTFILE} -p OCTAVE_HOME | $SED 's,\\\\,/,g'`
+    # change \ to / and replace octave home part with mingw part
+    OCTINCLUDEDIR=`echo $OCTINCLUDEDIR | $SED -e 's,\\\\,/,g' -e "s,${OCTAVE_HOME},/mingw32,g"`
+    OCTLIBDIR=`echo $OCTLIBDIR | $SED -e 's,\\\\,/,g -e "s,${OCTAVE_HOME},/mingw32,g"'`
+    ;;
+  *)
+    ;;
+esac
+
 CXX=`${MKOCTFILE} -p CXX`
-CXXFLAGS="$OCTINCLUDEDIR $CXXFLAGS"
+CXXFLAGS="-I$OCTINCLUDEDIR $CXXFLAGS"
 LDFLAGS="-L$OCTLIBDIR $LDFLAGS"
 LIBS="-loctinterp $LIBS"
 
