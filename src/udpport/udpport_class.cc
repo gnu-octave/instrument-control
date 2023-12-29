@@ -439,6 +439,23 @@ octave_udpport::read (uint8_t *buf, unsigned int len, double readtimeout, sockad
 
           if (FD_ISSET (get_fd (), &readfds))
             {
+              int available = get_bytesavailable();
+
+              // alloc new buffer
+              if (available > buffer_len)
+                {
+                  // get nearest 1k over if can
+                  if (available + 1024 > 0)
+                    {
+                      available = (available + 1023);
+                      available &= ~0x3ff;
+                    }
+                  delete [] input_buffer;
+                  input_buffer = 0;
+                  input_buffer = new uint8_t[available];
+                  buffer_len = available;
+                }
+
               addrlen = sizeof (read_addr);
               read_retval = ::recvfrom (get_fd (), reinterpret_cast<char *>(input_buffer), buffer_len,
                                         0, (struct sockaddr*)&read_addr, &addrlen);
@@ -478,7 +495,7 @@ octave_udpport::read (uint8_t *buf, unsigned int len, double readtimeout, sockad
           if (len - bytes_read < buffer_pos)
 	    {
               read_retval = len - bytes_read;
-              memcpy(buf, input_buffer, read_retval);
+              memcpy(&buf[bytes_read], input_buffer, read_retval);
               memcpy(&input_buffer[0], &input_buffer[read_retval], buffer_pos-read_retval);
               buffer_pos -= read_retval;
 
@@ -486,7 +503,7 @@ octave_udpport::read (uint8_t *buf, unsigned int len, double readtimeout, sockad
           else
             {
               read_retval = buffer_pos;
-              memcpy(buf, input_buffer, buffer_pos);
+              memcpy(&buf[bytes_read], input_buffer, buffer_pos);
               buffer_pos = 0;
             }
 

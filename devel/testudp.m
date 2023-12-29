@@ -39,6 +39,25 @@ function testudp
   fprintf(sock, "%d %d", 1, 2)
   xdata = read(sock) 
 
+  flush(sock);
+  write(sock, "hello")
+  write(sock, "hello")
+  # should read back hellohello
+  wdata = read(sock, 10) 
+
+  # read parts
+  write(sock, "hello")
+  wdata = read(sock, 4) 
+  wdata = read(sock, 1) 
+
+  # test increase buff size
+  d = ones([1 1030]);
+  flush(sock);
+  x = write(sock, d)
+  xdata = read(sock) ;
+  length(xdata)
+  sum(xdata)
+
   clear sock
 
 endfunction

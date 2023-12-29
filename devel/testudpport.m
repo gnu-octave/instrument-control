@@ -28,6 +28,20 @@ function testudpport
   write(sock, "hello")
   wdata = read(sock, 10) 
 
+  # write 2 packets and read both
+  flush(sock);
+  write(sock, "hello")
+  write(sock, "hello")
+  # should read back hellohello
+  wdata = read(sock, 10) 
+
+  # increase buffer
+  d = ones([1 1030]);
+  flush(sock);
+  x = write(sock, d)
+  xdata = read(sock);
+  length(xdata)
+ 
   clear sock
 
 endfunction
