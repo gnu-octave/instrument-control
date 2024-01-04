@@ -18,7 +18,7 @@
 ### <http://www.gnu.org/licenses/>.
 
 AC_PREREQ([2.69])
-AC_INIT([octave instrument control package],[0.9.1])
+AC_INIT([octave instrument control package],[0.9.2])
 AC_CONFIG_HEADERS([config.h])
 
 # Avoid warnings for redefining AH-generated preprocessor symbols of

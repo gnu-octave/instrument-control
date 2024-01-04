@@ -1,5 +1,5 @@
 \input texinfo @c -*-texinfo-*-
-@c Copyright (c) 2019-2023, John Donoghue <john.donoghue@ieee.org>
+@c Copyright (c) 2019-2024, John Donoghue <john.donoghue@ieee.org>
 @c Octave Instrument Control Toolkit - Low level I/O functions for serial, i2c, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces.
 
 @c %*** Start of HEADER
@@ -8,7 +8,7 @@
 @afourpaper
 @paragraphindent 0
 @finalout
-@set COPYRIGHT_DATE 2019-2023
+@set COPYRIGHT_DATE 2019-2024
 @c @afourwide
 @c %*** End of the HEADER
 
