@@ -63,6 +63,11 @@ To download a copy of the @acronym{GNU} Octave Instrument Control Toolkit, pleas
 @end titlepage
 @c %*** End of TITLEPAGE
 
+@dircategory Math
+@direntry
+* Octave Intrument Control: (instrument-control).          Instrument Control Toolkit for Octave
+@end direntry
+
 @c %*** Start of BODY
 @contents
 @ifnottex
