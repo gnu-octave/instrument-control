@@ -166,7 +166,8 @@ endif
 	  $(MAKE) distclean && $(RM) Makefile
 ##
 	$(MAKE) -C "$@" docs
-	cd "$@" && $(RM) -rf "devel" && $(RM) -f doc/mkfuncdocs.py doc/mkqhcp.py
+	cd "$@" && $(RM) -rf "devel" 
+	# && $(RM) -f doc/mkfuncdocs.py doc/mkqhcp.py
 	${FIX_PERMISSIONS} "$@"
 
 run_in_place = $(OCTAVE) --eval ' pkg ("local_list", "$(package_list)"); ' \
