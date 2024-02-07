@@ -36,7 +36,7 @@ DEFUN_DLD (vxi11, args, nargout,
 Open vxi11 interface.\n \
 \n\
 @var{ip} - the ip address of type String. If omitted defaults to '127.0.0.1'.\n \
-@var{instr} - the instrument name of type String. If omitted defaults to 'instr0'.\n \
+@var{instr} - the instrument name of type String. If omitted defaults to 'inst0'.\n \
 \n\
 The vxi11() shall return instance of @var{octave_vxi11} class as the result @var{vxi11}.\n \
 @end deftypefn")
@@ -54,7 +54,7 @@ The vxi11() shall return instance of @var{octave_vxi11} class as the result @var
 
   // Default values
   string path ("127.0.0.1");
-  string device ("instr0");
+  string device ("inst0");
 
   // Parse the function arguments
   if (args.length () > 0)
