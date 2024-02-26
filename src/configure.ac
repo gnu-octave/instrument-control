@@ -489,7 +489,7 @@ fi
 
 if test $build_vxi11 = yes; then
   AC_DEFINE([BUILD_VXI11], [], [build VXI11 interface functions])
-  AC_SUBST([BUILD_VXI11], [1], [build VXI11 interface functions])
+  AC_SUBST([BUILD_VXI11], [1])
 fi
 
 if test $build_visa = yes; then
