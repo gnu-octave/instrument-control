@@ -42,7 +42,7 @@ public:
 
   int read (uint8_t *, unsigned int, double);
 
-  int open (const std::string &, int);
+  int open (const std::string &, int, int);
   int close (void);
   int get_fd (void) const { return fd; }
 
@@ -134,6 +134,10 @@ public:
     return outterminator;
   }
 
+  bool get_enabletransferdelay (void) const
+  {
+    return ndelay;
+  }
 
 private:
   bool has_property(const std::string &name) const;
@@ -151,6 +155,7 @@ private:
   unsigned int byteswritten;
   octave_value interminator;
   octave_value outterminator;
+  int ndelay;
 
   DECLARE_OV_TYPEID_FUNCTIONS_AND_DATA
 };
