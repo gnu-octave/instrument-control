@@ -424,7 +424,7 @@ octave_udp::read (uint8_t *buf, unsigned int len, double readtimeout)
             {
               read_retval = len - bytes_read;
               memcpy(&buf[bytes_read], input_buffer, read_retval);
-              memcpy(&input_buffer[0], &input_buffer[read_retval], buffer_pos-read_retval);
+              memmove(&input_buffer[0], &input_buffer[read_retval], buffer_pos-read_retval);
               buffer_pos -= read_retval;
 	    }
           else
