@@ -123,6 +123,8 @@ Undocumented internal function.\n\
         return octave_value (tcpclient->get_userdata ());
       else if (property == "terminator")
         return get_terminator (tcpclient);
+      else if (property == "enabletransferdelay")
+        return octave_value(tcpclient->get_enabletransferdelay ());
       else
         (*current_liboctave_error_handler) ("invalid property name");
     }
@@ -148,6 +150,8 @@ Undocumented internal function.\n\
         return octave_value (tcpclient->flush (args(2).int_value ()));
       else if (property == "terminator")
         return set_terminator (tcpclient, args.slice (2, args.length ()-2));
+      else if (property == "enabletransferdelay")
+        (*current_liboctave_error_handler) ("can not set this property");
       else
         (*current_liboctave_error_handler) ("invalid property name");
     }

@@ -43,6 +43,8 @@ Known input properties:\n \
 name value\n \
 @item Timeout\n \
 Numeric timeout value or -1 to wait forever\n \
+@item EnableTransferDelay\n \
+Boolean to enable or disable the nagle algorithm for delay transfer.\n \
 @item UserData\n \
 User data value.\n \
 @end table\n \
@@ -75,6 +77,8 @@ Byte order  for data (currently not used)\n \
 Terminator value used for string data (currently not used)\n \
 @item UserData\n \
 User data\n \
+@item EnableTransferDelay\n \
+Bool for whether transfer delay is enabled. (Read only)\n \
 @end table \n \
 @end deftypefn")
 {
@@ -94,6 +98,7 @@ User data\n \
   std::string name = "";
   int port = 23;
   double timeout = -1;
+  int ndelay = 1;
   octave_value userdata = Matrix();
 
   // Parse the function arguments
@@ -159,6 +164,28 @@ User data\n \
                   return octave_value ();
                 }
             }
+          else if (propname == "enabletransferdelay")
+            {
+              if (propval.OV_ISINTEGER () || propval.OV_ISFLOAT ())
+                {
+                  ndelay = propval.int_value ();
+		  if (ndelay != 0 && ndelay != 1)
+                    {
+                      error ("enabletranfserdelay should be 0 or 1");
+                      return octave_value ();
+                    }
+                }
+	      else if (propval.OV_ISLOGICAL ())
+                {
+                   if (! propval.bool_value())
+                     ndelay = 0;
+                }
+              else
+                {
+                  error ("enabletranfserdelay should be 0 or 1");
+                  return octave_value ();
+                }
+            }
           else if (propname == "userdata")
 	    {
               userdata = propval;
@@ -175,7 +202,7 @@ User data\n \
   // Open the interface and connect
   octave_tcpclient* retval = new octave_tcpclient ();
 
-  if (retval->open (address, port) < 0)
+  if (retval->open (address, port, ndelay) < 0)
     {
       return octave_value ();
     }

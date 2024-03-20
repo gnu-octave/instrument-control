@@ -13,7 +13,7 @@ BUILD_VXI11 = @BUILD_VXI11@
 
 RPC_GENERATED_FILES := vxi11.h vxi11_clnt.c vxi11_xdr.c
 
-ifneq ($(BUILD_VXI11),1)
+ifneq (X$(BUILD_VXI11),X1)
 VXI =
 VXCLASS = 
 else
@@ -34,6 +34,10 @@ include ../common.mk
 extraclean: distclean
 	rm -f $(RPC_GENERATED_FILES)
 
+ifeq (X$(BUILD_VXI11),X1)
 prebuild: $(RPC_GENERATED_FILES)
+else
+prebuild:
+endif
 
 .PHONY: prebuild extraclean

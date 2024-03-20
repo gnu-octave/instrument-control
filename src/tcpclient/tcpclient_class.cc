@@ -28,6 +28,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <netinet/in.h>
+#include <netinet/tcp.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <arpa/inet.h>
@@ -107,7 +108,7 @@ lookup_addr (const std::string &ip, sockaddr_in *in)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_tcpclient, "octave_tcpclient", "octave_tcpclient");
 
 octave_tcpclient::octave_tcpclient (void)
-: fieldnames(11), fd (-1), timeout(-1), name("")
+: fieldnames(12), fd (-1), timeout(-1), name("")
 {
   static bool type_registered = false;
 
@@ -134,6 +135,7 @@ octave_tcpclient::octave_tcpclient (void)
   fieldnames[8] = "ByteOrder";
   fieldnames[9] = "UserData";
   fieldnames[10] = "Terminator";
+  fieldnames[11] = "EnableTransferDelay";
 }
 
 bool
@@ -235,7 +237,7 @@ octave_tcpclient::subsasgn (const std::string& type, const std::list<octave_valu
 }
 
 int
-octave_tcpclient::open (const std::string &address, int port)
+octave_tcpclient::open (const std::string &address, int port, int nd)
 {
   int sockerr;
 
@@ -273,6 +275,17 @@ octave_tcpclient::open (const std::string &address, int port)
       octave_tcpclient::close ();
       return -1;
     }
+
+  ndelay = nd;
+
+#ifdef __WIN32__
+  DWORD sockval = nd;
+#else
+  int sockval = nd;
+#endif
+  socklen_t valsz = sizeof(sockval);
+
+  setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (char*)&sockval, valsz);
 
   // get local socket info
   memset (&local_addr, 0, sizeof (local_addr));
