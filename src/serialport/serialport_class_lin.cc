@@ -86,6 +86,10 @@ octave_serialport::open (const std::string &path)
       config.c_cc[VMIN] = 0;
       config.c_cc[VTIME] = 5;
 
+      // set an intial baudrate
+      cfsetospeed (&config, B9600);
+      cfsetispeed (&config, B9600);
+
       if (tcsetattr (fd, TCSANOW, &config) < 0)
         {
             error ("serialport: Failed to set default terminal attributes: %s\n", strerror (errno));
@@ -463,8 +467,8 @@ octave_serialport::set_baudrate (unsigned int baud)
       return false;
     }
 
-  cfsetispeed (&config, baud_rate);
   cfsetospeed (&config, baud_rate);
+  cfsetispeed (&config, baud_rate);
 
   if (tcsetattr (fd, TCSANOW, &config) < 0) 
     {
@@ -486,7 +490,7 @@ octave_serialport::get_baudrate (void) const
 
   int retval = -1;
 
-  speed_t baudrate = cfgetispeed (&config);
+  speed_t baudrate = cfgetospeed (&config);
 
   if (baudrate == B0)
     retval = 0;
