@@ -46,7 +46,7 @@ function retval = get (serial, property)
     property = {property};
   end
 
-  valid     = ismember (property, properties);
+  valid     = ismember (tolower(property), tolower(properties));
   not_found = {property{!valid}};
 
   if !isempty (not_found)
