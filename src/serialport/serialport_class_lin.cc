@@ -152,6 +152,10 @@ octave_serialport::read (uint8_t *buf, unsigned int len)
       // Timeout while in non-blocking mode
       if (read_retval == 0 && !blocking_read)
         {
+          // no waiting
+          if (config.c_cc[VTIME] == 0)
+            break;
+
           maxwait -= (double)config.c_cc[VTIME]/10.0;
 
 	  // actual timeout
@@ -224,19 +228,19 @@ octave_serialport::set_timeout (double newtimeout)
   else
     {
       blocking_read = false;
-      if(newtimeout > 10) newtimeout = 5;
-      if(newtimeout < 1) newtimeout = 1;
+      if(newtimeout > 5) newtimeout = 5;
     }
 
-
-  BITMASK_CLEAR (config.c_lflag, ICANON); // Set non-canonical mode
-  config.c_cc[VMIN] = 0;
-  config.c_cc[VTIME] = (unsigned) newtimeout; 
-
-  if (tcsetattr (fd, TCSANOW, &config) < 0)
+  if (config.c_cc[VTIME] != (unsigned char) newtimeout)
     {
-      error ("serialport: error setting timeout...");
-      return -1;
+      config.c_cc[VMIN] = 0;
+      config.c_cc[VTIME] = (unsigned char) newtimeout; 
+
+      if (tcsetattr (fd, TCSANOW, &config) < 0)
+        {
+          error ("serialport: error setting timeout...");
+          return -1;
+        }
     }
 
   return 1;
