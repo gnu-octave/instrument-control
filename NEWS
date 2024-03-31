@@ -1,3 +1,16 @@
+Summary of important user-visible changes for instrument-control 0.9.3
+-------------------------------------------------------------------
+
+  ** SERIALPORT: use max VTIME of 5, allow use of case insensive get properties
+
+  ** TCPCLIENT: add enabletransferdelay property
+
+  ** UDP, UDPPORT: use memmove for overlapped mem usage
+
+  ** VXI11: use inst0 as default instrument name 
+
+  ** MODBUS: use input precision when specified in read
+
 Summary of important user-visible changes for instrument-control 0.9.2
 -------------------------------------------------------------------
 
