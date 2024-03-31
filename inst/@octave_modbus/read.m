@@ -67,42 +67,32 @@ function data = read (dev, target, address, count, serverid, precision)
     error ("Expected precision to be a character type");
   endif
 
-  toread = count;
-
   # precision only used for inputregs and holdingregs
   switch (precision)
   case {"int16" "short"}
     toclass = "int16";
-    tosize = 2;
-    toread = toread * 2;
+    tosize = 1;
   case {"uint16" "ushort"}
     toclass = "uint16";
-    tosize = 2;
-    toread = toread * 2;
+    tosize = 1;
   case {"int32" "int"}
     toclass = "int32";
-    tosize = 4;
-    toread = toread * 4;
+    tosize = 2;
   case {"uint32" "uint"}
     toclass = "uint32";
-    tosize = 4;
-    toread = toread * 4;
+    tosize = 2;
   case {"long" "int64"}
     toclass = "int64";
-    toread = toread * 8;
-    tosize = 8;
+    tosize = 4;
   case {"ulong" "uint64"}
     toclass = "uint64";
-    toread = toread * 8;
-    tosize = 8;
+    tosize = 4;
   case {"single" "float" "float32"}
     toclass = "single";
-    tosize = 4;
-    toread = toread * 4;
+    tosize = 2;
   case {"double" "float64"}
     toclass = "double";
-    tosize = 8;
-    toread = toread * 8;
+    tosize = 4;
   otherwise
     error ("precision not supported");
   endswitch
@@ -120,8 +110,21 @@ function data = read (dev, target, address, count, serverid, precision)
     error ("Invalid target type");
   endswitch
 
-  data = __modbus_read__(dev, target, address, count, serverid);
+  # number of actual regs to read
+  toread = count * tosize;
 
-  # TODO: use precision to combine regs etc
+  data = __modbus_read__(dev, target, address, toread, serverid);
+
+  # Check Word Endian settings, swap word order if required
+  mbwordendian = get(dev,"WordOrder"); # Modbus word endian
+  [a,b,cowordendian] = computer(); # machine endian
+  if ( tosize>1 && (
+       strcmp(mbwordendian,"big-endian") && strcmp(cowordendian,"L") || ...
+       strcmp(mbwordendian,"littler-endian") && strcmp(cowordendian,"B") ) )
+    # swap word order
+    data = reshape( flip( reshape( data, tosize, count ) ), 1, toread )
+  end
+  # type conversion
+  data = typecast( data, toclass );
 
 endfunction
