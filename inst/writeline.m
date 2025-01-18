@@ -46,6 +46,7 @@ function writeline (dev, data)
   if sum(strcmp(type, types_with_confterminator)) > 0
     terminator = dev.Terminator;
     if iscell(terminator) && length(terminator) > 1
+      # use write terminator
       terminator = terminator{2};
     endif
 

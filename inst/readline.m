@@ -40,7 +40,8 @@ function data = readline (dev)
   if sum(strcmp(type, types_with_confterminator)) > 0
     terminator = dev.Terminator;
     if iscell(terminator) && length(terminator) > 1
-      terminator = terminator{2};
+      # user read terminator
+      terminator = terminator{1};
     endif
 
     if ! ischar (terminator)
