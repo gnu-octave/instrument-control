@@ -1,5 +1,13 @@
+Summary of important user-visible changes for instrument-control 0.9.4
+-------------------------------------------------------------------
+
+  ** readline: use read terminator if one provided
+
+  ** SERIALPORT: dont use errno in win32 report of error
+
 Summary of important user-visible changes for instrument-control 0.9.3
 -------------------------------------------------------------------
+
 
   ** SERIALPORT: use max VTIME of 5, allow use of case insensive get properties
 

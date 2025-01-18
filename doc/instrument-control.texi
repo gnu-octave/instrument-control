@@ -8,7 +8,7 @@
 @afourpaper
 @paragraphindent 0
 @finalout
-@set COPYRIGHT_DATE 2019-2024
+@set COPYRIGHT_DATE 2019-2025
 @c @afourwide
 @c %*** End of the HEADER
 
