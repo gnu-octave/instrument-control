@@ -103,6 +103,8 @@ Undocumented internal function.\n\
     {
       if (property == "name")
         return octave_value (tcpclient->get_name ());
+      else if (property == "tag")
+        return octave_value (tcpclient->get_tag ());
       else if (property == "type")
         return octave_value (tcpclient->get_type ());
       else if (property == "port")
@@ -132,6 +134,8 @@ Undocumented internal function.\n\
     {
       if (property == "name")
         return octave_value (tcpclient->set_name (args(2).string_value ()));
+      else if (property == "tag")
+       { tcpclient->set_tag (args(2).string_value ()); return octave_value (); }
       else if (property == "type")
         (*current_liboctave_error_handler) ("can not set this property");
       else if (property == "port")

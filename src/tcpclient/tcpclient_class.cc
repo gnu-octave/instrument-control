@@ -108,7 +108,7 @@ lookup_addr (const std::string &ip, sockaddr_in *in)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_tcpclient, "octave_tcpclient", "octave_tcpclient");
 
 octave_tcpclient::octave_tcpclient (void)
-: fieldnames(12), fd (-1), timeout(-1), name("")
+: fieldnames(13), fd (-1), timeout(-1), name("")
 {
   static bool type_registered = false;
 
@@ -136,6 +136,7 @@ octave_tcpclient::octave_tcpclient (void)
   fieldnames[9] = "UserData";
   fieldnames[10] = "Terminator";
   fieldnames[11] = "EnableTransferDelay";
+  fieldnames[12] = "Tag";
 }
 
 bool

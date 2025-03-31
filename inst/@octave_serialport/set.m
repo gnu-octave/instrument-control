@@ -70,7 +70,7 @@
 function set (serial, varargin)
 
   properties = {'name', 'baudrate','databits','parity','stopbits','timeout', ...
-                'flowcontrol', 'userdata'};
+                'flowcontrol', 'userdata', 'tag'};
 
   if numel (varargin) == 1 && isstruct (varargin{1})
     property = fieldnames (varargin{1});

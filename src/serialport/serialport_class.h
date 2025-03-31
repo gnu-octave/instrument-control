@@ -169,6 +169,16 @@ public:
     userData = newv;
   }
 
+  std::string get_tag () const
+  {
+    return tag;
+  }
+
+  void set_tag (const std::string &newv)
+  {
+    tag = newv;
+  }
+
   int set_byteorder(const std::string& /* order */);
 
   std::string get_byteorder() const
@@ -193,6 +203,7 @@ protected:
   string_vector fieldnames;
   unsigned long byteswritten;
 
+  std::string tag;
   std::string name;
   std::string portPath;
   std::string byteOrder;

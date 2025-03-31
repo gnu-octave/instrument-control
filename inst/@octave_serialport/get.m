@@ -33,7 +33,7 @@ function retval = get (serial, property)
 
   properties = {'Port', 'BaudRate', 'NumBytesAvailable', 'NumBytesWritten', ...
 		'ByteOrder', 'DataBits', 'StopBits', 'Parity', 'FlowControl', ...
-		'Timeout', 'Terminator', 'UserData'};
+		'Timeout', 'Terminator', 'UserData', 'Tag'};
 
   if (nargin == 1)
     property = properties;

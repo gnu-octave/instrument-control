@@ -36,6 +36,9 @@
 ## Set the timeout value in seconds. Value of -1 means a
 ## blocking call.
 ##
+## @item 'Tag'
+## Set user tag to identify the port
+##
 ## @end table
 ##
 ## @subsubheading Outputs
@@ -46,7 +49,7 @@
 
 function set (tcpclient, varargin)
 
-  properties = {'Timeout', 'Name', 'UserData' };
+  properties = {'Timeout', 'Name', 'UserData', 'Tag' };
 
   if numel (varargin) == 1 && isstruct (varargin{1})
     property = fieldnames (varargin{1});

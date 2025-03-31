@@ -55,6 +55,8 @@ Parity setting 'none', 'even', 'odd'\n \
 Number of bits to a byte (5 to 8)\n \
 @item FlowControl\n \
 Number of bits to a byte 'none', 'hardware', 'software'\n \
+@item Tag\n \
+User settable string to identify the port.\n \
 @end table\n \
 \n\
 @subsubheading Outputs\n \
@@ -91,6 +93,8 @@ Number of bits to a byte 'none', 'hardware', 'software'\n \
 current state of pins (readonly)\n \
 @item UserData\n \
 user defined data\n \
+@item Tag\n \
+user defined tag name\n \
 @end table \n \
 @end deftypefn")
 {
@@ -112,6 +116,7 @@ user defined data\n \
   unsigned short databits = 8;
   std::string parity("N");
   std::string flow("none");
+  std::string tag("");
   unsigned short stopbits = 1;
   // Parse the function arguments
   if ((args.length () == 0) || !args (0).is_string ())
@@ -219,6 +224,16 @@ user defined data\n \
               return octave_value();
             }
 	}
+      else if (name == "tag")
+        {
+          if (val.is_string ())
+            tag = val.string_value ();
+          else
+            {
+              error ("tag must be a string");
+              return octave_value();
+            }
+	}
       else
         {
           error ("unknown property '%s'", name.c_str());
@@ -238,6 +253,7 @@ user defined data\n \
   retval->set_flowcontrol (flow);
   retval->set_databits (databits);
   retval->set_stopbits (stopbits);
+  retval->set_tag (tag);
 
   //retval->flush (2);
 

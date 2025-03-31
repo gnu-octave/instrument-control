@@ -41,6 +41,8 @@ Known input properties:\n \
 @table @asis\n \
 @item Name\n \
 name value\n \
+@item Tag\n \
+tag value\n \
 @item Timeout\n \
 Numeric timeout value or -1 to wait forever\n \
 @item EnableTransferDelay\n \
@@ -57,6 +59,8 @@ The tcpclient object has the following public properties:\n \
 @table @asis\n \
 @item Name\n \
 name assigned to the tcpclient object\n \
+@item Tag\n \
+user tag assigned to the tcpclient object\n \
 @item Type\n \
 instrument type 'tcpclient' (readonly)\n \
 @item Port\n \
@@ -96,6 +100,7 @@ Bool for whether transfer delay is enabled. (Read only)\n \
   // Default values
   std::string address ("127.0.0.1");
   std::string name = "";
+  std::string tag = "";
   int port = 23;
   double timeout = -1;
   int ndelay = 1;
@@ -151,6 +156,16 @@ Bool for whether transfer delay is enabled. (Read only)\n \
               else
                 {
                   error ("name must be a string");
+                  return octave_value ();
+                }
+            }
+	  else if (propname == "tag")
+            {
+              if (propval.is_string ())
+                tag = propval.string_value ();
+              else
+                {
+                  error ("tag must be a string");
                   return octave_value ();
                 }
             }
@@ -214,6 +229,7 @@ Bool for whether transfer delay is enabled. (Read only)\n \
     retval->set_name (name);
 
   retval->set_userdata (userdata);
+  retval->set_tag (tag);
 
   return octave_value (retval);
 #endif

@@ -56,6 +56,8 @@ The udp object has the following public properties:\n \
 @table @asis\n \
 @item Name\n \
 name assigned to the udp object\n \
+@item Tag\n \
+user tag assigned to the udp object\n \
 @item Type\n \
 instrument type 'udpport' (readonly)\n \
 @item LocalPort\n \
@@ -92,6 +94,7 @@ Terminator value used for string data (currently not used)\n \
 
   // Default values
   std::string name = "";
+  std::string tag = "";
   std::string localhost("0.0.0.0");
   int localport = 0;
   double timeout = -1;
@@ -169,6 +172,16 @@ Terminator value used for string data (currently not used)\n \
                   return octave_value();
                 }
 	    }
+          else if (pname == "tag")
+            {
+              if (pval.is_string ())
+                tag = pval.string_value ();
+              else
+                {
+                  error ("tag must be a string");
+                  return octave_value();
+                }
+	    }
           else
             {
               error ("unknown property '%s'", pname.c_str());
@@ -189,6 +202,7 @@ Terminator value used for string data (currently not used)\n \
 
   if(name.length() > 0)
     retval->set_name(name);
+  retval->set_tag(tag);
 
   return octave_value(retval);
 #endif

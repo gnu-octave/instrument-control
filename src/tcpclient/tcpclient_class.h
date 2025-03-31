@@ -114,6 +114,16 @@ public:
     userData = newv;
   }
 
+  std::string get_tag () const
+  {
+    return tag;
+  }
+
+  void set_tag (const std::string &newv)
+  {
+    tag = newv;
+  }
+
   int set_byteorder(const std::string& /* order */);
 
   std::string get_byteorder() const
@@ -148,6 +158,7 @@ private:
   double timeout;
 
   std::string name;
+  std::string tag;
   sockaddr_in remote_addr;
   sockaddr_in local_addr;
   octave_value userData;

@@ -108,6 +108,26 @@ octave_value_list srlp_userdata (octave_serialport* serialport, const octave_val
   return octave_value (serialport->get_userdata ());
 }
 
+octave_value_list srlp_tag (octave_serialport* serialport, const octave_value_list& args, int nargout)
+{
+  if (args.length () > 1)
+    (*current_liboctave_error_handler) ("wrong number of arguments");
+
+  // Setting new timeout
+  if (args.length () > 0)
+    {
+      if ( !args (0).is_string() )
+        (*current_liboctave_error_handler) ("argument must be a string");
+
+      serialport->set_tag (args (0).string_value());
+
+      return octave_value (); // Should it return by default?
+    }
+
+  // Returning current timeout
+  return octave_value (serialport->get_tag ());
+}
+
 octave_value_list srlp_flowcontrol (octave_serialport* serialport, const octave_value_list& args, int nargout)
 {
   if (args.length () > 1)
@@ -145,7 +165,7 @@ octave_value_list srlp_terminator (octave_serialport* serialport, const octave_v
       if ( !(args (0).is_string ()) && !(args (0).is_scalar_type()))
         (*current_liboctave_error_handler) ("argument must be a string or number");
       if ( !(args (1).is_string ()) && !(args (0).is_scalar_type()))
-        (*current_liboctave_error_handler) ("argument must be a string or numer");
+        (*current_liboctave_error_handler) ("argument must be a string or number");
 
       // could be 1 or 2 args here
 
@@ -425,6 +445,8 @@ Undocumented internal function.\n\
     return srlp_userdata (serialport, args2, nargout);
   else if (property == "terminator")
     return srlp_terminator (serialport, args2, nargout);
+  else if (property == "tag")
+    return srlp_tag (serialport, args2, nargout);
   // internals
   else if (property == "__flush__")
     return srlp_flush (serialport, args2, nargout);

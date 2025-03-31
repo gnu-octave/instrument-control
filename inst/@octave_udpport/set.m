@@ -35,6 +35,9 @@
 ## @item 'UserData'
 ## Set the user data of the object.
 ##
+## @item 'Tag'
+## Set the user tag to identify the port.
+##
 ## @item 'Timeout'
 ## Set the timeout value in seconds. Value of -1 means a
 ## blocking call.
@@ -49,7 +52,7 @@
 
 function set (udpport, varargin)
 
-  properties = {'UserData','Timeout', 'Name', 'EnableBroadcast' };
+  properties = {'UserData','Timeout', 'Name', 'EnableBroadcast', 'Tag' };
 
   if numel (varargin) == 1 && isstruct (varargin{1})
     property = fieldnames (varargin{1});

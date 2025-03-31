@@ -143,6 +143,16 @@ public:
     userData = newv;
   }
 
+  std::string get_tag () const
+  {
+    return tag;
+  }
+
+  void set_tag (const std::string &newv)
+  {
+    tag = newv;
+  }
+
   std::string get_ipaddressversion () const { return "IPV4"; }
 
   int set_byteorder(const std::string& /* order */);
@@ -175,6 +185,7 @@ private:
   int fd;
   double timeout;
   std::string name;
+  std::string tag;
   sockaddr_in remote_addr;
   sockaddr_in local_addr;
   string_vector fieldnames;

@@ -115,7 +115,7 @@ int to_ip_port (const sockaddr_in *in, std::string &ip, int &port)
 DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_udpport, "octave_udpport", "octave_udpport");
 
 octave_udpport::octave_udpport (void)
-: buffer_len(0), fd(-1), timeout(-1), name(""), fieldnames(17)
+: buffer_len(0), fd(-1), timeout(-1), name(""), fieldnames(18)
 {
   static bool type_registered = false;
 
@@ -150,6 +150,7 @@ octave_udpport::octave_udpport (void)
   fieldnames[14] = "EnablePortSharing";
   fieldnames[15] = "IPAddressVersion";
   fieldnames[16] = "Terminator";
+  fieldnames[17] = "Tag";
 }
 
 bool octave_udpport::has_property(const std::string &name) const

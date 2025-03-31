@@ -26,7 +26,7 @@
 #include <algorithm>
 
 octave_serialport_common::octave_serialport_common ()
- : fieldnames(13)
+ : fieldnames(14)
 {
   byteswritten = 0;
   userData = Matrix ();
@@ -47,6 +47,7 @@ octave_serialport_common::octave_serialport_common ()
   fieldnames[10] = "UserData";
   fieldnames[11] = "ByteOrder";
   fieldnames[12] = "Terminator";
+  fieldnames[13] = "Tag";
 }
 
 bool octave_serialport_common::has_property(const std::string &name) const
