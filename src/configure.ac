@@ -396,15 +396,16 @@ if test "x${with_librpc}" = "xyes"; then
   fi
 fi
 
-# we have rpcgen ?
-AC_CHECK_PROGS([RPCGEN], [rpcgen rpcgen-mt], [none])
+if test "x${build_vxi11}" = "xyes"; then
+  # we have rpcgen ?
+  AC_CHECK_PROGS([RPCGEN], [rpcgen-mt rpcgen], [none])
 
-if test "xRPCGEN" = "xnone"; then
-  AC_MSG_WARN([No rpcgen found - if rpc sources are modified, the build will fail])
-else
-  AC_MSG_CHECKING([whether ${RPCGEN} accepts -M option])
-  rm -f rpcgen_test.*
-cat > rpcgen_test.x <<END
+  if test "xRPCGEN" = "xnone"; then
+    AC_MSG_WARN([No rpcgen found - if rpc sources are modified, the build will fail])
+  else
+    AC_MSG_CHECKING([whether ${RPCGEN} accepts -M option])
+    rm -f rpcgen_test.*
+  cat > rpcgen_test.x <<END
 program STRLEN {
   version STRLENVERS {
     int strlen(string) = 1;
@@ -423,6 +424,7 @@ END
   AC_SUBST([RPCGENOPTS], [$RPCGENOPTS])
   rm -f rpcgen_test.*
   rm -f rpcgen_test_*
+  fi
 fi
 
 # Checks for openvisa
