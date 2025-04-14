@@ -287,8 +287,9 @@ octave_udpport::open (const std::string &address, int port, int portshare)
 
   if (fd < 0)
     {
-      error ("udpport: error opening socket : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_udpport::close ();
+      error ("udpport: error opening socket : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }
 
@@ -316,8 +317,9 @@ octave_udpport::open (const std::string &address, int port, int portshare)
   sockerr = bind (fd, (struct sockaddr*)&local_addr, sizeof (local_addr));
   if (sockerr < 0)
     {
-      error ("udpport: error on bind : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_udpport::close ();
+      error ("udpport: error on bind : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }  
   else if (port == 0)

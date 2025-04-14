@@ -213,8 +213,9 @@ octave_tcp::open (const std::string &address, int port)
   fd = socket (AF_INET, SOCK_STREAM,0);
   if (fd < 0)
     {
-      error ("tcp: error opening socket : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_tcp::close ();
+      error ("tcp: error opening socket : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }
 
@@ -226,8 +227,9 @@ octave_tcp::open (const std::string &address, int port)
   sockerr = connect (fd, (struct sockaddr*)&remote_addr, sizeof(struct sockaddr));
   if (sockerr < 0)
     {
-      error ("tcp: error on connect : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_tcp::close ();
+      error ("tcp: error on connect : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }
   return get_fd();

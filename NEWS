@@ -5,6 +5,8 @@ Summary of important user-visible changes for instrument-control 0.9.4+
 
   ** Minor build rule updates
 
+  ** Update instrument classes close resoures on error during contruction
+
 Summary of important user-visible changes for instrument-control 0.9.4
 -------------------------------------------------------------------
 

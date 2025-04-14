@@ -279,8 +279,9 @@ octave_tcpserver::open (const std::string &address, int port)
     {
       if (! lookup_addr(address, &local_addr))
         {
-          error ("tcpserver: error looking up remote host : %d - %s\n", SOCKETERR, STRSOCKETERR);
+          int err = SOCKETERR;
           octave_tcpserver::close ();
+          error ("tcpserver: error looking up remote host : %d - %s\n", err, STRSOCKETERR);
           return -1;
         }
     }
@@ -295,16 +296,18 @@ octave_tcpserver::open (const std::string &address, int port)
   fd = socket (AF_INET, SOCK_STREAM,0);
   if (fd < 0)
     {
-      error ("tcpserver: error opening socket : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_tcpserver::close ();
+      error ("tcpserver: error opening socket : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }
 
   sockerr = bind (fd, (struct sockaddr*)&local_addr, sizeof (local_addr));
   if (sockerr < 0)
     {
-      error ("tcpserver: error on bind : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_tcpserver::close ();
+      error ("tcpserver: error on bind : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }  
  
@@ -316,8 +319,9 @@ octave_tcpserver::open (const std::string &address, int port)
   sockerr = listen (fd, 1);
   if (sockerr < 0)
     {
-      error ("tcpserver: error on listen : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_tcpserver::close ();
+      error ("tcpserver: error on listen : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }
   return get_fd();

@@ -96,7 +96,8 @@ octave_serial::open (const std::string &path)
     
   if (! fd_is_valid())
     {
-      error("serial: Error opening the interface: %s\n", winerror ().c_str ());
+      std::string err = winerror ();
+      error("serial: Error opening the interface: %s\n", err.c_str ());
       return;
     }
 
@@ -112,8 +113,9 @@ octave_serial::open (const std::string &path)
   
   if(GetCommState (fd, &config) == FALSE)
     {
-      error ("serial: Failed to get terminal attributes: %s\n", winerror ().c_str ());
+      std::string err = winerror ();
       octave_serial::close ();
+      error ("serial: Failed to get terminal attributes: %s\n", err.c_str ());
       return;
     }
 
@@ -127,8 +129,9 @@ octave_serial::open (const std::string &path)
 
   if (SetCommTimeouts(fd, &timeouts) == FALSE)
     {
-      error ("serial: Failed to disable timeouts: %s\n", winerror ().c_str ());
+      std::string err = winerror ();
       octave_serial::close ();
+      error ("serial: Failed to disable timeouts: %s\n", err.c_str ());
       return;
     }
 

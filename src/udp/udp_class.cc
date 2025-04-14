@@ -227,8 +227,9 @@ octave_udp::open (const std::string &address, int port, int localport)
 
   if( !lookup_addr (address, &remote_addr))
     {
-      error ("udp: error looking up remote host : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_udp::close ();
+      error ("udp: error looking up remote host : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }
 
@@ -244,8 +245,9 @@ octave_udp::open (const std::string &address, int port, int localport)
 
   if (fd < 0)
     {
-      error ("udp: error opening socket : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_udp::close ();
+      error ("udp: error opening socket : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }
 
@@ -258,8 +260,9 @@ octave_udp::open (const std::string &address, int port, int localport)
   sockerr = bind (fd, (struct sockaddr*)&local_addr, sizeof (local_addr));
   if (sockerr < 0)
     {
-      error ("udp: error on bind : %d - %s\n", SOCKETERR, STRSOCKETERR);
+      int err = SOCKETERR;
       octave_udp::close ();
+      error ("udp: error on bind : %d - %s\n", err, STRSOCKETERR);
       return -1;
     }
   else if (localport == 0)
