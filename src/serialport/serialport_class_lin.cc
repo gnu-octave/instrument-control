@@ -66,15 +66,17 @@ octave_serialport::open (const std::string &path)
       // Check whether fd is an open file descriptor referring to a terminal
       if(! isatty (fd))
         {
-          error("serialport: Interface does not refer to a terminal: %s\n", strerror (errno));
+          int err = errno;
           octave_serialport::close ();
+          error("serialportX: Interface does not refer to a terminal: %s\n", strerror (err));
           return;
         }
 
       if (tcgetattr (fd, &config) < 0)
         {
-          error ("serialport: Failed to get terminal attributes: %s\n", strerror (errno));
+          int err = errno;
           octave_serialport::close ();
+          error ("serialport: Failed to get terminal attributes: %s\n", strerror (err));
           return;
         }
 
@@ -92,16 +94,18 @@ octave_serialport::open (const std::string &path)
 
       if (tcsetattr (fd, TCSANOW, &config) < 0)
         {
-            error ("serialport: Failed to set default terminal attributes: %s\n", strerror (errno));
-            octave_serialport::close ();
-            return;
+          int err = errno;
+          octave_serialport::close ();
+          error ("serialport: Failed to set default terminal attributes: %s\n", strerror (err));
+          return;
         }
 
         // Disable NDELAY
       if (fcntl (fd, F_SETFL, 0) < 0)
         {
-          error ("serialport: Failed to disable NDELAY flag: %s\n", strerror (errno));
+          int err = errno;
           octave_serialport::close ();
+          error ("serialport: Failed to disable NDELAY flag: %s\n", strerror (err));
           return;
         }
 

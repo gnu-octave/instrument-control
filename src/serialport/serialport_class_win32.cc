@@ -106,8 +106,9 @@ octave_serialport::open (const std::string &path)
   
   if(GetCommState (fd, &config) == FALSE)
     {
-      error ("serialport: Failed to get terminal attributes: %s\n", winerror ().c_str ());
+      std::string err = winerror ();
       octave_serialport::close ();
+      error ("serialport: Failed to get terminal attributes: %s\n", err.c_str ());
       return;
     }
 
@@ -121,8 +122,9 @@ octave_serialport::open (const std::string &path)
 
   if (SetCommTimeouts(fd, &timeouts) == FALSE)
     {
-      error ("serialport: Failed to disable timeouts: %s\n", winerror ().c_str ());
+      std::string err = winerror ();
       octave_serialport::close ();
+      error ("serialport: Failed to disable timeouts: %s\n", err.c_str ());
       return;
     }
 
