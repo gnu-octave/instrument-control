@@ -1,11 +1,13 @@
-Summary of important user-visible changes for instrument-control 0.9.4+
+Summary of important user-visible changes for instrument-control 0.9.5
 -------------------------------------------------------------------
 
   ** SERIALPORT, TCPPORT, UDPPORT: add Tag property
 
   ** Minor build rule updates
 
-  ** Update instrument classes close resoures on error during contruction
+  ** Update instrument classes to close resources on error during contruction
+
+  ** Minor doc updates
 
 Summary of important user-visible changes for instrument-control 0.9.4
 -------------------------------------------------------------------
