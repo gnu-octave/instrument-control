@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2025 John Donoghue
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without any warranty.
+-->
+<component type="addon">
+  <id>octave-instrument-control</id>
+  <extends>www.octave.org-octave.desktop</extends>
+  <name>Instrument Control Toolkit</name>
+  <summary>Octave Instrument Control Toolkit</summary>
+  <description>
+    <p>GNU Octave implementation of the Instrument Control Toolkit.</p>
+  </description>
+  <keywords>
+    <keyword>serial</keyword>
+    <keyword>tcp</keyword>
+    <keyword>udp</keyword>
+    <keyword>modbus</keyword>
+    <keyword>i2c</keyword>
+    <keyword>parallel</keyword>
+    <keyword>gpib</keyword>
+    <keyword>vxi11</keyword>
+    <keyword>usbtmc</keyword>
+    <keyword>communication</keyword>
+  </keywords>
+  <url type="homepage">https://gnu-octave.github.io/packages/instrument-control/</url>
+  <url type="bugtracker">https://savannah.octave.org/?Action=get&Format=HTMLCSS&Title=[octave%20forge]%20(instrument-control)</url>
+  <project_license>GPL-3.0+</project_license>
+  <developer_name>Octave-Forge Community</developer_name>
+  <update_contact>octave-maintainers@gnu.org</update_contact>
+  <metadata_license>FSFAP</metadata_license>
+</component>
