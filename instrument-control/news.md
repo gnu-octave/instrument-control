@@ -1,0 +1,423 @@
+---
+layout: "default"
+permalink: "/news/"
+title: "Instrument-control Toolkit - News"
+pkg_name: "instrument-control"
+version: "0.9.5"
+description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, vxi11, udp and usbtmc interfaces."
+navigation:
+- id: "overview"
+  name: "Overview"
+  url: "/index"
+- id: "Functions"
+  name: "Function Reference"
+  url: "/functions"
+- id: "news"
+  name: "News"
+- id: "manual"
+  name: "Manual"
+  url: "/manual"
+---
+<pre>
+Summary of important user-visible changes for instrument-control 0.9.5
+-------------------------------------------------------------------
+
+  ** SERIALPORT, TCPPORT, UDPPORT: add Tag property
+
+  ** Minor build rule updates
+
+  ** Update instrument classes to close resources on error during contruction
+
+  ** Minor doc updates
+
+Summary of important user-visible changes for instrument-control 0.9.4
+-------------------------------------------------------------------
+
+  ** readline: use read terminator if one provided
+
+  ** SERIALPORT: dont use errno in win32 report of error
+
+Summary of important user-visible changes for instrument-control 0.9.3
+-------------------------------------------------------------------
+
+
+  ** SERIALPORT: use max VTIME of 5, allow use of case insensive get properties
+
+  ** TCPCLIENT: add enabletransferdelay property
+
+  ** UDP, UDPPORT: use memmove for overlapped mem usage
+
+  ** VXI11: use inst0 as default instrument name 
+
+  ** MODBUS: use input precision when specified in read
+
+Summary of important user-visible changes for instrument-control 0.9.2
+-------------------------------------------------------------------
+
+  ** UDPPORT, UDP: increase buffer read size on larger packets
+
+  ** General updates to support Octave 9+
+
+  ** Updates to package documentation
+
+Summary of important user-visible changes for instrument-control 0.9.1
+-------------------------------------------------------------------
+
+  ** bugfix modbus portnumber input
+
+Summary of important user-visible changes for instrument-control 0.9.0
+-------------------------------------------------------------------
+
+  ** General updates to support Octave 8+
+
+  ** readline: updated docs, minor bug fixes
+
+  ** VXI11: add instrument name support
+
+  ** UDPPORT: add new writeline function, buffer reading
+
+  ** UDP: buffer reading
+
+Summary of important user-visible changes for instrument-control 0.8.0
+-------------------------------------------------------------------
+
+  ** MODBUS: Added new modbus class
+
+  ** TCPSERVER: Added new tcpserver class
+
+  ** minor bug fixes in configure
+
+  ** added QT help doc generation
+
+  ** updates to package documentation
+
+  ** added common functions:
+     writeline
+     readline
+     readbinblock
+     writebinblock
+     writeread
+
+  ** TCPCLIENT: bugfix read when used with no size parameter
+
+  ** UDPPORT: bugfix read when used with no size parameter
+
+  ** Min octave version is now 4.0  
+
+Summary of important user-visible changes for instrument-control 0.7.1
+-------------------------------------------------------------------
+
+  ** General updates to support Octave 7+
+
+  ** Updated common functions
+     fread - set correct size of uint16
+     fprintf - fix else for multiple args
+
+Summary of important user-visible changes for instrument-control 0.7.0
+-------------------------------------------------------------------
+
+  ** Update get function for instrument controls to not use cellfun (Bug #59581)
+
+  ** UDPPORT: Added new udpport class
+
+  ** TCPCLIENT:  Added new tcpclient class
+
+  ** SERIALPORT: update property access to proper case usage
+
+Summary of important user-visible changes for instrument-control 0.6.0
+-------------------------------------------------------------------
+
+  ** SPI: added new spi object and functions
+
+  ** TCP: 
+    added tcpclient, deprecated tcpip
+
+    added methods flush, read, write
+
+  ** UDP: 
+    added methods flush, read, write
+
+Summary of important user-visible changes for instrument-control 0.5.0
+-------------------------------------------------------------------
+
+  ** General updates to support Octave 6+
+
+  ** Added common functions
+     flushinput
+     flushoutput
+     instrhelp
+ 
+  ** SERIALPORT: added new serialport object and functions
+
+  ** SERIAL: use extended win32 serial name for comports so > 10 work.
+
+     New serial functions:
+        serialbreak
+
+     Added overload functions for: 
+        fprintf
+        fread
+        fwrite
+
+     Added properties:
+        port
+
+     Added .property access
+
+  ** UDP: add .property access to the object
+
+     Added properties:
+        localhost
+
+     Updates property timeout to be seconds
+
+     Updated udp constructor to be closer to matlab compatible
+
+  ** TCP: add .property access to the object
+
+     Updates property timeout to be seconds
+
+     Updated constructor to be closer to matlab compatible
+
+  ** I2C: 
+     Implement object properties 
+
+     Added overload functions for: 
+        fread
+        fwrite
+        get
+        set
+
+  ** PARALLEL:
+     Added overload functions for: 
+        fclose
+        fopen
+        fread
+        fwrite
+
+  ** USBTMC:
+     Added overload functions for: 
+        fread
+        fwrite
+
+  ** VXI11:
+     Added overload functions for: 
+        fread
+        fwrite
+
+  ** insthwinfo: updated to show i2c ports
+ 
+  ** added toolkit manual
+
+Summary of important user-visible changes for instrument-control 0.4.0
+-------------------------------------------------------------------
+
+  ** SERIAL: added 'status', 'bytesavailable', 'name' and 'type'
+     properties, and the following functions:
+        seriallist
+        flushinput
+        flushoutput
+
+  ** UDP: added 'status' and 'bytesavailable' properties and the
+     following functions:
+        flushinput
+        flushoutput
+
+  ** TCP: added properties to object, added overridden functions:
+        get
+        set
+        fprintf
+        fread
+        fwrite
+        flushinput
+        flushoutput
+
+  ** tcpip(): added wrapper to be matlab compatible(ish)
+
+  ** distribute rpc generated files
+
+  ** verify -M option will work on rpcgen
+
+  ** detect if rpc_error functions allow use of const inputs
+
+  ** prefer libtirpc over builtin rpc when detecting vxi11 functionality
+
+  ** add lock functions used on pkg load/unlock to lock .oct files
+
+  ** implemented instrhwinfo serial list for mac
+
+Summary of important user-visible changes for instrument-control 0.3.1:
+-------------------------------------------------------------------
+
+  ** Updated build to allow install on octave 4.4
+
+  ** using polling rather than signal handling to break from instrument reads
+
+  ** insthwinfo() updated to show enabled modules
+
+  ** added initial builtin tests for each instrument
+
+Summary of important user-visible changes for instrument-control 0.3.0:
+-------------------------------------------------------------------
+
+  ** SERIAL: allow non standard baudrates in win32
+
+  ** TCP: new functions:
+        resolvehost
+
+  ** UDP: new interface with functions for:
+        udp
+        udp_timeout
+        udp_read
+        udp_write
+        udp_close
+        udp_demo
+
+  ** UDP overload functions for: 
+        fprintf
+        fread
+        fwrite
+        fclose
+        fopen
+        get
+        set
+
+Summary of important user-visible changes for instrument-control 0.2.3:
+-------------------------------------------------------------------
+
+  ** New function:
+        instrhwinfo
+
+  ** GPIB: Fix EOI handling
+
+  ** SERIAL: Fix display of bytesize setting
+  
+  ** SERIAL: Win32: Fix srl_read
+  
+  ** TCP: Fix infinite loop on connection lost
+
+
+Summary of important user-visible changes for instrument-control 0.2.2:
+-------------------------------------------------------------------
+
+  ** GPIB: new function:
+        fread
+
+  ** SERIAL: Add pinstatus property
+  
+  ** SERIAL: Change display for serial object
+  
+  ** SERIAL: Fix MACOS compilation error
+
+  ** Fix warnings when using Octave 4.0
+
+
+Summary of important user-visible changes for instrument-control 0.2.1:
+-------------------------------------------------------------------
+
+  ** GPIB: New functions:
+        spoll
+        trigger
+        clrdevice
+        fopen
+        fclose
+        fwrite
+        fprintf
+        fscanf
+
+  ** I2C, TCPIP, USBTMC, VXI11: New functions:
+        fopen
+        fclose
+
+  ** SERIAL: Add Win32 support
+
+  ** SERIAL: New functions:
+        fclose
+        fopen
+        get
+        set
+
+  ** SERIAL: Deprecate functions, use set and get instead:
+        srl_baudrate
+        srl_bytesize
+        srl_close
+        srl_flush
+        srl_parity
+        srl_stopbits
+        srl_timeout
+
+
+Summary of important user-visible changes for instrument-control 0.2.0:
+-------------------------------------------------------------------
+
+ ** Support for TCP interface I/O
+
+ ** Support for USBTMC interface I/O
+
+ ** Support for GPIB interface I/O
+
+ ** Support for VXI11 interface I/O
+
+ ** The following functions are new:
+        tcp
+        tcp_read
+        tcp_write
+        tcp_timeout
+        tcp_close
+        usbtmc
+        usbtmc_read
+        usbtmc_write
+        usbtmc_close
+        gpib
+        gpib_read
+        gpib_write
+        gpib_timeout
+        gpib_close
+        vxi11
+        vxi11_read
+        vxi11_write
+        vxi11_close
+
+ ** Interfaces are now compiled seperately (i.e. failed compilation of one
+    interface does not mean fail of whole package)
+
+ ** Parallel and i2c interface support for FreeBSD platform
+
+ ** i2c_write no longer accepts strings for data parameter
+
+
+Summary of important user-visible changes for instrument-control 0.1.0:
+-------------------------------------------------------------------
+
+ ** Initial release
+
+ ** Support for Parallel interface I/O
+
+ ** Support for Serial interface I/O
+
+ ** Support for i2c interface I/O
+
+ ** The following functions are new:
+        serial
+        srl_close
+        srl_read
+        srl_write
+        srl_baudrate
+        srl_flush
+        srl_stopbits
+        srl_bytesize
+        srl_parity
+        srl_timeout
+        i2c
+        i2c_addr
+        i2c_read
+        i2c_close
+        i2c_write
+        parallel
+        pp_ctrl
+        pp_stat
+        pp_close
+        pp_data
+        pp_datadir
+
+</pre>

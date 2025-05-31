@@ -1,0 +1,88 @@
+---
+layout: "default"
+permalink: "/functions/@octave_gpib/19_octavegpibfscanf/"
+pkg_name: "instrument-control"
+pkg_version: "0.9.5"
+pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, vxi11, udp and usbtmc interfaces."
+title: "Instrument-control Toolkit - @octave_gpib/fscanf"
+category: "GPIB"
+func_name: "@octave_gpib/fscanf"
+navigation:
+- id: "overview"
+  name: "Overview"
+  url: "/index"
+- id: "Functions"
+  name: "Function Reference"
+  url: "/functions"
+- id: "16_CommonFunctions"
+  name: "&nbsp;&nbsp;Common Functions"
+  url: "/functions/#16_CommonFunctions"
+- id: "7_General"
+  name: "&nbsp;&nbsp;General"
+  url: "/functions/#7_General"
+- id: "4_GPIB"
+  name: "&nbsp;&nbsp;GPIB"
+  url: "/functions/#4_GPIB"
+- id: "3_I2C"
+  name: "&nbsp;&nbsp;I2C"
+  url: "/functions/#3_I2C"
+- id: "6_Modbus"
+  name: "&nbsp;&nbsp;Modbus"
+  url: "/functions/#6_Modbus"
+- id: "8_Parallel"
+  name: "&nbsp;&nbsp;Parallel"
+  url: "/functions/#8_Parallel"
+- id: "19_Serial(Deprecated)"
+  name: "&nbsp;&nbsp;Serial (Deprecated)"
+  url: "/functions/#19_Serial(Deprecated)"
+- id: "11_SerialPort"
+  name: "&nbsp;&nbsp;Serial Port"
+  url: "/functions/#11_SerialPort"
+- id: "3_SPI"
+  name: "&nbsp;&nbsp;SPI"
+  url: "/functions/#3_SPI"
+- id: "16_TCP(Deprecated)"
+  name: "&nbsp;&nbsp;TCP (Deprecated)"
+  url: "/functions/#16_TCP(Deprecated)"
+- id: "10_TCPClient"
+  name: "&nbsp;&nbsp;TCP Client"
+  url: "/functions/#10_TCPClient"
+- id: "10_TCPServer"
+  name: "&nbsp;&nbsp;TCP Server"
+  url: "/functions/#10_TCPServer"
+- id: "16_UDP(Deprecated)"
+  name: "&nbsp;&nbsp;UDP (Deprecated)"
+  url: "/functions/#16_UDP(Deprecated)"
+- id: "8_UDPPort"
+  name: "&nbsp;&nbsp;UDP Port"
+  url: "/functions/#8_UDPPort"
+- id: "6_USBTMC"
+  name: "&nbsp;&nbsp;USBTMC"
+  url: "/functions/#6_USBTMC"
+- id: "5_VXI11"
+  name: "&nbsp;&nbsp;VXI11"
+  url: "/functions/#5_VXI11"
+- id: "news"
+  name: "News"
+  url: "/news"
+- id: "manual"
+  name: "Manual"
+  url: "/manual"
+---
+<dl class="first-deftypefn">
+<dt class="deftypefn" id="index-fscanf"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-fscanf"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn" id="index-fscanf-1"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>)</code><a class="copiable-link" href="#index-fscanf-1"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn" id="index-fscanf-2"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">size</var>)</code><a class="copiable-link" href="#index-fscanf-2"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn" id="index-fscanf-3"><span class="category-def">Function File: </span><span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fscanf-3"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn" id="index-fscanf-4"><span class="category-def">Function File: </span><span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fscanf-4"></a></span></dt>
+<dd><p>Reads data <var class="var">res</var> from GPIB instrument
+</p>
+<p><var class="var">obj</var> is a GPIB object
+</p>
+<p><var class="var">format</var> Format specifier
+ <var class="var">size</var> number of values
+</p>
+<p><var class="var">count</var> values read
+ <var class="var">errmsg</var> read operation error message
+</p>
+</dd></dl>
