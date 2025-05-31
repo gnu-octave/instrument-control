@@ -9,5 +9,5 @@ Categories: instrument-control
 Depends: octave (>= 4.0.0)
 Autoload: no
 License: GPLv3+
-Url: https://gnu-octave.github.io/packages/instrument-control/
-Repository: https://sourceforge.net/p/octave/instrument-control/ci/default/tree/
+Url: https://gnu-octave.github.io/instrument-control/
+Repository: https://github.com/gnu-octave/instrument-control

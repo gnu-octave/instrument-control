@@ -45,7 +45,7 @@ Usage:
 Documentation
 ==============
 
-See the function list for instrument-control on [octave forge](https://octave.sourceforge.io/instrument-control/overview.html) for function documentation.
+See the function list for [instrument-control](https://gnu-octave.github.io/instrument-control/) for function documentation.
 
 Read the Octave [instrument-control wiki](https://wiki.octave.org/Instrument_control_package) for install tips and examples.
 
@@ -53,3 +53,5 @@ Known limitations and bugs
 ==========================
 
 None provided
+
+Please report bugs on the [issue tracker](https://github.com/gnu-octave/instrument-control/issues)

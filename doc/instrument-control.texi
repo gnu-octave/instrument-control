@@ -58,7 +58,7 @@ Octave that you have.  The precise conditions can be found in the
 Octave Instrument Control toolkit and that also appears in @ref{Copying}.
 
 To download a copy of the @acronym{GNU} Octave Instrument Control Toolkit, please visit
-@url{http://octave.sourceforge.net/instrument-control/}.
+@url{https://gnu-octave.github.io/instrument-control/}.
 
 @end titlepage
 @c %*** End of TITLEPAGE
