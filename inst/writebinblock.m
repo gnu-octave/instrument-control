@@ -99,10 +99,31 @@ endfunction
 %!error writebinblock (1)
 
 %!test
+%! # old classes
 %! a = udp ();
 %! a.remoteport = a.localport;
 %! a.remotehost = '127.0.0.1';
 %! a.timeout = 1;
 %!
+%! writebinblock(a, "hello", "char");
+%! x = read(a);
+%! assert(char(x), "#15hello\n");
+%!
 %! writebinblock(a, "hello", "uint16");
+%! x = read(a);
+%! assert(char(x), "#210h\0e\0l\0l\0o\0\n");
+%! clear a
+
+%!test
+%! # new style class
+%! a = udpport ();
+%! #a.remoteport = a.localport;
+%! #a.remotehost = '127.0.0.1';
+%! a.Timeout = 1;
+%! # set dest to us
+%! write(a, "a", "127.0.0.1", a.LocalPort);
+%! flush(a);
+%! writebinblock(a, "hello", "char");
+%! x = read(a);
+%! assert(char(x), "#15hello\n");
 %! clear a

@@ -82,53 +82,89 @@ function data = readbinblock (dev, varargin)
   sz = -1;
 
   # need read ?????? # D <dsizenumn> <data...> \n
-   
+  # hdr: '#' szlen
+  #   datasize (of szlen)
+  # data: of datasize
+  # terminator (if configured)
+  
+  # scan for start of header
+  tmp = 1;
+  while !isempty(tmp) && tmp != '#'
+    if has_read
+      tmp = read (dev, 1);
+    else
+      tmp = fread (dev, 1);
+    endif
+  endwhile
+
+  if isempty(tmp)
+    data = [];
+    return;
+  endif
+
+  # get data size size byte
   if has_read
-    len = dev.NumBytesAvailable;
-    if(len == 0)
-      len = 100;
+    tmp = read (dev, 1);
+  else
+    tmp = fread (dev, 1);
+  endif
+
+  if isempty(tmp)
+    data = [];
+    return
+  endif
+
+  # read data sz
+  len = str2num(char(tmp));
+  pos = 0;
+  dsize = [];
+  while (pos < len)
+    
+    if has_read
+      tmp = read (dev, len-pos);
+    else
+      tmp = fread (dev, len-pos);
     endif
 
+    if isempty(tmp)
+      data = [];
+      return;
+    endif
+  
+    dsize = [dsize tmp];
+    pos = numel(dsize);
+  endwhile
+
+  len = str2num(char(dsize));
+ 
+  if has_read
     tdata = read (dev, len);
   else
-    tdata = fread(dev, 100);
+    tdata = fread(dev, len);
   endif
 
   while !isempty (tdata)
-    # getting hdr part
-    if sz < 0
-      data = [data tdata];
-      idx = index (char(data), "#");
-      if (idx > 1)
-        data = data(1:idx-1);
-      elseif (idx == 0)
-        data = "";
-      # if == 0, keep all data
-      endif
+    data = [data tdata];
+    pos = numel(data);
 
-      if numel(data) > 2
-        len = str2num(char(data(2)));
-        if (numel(data) > 2+len)
-          sz = str2num(char(data(3:3+len-1)));
-          data = uint8(data(3+len:end));
-        endif
-      endif
-    endif
-    # reading body
-    if sz >= 0
-      if numel(data) >= sz
-        data = data(1:sz);
-        break;
-      endif
+    if pos >= len
+      break;
     endif
 
     if has_read
-      tdata = read (dev);
+      tdata = read (dev, len-pos);
     else
-      tdata = fread(dev, 100);
+      tdata = fread(dev, len-pos);
     endif
 
   endwhile
+
+  # end byte
+  if has_read
+    eol = read (dev, 1);
+  else
+    eol = fread(dev, 1);
+  endif
 
   if !strcmp(toclass, 'uint8')
      data = typecast(data,toclass);
@@ -139,14 +175,11 @@ endfunction
 %!error readbinblock (1)
 
 %!test
+%! # old class
 %! a = udp ();
 %! a.remoteport = a.localport;
 %! a.remotehost = '127.0.0.1';
 %! a.timeout = 1;
-%!
-%! writebinblock(a, "hello", "char");
-%! x = read(a);
-%! assert(char(x), "#15hello\n");
 %!
 %! writebinblock(a, "hello", "char");
 %! assert(readbinblock(a), uint8("hello"));
@@ -154,4 +187,49 @@ endfunction
 %! x = [1 2 3 4];
 %! writebinblock(a, x, "double");
 %! assert(readbinblock(a, "double"), x);
+%!
+%! # bigger blocks (prev was failing > 96)
+%! x = uint8(255*rand(1,4096));
+%! writebinblock(a, x, "uint8");
+%! y = readbinblock(a, "uint8");
+%! assert (y, x);
+%!
+%! # insert some noise before the data
+%! write(a, "invalidstuff");
+%!
+%! writebinblock(a, "hello", "char");
+%! assert(readbinblock(a), uint8("hello"));
+%!
 %! clear a
+
+%!test
+%! # new style class
+%! a = udpport ();
+%! #a.remoteport = a.localport;
+%! #a.remotehost = '127.0.0.1';
+%! a.Timeout = 1;
+%! # set dest to us
+%! write(a, "test", "127.0.0.1", a.LocalPort);
+%! flush(a);
+%!
+%! writebinblock(a, "hello", "char");
+%! assert(readbinblock(a), uint8("hello"));
+%!
+%! x = [1 2 3 4];
+%! writebinblock(a, x, "double");
+%! assert(readbinblock(a, "double"), x);
+%!
+%! # bigger blocks (prev was failing > 96)
+%! x = uint8(255*rand(1,4096));
+%! writebinblock(a, x, "uint8");
+%! y = readbinblock(a, "uint8");
+%! assert (y, x);
+%!
+%! # insert some noise before the data
+%! write(a, "invalidstuff");
+%!
+%! writebinblock(a, "hello", "char");
+%! assert(readbinblock(a), uint8("hello"));
+%!
+%! clear a
+
