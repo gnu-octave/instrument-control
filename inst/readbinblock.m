@@ -13,17 +13,45 @@
 ## -*- texinfo -*- 
 ## @deftypefn {} {@var{data} =} readbinblock (@var{dev})
 ## @deftypefnx {} {@var{data} =} readbinblock (@var{dev}, @var{datatype})
-## read a binblock of data from a instrument device
+## read a binblock of data from an instrument device
+##
+## readbinblock will discard any data before a recognised binblock.
+## If no binblock is found or read, an empty @var{data} will be returned.
 ##
 ## @subsubheading Inputs
 ## @var{dev} - connected device
 ##
 ## @var{datatype} - optional data type to read data as (default 'uint8')
+## Valid values are:
+## @table @asis
+## @item "string"
+## maps to a char array
+## @item "char", "schar", "int8"
+## maps to int8
+## @item "uchar", "uint8"
+## maps to uint8
+## @item "int16", "short"
+## maps to int16
+## @item "uint16", "ushort"
+## maps to uint16
+## @item "int32", "int"
+## maps to int32
+## @item "uint32", "uint"
+## maps to uint32
+## @item "int64", "long"
+## maps to int64
+## @item "uint64", "ulong"
+## maps to uint64
+## @item "single", "float", "float32"
+## maps to single
+## @item "double", "float64"
+## maps to double
+## @end table
 ##
 ## @subsubheading Outputs
 ## @var{data} - data read
 ##
-## @seealso{flushoutput}
+## @seealso{writebinblock}
 ## @end deftypefn
 
 function data = readbinblock (dev, varargin)
@@ -81,11 +109,12 @@ function data = readbinblock (dev, varargin)
   data = uint8([]);
   sz = -1;
 
-  # need read ?????? # D <dsizenumn> <data...> \n
-  # hdr: '#' szlen
-  #   datasize (of szlen)
+  # Dataformat: # D <dsizenumn> <data...> \n
+  # hdr: '#'
+  #      D= ascii number of chars the datasize value uses
+  #      datasizenum (acsii number for datasize) length=D
   # data: of datasize
-  # terminator (if configured)
+  # terminator \n
   
   # scan for start of header
   tmp = 1;

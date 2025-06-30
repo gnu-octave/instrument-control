@@ -35,7 +35,7 @@
 ## @subsubheading Outputs
 ## None
 ##
-## @seealso{flushoutput}
+## @seealso{readbinblock}
 ## @end deftypefn
 
 function writebinblock (dev, data, datatype)
