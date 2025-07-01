@@ -195,6 +195,8 @@ function data = readbinblock (dev, varargin)
     eol = fread(dev, 1);
   endif
 
+  assert(eol, uint8(10))
+
   if !strcmp(toclass, 'uint8')
      data = typecast(data,toclass);
   endif
