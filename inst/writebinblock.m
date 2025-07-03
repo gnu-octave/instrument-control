@@ -28,7 +28,7 @@
 ## @subsubheading Inputs
 ## @var{dev} - connected device
 ##
-## @var{data} - binary data to send
+## @var{data} - binary data to send. It should be a string or 1 by N row vector
 ##
 ## @var{datatype} - datatype to send data as
 ##
@@ -47,6 +47,10 @@ function writebinblock (dev, data, datatype)
   type = typeinfo(dev);
   if !strncmp(type, "octave_", 7)
     error ('expected instrument control device');
+  endif
+
+  if ! isrow(data)
+    error ('expected data as a string or 1 by N row vector');
   endif
 
   switch (datatype)
