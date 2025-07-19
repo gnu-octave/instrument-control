@@ -89,7 +89,8 @@ function writebinblock (dev, data, datatype)
   hdr(2) = num2str(numel(hdr)-2);
 
   types_with_write = { "octave_udpport", "octave_serialport", ...
-                       "octave_tcpclient", "octave_tcpserver", "octave_udpport" };
+                       "octave_tcpclient", "octave_tcpserver", "octave_udpport",
+                       "octave_visadev" };
 
   if sum(strcmp(type, types_with_write)) > 0
     write (dev, [uint8(hdr) data uint8("\n")]);

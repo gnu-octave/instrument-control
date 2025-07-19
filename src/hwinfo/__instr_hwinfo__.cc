@@ -76,6 +76,10 @@ Internal private function\n \
   interfaces (int_count++) = "usbtmc";
 #endif
 
+#ifdef BUILD_VISA
+  interfaces (int_count++) = "visa";
+#endif
+
 #ifdef BUILD_VXI11
   interfaces (int_count++) = "vxi11";
 #endif

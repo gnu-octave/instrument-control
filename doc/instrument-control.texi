@@ -193,7 +193,8 @@ The function will return information on the supported interfaces that are availa
       [1,8] = udp
       [1,9] = udpport
       [1,10] = usbtmc
-      [1,11] = vxi11
+      [1,11] = visadev
+      [1,12] = vxi11
     @}
 @end example
 
@@ -462,6 +463,46 @@ val = read(s)
 @end example
 
 The device can be closed by clearing the object variable.
+
+@example
+clear s
+@end example
+
+@subsection VISA Devices
+
+A VISA interface is available for using some hardware.
+
+Current visa devices can be listed using the visadevlist function.
+
+@example
+devices = visadevlist()
+@end example
+
+
+Devices can creopened using the visadev function.
+
+As an example, using a serial port through VISA.
+
+@example
+s = visadev("ASRL0::")
+@end example
+
+After creating the interface object, properties of the device can be set or retrieved using get or set through property access.
+
+@example
+s = visadev("ASRL0::")
+s.BaudRate = 9600 # Set the baudrate
+@end example
+
+The device can be written and read from using read and write functions.
+
+@example
+write(s, "hello world") # write hello world
+
+val = read(s, 10)
+@end example
+
+The device can be closed by clearing the serialport object.
 
 @example
 clear s

@@ -186,6 +186,18 @@ USBTMC
   @octave_usbtmc/fopen
   @octave_usbtmc/fread
   @octave_usbtmc/fwrite
+Visa
+  visadev
+  visadevlist
+  @octave_visadev/read
+  @octave_visadev/write
+  @octave_visadev/flush
+  @octave_visadev/getpinstatus
+  @octave_visadev/setRTS
+  @octave_visadev/setDTR
+  @octave_visadev/visastatus
+  @octave_visadev/visatrigger
+  @octave_visadev/configureTerminator
 VXI11
   vxi11
   vxi11_close

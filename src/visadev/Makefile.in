@@ -1,0 +1,11 @@
+OCT := ../visadev.oct
+OBJ := visadev.o __visadev_pkg_lock__.o
+BUILD_VISA = @BUILD_VISA@
+ifeq (X$(BUILD_VISA),X1)
+OBJ += visadev.o visa_library.o visadevlist.o __visadev_dispatch__.o visadev_class.o
+endif
+LFLAGS     = $(LIBS)
+CFLAGS  = $(CXXFLAGS) $(CPPFLAGS) @DEFS@
+
+include ../common.mk
+

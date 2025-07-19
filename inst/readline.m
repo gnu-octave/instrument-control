@@ -76,6 +76,26 @@ function data = readline (dev)
         tdata = read (dev, 1);
       endif
     endwhile
+  elseif strcmp(type, "octave_visadev")
+    terminator = "\n";
+
+    data = "";
+    idx = 0;
+    tdata = read(dev, 1);
+    while !isempty(tdata) && idx == 0
+      data = [data  char(tdata)];
+      idx = index(data, terminator);
+      if (idx > 0)
+        if (idx > 1)
+          data = data(1:idx-1);
+        else
+          data = "";
+        endif
+      else
+        tdata = read(dev, 1);
+      endif
+    endwhile
+ 
   else
     terminator = "\n";
 

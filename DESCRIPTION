@@ -11,3 +11,4 @@ Autoload: no
 License: GPLv3+
 Url: https://gnu-octave.github.io/instrument-control/
 Repository: https://github.com/gnu-octave/instrument-control
+Tracker: https://github.com/gnu-octave/instrument-control/issues

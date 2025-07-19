@@ -63,6 +63,9 @@ function writeline (dev, data)
     endif
 
     write (dev, [data terminator]);
+  elseif strcmp(type, "octave_visadev")
+    terminator = "\n";
+    write (dev, [data terminator]);
   else
     terminator = "\n";
 

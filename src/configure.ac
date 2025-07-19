@@ -1,4 +1,4 @@
-#                                               -*- Autoconf -*-
+#                                               -*- autoconf -*-
 # Process this file with autoconf to produce a configure script.
 #
 ### Copyright (C) 2020-2025 John Donoghue <john.donoghue@ieee.org>
@@ -323,7 +323,6 @@ if test "x$ac_cv_search_ibrd" != "xno"; then
   test "x$ac_cv_search_ibrd" = "xnone required" || AC_SUBST(GPIBLIBS, [$ac_cv_search_ibrd])
 fi
 
-
 # Checks for RPC/VXI11
 AC_ARG_WITH([librpc],
   [AS_HELP_STRING([--with-librpc=tirpc|sunrpc|auto|none],[Choose use/selection of librpc used])],
@@ -387,7 +386,7 @@ if test "x${with_librpc}" = "xyes"; then
     const_clnt_perror=yes],
    [AC_MSG_RESULT([no])]
   )
-  LIBS=$save_LIBS=
+  LIBS=$save_LIBS
   CPPFLAGS=$save_CPPFLAGS
   AC_LANG_POP([C++])
 
@@ -427,13 +426,8 @@ END
   fi
 fi
 
-# Checks for openvisa
-AC_CHECK_HEADERS([visa/visa.h],
-  [AC_SEARCH_LIBS([viOpenDefaultRM], [openvisa], [build_visa=yes], [])] , [] )
-
-if test "x$ac_cv_search_viOpenDefaultRM" != "xno"; then
-  test "x$ac_cv_search_viOpenDefaultRM" = "xnone required" || AC_SUBST(VISALIBS, [$ac_cv_search_viOpenDefaultRM])
-fi
+# Checks for visa headers. We dont need the actual library
+AC_CHECK_HEADERS([visa.h],[build_visa=yes],[])
 
 # Checks for libmodbus
 build_modbus=no
@@ -496,6 +490,7 @@ fi
 
 if test $build_visa = yes; then
   AC_DEFINE([BUILD_VISA], [], [build VISA interface functions])
+  AC_SUBST([BUILD_VISA], [1])
 fi
 
 if test $build_resolvehost = yes; then
@@ -511,6 +506,7 @@ fi
 AC_CONFIG_FILES([common.mk Makefile gpib/Makefile
 		 tcp/Makefile tcpclient/Makefile
 		 tcpserver/Makefile
+		 visadev/Makefile
 		 udp/Makefile udpport/Makefile
 		 vxi11/Makefile usbtmc/Makefile spi/Makefile
 		 serial/Makefile parallel/Makefile i2c/Makefile
@@ -530,6 +526,7 @@ $PACKAGE_NAME is now configured with
    BUILD UDP:         $build_udp
    BUILD USBTMC:      $build_usbtmc
    BUILD GPIB:        $build_gpib
+   BUILD VISA:        $build_visa
    BUILD VXI11:       $build_vxi11
    BUILD RESOLVEHOST: $build_resolvehost
    BUILD MODBUS:      $build_modbus
@@ -537,7 +534,6 @@ $PACKAGE_NAME is now configured with
    GPIB LIBS:         $GPIBLIBS
    VXI11 LIBS:        $RPCLIBS
    VXI11 INCLUDE:     $RPCINCLUDE
-   VISA LIBS:         $VISALIBS
    TCP LIBS:          $TCPLIBS
    MODBUS LIBS:       $MODBUSLIBS
    MODBUS INCLUDE:    $MODBUSINCLUDE

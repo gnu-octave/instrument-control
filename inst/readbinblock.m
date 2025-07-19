@@ -98,7 +98,8 @@ function data = readbinblock (dev, varargin)
 
   # read and numbytesavailable
   types_with_read = { "octave_udpport", "octave_serialport", ...
-                      "octave_tcpclient", "octave_tcpserver", "octave_udpport" };
+                      "octave_tcpclient", "octave_tcpserver", "octave_udpport",
+                      "octave_visadev" };
 
   if sum(strcmp(type, types_with_read)) > 0
     has_read = 1;
