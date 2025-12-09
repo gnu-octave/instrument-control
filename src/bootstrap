@@ -1,5 +1,5 @@
-#!/bin/bash
-## Octave-Forge: video package bootstrap script
+#!/bin/sh
+## Octave-Forge: instrument control package bootstrap script
 ## Run this to generate the configure script
 
 set -e      # halt if unhandled error
