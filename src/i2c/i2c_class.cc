@@ -177,7 +177,7 @@ octave_i2c::read (uint8_t *buf, unsigned int len)
   i2c_slave.slave = static_cast<uint8_t>(get_addr ());
   i2c_slave.count = len;
   i2c_slave.last = 0; // No additional reads will follow for this transaction
-  i2c_slave.buf = buf;
+  i2c_slave.buf = reinterpret_cast<char *>(buf);
 
   ::ioctl (get_fd (), I2CSTART, &i2c_slave);
   retval = ::ioctl (get_fd(), I2CREAD, &i2c_slave);
@@ -209,10 +209,10 @@ octave_i2c::write (uint8_t *buf, unsigned int len)
   // Populate FreeBSD-specific structure
   struct iiccmd i2c_slave;
 
-  i2c_slave.slave = static_cast<uint16_t>(get_addri ());
+  i2c_slave.slave = static_cast<uint16_t>(get_addr ());
   i2c_slave.count = len;
   i2c_slave.last = 0; // No additional writes will follow for this transaction
-  i2c_slave.buf = buf;
+  i2c_slave.buf = reinterpret_cast<char *>(buf);
 
   ::ioctl (get_fd (), I2CSTART, &i2c_slave);
   retval = ::ioctl (get_fd (), I2CWRITE, &i2c_slave);
