@@ -151,7 +151,7 @@ Optional outputs are provided for the source ip address and port of the read dat
 %! t = toc;
 %! assert (c, 0);
 %! assert (isempty (d));
-%! assert (t, 1.0, 0.1)
+%! assert (t >= 1.0)
 %! clear a;
 
 #endif

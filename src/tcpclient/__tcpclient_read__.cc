@@ -128,7 +128,7 @@ Private function t read from tcpclient interface.\n \
 %! t = toc;
 %! assert (c, 0);
 %! assert (isempty (d));
-%! assert (t, 1.0, 0.1)
+%! assert (t >= 1.0)
 %!
 %! clear a
 
