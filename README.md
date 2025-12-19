@@ -2,7 +2,7 @@ Introduction
 ============
 
 The Instrument control package provides low level I/O functions for serial, i2c, spi, parallel, tcp,
-gpib, vxi11, modbus, udp and usbtmc interfaces.
+gpib, vxi11, visa, modbus, udp and usbtmc interfaces.
 
 It attempts to provide the same function calls as the Matlab toolkit, as well as additional functionality.
 
@@ -13,9 +13,11 @@ Requirements
 
 * linux-gpib (Linux only)
 
-* libmodbus for MOSBUS support
+* libmodbus for MODBUS support
 
 * rpcgen and libtirpc for VXI11 support
+
+* VISA headers for VISA support
 
 
 Installing
@@ -26,7 +28,7 @@ To install, run the octave package manager:
 1. If running Windows, the package may already be installed:
    type pkg list, to view the installed packages.
 
-2. To install from source forge:
+2. To install from Source Forge:
    pkg install -forge instrument-control
 
 3. To install from a local tarball.
