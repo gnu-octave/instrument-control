@@ -187,6 +187,6 @@ Terminator value used for string data (currently not used)\n \
 %! assert (a.Type, "serial");
 %! clear a;
 
-%!error <expected resource name> a = visadev (1)
+%!error <Expected resource name> a = visadev (1)
 
 #endif
