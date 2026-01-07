@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2025 John Donoghue
+Copyright 2025-2026 John Donoghue
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -28,7 +28,7 @@ without any warranty.
     <keyword>communication</keyword>
   </keywords>
   <url type="homepage">https://gnu-octave.github.io/packages/instrument-control/</url>
-  <url type="bugtracker">https://savannah.octave.org/?Action=get&Format=HTMLCSS&Title=[octave%20forge]%20(instrument-control)</url>
+  <url type="bugtracker">https://github.com/gnu-octave/instrument-control/issues</url>
   <project_license>GPL-3.0+</project_license>
   <developer_name>Octave-Forge Community</developer_name>
   <update_contact>octave-maintainers@gnu.org</update_contact>
