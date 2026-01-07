@@ -13,6 +13,9 @@ src/PKG_ADD
 *.swp
 *.swo
 
+# dist
+target
+
 # autoconf and autoconf generated files
 src/configure
 src/config.log
