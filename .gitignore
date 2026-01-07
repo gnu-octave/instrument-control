@@ -23,3 +23,20 @@ src/Makefile
 src/*/Makefile
 src/common.mk
 src/config.h*
+src/oct-alt-includes.h
+
+# Other generated files
+doc/*.qch
+doc/*.qhc
+doc/*.html
+doc/*.pdf
+doc/*.info
+doc/version.texi
+doc/functions.texi
+
+src/vxi11/vxi11.h
+src/vxi11/vxi11_clnt.c
+src/vxi11/vxi11_svc.c
+src/vxi11/vxi11_xdr.c
+
+src/make-pkg-add-file.cc
