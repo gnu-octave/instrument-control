@@ -12,7 +12,7 @@
 #include "octave/oct-env.h"
 //#include "octave/oct-sysdep.h"
 
-static octave::dynamic_library visa_lib("");
+static OCTAVE__DYNAMIC_LIBRARY visa_lib("");
 
 visa_library::visa_library()
 {
@@ -20,19 +20,19 @@ visa_library::visa_library()
   lib_viOpenDefaultRM = 0;
 
   // see if librrary is loaded
-  octave::dynamic_library lib("");
+  OCTAVE__DYNAMIC_LIBRARY lib("");
   void * s = reinterpret_cast<void*>
                                  (lib.search ("viOpenDefaultRM"));
   if (!s)
     {
-      std::string visa_library_path = octave::sys::env::getenv ("VISA_LIBRARY");
+      std::string visa_library_path = OCTAVE__GETENV ("VISA_LIBRARY");
       if (visa_library_path.empty())
         {
           std::string paths = "";
           std::string sep = ":";
           string_vector lib_list;
 #ifdef _WIN32
-          paths = octave::sys::env::getenv ("PATH");
+          paths = OCTAVE__GETENV ("PATH");
           sep = ";";
 #ifdef _WIN64
           lib_list.append(std::string("visa64.dll"));
@@ -42,10 +42,10 @@ visa_library::visa_library()
           lib_list.append(std::string("libvisa.dll"));
 #else
 # ifdef __APPLE__
-          paths = octave::sys::env::getenv ("DYLD_LIBRARY_PATH");
+          paths = OCTAVE__GETENV ("DYLD_LIBRARY_PATH");
           lib_list.append(std::string("libvisa.dylib"));
 # else
-          paths = octave::sys::env::getenv ("LD_LIBRARY_PATH");
+          paths = OCTAVE__GETENV ("LD_LIBRARY_PATH");
           lib_list.append(std::string("libvisa.so"));
 # endif
 #endif
@@ -66,9 +66,9 @@ visa_library::visa_library()
               // can we find the vis lib
               for (octave_idx_type l=0;l<lib_list.numel();l++)
                 {
-                  path = path_list(p) + octave::sys::file_ops::dir_sep_str () + lib_list(l);
+                  path = path_list(p) + OCTAVE__DIR_SEP_STR () + lib_list(l);
 
-                  if (octave::sys::file_stat (path))
+                  if (OCTAVE__FILE_STAT (path))
                     {
                       visa_library_path = path;
                       break;
@@ -79,7 +79,7 @@ visa_library::visa_library()
             }
         }
 
-      lib = octave::dynamic_library (visa_library_path);
+      lib = OCTAVE__DYNAMIC_LIBRARY (visa_library_path);
 
       void * s = reinterpret_cast<void*>
                                  (lib.search ("viOpenDefaultRM"));
@@ -96,22 +96,22 @@ visa_library::visa_library()
   // else - already loaded
   //
   // get each func pointer if can
-  lib_viOpenDefaultRM = reinterpret_cast<ViStatus (*)(ViPSession)>(lib.search ("viOpenDefaultRM"));
-  lib_viOpen = reinterpret_cast<ViStatus (*)(ViSession,ViRsrc,ViAccessMode,ViUInt32,ViPSession)>(lib.search ("viOpen"));
-  lib_viClose = reinterpret_cast<ViStatus (*)(ViObject)>(lib.search ("viClose"));
-  lib_viStatusDesc = reinterpret_cast<ViStatus (*)(ViObject,ViStatus,ViChar _VI_FAR [])>(lib.search ("viStatusDesc"));
-  lib_viGetAttribute = reinterpret_cast<ViStatus (*)(ViObject,ViAttr,void _VI_PTR)>(lib.search ("viGetAttribute"));
-  lib_viSetAttribute = reinterpret_cast<ViStatus (*)(ViObject,ViAttr,ViAttrState)>(lib.search ("viSetAttribute"));
-  lib_viFindRsrc = reinterpret_cast<ViStatus (*)(ViSession,ViString,ViPFindList,ViPUInt32,ViChar _VI_FAR [])>(lib.search ("viFindRsrc"));
-  lib_viFindNext = reinterpret_cast<ViStatus (*)(ViFindList,ViChar _VI_FAR [])>(lib.search ("viFindNext"));
-  lib_viParseRsrc = reinterpret_cast<ViStatus (*)(ViSession,ViRsrc,ViPUInt16,ViPUInt16)>(lib.search ("viParseRsrc"));
-  lib_viParseRsrcEx = reinterpret_cast<ViStatus (*)(ViSession,ViRsrc,ViPUInt16,ViPUInt16,ViChar _VI_FAR [], ViChar _VI_FAR [], ViChar _VI_FAR [])>(lib.search ("viParseRsrcEx"));
-  lib_viRead = reinterpret_cast<ViStatus (*)(ViSession,ViPBuf,ViUInt32,ViPUInt32)>(lib.search ("viRead"));
-  lib_viWrite = reinterpret_cast<ViStatus (*)(ViSession,ViPBuf,ViUInt32,ViPUInt32)>(lib.search ("viWrite"));
-  lib_viClear = reinterpret_cast<ViStatus (*)(ViSession)>(lib.search ("viClear"));
-  lib_viReadSTB = reinterpret_cast<ViStatus (*)(ViSession, ViPUInt16)>(lib.search ("viReadSTB"));
-  lib_viFlush = reinterpret_cast<ViStatus (*)(ViSession, ViUInt16)>(lib.search ("viFlush"));
-  lib_viAssertTrigger = reinterpret_cast<ViStatus (*)(ViSession, ViUInt16)>(lib.search ("viAssertTrigger"));
+  lib_viOpenDefaultRM = reinterpret_cast<ViStatus _VI_FUNC (*)(ViPSession)>(lib.search ("viOpenDefaultRM"));
+  lib_viOpen = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession,ViRsrc,ViAccessMode,ViUInt32,ViPSession)>(lib.search ("viOpen"));
+  lib_viClose = reinterpret_cast<ViStatus _VI_FUNC (*)(ViObject)>(lib.search ("viClose"));
+  lib_viStatusDesc = reinterpret_cast<ViStatus _VI_FUNC (*)(ViObject,ViStatus,ViChar _VI_FAR [])>(lib.search ("viStatusDesc"));
+  lib_viGetAttribute = reinterpret_cast<ViStatus _VI_FUNC (*)(ViObject,ViAttr,void _VI_PTR)>(lib.search ("viGetAttribute"));
+  lib_viSetAttribute = reinterpret_cast<ViStatus _VI_FUNC (*)(ViObject,ViAttr,ViAttrState)>(lib.search ("viSetAttribute"));
+  lib_viFindRsrc = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession,ViString,ViPFindList,ViPUInt32,ViChar _VI_FAR [])>(lib.search ("viFindRsrc"));
+  lib_viFindNext = reinterpret_cast<ViStatus _VI_FUNC (*)(ViFindList,ViChar _VI_FAR [])>(lib.search ("viFindNext"));
+  lib_viParseRsrc = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession,ViRsrc,ViPUInt16,ViPUInt16)>(lib.search ("viParseRsrc"));
+  lib_viParseRsrcEx = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession,ViRsrc,ViPUInt16,ViPUInt16,ViChar _VI_FAR [], ViChar _VI_FAR [], ViChar _VI_FAR [])>(lib.search ("viParseRsrcEx"));
+  lib_viRead = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession,ViPBuf,ViUInt32,ViPUInt32)>(lib.search ("viRead"));
+  lib_viWrite = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession,ViPBuf,ViUInt32,ViPUInt32)>(lib.search ("viWrite"));
+  lib_viClear = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession)>(lib.search ("viClear"));
+  lib_viReadSTB = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession, ViPUInt16)>(lib.search ("viReadSTB"));
+  lib_viFlush = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession, ViUInt16)>(lib.search ("viFlush"));
+  lib_viAssertTrigger = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession, ViUInt16)>(lib.search ("viAssertTrigger"));
 }
 
 visa_library::~visa_library()

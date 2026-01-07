@@ -693,7 +693,7 @@ octave_visadev::subsref (const std::string& type, const std::list<octave_value_l
 	  octave_value_list ovl (1);
           OV_COUNT++; 
           ovl(0) = octave_value (this);
-          auto it = idx.begin ();
+          std::list<octave_value_list>::const_iterator it = idx.begin();
           ovl.append (*++it);
 
           retval = OCTAVE__FEVAL (property, ovl);

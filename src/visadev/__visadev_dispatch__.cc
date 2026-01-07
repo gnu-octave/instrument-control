@@ -14,6 +14,7 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include <octave/oct.h>
+#include <octave/oct-map.h>
 
 #ifdef HAVE_CONFIG_H
 #  include "../config.h"

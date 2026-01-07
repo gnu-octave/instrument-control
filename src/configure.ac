@@ -182,7 +182,52 @@ OF_OCTAVE_LIST_ALT_SYMS([
   [OCTAVE_BASE_CLASS],
   [],
   []
+],
+
+[dnl
+  [octave_shlib],
+  [octave::dynamic_library],
+  [[octave::dynamic_library lib;]],
+  [OCTAVE__DYNAMIC_LIBRARY],
+  [[#include <octave/oct-shlib.h>]
+   [#include <octave/octave.h>]
+  ],
+  [[#include <octave/oct-shlib.h>]
+   [#include <octave/octave.h>]
+  ]
+],
+
+[dnl
+  [octave_env::getenv],
+  [octave::sys::env::getenv],
+  [[std::string p = octave::sys::env::getenv("");]],
+  [OCTAVE__GETENV],
+  [[#include <octave/oct-env.h>]
+   [#include <octave/octave.h>]
+  ],
+  [[#include <octave/oct-env.h>]
+   [#include <octave/octave.h>]
+  ]
+],
+
+[dnl
+  [file_stat],
+  [octave::sys::file_stat],
+  [[octave::sys::file_stat();]],
+  [OCTAVE__FILE_STAT],
+  [#include <octave/file-stat.h>],
+  [#include <octave/file-stat.h>]
+],
+
+[dnl
+  [file_ops::dir_sep_str],
+  [octave::sys::file_ops::dir_sep_str],
+  [[octave::sys::file_ops::dir_sep_str();]],
+  [OCTAVE__DIR_SEP_STR],
+  [#include <octave/file-ops.h>],
+  [#include <octave/file-ops.h>]
 ]
+
 
 ],[oct-alt-includes.h])
 
