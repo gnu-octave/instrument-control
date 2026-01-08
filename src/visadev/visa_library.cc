@@ -12,7 +12,7 @@
 #include "octave/oct-env.h"
 //#include "octave/oct-sysdep.h"
 
-static OCTAVE__DYNAMIC_LIBRARY visa_lib("");
+//static OCTAVE__DYNAMIC_LIBRARY visa_lib("");
 
 visa_library::visa_library()
 {
@@ -81,7 +81,8 @@ visa_library::visa_library()
 
       lib = OCTAVE__DYNAMIC_LIBRARY (visa_library_path);
 
-      void * s = reinterpret_cast<void*>
+      if (lib)
+        s = reinterpret_cast<void*>
                                  (lib.search ("viOpenDefaultRM"));
       if(!s) 
         {
@@ -90,11 +91,11 @@ visa_library::visa_library()
         }
       else
         {
-          visa_lib = lib;
+//          visa_lib = lib;
         }
     }
   // else - already loaded
-  //
+
   // get each func pointer if can
   lib_viOpenDefaultRM = reinterpret_cast<ViStatus _VI_FUNC (*)(ViPSession)>(lib.search ("viOpenDefaultRM"));
   lib_viOpen = reinterpret_cast<ViStatus _VI_FUNC (*)(ViSession,ViRsrc,ViAccessMode,ViUInt32,ViPSession)>(lib.search ("viOpen"));

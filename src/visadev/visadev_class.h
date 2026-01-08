@@ -98,7 +98,6 @@ public:
   bool isobject (void) const { return true; }
 
   // required to use subsasn
-  //string_vector map_keys (void) const { return fieldnames; }
   string_vector map_keys (void) const;
   dim_vector dims (void) const { static dim_vector dv(1, 1); return dv; }
 
@@ -192,8 +191,6 @@ private:
   uint8_t *input_buffer;
   int buffer_len;
   int buffer_pos;
-  //sockaddr_in read_addr;
-  //
   struct PropertyMap * properties;
 
   //int fd;
@@ -202,7 +199,6 @@ private:
   std::string name;
   std::string tag;
   std::string type_str;
-  string_vector fieldnames;
   octave_value userData;
   std::string byteOrder;
   unsigned int byteswritten;

@@ -544,7 +544,13 @@ DEFINE_OV_TYPEID_FUNCTIONS_AND_DATA (octave_visadev, "octave_visadev", "octave_v
 std::vector <visa_devinfo> octave_visadev::list_devices()
 {
   std::vector <visa_devinfo> devices;
+
   visa_library * lib = get_visa_library();
+  if (!lib || !lib->is_valid())
+    {
+      error("visadev: Could not open VISA library.");
+      return devices;
+    }
 
   ViAccessMode access_mode = VI_NULL;
   ViUInt32 timeout_ms      = 5000;
@@ -626,7 +632,7 @@ octave_visadev::octave_visadev (void)
       register_type ();
     }
 
-  lib = get_visa_library();
+  lib = 0; //get_visa_library();
 
   userData = Matrix ();
   byteswritten = 0;
@@ -873,6 +879,16 @@ octave_visadev::open (const std::string &resource)
   int sockerr;
 
   name = resource;
+
+  if(!lib)
+    {
+      lib = get_visa_library();
+      if (!lib || !lib->is_valid())
+        {
+          error("visadev: Could not open VISA library.");
+          return -1;
+        }
+    }
 
   ViAccessMode access_mode = VI_NULL;
   ViUInt32 timeout_ms      = 5000;
