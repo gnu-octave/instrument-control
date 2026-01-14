@@ -472,10 +472,7 @@ END
 fi
 
 # Checks for visa headers. We dont need the actual library
-# but currently, cross compile not supported
-if test "$cross_compiling" = "no"; then
 AC_CHECK_HEADERS([visa.h],[build_visa=yes],[])
-fi
 
 # Checks for libmodbus
 build_modbus=no
