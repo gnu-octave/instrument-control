@@ -90,12 +90,9 @@ octave_value_list modbus_userdata (octave_modbus* dev, const octave_value_list& 
   if (args.length () > 1)
     (*current_liboctave_error_handler) ("wrong number of arguments");
 
-  // Setting new timeout
+  // set user data
   if (args.length () > 0)
     {
-      if ( !(args (0).OV_ISINTEGER () || args (0).OV_ISFLOAT ()) )
-        (*current_liboctave_error_handler) ("argument must be integer or float");
-
       dev->set_userdata (args (0));
 
       return octave_value (); // Should it return by default?
@@ -110,7 +107,7 @@ octave_value_list modbus_byteorder (octave_modbus* dev, const octave_value_list&
   if (args.length () > 1)
     (*current_liboctave_error_handler) ("wrong number of arguments");
 
-  // Setting new timeout
+  // Setting new byte order
   if (args.length () > 0)
     {
       if ( !(args (0).is_string ()) )
