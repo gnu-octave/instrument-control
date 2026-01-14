@@ -765,6 +765,10 @@ octave_visadev::subsref (const std::string& type, const std::list<octave_value_l
             {
               retval(0) = get_eoimode();
             }
+          else if (property == "ByteOrder")
+            {
+              retval(0) = get_byteorder();
+            }
           else
             {
               error ("Unhandled property '%s'", property.c_str());
@@ -837,11 +841,30 @@ octave_visadev::subsasgn (const std::string& type, const std::list<octave_value_
                   retval = octave_value (this);
                 }
 	    }
+          else if (property == "UserData")
+            {
+              set_userdata (rhs);
+              OV_COUNT++;
+              retval = octave_value (this);
+	    }
+          else if (property == "ByteOrder")
+            {
+              if (!rhs.is_string())
+	        {
+                  error ("Expected string value for property '%s'", property.c_str());
+                }
+              else
+	        {
+                  set_byteorder(rhs.string_value());
+                  OV_COUNT++;
+                  retval = octave_value (this);
+                }
+            }
           else if (property == "Tag")
             {
               if (!rhs.is_string())
 	        {
-                  error ("Expected numeric value for property '%s'", property.c_str());
+                  error ("Expected string value for property '%s'", property.c_str());
                 }
               else
 	        {
@@ -850,6 +873,10 @@ octave_visadev::subsasgn (const std::string& type, const std::list<octave_value_
                   retval = octave_value (this);
                 }
             }
+	  else
+	    {
+              error ("Unhandled property '%s'", property.c_str());
+	    }
         }
       else if (type.length () > 1 && type[1] == '.')
         {
