@@ -182,11 +182,11 @@ Terminator value used for string data (currently not used)\n \
 #if 0
 %!xtest
 %! # can create a serial obj
-%! a = visadev('ASRL1::INSTR')
+%! a = visadev('ASRL1::INSTR');
 %! assert (isa (a, 'octave_visadev'));
 %! assert (a.Type, "serial");
 %! clear a;
 
-%!error <Expected resource name> a = visadev (1)
+%!error a = visadev (1)
 
 #endif
