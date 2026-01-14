@@ -12,7 +12,7 @@
 #include "octave/oct-env.h"
 //#include "octave/oct-sysdep.h"
 
-//static OCTAVE__DYNAMIC_LIBRARY visa_lib("");
+static OCTAVE__DYNAMIC_LIBRARY visa_lib;
 
 visa_library::visa_library()
 {
@@ -91,7 +91,7 @@ visa_library::visa_library()
         }
       else
         {
-//          visa_lib = lib;
+          visa_lib = lib;
         }
     }
   // else - already loaded
