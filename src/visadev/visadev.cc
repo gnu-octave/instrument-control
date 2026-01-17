@@ -27,42 +27,33 @@
 DEFUN_DLD (visadev, args, nargout,
         "-*- texinfo -*-\n\
 @deftypefn {Loadable Function} {@var{dev} = } visadev (@var{resourcename})\n \
+@deftypefnx {Loadable Function} {@var{dev} = } visadev (@var{resourcename}, @var{propertyname}, @var{propertyvalue} @dots{})\n \
 \n\
 Open visadev interface.\n \
 \n\
 @subsubheading Inputs\n \
+@var {resourcename} - name of visadev device to open.\n\
+\n\
 @var{propertyname}, @var{propertyvalue} - property name/value pair\n \
 \n\
 Known input properties:\n \
 @table @asis\n \
-@item Name\n \
-name assigned to the udp object\n \
-@item LocalPort\n \
-local port number\n \
-@item LocalHost\n \
-local host address\n \
+@item Tag\n \
+tag value assigned to the visadev object\n \
 @item Timeout\n \
 timeout value in seconds used for waiting for data\n \
-@item EnablePortSharing\n \
-Boolean if the socket has port sharing enabled (readonly)\n \
 @end table \n \
 \n\
 @subsubheading Outputs\n \
-The udpport() shall return instance of @var{octave_udp} class as the result @var{udp}.\n \
+visadev() shall return instance of @var{octave_visadev} class as the result @var{dev}.\n \
 \n \
 @subsubheading Properties\n \
-The udp object has the following public properties:\n \
+The videadev object has the following public properties:\n \
 @table @asis\n \
-@item Name\n \
-name assigned to the udp object\n \
 @item Tag\n \
-user tag assigned to the udp object\n \
+user tag assigned to the visadev object\n \
 @item Type\n \
-instrument type 'udpport' (readonly)\n \
-@item LocalPort\n \
-local port number (readonly)\n \
-@item LocalHost\n \
-local host address (readonly)\n \
+instrument type (readonly)\n \
 @item Status\n \
 status of the object 'open' or 'closed' (readonly)\n \
 @item Timeout\n \
@@ -71,13 +62,14 @@ timeout value in seconds used for waiting for data\n \
 number of bytes currently available to read (readonly)\n \
 @item MulticastGroup\n \
 multicast group socket  is subscribed to (readonly)\n \
-@item EnableMultcast\n \
-Boolean if the socket has any multicast group it is subscribed to (readonly)\n \
-@item EnablePortSharing\n \
-Boolean if the socket has port sharing enabled (readonly)\n \
 @item Terminator\n \
-Terminator value used for string data (currently not used)\n \
+Terminator value used for string data (readonly)\n \
 @end table \n \
+\n \
+Other properties are available depending on the visadev type and can \n \
+be retrieved using te properties function.\n \
+\n \
+@seealso{properties, visadevlist}\n \
 @end deftypefn")
 {
 #ifndef BUILD_VISA
