@@ -3,8 +3,8 @@ layout: "default"
 permalink: "/news/"
 title: "Instrument-control Toolkit - News"
 pkg_name: "instrument-control"
-version: "0.9.5"
-description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, vxi11, udp and usbtmc interfaces."
+version: "0.10.0"
+description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 navigation:
 - id: "overview"
   name: "Overview"
@@ -19,9 +19,22 @@ navigation:
   url: "/manual"
 ---
 <pre>
+Summary of important user-visible changes for instrument-control 0.10.0
+-------------------------------------------------------------------
+
+  ** Minor doc updates
+
+  ** Added initial visa support
+
+  ** Bugfixes for:
+
+     readbinblock   writebinblock  i2c
+     modbus
+
 Summary of important user-visible changes for instrument-control 0.9.5
 -------------------------------------------------------------------
 
+  ** SERIALPORT, TCPPORT, UDPPORT: add Tag property
   ** SERIALPORT, TCPPORT, UDPPORT: add Tag property
 
   ** Minor build rule updates

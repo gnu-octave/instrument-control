@@ -3,8 +3,8 @@ layout: "function_list"
 permalink: "/functions/"
 title: "Instrument-control Toolkit - Functions"
 pkg_name: "instrument-control"
-version: "0.9.5"
-description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, vxi11, udp and usbtmc interfaces."
+version: "0.10.0"
+description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 categories:
 - id: "16_CommonFunctions"
   description: "Common Functions"
@@ -19,7 +19,7 @@ categories:
     url: "/functions/11_flushoutput/"
   - id: "12_readbinblock"
     name: "readbinblock"
-    description: "read a binblock of data from a instrument device"
+    description: "read a binblock of data from an instrument device"
     url: "/functions/12_readbinblock/"
   - id: "8_readline"
     name: "readline"
@@ -37,6 +37,7 @@ categories:
     name: "writeread"
     description: "write a ASCII command and read data from a instrument device."
     url: "/functions/9_writeread/"
+  groups:
 - id: "7_General"
   description: "General"
   functions:
@@ -52,6 +53,7 @@ categories:
     name: "resolvehost"
     description: "Resolve a network host name or address to network name and address"
     url: "/functions/11_resolvehost/"
+  groups:
 - id: "4_GPIB"
   description: "GPIB"
   functions:
@@ -111,6 +113,7 @@ categories:
     name: "@octave_gpib/fwrite"
     description: "Writes DATA to GPIB instrument"
     url: "/functions/@octave_gpib/19_octavegpibfwrite/"
+  groups:
 - id: "3_I2C"
   description: "I2C"
   functions:
@@ -158,6 +161,7 @@ categories:
     name: "@octave_i2c/set"
     description: "Set the properties of i2c object."
     url: "/functions/@octave_i2c/15_octavei2cset/"
+  groups:
 - id: "6_Modbus"
   description: "Modbus"
   functions:
@@ -189,6 +193,7 @@ categories:
     name: "@octave_modbus/writeRead"
     description: "Write data VALUES to the modbus device DEV holding registers starting at addr..."
     url: "/functions/@octave_modbus/24_octavemodbuswriteRead/"
+  groups:
 - id: "8_Parallel"
   description: "Parallel"
   functions:
@@ -232,6 +237,7 @@ categories:
     name: "@octave_parallel/fwrite"
     description: "Writes DATA to parallel instrument"
     url: "/functions/@octave_parallel/23_octaveparallelfwrite/"
+  groups:
 - id: "19_Serial(Deprecated)"
   description: "Serial (Deprecated)"
   functions:
@@ -319,6 +325,7 @@ categories:
     name: "@octave_serial/srl_timeout"
     description: "Set new or get existing serial interface timeout parameter used for srl_read(..."
     url: "/functions/@octave_serial/26_octaveserialsrltimeout/"
+  groups:
 - id: "11_SerialPort"
   description: "Serial Port"
   functions:
@@ -382,6 +389,7 @@ categories:
     name: "@octave_serialport/write"
     description: "Writes DATA to serialport instrument"
     url: "/functions/@octave_serialport/24_octaveserialportwrite/"
+  groups:
 - id: "3_SPI"
   description: "SPI"
   functions:
@@ -441,6 +449,7 @@ categories:
     name: "@octave_spi/writeAndRead"
     description: "Writes and reads DATA from SPI instrument"
     url: "/functions/@octave_spi/24_octavespiwriteAndRead/"
+  groups:
 - id: "16_TCP(Deprecated)"
   description: "TCP (Deprecated)"
   functions:
@@ -516,6 +525,7 @@ categories:
     name: "@octave_tcp/write"
     description: "Writes DATA to TCP instrument"
     url: "/functions/@octave_tcp/17_octavetcpwrite/"
+  groups:
 - id: "10_TCPClient"
   description: "TCP Client"
   functions:
@@ -547,6 +557,7 @@ categories:
     name: "@octave_tcpclient/write"
     description: "Writes DATA to TCP instrument"
     url: "/functions/@octave_tcpclient/23_octavetcpclientwrite/"
+  groups:
 - id: "10_TCPServer"
   description: "TCP Server"
   functions:
@@ -578,6 +589,7 @@ categories:
     name: "@octave_tcpserver/write"
     description: "Writes DATA to TCP instrument"
     url: "/functions/@octave_tcpserver/23_octavetcpserverwrite/"
+  groups:
 - id: "16_UDP(Deprecated)"
   description: "UDP (Deprecated)"
   functions:
@@ -653,6 +665,7 @@ categories:
     name: "@octave_udp/write"
     description: "Writes DATA to UDP instrument"
     url: "/functions/@octave_udp/17_octaveudpwrite/"
+  groups:
 - id: "8_UDPPort"
   description: "UDP Port"
   functions:
@@ -704,6 +717,7 @@ categories:
     name: "@octave_udpport/writeline"
     description: "Write data to a udpport including terminator value"
     url: "/functions/@octave_udpport/25_octaveudpportwriteline/"
+  groups:
 - id: "6_USBTMC"
   description: "USBTMC"
   functions:
@@ -739,6 +753,55 @@ categories:
     name: "@octave_usbtmc/fwrite"
     description: "Writes DATA to an usbtmc instrument"
     url: "/functions/@octave_usbtmc/21_octaveusbtmcfwrite/"
+  groups:
+- id: "4_Visa"
+  description: "Visa"
+  functions:
+  - id: "7_visadev"
+    name: "visadev"
+    description: "Open visadev interface."
+    url: "/functions/7_visadev/"
+  - id: "11_visadevlist"
+    name: "visadevlist"
+    description: "List available visadev resources."
+    url: "/functions/11_visadevlist/"
+  - id: "20_octavevisadevread"
+    name: "@octave_visadev/read"
+    description: "Read a specified number of values from a visadev instrument using optional pr..."
+    url: "/functions/@octave_visadev/20_octavevisadevread/"
+  - id: "21_octavevisadevwrite"
+    name: "@octave_visadev/write"
+    description: "Writes DATA to visadev instrument"
+    url: "/functions/@octave_visadev/21_octavevisadevwrite/"
+  - id: "21_octavevisadevflush"
+    name: "@octave_visadev/flush"
+    description: "Flush the serial port buffers"
+    url: "/functions/@octave_visadev/21_octavevisadevflush/"
+  - id: "28_octavevisadevgetpinstatus"
+    name: "@octave_visadev/getpinstatus"
+    description: "Get status of visadev serial pins"
+    url: "/functions/@octave_visadev/28_octavevisadevgetpinstatus/"
+  - id: "22_octavevisadevsetRTS"
+    name: "@octave_visadev/setRTS"
+    description: "Set the state of the RTS line"
+    url: "/functions/@octave_visadev/22_octavevisadevsetRTS/"
+  - id: "22_octavevisadevsetDTR"
+    name: "@octave_visadev/setDTR"
+    description: "Set the state of the DTR line"
+    url: "/functions/@octave_visadev/22_octavevisadevsetDTR/"
+  - id: "26_octavevisadevvisastatus"
+    name: "@octave_visadev/visastatus"
+    description: "Get the status of the visa device"
+    url: "/functions/@octave_visadev/26_octavevisadevvisastatus/"
+  - id: "27_octavevisadevvisatrigger"
+    name: "@octave_visadev/visatrigger"
+    description: "Trigger a GPIB or VXI visa device."
+    url: "/functions/@octave_visadev/27_octavevisadevvisatrigger/"
+  - id: "35_octavevisadevconfigureTerminator"
+    name: "@octave_visadev/configureTerminator"
+    description: "Set terminator for ASCII string manipulation"
+    url: "/functions/@octave_visadev/35_octavevisadevconfigureTerminator/"
+  groups:
 - id: "5_VXI11"
   description: "VXI11"
   functions:
@@ -774,6 +837,7 @@ categories:
     name: "@octave_vxi11/fwrite"
     description: "Writes DATA to vxi11 instrument"
     url: "/functions/@octave_vxi11/20_octavevxi11fwrite/"
+  groups:
 navigation:
 - id: "overview"
   name: "Overview"
@@ -783,51 +847,71 @@ navigation:
 - id: "16_CommonFunctions"
   name: "&nbsp;&nbsp;Common Functions"
   url: "/functions/#16_CommonFunctions"
+  subitems:
 - id: "7_General"
   name: "&nbsp;&nbsp;General"
   url: "/functions/#7_General"
+  subitems:
 - id: "4_GPIB"
   name: "&nbsp;&nbsp;GPIB"
   url: "/functions/#4_GPIB"
+  subitems:
 - id: "3_I2C"
   name: "&nbsp;&nbsp;I2C"
   url: "/functions/#3_I2C"
+  subitems:
 - id: "6_Modbus"
   name: "&nbsp;&nbsp;Modbus"
   url: "/functions/#6_Modbus"
+  subitems:
 - id: "8_Parallel"
   name: "&nbsp;&nbsp;Parallel"
   url: "/functions/#8_Parallel"
+  subitems:
 - id: "19_Serial(Deprecated)"
   name: "&nbsp;&nbsp;Serial (Deprecated)"
   url: "/functions/#19_Serial(Deprecated)"
+  subitems:
 - id: "11_SerialPort"
   name: "&nbsp;&nbsp;Serial Port"
   url: "/functions/#11_SerialPort"
+  subitems:
 - id: "3_SPI"
   name: "&nbsp;&nbsp;SPI"
   url: "/functions/#3_SPI"
+  subitems:
 - id: "16_TCP(Deprecated)"
   name: "&nbsp;&nbsp;TCP (Deprecated)"
   url: "/functions/#16_TCP(Deprecated)"
+  subitems:
 - id: "10_TCPClient"
   name: "&nbsp;&nbsp;TCP Client"
   url: "/functions/#10_TCPClient"
+  subitems:
 - id: "10_TCPServer"
   name: "&nbsp;&nbsp;TCP Server"
   url: "/functions/#10_TCPServer"
+  subitems:
 - id: "16_UDP(Deprecated)"
   name: "&nbsp;&nbsp;UDP (Deprecated)"
   url: "/functions/#16_UDP(Deprecated)"
+  subitems:
 - id: "8_UDPPort"
   name: "&nbsp;&nbsp;UDP Port"
   url: "/functions/#8_UDPPort"
+  subitems:
 - id: "6_USBTMC"
   name: "&nbsp;&nbsp;USBTMC"
   url: "/functions/#6_USBTMC"
+  subitems:
+- id: "4_Visa"
+  name: "&nbsp;&nbsp;Visa"
+  url: "/functions/#4_Visa"
+  subitems:
 - id: "5_VXI11"
   name: "&nbsp;&nbsp;VXI11"
   url: "/functions/#5_VXI11"
+  subitems:
 - id: "news"
   name: "News"
   url: "/news"
