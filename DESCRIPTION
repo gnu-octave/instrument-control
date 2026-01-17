@@ -1,10 +1,10 @@
 Name: instrument-control
-Version: 0.9.5
-Date: 2025-04-15
+Version: 0.10.0
+Date: 2026-01-17
 Author: Andrius Sutas <andrius.sutas@gmail.com>, Stefan Mahr <dac922@gmx.de>, John Donoghue <john.donoghue@ieee.org>
 Maintainer: John Donoghue <john.donoghue@ieee.org>
 Title: Instrument Control
-Description: Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, vxi11, udp and usbtmc interfaces.
+Description: Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces.
 Categories: instrument-control
 Depends: octave (>= 4.0.0)
 Autoload: no
