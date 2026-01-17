@@ -27,7 +27,7 @@
 ## @subsubheading Outputs
 ## @var{data} - data read from the device
 ##
-## @seealso{serialport}
+## @seealso{visadev}
 ## @end deftypefn
 
 function data = read (dev, count, precision)

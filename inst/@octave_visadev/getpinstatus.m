@@ -23,11 +23,11 @@
 ## @subsubheading Outputs
 ## @var{status} - a structure with the logic names of ClearToSend, DataSetReady, CarrierDetect, and RingIndicator
 ##
-## @seealso{serialport}
+## @seealso{visadev}
 ## @end deftypefn
 
-function status = getpinstatus (serial)
+function status = getpinstatus (dev)
 
-  status = __visadev_dispatch__ (serial, 'pinstatus');
+  status = __visadev_dispatch__ (dev, 'pinstatus');
 
 endfunction

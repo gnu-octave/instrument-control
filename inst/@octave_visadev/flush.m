@@ -14,7 +14,7 @@
 ## @deftypefn {} {@var{data} =} flush (@var{dev})
 ## @deftypefnx {} {@var{data} =} flush (@var{dev}, "input")
 ## @deftypefnx {} {@var{data} =} flush (@var{dev}, "output")
-## Flush the serial port buffers
+## Flush the visadev buffers
 ##
 ## @subsubheading Inputs
 ## @var{dev} - connected visadev device
