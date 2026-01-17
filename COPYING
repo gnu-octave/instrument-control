@@ -1,6 +1,12 @@
+Files are GPLv3+ unless otherwise specified (https://www.gnu.org/licenses/gpl-3.0.html)
 devel/testtcp.m                     GPLv3+
 inst/clrdevice.m                    GPLv3+
+inst/instrhelp.m                    GPLv3+
 inst/instrhwinfo.m                  GPLv3+
+inst/flushinput.m                   GPLv3+
+inst/flushoutput.m                  GPLv3+
+inst/readbinblock.m                 GPLv3+
+inst/writebinblock.m                GPLv3+
 inst/@octave_gpib/fclose.m          GPLv3+
 inst/@octave_gpib/fopen.m           GPLv3+
 inst/@octave_gpib/fprintf.m         GPLv3+
@@ -8,6 +14,7 @@ inst/@octave_gpib/fscanf.m          GPLv3+
 inst/@octave_gpib/fwrite.m          GPLv3+
 inst/@octave_i2c/fclose.m           GPLv3+
 inst/@octave_i2c/fopen.m            GPLv3+
+inst/@octave_modbus/*               GPLv3+
 inst/@octave_serial/fclose.m        GPLv3+
 inst/@octave_serial/fopen.m         GPLv3+
 inst/@octave_serial/get.m           GPLv3+
@@ -19,8 +26,11 @@ inst/@octave_serial/srl_flush.m     GPLv3+
 inst/@octave_serial/srl_parity.m    GPLv3+
 inst/@octave_serial/srl_stopbits.m  GPLv3+
 inst/@octave_serial/srl_timeout.m   GPLv3+
+inst/@octave_serialport/*           GPLv3+
 inst/@octave_tcpip/fclose.m         GPLv3+
 inst/@octave_tcpip/fopen.m          GPLv3+
+inst/@octave_tcpclient/*            GPLv3+
+inst/@octave_tcpserver/*            GPLv3+
 inst/@octave_udp/fclose.m           GPLv3+
 inst/@octave_udp/fopen.m            GPLv3+
 inst/@octave_udp/fprintf.m          GPLv3+
@@ -28,8 +38,10 @@ inst/@octave_udp/fread.m            GPLv3+
 inst/@octave_udp/fwrite.m           GPLv3+
 inst/@octave_udp/get.m              GPLv3+
 inst/@octave_udp/set.m              GPLv3+
+inst/@octave_udpport/*              GPLv3+
 inst/@octave_usbtmc/fclose.m        GPLv3+
 inst/@octave_usbtmc/fopen.m         GPLv3+
+inst/@octave_visadev/*              GPLv3+
 inst/@octave_vxi11/fclose.m         GPLv3+
 inst/@octave_vxi11/fopen.m          GPLv3+
 inst/spoll.m                        GPLv3+
@@ -52,6 +64,7 @@ src/i2c/i2c_class.h                 GPLv3+
 src/i2c/i2c_close.cc                GPLv3+
 src/i2c/i2c_read.cc                 GPLv3+
 src/i2c/i2c_write.cc                GPLv3+
+src/modbus/*                        GPLv3+
 src/parallel/parallel.cc            GPLv3+
 src/parallel/parallel_class.cc      GPLv3+
 src/parallel/parallel_class.h       GPLv3+
@@ -70,6 +83,7 @@ src/serial/serial_class_win32.h     GPLv3+
 src/serial/__srl_properties__.cc    GPLv3+
 src/serial/srl_read.cc              GPLv3+
 src/serial/srl_write.cc             GPLv3+
+src/serialport/*                    GPLv3+
 src/octave-wrappers.h.in            GPLv3+
 src/tcp/tcp.cc                      GPLv3+
 src/tcp/tcp_class.cc                GPLv3+
@@ -78,6 +92,8 @@ src/tcp/tcp_close.cc                GPLv3+
 src/tcp/tcp_read.cc                 GPLv3+
 src/tcp/tcp_timeout.cc              GPLv3+
 src/tcp/tcp_write.cc                GPLv3+
+src/tcpclient/*                     GPLv3+
+src/tcpserver/*                     GPLv3+
 src/udp/__udp_properties__.cc       GPLv3+
 src/udp/udp.cc                      GPLv3+
 src/udp/udp_class.cc                GPLv3+
@@ -86,12 +102,14 @@ src/udp/udp_close.cc                GPLv3+
 src/udp/udp_read.cc                 GPLv3+
 src/udp/udp_timeout.cc              GPLv3+
 src/udp/udp_write.cc                GPLv3+
+src/udpport/*                       GPLv3+
 src/usbtmc/usbtmc.cc                GPLv3+
 src/usbtmc/usbtmc_class.cc          GPLv3+
 src/usbtmc/usbtmc_class.h           GPLv3+
 src/usbtmc/usbtmc_close.cc          GPLv3+
 src/usbtmc/usbtmc_read.cc           GPLv3+
 src/usbtmc/usbtmc_write.cc          GPLv3+
+src/visadev/*                       GPLv3+
 src/vxi11/vxi11.cc                  GPLv3+
 src/vxi11/vxi11_class.cc            GPLv3+
 src/vxi11/vxi11_class.h             GPLv3+
