@@ -20,8 +20,12 @@
 #endif
 
 #ifdef BUILD_SERIAL
-#if HAVE_OCTAVE_LO_SYSDEP_H
-  #include <octave/lo-sysdep.h>
+#ifdef HAVE_OCTAVE_OCT_SYSDEP_H
+# include <octave/oct-sysdep.h>
+#else
+# ifdef HAVE_OCTAVE_LO_SYSDEP_H
+#  include <octave/lo-sysdep.h>
+# endif
 #endif
 
 #include <iostream>

@@ -10,7 +10,6 @@
 #include "octave/file-ops.h"
 #include "octave/file-stat.h"
 #include "octave/oct-env.h"
-//#include "octave/oct-sysdep.h"
 
 static OCTAVE__DYNAMIC_LIBRARY visa_lib;
 
