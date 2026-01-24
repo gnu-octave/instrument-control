@@ -39,7 +39,7 @@ Known input properties:\n \
 @end table \n \
 \n\
 @subsubheading Outputs\n \
-The visdevlist function shall return struct array of available resoures.\n \
+The visdevlist function shall return struct array of available resources.\n \
 Struct properties:\n \
 @table @asis\n \
 @end table \n \
