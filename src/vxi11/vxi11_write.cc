@@ -28,7 +28,7 @@
 // PKG_ADD: autoload ("vxi11_write", "vxi11.oct");
 DEFUN_DLD (vxi11_write, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } vxi11_write (@var{vxi11}, @var{data})\n \
+@deftypefn {} {@var{n} = } vxi11_write (@var{vxi11}, @var{data})\n \
 \n\
 Write data to a vxi11 slave device.\n \
 \n\

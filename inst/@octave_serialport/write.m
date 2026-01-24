@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{numbytes} = } write (@var{obj}, @var{data})
-## @deftypefnx {Function File} {@var{numbytes} =} write (@var{obj}, @var{data}, @var{precision})
+## @deftypefn {} {@var{numbytes} = } write (@var{obj}, @var{data})
+## @deftypefnx {} {@var{numbytes} =} write (@var{obj}, @var{data}, @var{precision})
 ## Writes @var{data} to serialport instrument
 ##
 ## @subsubheading Inputs

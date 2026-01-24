@@ -28,12 +28,12 @@
 // PKG_ADD: autoload ("tcp", "tcp.oct");
 DEFUN_DLD (tcp, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{tcp} = } tcp ()\n \
-@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress})\n \
-@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress}, @var{port})\n \
-@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress}, @var{port}, @var{timeout})\n \
-@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress}, [@var{propertyname}, @var{propertyvalue}])\n \
-@deftypefnx {Loadable Function} {@var{tcp} = } tcp (@var{ipaddress}, @var{port}, [@var{propertyname}, @var{propertyvalue}])\n \
+@deftypefn {} {@var{tcp} = } tcp ()\n \
+@deftypefnx {} {@var{tcp} = } tcp (@var{ipaddress})\n \
+@deftypefnx {} {@var{tcp} = } tcp (@var{ipaddress}, @var{port})\n \
+@deftypefnx {} {@var{tcp} = } tcp (@var{ipaddress}, @var{port}, @var{timeout})\n \
+@deftypefnx {} {@var{tcp} = } tcp (@var{ipaddress}, [@var{propertyname}, @var{propertyvalue}])\n \
+@deftypefnx {} {@var{tcp} = } tcp (@var{ipaddress}, @var{port}, [@var{propertyname}, @var{propertyvalue}])\n \
 \n\
 Open tcp interface.\n \
 \n\

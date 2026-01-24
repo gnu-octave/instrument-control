@@ -28,8 +28,8 @@
 // PKG_ADD: autoload ("spi", "spi.oct");
 DEFUN_DLD (spi, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{spi} = } spi ([@var{port_path}])\n \
-@deftypefnx {Loadable Function} {@var{spi} = } spi ([@var{port_path}], [@var{propname}, @var{propvalue}])\n \
+@deftypefn {} {@var{spi} = } spi ([@var{port_path}])\n \
+@deftypefnx {} {@var{spi} = } spi ([@var{port_path}], [@var{propname}, @var{propvalue}])\n \
 \n\
 Open a spi interface.\n \
 \n\

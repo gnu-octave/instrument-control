@@ -14,7 +14,7 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*- 
-## @deftypefn {Function File} {@var{result} =} udp_demo ()
+## @deftypefn {} {@var{result} =} udp_demo ()
 ## Run test SNTP demonstration for udp class
 ##
 ## @seealso{udp}

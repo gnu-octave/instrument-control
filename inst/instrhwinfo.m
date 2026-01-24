@@ -15,8 +15,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {[@var{list}] =} instrhwinfo ()
-## @deftypefnx {Function File} {@var{list} =} instrhwinfo (@var{interface})
+## @deftypefn {} {[@var{list}] =} instrhwinfo ()
+## @deftypefnx {} {@var{list} =} instrhwinfo (@var{interface})
 ## Query available hardware for instrument-control
 ##
 ## When run without any input parameters, instrhwinfo will provide the toolbox

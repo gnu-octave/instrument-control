@@ -35,7 +35,7 @@
 // PKG_ADD: autoload ("serial", "serial.oct");
 DEFUN_DLD (serial, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{serial} = } serial ([@var{path}], [@var{baudrate}], [@var{timeout}])\n \
+@deftypefn {} {@var{serial} = } serial ([@var{path}], [@var{baudrate}], [@var{timeout}])\n \
 \n\
 Open serial interface.\n \
 \n\

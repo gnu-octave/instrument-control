@@ -30,7 +30,7 @@
 // PKG_ADD: autoload ("vxi11_read", "vxi11.oct");
 DEFUN_DLD (vxi11_read, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } vxi11_read (@var{vxi11}, @var{n})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } vxi11_read (@var{vxi11}, @var{n})\n \
 \n\
 Read from vxi11 slave device.\n \
 \n\

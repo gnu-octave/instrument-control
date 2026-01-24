@@ -28,7 +28,7 @@
 // PKG_ADD: autoload ("spi_write", "spi.oct");
 DEFUN_DLD (spi_write, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } spi_write (@var{spi}, @var{data})\n \
+@deftypefn {} {@var{n} = } spi_write (@var{spi}, @var{data})\n \
 \n\
 Write data to a spi slave device.\n \
 \n\

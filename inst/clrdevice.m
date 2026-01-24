@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {} clrdevice (@var{obj})
+## @deftypefn {} {} clrdevice (@var{obj})
 ## Send clear command to Clear GPIB instrument.
 ##
 ## @var{obj} is a GPIB object

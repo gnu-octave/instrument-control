@@ -31,7 +31,7 @@ using std::string;
 // PKG_ADD: autoload ("vxi11", "vxi11.oct");
 DEFUN_DLD (vxi11, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{vxi11} = } vxi11 (@var{ip},@var{instr})\n \
+@deftypefn {} {@var{vxi11} = } vxi11 (@var{ip},@var{instr})\n \
 \n\
 Open vxi11 interface.\n \
 \n\

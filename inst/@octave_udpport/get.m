@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{struct} = } get (@var{udpport})
-## @deftypefnx {Function File} {@var{field} = } get (@var{udpport}, @var{property})
+## @deftypefn {} {@var{struct} = } get (@var{udpport})
+## @deftypefnx {} {@var{field} = } get (@var{udpport}, @var{property})
 ## Get the properties of udpport object.
 ##
 ## @subsubheading Inputs

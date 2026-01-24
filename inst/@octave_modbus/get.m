@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{struct} = } get (@var{dev})
-## @deftypefnx {Function File} {@var{field} = } get (@var{dev}, @var{property})
+## @deftypefn {} {@var{struct} = } get (@var{dev})
+## @deftypefnx {} {@var{field} = } get (@var{dev}, @var{property})
 ## Get the properties of modbus object.
 ##
 ## @subsubheading Inputs

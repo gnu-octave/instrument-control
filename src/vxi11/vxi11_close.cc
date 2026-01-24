@@ -27,7 +27,7 @@
 // PKG_ADD: autoload ("vxi11_close", "vxi11.oct");
 DEFUN_DLD (vxi11_close, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} vxi11_close (@var{vxi11})\n \
+@deftypefn {} {} vxi11_close (@var{vxi11})\n \
 \n\
 Close the interface and release a file descriptor.\n \
 \n\

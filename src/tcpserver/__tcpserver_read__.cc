@@ -31,7 +31,7 @@
 // PKG_ADD: autoload ("__tcpserver_read__", "tcpserver.oct");
 DEFUN_DLD (__tcpserver_read__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } __tcpserver_read__ (@var{tcpserver}, @var{n}, @var{timeout})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } __tcpserver_read__ (@var{tcpserver}, @var{n}, @var{timeout})\n \
 \n\
 Private function t read from tcpserver interface.\n \
 \n\

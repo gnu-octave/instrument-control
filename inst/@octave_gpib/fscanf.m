@@ -14,11 +14,11 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{res} =} fscanf (@var{obj})
-## @deftypefnx {Function File} {@var{res} =} fscanf (@var{obj}, @var{format})
-## @deftypefnx {Function File} {@var{res} =} fscanf (@var{obj}, @var{format}, @var{size})
-## @deftypefnx {Function File} {[@var{res},@var{count}] =} fscanf (@var{obj}, ...)
-## @deftypefnx {Function File} {[@var{res},@var{count},@var{errmsg}] =} fscanf (@var{obj}, ...)
+## @deftypefn {} {@var{res} =} fscanf (@var{obj})
+## @deftypefnx {} {@var{res} =} fscanf (@var{obj}, @var{format})
+## @deftypefnx {} {@var{res} =} fscanf (@var{obj}, @var{format}, @var{size})
+## @deftypefnx {} {[@var{res},@var{count}] =} fscanf (@var{obj}, ...)
+## @deftypefnx {} {[@var{res},@var{count},@var{errmsg}] =} fscanf (@var{obj}, ...)
 ## Reads data @var{res} from GPIB instrument
 ##
 ## @var{obj} is a GPIB object

@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{data} =} read (@var{obj})
-## @deftypefnx {Function File} {@var{data} =} read (@var{obj}, @var{size})
+## @deftypefn {} {@var{data} =} read (@var{obj})
+## @deftypefnx {} {@var{data} =} read (@var{obj}, @var{size})
 ## Reads @var{data} from SPI instrument
 ##
 ## @subsubheading Inputs

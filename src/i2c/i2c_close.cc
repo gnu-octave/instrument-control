@@ -26,7 +26,7 @@
 // PKG_ADD: autoload ("i2c_close", "i2c.oct");
 DEFUN_DLD (i2c_close, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} i2c_close (@var{i2c})\n \
+@deftypefn {} {} i2c_close (@var{i2c})\n \
 \n\
 Close the interface and release a file descriptor.\n \
 \n\

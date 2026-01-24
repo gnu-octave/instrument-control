@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{numbytes} = } fwrite (@var{obj}, @var{data})
+## @deftypefn {} {@var{numbytes} = } fwrite (@var{obj}, @var{data})
 ## Writes @var{data} to SPI instrument
 ##
 ## @subsubheading Inputs

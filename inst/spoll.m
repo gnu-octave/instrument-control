@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{out} =} spoll (@var{obj})
-## @deftypefnx {Function File} {[@var{out},@var{statusByte}] =} spoll (@var{obj})
+## @deftypefn {} {@var{out} =} spoll (@var{obj})
+## @deftypefnx {} {[@var{out},@var{statusByte}] =} spoll (@var{obj})
 ## Serial polls GPIB instruments.
 ##
 ## @var{obj} is a GPIB object or a cell array of GPIB objects

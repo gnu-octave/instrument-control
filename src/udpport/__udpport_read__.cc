@@ -31,8 +31,8 @@
 // PKG_ADD: autoload ("__udpport_read__", "udpport.oct");
 DEFUN_DLD (__udpport_read__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } __udpport_read__ (@var{udpport}, @var{n}, @var{timeout})\n \
-@deftypefnx {Loadable Function} {[@var{data}, @var{count}. @var{srcip}, @var{srcport}] = } __udpport_read__ (@var{udpport}, @var{n}, @var{timeout})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } __udpport_read__ (@var{udpport}, @var{n}, @var{timeout})\n \
+@deftypefnx {} {[@var{data}, @var{count}. @var{srcip}, @var{srcport}] = } __udpport_read__ (@var{udpport}, @var{n}, @var{timeout})\n \
 \n\
 Provate function to read from udpport interface.\n \
 \n\

@@ -27,8 +27,8 @@
 // PKG_ADD: autoload ("tcpclient", "tcpclient.oct");
 DEFUN_DLD (tcpclient, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{tcpclient} = } tcpclient (@var{ipaddress}, @var{port})\n \
-@deftypefnx {Loadable Function} {@var{tcpclient} = } tcpclient (@var{ipaddress}, @var{port}, [@var{propertyname}, @var{propertyvalue}])\n \
+@deftypefn {} {@var{tcpclient} = } tcpclient (@var{ipaddress}, @var{port})\n \
+@deftypefnx {} {@var{tcpclient} = } tcpclient (@var{ipaddress}, @var{port}, [@var{propertyname}, @var{propertyvalue}])\n \
 \n\
 Open tcpclient interface.\n \
 \n\

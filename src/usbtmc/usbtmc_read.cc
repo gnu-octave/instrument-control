@@ -34,7 +34,7 @@
 // PKG_ADD: autoload ("usbtmc_read", "usbtmc.oct");
 DEFUN_DLD (usbtmc_read, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } usbtmc_read (@var{usbtmc}, @var{n})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } usbtmc_read (@var{usbtmc}, @var{n})\n \
 \n\
 Read from usbtmc slave device.\n \
 \n\

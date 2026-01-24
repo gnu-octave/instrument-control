@@ -28,8 +28,8 @@
 // PKG_ADD: autoload ("pp_ctrl", "parallel.oct");
 DEFUN_DLD (pp_ctrl, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} pp_ctrl (@var{parallel}, @var{ctrl})\n \
-@deftypefnx {Loadable Function} {@var{c} = } pp_ctrl (@var{parallel})\n \
+@deftypefn {} {} pp_ctrl (@var{parallel}, @var{ctrl})\n \
+@deftypefnx {} {@var{c} = } pp_ctrl (@var{parallel})\n \
 \n\
 Sets or Read the Control lines.\
 \n\

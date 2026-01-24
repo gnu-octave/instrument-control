@@ -29,7 +29,7 @@
 // PKG_ADD: autoload ("i2c_write", "i2c.oct");
 DEFUN_DLD (i2c_write, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } i2c_write (@var{i2c}, @var{data})\n \
+@deftypefn {} {@var{n} = } i2c_write (@var{i2c}, @var{data})\n \
 \n\
 Write data to a i2c slave device.\n \
 \n\

@@ -22,7 +22,7 @@
 
 DEFUN_DLD (__instr_hwinfo__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{res} = }  __instr_hwinfo__()\n \
+@deftypefn {} {@var{res} = }  __instr_hwinfo__()\n \
 \n\
 Internal private function\n \
 \n\

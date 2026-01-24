@@ -26,8 +26,8 @@
 // PKG_ADD: autoload ("visadev", "visadev.oct");
 DEFUN_DLD (visadev, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{dev} = } visadev (@var{resourcename})\n \
-@deftypefnx {Loadable Function} {@var{dev} = } visadev (@var{resourcename}, @var{propertyname}, @var{propertyvalue} @dots{})\n \
+@deftypefn {} {@var{dev} = } visadev (@var{resourcename})\n \
+@deftypefnx {} {@var{dev} = } visadev (@var{resourcename}, @var{propertyname}, @var{propertyvalue} @dots{})\n \
 \n\
 Open visadev interface.\n \
 \n\

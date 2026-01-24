@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{struct} = } get (@var{spi})
-## @deftypefnx {Function File} {@var{field} = } get (@var{spi}, @var{property})
+## @deftypefn {} {@var{struct} = } get (@var{spi})
+## @deftypefnx {} {@var{field} = } get (@var{spi}, @var{property})
 ## Get the properties of spi object.
 ##
 ## @subsubheading Inputs

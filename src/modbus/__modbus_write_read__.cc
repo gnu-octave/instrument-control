@@ -31,7 +31,7 @@
 // PKG_ADD: autoload ("__modbus_write_read__", "modbus.oct");
 DEFUN_DLD (__modbus_write_read__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data} = } __modbus_write_read__ (@var{modbus}, @var{writeaddress}, @var{writedata}, @var{readaddress}, @var{readCount}, @var{serverId})\n \
+@deftypefn {} {[@var{data} = } __modbus_write_read__ (@var{modbus}, @var{writeaddress}, @var{writedata}, @var{readaddress}, @var{readCount}, @var{serverId})\n \
 \n\
 Private function to read from modbus interface.\n \
 \n\

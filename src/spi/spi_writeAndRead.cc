@@ -28,7 +28,7 @@
 // PKG_ADD: autoload ("spi_writeAndRead", "spi.oct");
 DEFUN_DLD (spi_writeAndRead, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{rddata} = } spi_writeAndRead (@var{spi}, @var{wrdata})\n \
+@deftypefn {} {@var{rddata} = } spi_writeAndRead (@var{spi}, @var{wrdata})\n \
 \n\
 Write data to a spi slave device and then read same number of values.\n \
 \n\

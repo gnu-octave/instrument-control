@@ -27,7 +27,7 @@
 // PKG_ADD: autoload ("__srlp_write__", "serialport.oct");
 DEFUN_DLD (__srlp_write__, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } __srlp_write__ (@var{serial}, @var{data})\n \
+@deftypefn {} {@var{n} = } __srlp_write__ (@var{serial}, @var{data})\n \
 \n\
 Write data to a serialport interface.\n \
 \n\

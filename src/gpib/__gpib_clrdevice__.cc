@@ -29,7 +29,7 @@
 // PKG_ADD: autoload ("__gpib_clrdevice__", "gpib.oct");
 DEFUN_DLD (__gpib_clrdevice__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} __gpib_clrdevice__ (@var{gpib})\n \
+@deftypefn {} {} __gpib_clrdevice__ (@var{gpib})\n \
 \n\
 Sends clear command to gpib device.\n \
 \n\

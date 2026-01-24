@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{struct} = } get (@var{i2c})
-## @deftypefnx {Function File} {@var{field} = } get (@var{i2c}, @var{property})
+## @deftypefn {} {@var{struct} = } get (@var{i2c})
+## @deftypefnx {} {@var{field} = } get (@var{i2c}, @var{property})
 ## Get the properties of i2c object.
 ##
 ## @subsubheading Inputs

@@ -77,7 +77,7 @@ static octave_value set_terminator(octave_udpport* udp, const octave_value_list&
 // PKG_ADD: autoload ("__udpport_properties__", "udpport.oct");
 DEFUN_DLD (__udpport_properties__, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {varargout =} __udpport_properties__ (@var{octave_udpport}, @var{property}, @var{varargin})\n\
+@deftypefn {} {varargout =} __udpport_properties__ (@var{octave_udpport}, @var{property}, @var{varargin})\n\
 Undocumented internal function.\n\
 @end deftypefn")
 {

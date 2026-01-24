@@ -26,7 +26,7 @@
 // PKG_ADD: autoload ("__tcpclient_write__", "tcpclient.oct");
 DEFUN_DLD (__tcpclient_write__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } __tcpclient_write__ (@var{tcpclient}, @var{data})\n \
+@deftypefn {} {@var{n} = } __tcpclient_write__ (@var{tcpclient}, @var{data})\n \
 \n\
 Private function to write data to a tcpclient interface.\n \
 \n\

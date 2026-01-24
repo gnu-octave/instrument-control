@@ -31,7 +31,7 @@
 // PKG_ADD: autoload ("usbtmc_write", "usbtmc.oct");
 DEFUN_DLD (usbtmc_write, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } usbtmc_write (@var{usbtmc}, @var{data})\n \
+@deftypefn {} {@var{n} = } usbtmc_write (@var{usbtmc}, @var{data})\n \
 \n\
 Write data to a usbtmc slave device.\n \
 \n\

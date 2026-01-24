@@ -28,8 +28,8 @@
 // PKG_ADD: autoload ("udp_timeout", "udp.oct");
 DEFUN_DLD (udp_timeout, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} udp_timeout (@var{udp}, @var{timeout})\n \
-@deftypefnx {Loadable Function} {@var{t} = } udp_timeout (@var{udp})\n \
+@deftypefn {} {} udp_timeout (@var{udp}, @var{timeout})\n \
+@deftypefnx {} {@var{t} = } udp_timeout (@var{udp})\n \
 \n\
 Set new or get existing udp interface timeout parameter used for udp_read() requests. The timeout value is specified in milliseconds.\n \
 \n\

@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} set (@var{obj}, @var{property},@var{value})
-## @deftypefnx {Function File} set (@var{obj}, @var{property},@var{value},@dots{})
+## @deftypefn {} set (@var{obj}, @var{property},@var{value})
+## @deftypefnx {} set (@var{obj}, @var{property},@var{value},@dots{})
 ## Set the properties of tcpclient object.
 ##
 ## @subsubheading Inputs

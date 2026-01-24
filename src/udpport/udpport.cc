@@ -26,8 +26,8 @@
 // PKG_ADD: autoload ("udpport", "udpport.oct");
 DEFUN_DLD (udpport, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{udp} = } udpport ()\n \
-@deftypefnx {Loadable Function} {@var{udp} = } udpport (@var{propertyname}, @var{propertyvalue} ...)\n \
+@deftypefn {} {@var{udp} = } udpport ()\n \
+@deftypefnx {} {@var{udp} = } udpport (@var{propertyname}, @var{propertyvalue} ...)\n \
 \n\
 Open udpport interface.\n \
 \n\

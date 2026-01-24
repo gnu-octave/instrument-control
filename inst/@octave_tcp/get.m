@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{struct} = } get (@var{tcp})
-## @deftypefnx {Function File} {@var{field} = } get (@var{tcp}, @var{property})
+## @deftypefn {} {@var{struct} = } get (@var{tcp})
+## @deftypefnx {} {@var{field} = } get (@var{tcp}, @var{property})
 ## Get the properties of tcp object.
 ##
 ## @subsubheading Inputs

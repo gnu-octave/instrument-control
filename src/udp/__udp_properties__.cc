@@ -31,7 +31,7 @@
 // PKG_ADD: autoload ("__udp_properties__", "udp.oct");
 DEFUN_DLD (__udp_properties__, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {varargout =} __udp_properties__ (@var{octave_udp}, @var{property}, @var{varargin})\n\
+@deftypefn {} {varargout =} __udp_properties__ (@var{octave_udp}, @var{property}, @var{varargin})\n\
 Undocumented internal function.\n\
 @end deftypefn")
 {

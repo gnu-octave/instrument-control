@@ -26,7 +26,7 @@
 // PKG_ADD: autoload ("spi_close", "spi.oct");
 DEFUN_DLD (spi_close, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} spi_close (@var{spi})\n \
+@deftypefn {} {} spi_close (@var{spi})\n \
 \n\
 Close the interface and release a file descriptor.\n \
 \n\

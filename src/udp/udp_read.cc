@@ -33,7 +33,7 @@
 // PKG_ADD: autoload ("udp_read", "udp.oct");
 DEFUN_DLD (udp_read, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } udp_read (@var{udp}, @var{n}, @var{timeout})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } udp_read (@var{udp}, @var{n}, @var{timeout})\n \
 \n\
 Read from udp interface.\n \
 \n\

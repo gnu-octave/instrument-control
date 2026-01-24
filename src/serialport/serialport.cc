@@ -31,8 +31,8 @@
 // PKG_ADD: autoload ("serialport", "serialport.oct");
 DEFUN_DLD (serialport, args, nargout, 
         "-*- texinfo -*-\n \
-@deftypefn {Loadable Function} {@var{serial} = } serialport ([@var{path}], [@var{baudrate}])\n \
-@deftypefnx {Loadable Function} {@var{serial} = } serialport ([@var{path}], [@var{propname}, @var{propvalue}])\n \
+@deftypefn {} {@var{serial} = } serialport ([@var{path}], [@var{baudrate}])\n \
+@deftypefnx {} {@var{serial} = } serialport ([@var{path}], [@var{propname}, @var{propvalue}])\n \
 \n\
 Open serial port interface.\n \
 \n\

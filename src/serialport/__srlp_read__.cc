@@ -32,7 +32,7 @@
 // PKG_ADD: autoload ("__srlp_read__", "serialport.oct");
 DEFUN_DLD (__srlp_read__, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } __srlp_read__ (@var{serial}, @var{n})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } __srlp_read__ (@var{serial}, @var{n})\n \
 \n\
 Read from serialport interface.\n \
 \n\

@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{numbytes} = } fwrite (@var{obj}, @var{data})
-## @deftypefnx {Function File} {@var{numbytes} =} fwrite (@var{obj}, @var{data}, @var{precision})
+## @deftypefn {} {@var{numbytes} = } fwrite (@var{obj}, @var{data})
+## @deftypefnx {} {@var{numbytes} =} fwrite (@var{obj}, @var{data}, @var{precision})
 ## Writes @var{data} to vxi11 instrument
 ##
 ## @subsubheading Inputs

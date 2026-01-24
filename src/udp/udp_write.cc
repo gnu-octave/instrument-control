@@ -28,7 +28,7 @@
 // PKG_ADD: autoload ("udp_write", "udp.oct");
 DEFUN_DLD (udp_write, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } udp_write (@var{udp}, @var{data})\n \
+@deftypefn {} {@var{n} = } udp_write (@var{udp}, @var{data})\n \
 \n\
 Write data to a udp interface.\n \
 \n\

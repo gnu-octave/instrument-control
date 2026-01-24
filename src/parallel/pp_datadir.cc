@@ -27,8 +27,8 @@
 // PKG_ADD: autoload ("pp_datadir", "parallel.oct");
 DEFUN_DLD (pp_datadir, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} pp_datadir (@var{parallel}, @var{direction})\n \
-@deftypefnx {Loadable Function} {@var{dir} = } pp_datadir (@var{parallel})\n \
+@deftypefn {} {} pp_datadir (@var{parallel}, @var{direction})\n \
+@deftypefnx {} {@var{dir} = } pp_datadir (@var{parallel})\n \
 \n\
 Controls the Data line drivers.\n \
 \n \

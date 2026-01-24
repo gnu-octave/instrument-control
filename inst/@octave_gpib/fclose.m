@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{res} =} fclose (@var{obj})
+## @deftypefn {} {@var{res} =} fclose (@var{obj})
 ## Closes connection to GPIB device @var{obj} 
 ## @end deftypefn
 

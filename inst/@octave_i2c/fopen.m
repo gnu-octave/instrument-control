@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{res} =} fopen (@var{obj}) (dummy)
+## @deftypefn {} {@var{res} =} fopen (@var{obj}) (dummy)
 ## Opens I2C connection @var{obj}
 ##
 ## This currently is a dummy function to improve compatibility to MATLAB

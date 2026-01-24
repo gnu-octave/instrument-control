@@ -31,7 +31,7 @@
 // PKG_ADD: autoload ("gpib_write", "gpib.oct");
 DEFUN_DLD (gpib_write, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } gpib_write (@var{gpib}, @var{data})\n \
+@deftypefn {} {@var{n} = } gpib_write (@var{gpib}, @var{data})\n \
 \n\
 Write data to a gpib interface.\n \
 \n\

@@ -27,7 +27,7 @@
 // PKG_ADD: autoload ("pp_stat", "parallel.oct");
 DEFUN_DLD (pp_stat, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{stat} = } pp_stat (@var{parallel})\n \
+@deftypefn {} {@var{stat} = } pp_stat (@var{parallel})\n \
 \n\
 Reads the Status lines.\n \
 \n\

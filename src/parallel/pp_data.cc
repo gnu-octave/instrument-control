@@ -28,8 +28,8 @@
 // PKG_ADD: autoload ("pp_data", "parallel.oct");
 DEFUN_DLD (pp_data, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} pp_data (@var{parallel}, @var{data})\n \
-@deftypefnx {Loadable Function} {@var{d} = } pp_data (@var{parallel})\n \
+@deftypefn {} {} pp_data (@var{parallel}, @var{data})\n \
+@deftypefnx {} {@var{d} = } pp_data (@var{parallel})\n \
 \n\
 Sets or Read the Data lines.\
 \n\

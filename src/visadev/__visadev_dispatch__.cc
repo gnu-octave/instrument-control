@@ -32,7 +32,7 @@
 // PKG_ADD: autoload ("__visadev_dispatch__", "visadev.oct");
 DEFUN_DLD (__visadev_dispatch__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{data} = } __visadev_dispatch__ (@var{visadev}, @var{functionname}, @dots{})\n \
+@deftypefn {} {@var{data} = } __visadev_dispatch__ (@var{visadev}, @var{functionname}, @dots{})\n \
 \n\
 Private function to dispatch a function to the visadev interface.\n \
 \n\

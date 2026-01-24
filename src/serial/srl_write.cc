@@ -27,7 +27,7 @@
 // PKG_ADD: autoload ("srl_write", "serial.oct");
 DEFUN_DLD (srl_write, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } srl_write (@var{serial}, @var{data})\n \
+@deftypefn {} {@var{n} = } srl_write (@var{serial}, @var{data})\n \
 \n\
 Write data to a serial interface.\n \
 \n\

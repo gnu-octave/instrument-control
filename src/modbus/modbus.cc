@@ -26,11 +26,11 @@
 // PKG_ADD: autoload ("modbus", "modbus.oct");
 DEFUN_DLD (modbus, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{dev} = } modbus ('tcpip', @var{deviceaddress})\n \
-@deftypefnx {Loadable Function} {@var{dev} = } modbus ('tcpip', @var{deviceaddress}, @var{remoteport})\n \
-@deftypefnx {Loadable Function} {@var{dev} = } modbus ('tcpip', @var{deviceaddress}, @var{name}, @var{value})\n \
-@deftypefnx {Loadable Function} {@var{dev} = } modbus ('serialrtu', @var{serialport})\n \
-@deftypefnx {Loadable Function} {@var{dev} = } modbus ('serialrtu', @var{serialport}, @var{name}, @var{value})\n \
+@deftypefn {} {@var{dev} = } modbus ('tcpip', @var{deviceaddress})\n \
+@deftypefnx {} {@var{dev} = } modbus ('tcpip', @var{deviceaddress}, @var{remoteport})\n \
+@deftypefnx {} {@var{dev} = } modbus ('tcpip', @var{deviceaddress}, @var{name}, @var{value})\n \
+@deftypefnx {} {@var{dev} = } modbus ('serialrtu', @var{serialport})\n \
+@deftypefnx {} {@var{dev} = } modbus ('serialrtu', @var{serialport}, @var{name}, @var{value})\n \
 \n\
 Open modbus interface using a specified transport of 'tcpip' or 'serialrtu'.\n \
 \n\

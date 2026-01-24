@@ -31,7 +31,7 @@
 // PKG_ADD: autoload ("__gpib_spoll__", "gpib.oct");
 DEFUN_DLD (__gpib_spoll__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{sb} = } __gpib_spoll__ (@var{gpib})\n \
+@deftypefn {} {@var{sb} = } __gpib_spoll__ (@var{gpib})\n \
 \n\
 serial poll gpib interface.\n \
 \n\

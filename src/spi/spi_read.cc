@@ -29,7 +29,7 @@
 // PKG_ADD: autoload ("spi_read", "spi.oct");
 DEFUN_DLD (spi_read, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } spi_read (@var{spi}, @var{n})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } spi_read (@var{spi}, @var{n})\n \
 \n\
 Read from spi slave device.\n \
 \n\

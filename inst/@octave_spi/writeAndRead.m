@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{data} =} writeAndRead (@var{obj}, @var{wrdata})
+## @deftypefn {} {@var{data} =} writeAndRead (@var{obj}, @var{wrdata})
 ## Writes and reads @var{data} from SPI instrument
 ##
 ## @subsubheading Inputs

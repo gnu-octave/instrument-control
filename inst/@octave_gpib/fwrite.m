@@ -14,10 +14,10 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {} fwrite (@var{obj}, @var{data})
-## @deftypefnx {Function File} {} fwrite (@var{obj}, @var{data}, @var{precision})
-## @deftypefnx {Function File} {} fwrite (@var{obj}, @var{data}, @var{mode})
-## @deftypefnx {Function File} {} fwrite (@var{obj}, @var{data}, @var{precision}, @var{mode})
+## @deftypefn {} {} fwrite (@var{obj}, @var{data})
+## @deftypefnx {} {} fwrite (@var{obj}, @var{data}, @var{precision})
+## @deftypefnx {} {} fwrite (@var{obj}, @var{data}, @var{mode})
+## @deftypefnx {} {} fwrite (@var{obj}, @var{data}, @var{precision}, @var{mode})
 ## Writes @var{data} to GPIB instrument
 ##
 ## @var{obj} is a GPIB object

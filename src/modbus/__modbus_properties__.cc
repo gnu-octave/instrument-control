@@ -238,7 +238,7 @@ octave_value_list modbus_transport (octave_modbus* dev, const octave_value_list&
 // PKG_ADD: autoload ("__modbus_properties__", "modbus.oct");
 DEFUN_DLD (__modbus_properties__, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {varargout =} __modbus_properties__ (@var{octave_serialport}, @var{property}, @var{varargin})\n\
+@deftypefn {} {varargout =} __modbus_properties__ (@var{octave_serialport}, @var{property}, @var{varargin})\n\
 Undocumented internal function.\n\
 @end deftypefn")
 {

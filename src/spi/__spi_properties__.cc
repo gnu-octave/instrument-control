@@ -28,7 +28,7 @@
 // PKG_ADD: autoload ("__spi_properties__", "spi.oct");
 DEFUN_DLD (__spi_properties__, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {varargout =} __spi_properties__ (@var{octave_spi}, @var{property}, @var{varargin})\n\
+@deftypefn {} {varargout =} __spi_properties__ (@var{octave_spi}, @var{property}, @var{varargin})\n\
 Undocumented internal function.\n\
 @end deftypefn")
 {

@@ -30,8 +30,8 @@
 // PKG_ADD: autoload ("gpib_timeout", "gpib.oct");
 DEFUN_DLD (gpib_timeout, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} gpib_timeout (@var{gpib}, @var{timeout})\n \
-@deftypefnx {Loadable Function} {@var{t} = } gpib_timeout (@var{gpib})\n \
+@deftypefn {} {} gpib_timeout (@var{gpib}, @var{timeout})\n \
+@deftypefnx {} {@var{t} = } gpib_timeout (@var{gpib})\n \
 \n\
 Set new or get existing gpib interface timeout parameter. The timeout value is valid from 0 to 17.\n \
 \n\

@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{numbytes} =} fprintf (@var{obj}, @var{template} ...)
+## @deftypefn {} {@var{numbytes} =} fprintf (@var{obj}, @var{template} ...)
 ## Writes formatted string @var{template} using optional parameters to 
 ## TCP instrument
 ##

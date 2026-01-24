@@ -27,8 +27,8 @@
 // PKG_ADD: autoload ("i2c_addr", "i2c.oct");
 DEFUN_DLD (i2c_addr, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} i2c_addr (@var{i2c}, @var{address})\n \
-@deftypefnx {Loadable Function} {@var{addr} = } i2c_addr (@var{i2c})\n \
+@deftypefn {} {} i2c_addr (@var{i2c}, @var{address})\n \
+@deftypefnx {} {@var{addr} = } i2c_addr (@var{i2c})\n \
 \n\
 Set new or get existing i2c slave device address.\n \
 \n\

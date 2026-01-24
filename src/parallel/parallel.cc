@@ -49,7 +49,7 @@ using std::string;
 // PKG_ADD: autoload ("parallel", "parallel.oct");
 DEFUN_DLD (parallel, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{parallel} = } parallel ([@var{path}], [@var{direction}])\n \
+@deftypefn {} {@var{parallel} = } parallel ([@var{path}], [@var{direction}])\n \
 \n\
 Open Parallel interface.\n \
 \n\

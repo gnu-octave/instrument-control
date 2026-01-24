@@ -30,7 +30,7 @@
 // PKG_ADD: autoload ("__gpib_trigger__", "gpib.oct");
 DEFUN_DLD (__gpib_trigger__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} __gpib_trigger__ (@var{gpib})\n \
+@deftypefn {} {} __gpib_trigger__ (@var{gpib})\n \
 \n\
 triggers gpib device.\n \
 \n\

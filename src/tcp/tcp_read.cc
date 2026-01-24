@@ -33,7 +33,7 @@
 // PKG_ADD: autoload ("tcp_read", "tcp.oct");
 DEFUN_DLD (tcp_read, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } tcp_read (@var{tcp}, @var{n}, @var{timeout})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } tcp_read (@var{tcp}, @var{n}, @var{timeout})\n \
 \n\
 Read from tcp interface.\n \
 \n\

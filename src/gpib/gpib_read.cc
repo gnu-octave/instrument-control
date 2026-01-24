@@ -34,7 +34,7 @@
 // PKG_ADD: autoload ("gpib_read", "gpib.oct");
 DEFUN_DLD (gpib_read, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}, @var{eoi}] = } gpib_read (@var{gpib}, @var{n})\n \
+@deftypefn {} {[@var{data}, @var{count}, @var{eoi}] = } gpib_read (@var{gpib}, @var{n})\n \
 \n\
 Read from gpib interface.\n \
 \n\

@@ -28,7 +28,7 @@
 // PKG_ADD: autoload ("udp_close", "udp.oct");
 DEFUN_DLD (udp_close, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} udp_close (@var{udp})\n \
+@deftypefn {} {} udp_close (@var{udp})\n \
 \n\
 Close the interface and release a file descriptor.\n \
 \n\

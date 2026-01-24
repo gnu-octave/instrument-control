@@ -27,7 +27,7 @@
 // PKG_ADD: autoload ("visadevlist", "visadev.oct");
 DEFUN_DLD (visadevlist, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{resourcelist} = } visadevlist ()\n \
+@deftypefn {} {@var{resourcelist} = } visadevlist ()\n \
 \n\
 List available visadev resources.\n \
 \n\

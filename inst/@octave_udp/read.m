@@ -14,9 +14,9 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{data} =} read (@var{obj})
-## @deftypefnx {Function File} {@var{data} =} read (@var{obj}, @var{size})
-## @deftypefnx {Function File} {@var{data} =} read (@var{obj}, @var{size}, @var{datatype})
+## @deftypefn {} {@var{data} =} read (@var{obj})
+## @deftypefnx {} {@var{data} =} read (@var{obj}, @var{size})
+## @deftypefnx {} {@var{data} =} read (@var{obj}, @var{size}, @var{datatype})
 ## Reads @var{data} from UDP instrument
 ##
 ## @subsubheading Inputs

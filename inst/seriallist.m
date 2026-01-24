@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{list} = } seriallist ()
+## @deftypefn {} {@var{list} = } seriallist ()
 ## Returns a list of all serial ports detected in the system.
 ##
 ## @subsubheading Inputs

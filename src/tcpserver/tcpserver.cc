@@ -27,9 +27,9 @@
 // PKG_ADD: autoload ("tcpserver", "tcpserver.oct");
 DEFUN_DLD (tcpserver, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{tcpserver} = } tcpserver (@var{ipaddress}, @var{port})\n \
-@deftypefnx {Loadable Function} {@var{tcpserver} = } tcpserver (@var{port})\n \
-@deftypefnx {Loadable Function} {@var{tcpserver} = } tcpserver (@dots{}, [@var{propertyname}, @var{propertyvalue}])\n \
+@deftypefn {} {@var{tcpserver} = } tcpserver (@var{ipaddress}, @var{port})\n \
+@deftypefnx {} {@var{tcpserver} = } tcpserver (@var{port})\n \
+@deftypefnx {} {@var{tcpserver} = } tcpserver (@dots{}, [@var{propertyname}, @var{propertyvalue}])\n \
 \n\
 Open tcpserver interface.\n \
 \n\

@@ -56,9 +56,9 @@ static bool type_loaded = false;
 
 DEFUN_DLD (resolvehost, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{name} = } resolvehost (@var{host})\n \
-@deftypefnx {Loadable Function} {[@var{name}, @var{address}] = } resolvehost (@var{host})\n \
-@deftypefnx {Loadable Function} {@var{out} = } resolvehost (@var{host}, @var{returntype})\n \
+@deftypefn {} {@var{name} = } resolvehost (@var{host})\n \
+@deftypefnx {} {[@var{name}, @var{address}] = } resolvehost (@var{host})\n \
+@deftypefnx {} {@var{out} = } resolvehost (@var{host}, @var{returntype})\n \
 \n\
 Resolve a network host name or address to network name and address\n \
 \n\

@@ -404,7 +404,7 @@ octave_value_list srlp_pinstatus (octave_serialport* serialport, const octave_va
 // PKG_ADD: autoload ("__srlp_properties__", "serialport.oct");
 DEFUN_DLD (__srlp_properties__, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {varargout =} __srlp_properties__ (@var{octave_serialport}, @var{property}, @var{varargin})\n\
+@deftypefn {} {varargout =} __srlp_properties__ (@var{octave_serialport}, @var{property}, @var{varargin})\n\
 Undocumented internal function.\n\
 @end deftypefn")
 {

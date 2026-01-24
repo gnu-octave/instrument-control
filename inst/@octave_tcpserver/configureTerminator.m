@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {} configureTerminator (@var{tcp}, @var{term})
-## @deftypefnx {Function File} {} configureTerminator (@var{tcp}, @var{readterm}, @var{writeterm})
+## @deftypefn {} {} configureTerminator (@var{tcp}, @var{term})
+## @deftypefnx {} {} configureTerminator (@var{tcp}, @var{readterm}, @var{writeterm})
 ## Set terminator on a tcpserver object for ASCII string manipulation
 ##
 ## @subsubheading Inputs

@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {} serialbreak (@var{serial})
-## @deftypefnx {Function File} {} serialbreak (@var{serial}, @var{time})
+## @deftypefn {} {} serialbreak (@var{serial})
+## @deftypefnx {} {} serialbreak (@var{serial}, @var{time})
 ## Send a break to the serial port
 ##
 ## @subsubheading Inputs

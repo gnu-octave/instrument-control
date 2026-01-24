@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{tcp} = } tcpip (@var{host}, [@var{port}], [@var{PropertyName}, @var{PropertyValue}...])
+## @deftypefn {} {@var{tcp} = } tcpip (@var{host}, [@var{port}], [@var{PropertyName}, @var{PropertyValue}...])
 ## Matlab compatible wrapper to the tcp interface.
 ##
 ## NOTE: tcpip has been deprecated. Use tcpclient instead

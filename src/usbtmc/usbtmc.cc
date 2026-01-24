@@ -30,7 +30,7 @@
 // PKG_ADD: autoload ("usbtmc", "usbtmc.oct");
 DEFUN_DLD (usbtmc, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{usbtmc} = } usbtmc (@var{path})\n \
+@deftypefn {} {@var{usbtmc} = } usbtmc (@var{path})\n \
 \n\
 Open usbtmc interface.\n \
 \n\

@@ -29,7 +29,7 @@
 // PKG_ADD: autoload ("i2c", "i2c.oct");
 DEFUN_DLD (i2c, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{i2c} = } i2c ([@var{port_path}], [@var{address}])\n \
+@deftypefn {} {@var{i2c} = } i2c ([@var{port_path}], [@var{address}])\n \
 \n\
 Open i2c interface.\n \
 \n\

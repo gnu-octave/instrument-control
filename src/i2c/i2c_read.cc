@@ -30,7 +30,7 @@
 // PKG_ADD: autoload ("i2c_read", "i2c.oct");
 DEFUN_DLD (i2c_read, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } i2c_read (@var{i2c}, @var{n})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } i2c_read (@var{i2c}, @var{n})\n \
 \n\
 Read from i2c slave device.\n \
 \n\

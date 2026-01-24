@@ -31,7 +31,7 @@
 // PKG_ADD: autoload ("__tcp_properties__", "tcp.oct");
 DEFUN_DLD (__tcp_properties__, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {varargout =} __tcp_properties__ (@var{octave_tcp}, @var{property}, @var{varargin})\n\
+@deftypefn {} {varargout =} __tcp_properties__ (@var{octave_tcp}, @var{property}, @var{varargin})\n\
 Undocumented internal function.\n\
 @end deftypefn")
 {

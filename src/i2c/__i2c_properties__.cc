@@ -28,7 +28,7 @@
 // PKG_ADD: autoload ("__i2c_properties__", "i2c.oct");
 DEFUN_DLD (__i2c_properties__, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {varargout =} __i2c_properties__ (@var{octave_i2c}, @var{property}, @var{varargin})\n\
+@deftypefn {} {varargout =} __i2c_properties__ (@var{octave_i2c}, @var{property}, @var{varargin})\n\
 Undocumented internal function.\n\
 @end deftypefn")
 {

@@ -28,8 +28,8 @@
 // PKG_ADD: autoload ("tcp_timeout", "tcp.oct");
 DEFUN_DLD (tcp_timeout, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} tcp_timeout (@var{tcp}, @var{timeout})\n \
-@deftypefnx {Loadable Function} {@var{t} = } tcp_timeout (@var{tcp})\n \
+@deftypefn {} {} tcp_timeout (@var{tcp}, @var{timeout})\n \
+@deftypefnx {} {@var{t} = } tcp_timeout (@var{tcp})\n \
 \n\
 Set new or get existing tcp interface timeout parameter used for tcp_read() requests. The timeout value is specified in milliseconds.\n \
 \n\

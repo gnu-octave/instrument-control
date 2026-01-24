@@ -27,7 +27,7 @@
 // PKG_ADD: autoload ("tcp_close", "tcp.oct");
 DEFUN_DLD (tcp_close, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} tcp_close (@var{tcp})\n \
+@deftypefn {} {} tcp_close (@var{tcp})\n \
 \n\
 Close the interface and release a file descriptor.\n \
 \n\

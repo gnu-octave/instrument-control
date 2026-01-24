@@ -32,7 +32,7 @@
 // PKG_ADD: autoload ("gpib", "gpib.oct");
 DEFUN_DLD (gpib, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{gpib} = } gpib ([@var{gpibid}], [@var{timeout}])\n \
+@deftypefn {} {@var{gpib} = } gpib ([@var{gpibid}], [@var{timeout}])\n \
 \n\
 Open gpib interface.\n \
 \n\

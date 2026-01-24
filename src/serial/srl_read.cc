@@ -32,7 +32,7 @@
 // PKG_ADD: autoload ("srl_read", "serial.oct");
 DEFUN_DLD (srl_read, args, nargout, 
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {[@var{data}, @var{count}] = } srl_read (@var{serial}, @var{n})\n \
+@deftypefn {} {[@var{data}, @var{count}] = } srl_read (@var{serial}, @var{n})\n \
 \n\
 Read from serial interface.\n \
 \n\

@@ -14,8 +14,8 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {} configureTerminator (@var{dev}, @var{term})
-## @deftypefnx {Function File} {} configureTerminator (@var{dev}, @var{readterm}, @var{writeterm})
+## @deftypefn {} {} configureTerminator (@var{dev}, @var{term})
+## @deftypefnx {} {} configureTerminator (@var{dev}, @var{readterm}, @var{writeterm})
 ## Set terminator for ASCII string manipulation
 ##
 ## @subsubheading Inputs

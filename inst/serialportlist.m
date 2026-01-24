@@ -14,9 +14,9 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{list} = } serialportlist ()
-## @deftypefnx {Function File} {@var{list} = } serialportlist ("all")
-## @deftypefnx {Function File} {@var{list} = } serialportlist ("available")
+## @deftypefn {} {@var{list} = } serialportlist ()
+## @deftypefnx {} {@var{list} = } serialportlist ("all")
+## @deftypefnx {} {@var{list} = } serialportlist ("available")
 ## Returns a list of all serial ports detected in the system.
 ##
 ## @subsubheading Inputs

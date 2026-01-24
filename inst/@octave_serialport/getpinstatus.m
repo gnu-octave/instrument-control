@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{status}} getpinstatus (@var{serial})
+## @deftypefn {} {@var{status}} getpinstatus (@var{serial})
 ## Get status of serial pins
 ##
 ## @subsubheading Inputs

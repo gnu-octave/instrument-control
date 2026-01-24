@@ -27,7 +27,7 @@
 // PKG_ADD: autoload ("pp_close", "parallel.oct");
 DEFUN_DLD (pp_close, args, nargout, 
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} pp_close (@var{parallel})\n \
+@deftypefn {} {} pp_close (@var{parallel})\n \
 \n\
 Close the interface and release a file descriptor.\n \
 \n\

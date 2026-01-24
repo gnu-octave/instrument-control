@@ -27,7 +27,7 @@
 // PKG_ADD: autoload ("gpib_close", "gpib.oct");
 DEFUN_DLD (gpib_close, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} gpib_close (@var{gpib})\n \
+@deftypefn {} {} gpib_close (@var{gpib})\n \
 \n\
 Close the interface and release a file descriptor.\n \
 \n\

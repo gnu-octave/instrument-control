@@ -14,11 +14,11 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{data} =} fread (@var{obj})
-## @deftypefnx {Function File} {@var{data} =} fread (@var{obj}, @var{size})
-## @deftypefnx {Function File} {@var{data} =} fread (@var{obj}, @var{size}, @var{precision})
-## @deftypefnx {Function File} {[@var{data},@var{count}] =} fread (@var{obj}, ...)
-## @deftypefnx {Function File} {[@var{data},@var{count},@var{errmsg}] =} fread (@var{obj}, ...)
+## @deftypefn {} {@var{data} =} fread (@var{obj})
+## @deftypefnx {} {@var{data} =} fread (@var{obj}, @var{size})
+## @deftypefnx {} {@var{data} =} fread (@var{obj}, @var{size}, @var{precision})
+## @deftypefnx {} {[@var{data},@var{count}] =} fread (@var{obj}, ...)
+## @deftypefnx {} {[@var{data},@var{count},@var{errmsg}] =} fread (@var{obj}, ...)
 ## Reads @var{data} from TCP instrument
 ##
 ## @subsubheading Inputs

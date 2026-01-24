@@ -76,7 +76,7 @@ static octave_value set_terminator(octave_tcpserver* tcp, const octave_value_lis
 // PKG_ADD: autoload ("__tcpserver_properties__", "tcpserver.oct");
 DEFUN_DLD (__tcpserver_properties__, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {varargout =} __tcpserver_properties__ (@var{octave_tcpserver}, @var{property}, @var{varargin})\n\
+@deftypefn {} {varargout =} __tcpserver_properties__ (@var{octave_tcpserver}, @var{property}, @var{varargin})\n\
 Undocumented internal function.\n\
 @end deftypefn")
 {

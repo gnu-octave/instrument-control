@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {} trigger (@var{obj})
+## @deftypefn {} {} trigger (@var{obj})
 ## Triggers GPIB instrument.
 ##
 ## @var{obj} is a GPIB object

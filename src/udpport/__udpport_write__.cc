@@ -26,8 +26,8 @@
 // PKG_ADD: autoload ("__udpport_write__", "udpport.oct");
 DEFUN_DLD (__udpport_write__, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } __udpport_write__ (@var{udpport}, @var{data})\n \
-@deftypefnx {Loadable Function} {@var{n} = } __udpport_write__ (@var{udpport}, @var{data}, @var{destipaddress}, @var{destport})\n \
+@deftypefn {} {@var{n} = } __udpport_write__ (@var{udpport}, @var{data})\n \
+@deftypefnx {} {@var{n} = } __udpport_write__ (@var{udpport}, @var{data}, @var{destipaddress}, @var{destport})\n \
 \n\
 Provate function to write data to a udpport interface.\n \
 \n\

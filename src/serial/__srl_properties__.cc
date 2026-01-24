@@ -322,7 +322,7 @@ octave_value_list srl_pinstatus (octave_serial* serial, const octave_value_list&
 // PKG_ADD: autoload ("__srl_properties__", "serial.oct");
 DEFUN_DLD (__srl_properties__, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {varargout =} __srl_properties__ (@var{octave_serial}, @var{property}, @var{varargin})\n\
+@deftypefn {} {varargout =} __srl_properties__ (@var{octave_serial}, @var{property}, @var{varargin})\n\
 Undocumented internal function.\n\
 @end deftypefn")
 {

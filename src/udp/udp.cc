@@ -28,9 +28,9 @@
 // PKG_ADD: autoload ("udp", "udp.oct");
 DEFUN_DLD (udp, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{udp} = } udp ()\n \
-@deftypefnx {Loadable Function} {@var{udp} = } udp (@var{remoteipaddress}, @var{remoteport})\n \
-@deftypefnx {Loadable Function} {@var{udp} = } udp (@var{remoteipaddress}, @var{remoteport}, [@var{propertyname}, @var{propertyvalue} ...])\n \
+@deftypefn {} {@var{udp} = } udp ()\n \
+@deftypefnx {} {@var{udp} = } udp (@var{remoteipaddress}, @var{remoteport})\n \
+@deftypefnx {} {@var{udp} = } udp (@var{remoteipaddress}, @var{remoteport}, [@var{propertyname}, @var{propertyvalue} ...])\n \
 \n\
 Open udp interface.\n \
 \n\

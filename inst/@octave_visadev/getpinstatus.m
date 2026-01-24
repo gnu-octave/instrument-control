@@ -14,7 +14,7 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {@var{status}} getpinstatus (@var{dev})
+## @deftypefn {} {@var{status}} getpinstatus (@var{dev})
 ## Get status of visadev serial pins
 ##
 ## @subsubheading Inputs

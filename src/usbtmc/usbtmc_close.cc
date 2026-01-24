@@ -28,7 +28,7 @@
 // PKG_ADD: autoload ("usbtmc_close", "usbtmc.oct");
 DEFUN_DLD (usbtmc_close, args, nargout,
 "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {} usbtmc_close (@var{usbtmc})\n \
+@deftypefn {} {} usbtmc_close (@var{usbtmc})\n \
 \n\
 Close the interface and release a file descriptor.\n \
 \n\

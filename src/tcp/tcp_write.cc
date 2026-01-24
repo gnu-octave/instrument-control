@@ -28,7 +28,7 @@
 // PKG_ADD: autoload ("tcp_write", "tcp.oct");
 DEFUN_DLD (tcp_write, args, nargout,
         "-*- texinfo -*-\n\
-@deftypefn {Loadable Function} {@var{n} = } tcp_write (@var{tcp}, @var{data})\n \
+@deftypefn {} {@var{n} = } tcp_write (@var{tcp}, @var{data})\n \
 \n\
 Write data to a tcp interface.\n \
 \n\
