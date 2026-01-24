@@ -48,7 +48,7 @@ timeout value in seconds used for waiting for data\n \
 visadev() shall return instance of @var{octave_visadev} class as the result @var{dev}.\n \
 \n \
 @subsubheading Properties\n \
-The videadev object has the following public properties:\n \
+The visadev object has the following public properties:\n \
 @table @asis\n \
 @item Tag\n \
 user tag assigned to the visadev object\n \

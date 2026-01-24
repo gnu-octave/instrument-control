@@ -72,7 +72,7 @@ timeout value in seconds used for waiting for data\n \
 number of bytes currently available to read (readonly)\n \
 @item MulticastGroup\n \
 multicast group socket  is subscribed to (readonly)\n \
-@item EnableMultcast\n \
+@item EnableMulticast\n \
 Boolean if the socket has any multicast group it is subscribed to (readonly)\n \
 @item EnablePortSharing\n \
 Boolean if the socket has port sharing enabled (readonly)\n \

@@ -14,8 +14,8 @@
 ## @deftypefn {} {} visatrigger (@var{dev})
 ## Trigger a GPIB or VXI visa device.
 ##
-## Ths is ewquivalent to the viAssertTrigger
-## VISA sepcification function.
+## This is equivalent to the viAssertTrigger
+## VISA specification function.
 ##
 ## @subsubheading Inputs
 ## @var{dev} - connected visadev device
