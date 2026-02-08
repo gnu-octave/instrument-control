@@ -91,7 +91,8 @@ Upon successful completion, __tcpclient_write__() shall return the number of byt
 
 %!error <Invalid call to __tcpclient_write__> __tcpclient_write__()
 
-%!test
+# using xtest as may not have a internet connection
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcpclient (addr, 80);;
 %! # call HTTP HEAD

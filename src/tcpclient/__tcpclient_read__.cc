@@ -112,7 +112,8 @@ Private function t read from tcpclient interface.\n \
 }
 
 #if 0
-%!test
+# using xtest as may not have an internet connection
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcpclient (addr, 80);
 %! assert (! isnull (a));

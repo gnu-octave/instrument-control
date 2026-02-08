@@ -114,7 +114,7 @@ Read from tcp interface.\n \
 }
 
 #if 0
-%!test
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcp (addr, 80);
 %! assert (! isnull (a));

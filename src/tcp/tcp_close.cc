@@ -60,7 +60,7 @@ None\n \
 #endif
 }
 #if 0
-%!test
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcp (addr, 80);
 %! tcp_close (a);

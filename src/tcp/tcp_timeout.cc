@@ -82,7 +82,7 @@ If @var{timeout} parameter is omitted, the tcp_timeout() shall return current ti
 }
 
 #if 0
-%!test
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcp (addr, 80);
 %! assert(tcp_timeout(a), -1);

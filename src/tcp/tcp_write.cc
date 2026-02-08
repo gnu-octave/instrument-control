@@ -93,7 +93,7 @@ Upon successful completion, tcp_write() shall return the number of bytes written
 
 %!error <Invalid call to tcp_write> tcp_write()
 
-%!test
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcp (addr, 80);
 %! # call HTTP HEAD

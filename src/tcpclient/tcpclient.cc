@@ -236,14 +236,16 @@ Bool for whether transfer delay is enabled. (Read only)\n \
 }
 
 #if 0
-%!test
+# use xtest as may not have an intert connection
+
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcpclient (addr, 80);
 %! assert (! isnull (a));
 %! assert (isa (a, 'octave_tcpclient'));
 %! clear a
 
-%!test
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcpclient (addr, 80, 'name', 'test', 'timeout', 2.5);
 %! assert (! isnull (a));

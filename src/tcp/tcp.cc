@@ -203,14 +203,16 @@ number of bytes currently available to read (readonly)\n \
 }
 
 #if 0
-%!test
+# using xtest as may not have an internet connection
+
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcp (addr, 80);
 %! assert (! isnull (a));
 %! assert (isa (a, 'octave_tcp'));
 %! tcp_close (a);
 
-%!test
+%!xtest
 %! addr = resolvehost ('gnu.org', 'address');
 %! a = tcp (addr, 80, 'name', 'test', 'timeout', 2.5);
 %! assert (! isnull (a));
