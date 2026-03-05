@@ -116,7 +116,13 @@ endfunction
 %!
 %! writebinblock(a, "hello", "uint16");
 %! x = read(a);
-%! assert(char(x), "#210h\0e\0l\0l\0o\0\n");
+%! [comp, maxsize, endian] = computer ();
+%! if endian == "L"
+%!   expected = "#210h\0e\0l\0l\0o\0\n";
+%! else
+%!   expected = "#210\0h\0e\0l\0l\0o\n";
+%! endif
+%! assert(char(x), expected);
 %! clear a
 
 %!test
