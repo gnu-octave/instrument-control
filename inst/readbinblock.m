@@ -199,7 +199,18 @@ function data = readbinblock (dev, varargin)
   assert(eol, uint8(10))
 
   if !strcmp(toclass, 'uint8')
-     data = typecast(data,toclass);
+    data = typecast(data,toclass);
+
+    # need sawp bytes
+    if has_read == 1
+      [~,~,endian] = computer();
+      e = upper(dev.ByteOrder);
+
+      if e(1) != endian
+        # need change endian
+        data = swapbytes(data);
+      endif
+    endif
   endif
 endfunction
 
@@ -262,6 +273,40 @@ endfunction
 %!
 %! writebinblock(a, "hello", "char");
 %! assert(readbinblock(a), uint8("hello"));
+%!
+%! clear a
+
+%!test
+%! # new style class endian
+%! a = udpport ();
+%! #a.remoteport = a.localport;
+%! #a.remotehost = '127.0.0.1';
+%! a.Timeout = 1;
+%! # set dest to us
+%! write(a, "test", "127.0.0.1", a.LocalPort);
+%! flush(a);
+%!
+%! x = uint16([1 2 3 4]);
+%!
+%! # default endian - assuming writebinblock handles endian correctly
+%! writebinblock(a, x, "uint16");
+%! assert(readbinblock(a, "uint16"), x);
+%!
+%! # little endian
+%! a.ByteOrder = "little-endian";
+%! writebinblock(a, x, "uint16");
+%! assert(readbinblock(a, "uint16"), x);
+%!
+%! # big endian
+%! a.ByteOrder = "big-endian";
+%! writebinblock(a, x, "uint16");
+%! assert(readbinblock(a, "uint16"), x);
+%!
+%! # mix
+%! a.ByteOrder = "little-endian";
+%! writebinblock(a, x, "uint16");
+%! a.ByteOrder = "big-endian";
+%! assert(readbinblock(a, "uint16"), swapbytes(x));
 %!
 %! clear a
 

@@ -80,6 +80,21 @@ function writebinblock (dev, data, datatype)
       error ("datatype not supported");
   endswitch
 
+  types_with_write = { "octave_udpport", "octave_serialport", ...
+                       "octave_tcpclient", "octave_tcpserver", ...
+                       "octave_udpport", "octave_visadev" };
+
+  if sum(strcmp(type, types_with_write)) > 0
+    # need fix endian
+    [~,~,endian] = computer();
+    e = upper(dev.ByteOrder);
+
+    if e(1) != endian
+      # need change endian
+      data = swapbytes(data);
+    endif
+  endif
+
   # make byte stream
   data = typecast(data,'uint8');
 
@@ -87,10 +102,6 @@ function writebinblock (dev, data, datatype)
   hdr = sprintf("#X%d", numel(data));
   # fix the hdr for X = num digits for the %d size
   hdr(2) = num2str(numel(hdr)-2);
-
-  types_with_write = { "octave_udpport", "octave_serialport", ...
-                       "octave_tcpclient", "octave_tcpserver", ...
-                       "octave_udpport", "octave_visadev" };
 
   if sum(strcmp(type, types_with_write)) > 0
     write (dev, [uint8(hdr) data uint8("\n")]);
@@ -137,4 +148,41 @@ endfunction
 %! writebinblock(a, "hello", "char");
 %! x = read(a);
 %! assert(char(x), "#15hello\n");
+%! clear a
+
+%!test
+%! # endian checks
+%! a = udpport ();
+%! #a.remoteport = a.localport;
+%! #a.remotehost = '127.0.0.1';
+%! a.Timeout = 1;
+%! # set dest to us
+%! write(a, "a", "127.0.0.1", a.LocalPort);
+%! flush(a);
+%!
+%! # using default byte order
+%! writebinblock(a, "hello", "uint16");
+%! x = read(a);
+%! [comp, maxsize, endian] = computer ();
+%! if endian == "L"
+%!   expected = "#210h\0e\0l\0l\0o\0\n";
+%! else
+%!   expected = "#210\0h\0e\0l\0l\0o\n";
+%! endif
+%! assert(char(x), expected);
+%!
+%! # little endian
+%! a.ByteOrder = "little-endian";
+%! writebinblock(a, "hello", "uint16");
+%! x = read(a);
+%! expected = "#210h\0e\0l\0l\0o\0\n";
+%! assert(char(x), expected);
+%!
+%! # big endian
+%! a.ByteOrder = "big-endian";
+%! writebinblock(a, "hello", "uint16");
+%! x = read(a);
+%! expected = "#210\0h\0e\0l\0l\0o\n";
+%! assert(char(x), expected);
+%!
 %! clear a
