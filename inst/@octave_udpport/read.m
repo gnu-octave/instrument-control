@@ -1,4 +1,4 @@
-## Copyright (C) 2021 John Donoghue  <john.donoghue@ieee.org>
+## Copyright (C) 2021-2026 John Donoghue  <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -20,7 +20,7 @@
 ## Reads @var{data} from UDP instrument
 ##
 ## @subsubheading Inputs
-## @var{obj} is a UDP object.@*
+## @var{obj} is a udpport object.@*
 ## @var{size} Number of values to read. (Default: BytesAvailable).@*
 ## @var{datatype} datatype of data.@*
 ##
@@ -87,4 +87,14 @@ function data = read (obj, cnt, datatype)
 
   data = typecast(tmp,toclass);
 
+  if tosize > 1
+    [~,~,endian] = computer();
+    e = upper(obj.ByteOrder);
+
+    if e(1) != endian
+      # need change endian
+      data = swapbytes(data);
+    endif
+  endif
+ 
 endfunction

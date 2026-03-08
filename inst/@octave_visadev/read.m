@@ -105,4 +105,14 @@ function data = read (dev, count, precision)
 
   data = typecast(tmp,toclass);
 
+  if tosize > 1
+    [~,~,endian] = computer();
+    e = upper(obj.ByteOrder);
+
+    if e(1) != endian
+      # need change endian
+      data = swapbytes(data);
+    endif
+  endif
+ 
 endfunction

@@ -1,4 +1,4 @@
-## Copyright (C) 2021 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2021-2026 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -62,6 +62,19 @@ function numbytes = write(obj, data, datatype)
       error ("precision not supported");
   endswitch
 
-  numbytes = __tcpclient_write__ (obj, typecast(data,'uint8'));
+  if length(data) > 0
+    # if a data element > 1 byte, need handle endian
+    tosize = length(typecast(data(1),'uint8'));
+    if tosize > 1
+      [~,~,endian] = computer();
+      e = upper(obj.ByteOrder);
 
+      if e(1) != endian
+        # need change endian
+        data = swapbytes(data);
+      endif
+    endif
+  endif
+ 
+  numbytes = __tcpclient_write__ (obj, typecast(data,'uint8'));
 endfunction

@@ -62,6 +62,20 @@ function numbytes = write(obj, data, datatype)
       error ("precision not supported");
   endswitch
 
+  if length(data) > 0
+    # if a data element > 1 byte, need handle endian
+    tosize = length(typecast(data(1),'uint8'));
+    if tosize > 1
+      [~,~,endian] = computer();
+      e = upper(obj.ByteOrder);
+
+      if e(1) != endian
+        # need change endian
+        data = swapbytes(data);
+      endif
+    endif
+  endif
+ 
   numbytes = __tcpserver_write__ (obj, typecast(data,'uint8'));
 
 endfunction

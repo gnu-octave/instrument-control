@@ -1,4 +1,4 @@
-## Copyright (C) 2021 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2021-2026 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -79,12 +79,62 @@ function numbytes = write(obj, data, varargin)
       error ("datatype not supported");
   endswitch
 
-  if !isempty(destinationAddress)
-    if !ischar(destinationAddress)
-      error ("Expected address as a string");
-    endif
-    numbytes = __udpport_write__ (obj, typecast(data,'uint8'), destinationAddress, destinationPort);
+  if length(data) == 0
+    numbytes = 0;
   else
-    numbytes = __udpport_write__ (obj, typecast(data,'uint8'));
+    # if a data element > 1 byte, need handle endian
+    tosize = length(typecast(data(1),'uint8'));
+    if tosize > 1
+      [~,~,endian] = computer();
+      e = upper(obj.ByteOrder);
+
+      if e(1) != endian
+        # need change endian
+        data = swapbytes(data);
+      endif
+    endif
+ 
+    if !isempty(destinationAddress)
+      if !ischar(destinationAddress)
+        error ("Expected address as a string");
+      endif
+      numbytes = __udpport_write__ (obj, typecast(data,'uint8'), destinationAddress, destinationPort);
+    else
+      numbytes = __udpport_write__ (obj, typecast(data,'uint8'));
+    endif
   endif
 endfunction
+
+%!test
+%! a = udpport ();
+%! #a.remoteport = a.localport;
+%! #a.remotehost = '127.0.0.1';
+%! a.Timeout = 1;
+%! # set dest to us
+%! write(a, "test", "127.0.0.1", a.LocalPort);
+%! assert(read(a, 4), uint8("test"));
+%!
+%! x = uint16([1 2 3 4]);
+%!
+%! # default endian
+%! write(a, x, "uint16");
+%! assert(read(a, 4, "uint16"), x);
+%!
+%! # little endian
+%! a.ByteOrder = "little-endian";
+%! write(a, x, "uint16");
+%! assert(read(a, 8), uint8([1 0 2 0 3 0 4 0]));
+%!
+%! # big endian
+%! a.ByteOrder = "big-endian";
+%! write(a, x, "uint16");
+%! assert(read(a, 8), uint8([0 1 0 2 0 3 0 4]));
+%!
+%! # mix
+%! a.ByteOrder = "little-endian";
+%! write(a, x, "uint16");
+%! a.ByteOrder = "big-endian";
+%! assert(read(a, 4, "uint16"), swapbytes(x));
+%!
+%! clear a
+

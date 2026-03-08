@@ -1,4 +1,4 @@
-## Copyright (C) 2019 John Donoghue <john.donoghue@ieee.org>
+## Copyright (C) 2019-2026 John Donoghue <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -62,7 +62,22 @@ function numbytes = write(obj, data, precision)
     error ("precision not supported");
   endswitch
 
-  %% should we handle endianess ?
-  numbytes = __srlp_write__ (obj, typecast(data,'uint8'));
+  if length(data) == 0
+    numbytes = 0;
+  else
+    # if a data element > 1 byte, need handle endian
+    tosize = length(typecast(data(1),'uint8'));
+    if tosize > 1
+      [~,~,endian] = computer();
+      e = upper(obj.ByteOrder);
+
+      if e(1) != endian
+        # need change endian
+        data = swapbytes(data);
+      endif
+    endif
+ 
+    numbytes = __srlp_write__ (obj, typecast(data,'uint8'));
+  endif
 
 endfunction

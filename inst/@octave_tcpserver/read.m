@@ -1,4 +1,4 @@
-## Copyright (C) 2022 John Donoghue  <john.donoghue@ieee.org>
+## Copyright (C) 2022-2026 John Donoghue  <john.donoghue@ieee.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -87,4 +87,14 @@ function data = read (obj, cnt, datatype)
 
   data = typecast(tmp,toclass);
 
+  if tosize > 1
+    [~,~,endian] = computer();
+    e = upper(obj.ByteOrder);
+
+    if e(1) != endian
+      # need change endian
+      data = swapbytes(data);
+    endif
+  endif
+ 
 endfunction

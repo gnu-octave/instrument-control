@@ -62,7 +62,20 @@ function numbytes = write(obj, data, precision)
     error ("precision not supported");
   endswitch
 
-  %% should we handle endianess ?
+  if length(data) > 0
+    # if a data element > 1 byte, need handle endian
+    tosize = length(typecast(data(1),'uint8'));
+    if tosize > 1
+      [~,~,endian] = computer();
+      e = upper(obj.ByteOrder);
+
+      if e(1) != endian
+        # need change endian
+        data = swapbytes(data);
+      endif
+    endif
+  endif
+
   numbytes = __visadev_dispatch__ (obj, "write", typecast(data,'uint8'));
 
 endfunction
