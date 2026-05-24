@@ -31,7 +31,7 @@ DEFUN_DLD (pp_ctrl, args, nargout,
 @deftypefn {} {} pp_ctrl (@var{parallel}, @var{ctrl})\n \
 @deftypefnx {} {@var{c} = } pp_ctrl (@var{parallel})\n \
 \n\
-Sets or Read the Control lines.\
+Sets or reads the control lines.\
 \n\
 @subsubheading Inputs\n \
 @var{parallel} - instance of @var{octave_parallel} class.@*\

@@ -15,7 +15,7 @@
 ## @deftypefnx {} {@var{data} =} readbinblock (@var{dev}, @var{datatype})
 ## read a binblock of data from an instrument device
 ##
-## readbinblock will discard any data before a recognised binblock.
+## readbinblock will discard any data before a recognized binblock.
 ## If no binblock is found or read, an empty @var{data} will be returned.
 ##
 ## @subsubheading Inputs

@@ -92,9 +92,9 @@ The Instrument Control toolkit is a set of low level I/O functions for serial, i
 The Instrument Control toolkit must be installed and then loaded to be used.
 
 It can be installed in @acronym{GNU} Octave directly from octave-forge,
-or can be installed in an off-line mode via a downloaded tarball.
+or can be installed in an offline mode via a downloaded tarball.
 
-The toolkit must be then be loaded once per each @acronym{GNU} Octave session in order to use its functionality.
+The toolkit must then be loaded once for each @acronym{GNU} Octave session in order to use its functionality.
 
 @section Requirements
 @cindex Requirements
@@ -120,7 +120,7 @@ pkg list instrument-control
 
 @section Online Direct install
 @cindex Online install
-With an internet connection available, toolkit can be installed from
+With an internet connection available, the toolkit can be installed from
 octave-forge using the following command within @acronym{GNU} Octave:
 
 @example
@@ -201,7 +201,7 @@ The function will return information on the supported interfaces that are availa
 Most interfaces have two types of functions:
 
 @itemize
-@item somewhat compatible matlab functions such as fread, fwrite
+@item somewhat compatible MATLAB functions such as fread, fwrite
 
 @item interface specific lower level functions such as udp_read, udp_write
 @end itemize
@@ -238,7 +238,7 @@ set(s, "baudrate", 9600) # set the baudrate
 s.baudrate = 9600 # also sets the baudrate
 @end example
 
-The device can be written and read from using fread, fwrite and srl_read and slr_write functions.
+The device can be written and read from using fread, fwrite and srl_read and srl_write functions.
 
 @example
 srl_write(s, "hello world") # write hello world
@@ -309,15 +309,15 @@ A TCP connection can be opened using the tcp or tcpip function:
 s = tcp("127.0.0.1", 80) 
 @end example
 
-The first parameter is the IP address to connect to. The second parameter is the port number. And optional timeout value can be also be provided.
+The first parameter is the IP address to connect to. The second parameter is the port number. An optional timeout value can be also be provided.
 
-A more matlab compatible function is available as tcpip to also open a tcp port:
+A more MATLAB compatible function is available as tcpip to also open a tcp port:
 
 @example
 s = tcpip("gnu.org", 80) 
 @end example
 
-The first  parameter is a hostname or ip address, the second the port number. Additional parameter/value pairs can be provided after the port.
+The first parameter is a hostname or ip address, the second the port number. Additional parameter/value pairs can be provided after the port.
 
 
 After creating the interface object, properties of the device can be set or retrieved using get or set functions or as property access.
@@ -346,7 +346,7 @@ fclose(s)
 
 @subsection TCP Client
 
-The recommended method of creating a tcp connection is through the tcpclient object.
+The recommended method of creating a TCP connection is through the tcpclient object.
 
 A TCP connection can be opened using the tcpclient function:
 
@@ -479,7 +479,7 @@ devices = visadevlist()
 @end example
 
 
-Devices can creopened using the visadev function.
+Devices can opened using the visadev function.
 
 As an example, using a serial port through VISA.
 

@@ -31,7 +31,7 @@ DEFUN_DLD (pp_data, args, nargout,
 @deftypefn {} {} pp_data (@var{parallel}, @var{data})\n \
 @deftypefnx {} {@var{d} = } pp_data (@var{parallel})\n \
 \n\
-Sets or Read the Data lines.\
+Sets or reads the data lines.\
 \n\
 @subsubheading Inputs\n \
 @var{parallel} - instance of @var{octave_parallel} class.@*\

@@ -43,7 +43,7 @@
 ## Set the stored string name of the serial object.
 ##
 ## @item 'parity'
-## Set the parity value. Supported values: Even/Odd/None. This Parameter
+## Set the parity value. Supported values: Even/Odd/None. This parameter
 ## must be of type string. It is case insensitive and can be abbreviated
 ## to the first letter only
 ##
@@ -51,8 +51,8 @@
 ## Set the number of stopbits. Supported values: 1, 2.
 ##
 ## @item 'timeout'
-## Set the timeout value in tenths of a second. Value of -1 means a
-## blocking call. Maximum value of 255 (i.e. 25.5 seconds).
+## Set the timeout value in tenths of a second. A value of -1 means a
+## blocking call. Maximum value is 255 (i.e. 25.5 seconds).
 ##
 ## @item 'requesttosend'
 ## Set the requesttosend (RTS) line.
