@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/6_modbus/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - modbus"
 category: "VXI11"
@@ -90,11 +90,11 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-modbus"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>)</code><a class="copiable-link" href="#index-modbus"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>, <var class="var">remoteport</var>)</code><a class="copiable-link" href="#index-modbus-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-2"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>, <var class="var">name</var>, <var class="var">value</var>)</code><a class="copiable-link" href="#index-modbus-2"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-3"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('serialrtu', <var class="var">serialport</var>)</code><a class="copiable-link" href="#index-modbus-3"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-4"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('serialrtu', <var class="var">serialport</var>, <var class="var">name</var>, <var class="var">value</var>)</code><a class="copiable-link" href="#index-modbus-4"></a></span></dt>
+<dt class="deftypefn def-line" id="index-modbus"><span class="category-def">: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>)</code><a class="copiable-link" href="#index-modbus"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>, <var class="var">remoteport</var>)</code><a class="copiable-link" href="#index-modbus-1"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>, <var class="var">name</var>, <var class="var">value</var>)</code><a class="copiable-link" href="#index-modbus-2"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-3"><span class="category-def">: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('serialrtu', <var class="var">serialport</var>)</code><a class="copiable-link" href="#index-modbus-3"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-4"><span class="category-def">: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('serialrtu', <var class="var">serialport</var>, <var class="var">name</var>, <var class="var">value</var>)</code><a class="copiable-link" href="#index-modbus-4"></a></span></dt>
 <dd> 
 <p>Open modbus interface using a specified transport of &rsquo;tcpip&rsquo; or &rsquo;serialrtu&rsquo;.
 </p> 

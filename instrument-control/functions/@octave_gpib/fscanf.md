@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_gpib/19_octavegpibfscanf/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_gpib/fscanf"
 category: "VXI11"
@@ -90,11 +90,11 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fscanf"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-fscanf"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-1"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>)</code><a class="copiable-link" href="#index-fscanf-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-2"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">size</var>)</code><a class="copiable-link" href="#index-fscanf-2"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-3"><span class="category-def">Function File: </span><span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fscanf-3"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-4"><span class="category-def">Function File: </span><span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fscanf-4"></a></span></dt>
+<dt class="deftypefn def-line" id="index-fscanf"><span class="category-def">: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-fscanf"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>)</code><a class="copiable-link" href="#index-fscanf-1"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">size</var>)</code><a class="copiable-link" href="#index-fscanf-2"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-3"><span class="category-def">: </span><span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fscanf-3"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-4"><span class="category-def">: </span><span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fscanf-4"></a></span></dt>
 <dd><p>Reads data <var class="var">res</var> from GPIB instrument
 </p>
 <p><var class="var">obj</var> is a GPIB object

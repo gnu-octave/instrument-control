@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/5_tcpip/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - tcpip"
 category: "VXI11"
@@ -90,7 +90,7 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcpip"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcpip</strong> <code class="def-code-arguments">(<var class="var">host</var>, [<var class="var">port</var>], [<var class="var">PropertyName</var>, <var class="var">PropertyValue</var>...])</code><a class="copiable-link" href="#index-tcpip"></a></span></dt>
+<dt class="deftypefn def-line" id="index-tcpip"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcpip</strong> <code class="def-code-arguments">(<var class="var">host</var>, [<var class="var">port</var>], [<var class="var">PropertyName</var>, <var class="var">PropertyValue</var>...])</code><a class="copiable-link" href="#index-tcpip"></a></span></dt>
 <dd><p>Matlab compatible wrapper to the tcp interface.
 </p>
 <p>NOTE: tcpip has been deprecated. Use tcpclient instead

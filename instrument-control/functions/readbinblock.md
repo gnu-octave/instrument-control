@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/12_readbinblock/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - readbinblock"
 category: "VXI11"
@@ -94,7 +94,7 @@ navigation:
 <dt class="deftypefnx def-cmd-deftypefn def-line" id="index-readbinblock-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">readbinblock</strong> <code class="def-code-arguments">(<var class="var">dev</var>, <var class="var">datatype</var>)</code><a class="copiable-link" href="#index-readbinblock-1"></a></span></dt>
 <dd><p>read a binblock of data from an instrument device
 </p>
-<p>readbinblock will discard any data before a recognised binblock.
+<p>readbinblock will discard any data before a recognized binblock.
  If no binblock is found or read, an empty <var class="var">data</var> will be returned.
 </p>
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>

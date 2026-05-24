@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/10_ppdatadir/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - pp_datadir"
 category: "VXI11"
@@ -90,8 +90,8 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-pp_005fdatadir"><span class="category-def">Loadable Function: </span><span><strong class="def-name">pp_datadir</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">direction</var>)</code><a class="copiable-link" href="#index-pp_005fdatadir"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fdatadir-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">dir</var> =</code> <strong class="def-name">pp_datadir</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code><a class="copiable-link" href="#index-pp_005fdatadir-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-pp_005fdatadir"><span class="category-def">: </span><span><strong class="def-name">pp_datadir</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">direction</var>)</code><a class="copiable-link" href="#index-pp_005fdatadir"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fdatadir-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">dir</var> =</code> <strong class="def-name">pp_datadir</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code><a class="copiable-link" href="#index-pp_005fdatadir-1"></a></span></dt>
 <dd> 
 <p>Controls the Data line drivers.
 </p> 

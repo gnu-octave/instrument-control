@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_vxi11/19_octavevxi11fopen/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_vxi11/fopen"
 category: "VXI11"
@@ -90,7 +90,7 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code><a class="copiable-link" href="#index-fopen"></a></span></dt>
+<dt class="deftypefn def-line" id="index-fopen"><span class="category-def">: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code><a class="copiable-link" href="#index-fopen"></a></span></dt>
 <dd><p>Opens VXI11 connection <var class="var">obj</var>
  This currently is a dummy function to improve compatibility to MATLAB
 </p>

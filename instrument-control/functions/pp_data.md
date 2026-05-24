@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/7_ppdata/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - pp_data"
 category: "VXI11"
@@ -90,10 +90,10 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-pp_005fdata"><span class="category-def">Loadable Function: </span><span><strong class="def-name">pp_data</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">data</var>)</code><a class="copiable-link" href="#index-pp_005fdata"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fdata-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">d</var> =</code> <strong class="def-name">pp_data</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code><a class="copiable-link" href="#index-pp_005fdata-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-pp_005fdata"><span class="category-def">: </span><span><strong class="def-name">pp_data</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">data</var>)</code><a class="copiable-link" href="#index-pp_005fdata"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fdata-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">d</var> =</code> <strong class="def-name">pp_data</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code><a class="copiable-link" href="#index-pp_005fdata-1"></a></span></dt>
 <dd> 
-<p>Sets or Read the Data lines.
+<p>Sets or reads the data lines.
 </p><h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>
 <p><var class="var">parallel</var> - instance of <var class="var">octave_parallel</var> class.<br><var class="var">data</var> - data parameter to be set of type Byte.
 </p> 

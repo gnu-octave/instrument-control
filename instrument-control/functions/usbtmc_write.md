@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/12_usbtmcwrite/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - usbtmc_write"
 category: "VXI11"
@@ -90,7 +90,7 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-usbtmc_005fwrite"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">usbtmc_write</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>, <var class="var">data</var>)</code><a class="copiable-link" href="#index-usbtmc_005fwrite"></a></span></dt>
+<dt class="deftypefn def-line" id="index-usbtmc_005fwrite"><span class="category-def">: </span><span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">usbtmc_write</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>, <var class="var">data</var>)</code><a class="copiable-link" href="#index-usbtmc_005fwrite"></a></span></dt>
 <dd> 
 <p>Write data to a usbtmc slave device.
 </p> 

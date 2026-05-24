@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/3_udp/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - udp"
 category: "VXI11"
@@ -90,9 +90,9 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udp"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-udp"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">(<var class="var">remoteipaddress</var>, <var class="var">remoteport</var>)</code><a class="copiable-link" href="#index-udp-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp-2"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">(<var class="var">remoteipaddress</var>, <var class="var">remoteport</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var> ...])</code><a class="copiable-link" href="#index-udp-2"></a></span></dt>
+<dt class="deftypefn def-line" id="index-udp"><span class="category-def">: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-udp"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">(<var class="var">remoteipaddress</var>, <var class="var">remoteport</var>)</code><a class="copiable-link" href="#index-udp-1"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">(<var class="var">remoteipaddress</var>, <var class="var">remoteport</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var> ...])</code><a class="copiable-link" href="#index-udp-2"></a></span></dt>
 <dd> 
 <p>Open udp interface.
 </p> 

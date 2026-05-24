@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_visadev/21_octavevisadevflush/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_visadev/flush"
 category: "VXI11"
@@ -93,7 +93,7 @@ navigation:
 <dt class="deftypefn def-line" id="index-flush"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">flush</strong> <code class="def-code-arguments">(<var class="var">dev</var>)</code><a class="copiable-link" href="#index-flush"></a></span></dt>
 <dt class="deftypefnx def-cmd-deftypefn def-line" id="index-flush-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">flush</strong> <code class="def-code-arguments">(<var class="var">dev</var>, &quot;input&quot;)</code><a class="copiable-link" href="#index-flush-1"></a></span></dt>
 <dt class="deftypefnx def-cmd-deftypefn def-line" id="index-flush-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">flush</strong> <code class="def-code-arguments">(<var class="var">dev</var>, &quot;output&quot;)</code><a class="copiable-link" href="#index-flush-2"></a></span></dt>
-<dd><p>Flush the serial port buffers
+<dd><p>Flush the visadev buffers
 </p>
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>
 <p><var class="var">dev</var> - connected visadev device

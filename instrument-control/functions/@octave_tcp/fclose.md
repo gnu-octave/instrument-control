@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_tcp/18_octavetcpfclose/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_tcp/fclose"
 category: "VXI11"
@@ -90,6 +90,6 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-fclose"></a></span></dt>
+<dt class="deftypefn def-line" id="index-fclose"><span class="category-def">: </span><span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-fclose"></a></span></dt>
 <dd><p>Closes TCP connection <var class="var">obj</var> 
  </p></dd></dl>

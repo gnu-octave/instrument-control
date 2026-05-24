@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_gpib/20_octavegpibfprintf/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_gpib/fprintf"
 category: "VXI11"
@@ -90,10 +90,10 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fprintf"><span class="category-def">Function File: </span><span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">cmd</var>)</code><a class="copiable-link" href="#index-fprintf"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-1"><span class="category-def">Function File: </span><span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">cmd</var>)</code><a class="copiable-link" href="#index-fprintf-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-2"><span class="category-def">Function File: </span><span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">cmd</var>, <var class="var">mode</var>)</code><a class="copiable-link" href="#index-fprintf-2"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-3"><span class="category-def">Function File: </span><span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">cmd</var>, <var class="var">mode</var>)</code><a class="copiable-link" href="#index-fprintf-3"></a></span></dt>
+<dt class="deftypefn def-line" id="index-fprintf"><span class="category-def">: </span><span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">cmd</var>)</code><a class="copiable-link" href="#index-fprintf"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-1"><span class="category-def">: </span><span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">cmd</var>)</code><a class="copiable-link" href="#index-fprintf-1"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-2"><span class="category-def">: </span><span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">cmd</var>, <var class="var">mode</var>)</code><a class="copiable-link" href="#index-fprintf-2"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-3"><span class="category-def">: </span><span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">cmd</var>, <var class="var">mode</var>)</code><a class="copiable-link" href="#index-fprintf-3"></a></span></dt>
 <dd><p>Writes string <var class="var">cmd</var> to GPIB instrument
 </p>
 <p><var class="var">obj</var> is a GPIB object

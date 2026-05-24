@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_serialport/22_octaveserialportset/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_serialport/set"
 category: "VXI11"
@@ -90,8 +90,8 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c"><span class="category-def">Function File: </span><span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code><a class="copiable-link" href="#index-_0028obj_002c"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-1"><span class="category-def">Function File: </span><span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code><a class="copiable-link" href="#index-_0028obj_002c-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c"><span class="category-def">: </span><span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code><a class="copiable-link" href="#index-_0028obj_002c"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-1"><span class="category-def">: </span><span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code><a class="copiable-link" href="#index-_0028obj_002c-1"></a></span></dt>
 <dd><p>Set the properties of serialport object.
 </p>
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>
@@ -121,7 +121,7 @@ navigation:
 </p>
 </dd>
 <dt><var class="var">&rsquo;parity&rsquo;</var></dt>
-<dd><p>Set the parity value. Supported values: Even/Odd/None. This Parameter
+<dd><p>Set the parity value. Supported values: Even/Odd/None. This parameter
  must be of type string. It is case insensitive and can be abbreviated
  to the first letter only
 </p>
@@ -131,8 +131,8 @@ navigation:
 </p>
 </dd>
 <dt><var class="var">&rsquo;timeout&rsquo;</var></dt>
-<dd><p>Set the timeout value in tenths of a second. Value of -1 means a
- blocking call. Maximum value of 255 (i.e. 25.5 seconds).
+<dd><p>Set the timeout value in tenths of a second. A value of -1 means a
+ blocking call. Maximum value is 255 (i.e. 25.5 seconds).
 </p>
 </dd>
 <dt><var class="var">&rsquo;requesttosend&rsquo;</var></dt>

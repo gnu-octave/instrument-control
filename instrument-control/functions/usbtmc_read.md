@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/11_usbtmcread/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - usbtmc_read"
 category: "VXI11"
@@ -90,7 +90,7 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-usbtmc_005fread"><span class="category-def">Loadable Function: </span><span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">usbtmc_read</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>, <var class="var">n</var>)</code><a class="copiable-link" href="#index-usbtmc_005fread"></a></span></dt>
+<dt class="deftypefn def-line" id="index-usbtmc_005fread"><span class="category-def">: </span><span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">usbtmc_read</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>, <var class="var">n</var>)</code><a class="copiable-link" href="#index-usbtmc_005fread"></a></span></dt>
 <dd> 
 <p>Read from usbtmc slave device.
 </p> 

@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/3_spi/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - spi"
 category: "VXI11"
@@ -90,8 +90,8 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-spi"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">spi</var> =</code> <strong class="def-name">spi</strong> <code class="def-code-arguments">([<var class="var">port_path</var>])</code><a class="copiable-link" href="#index-spi"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-spi-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">spi</var> =</code> <strong class="def-name">spi</strong> <code class="def-code-arguments">([<var class="var">port_path</var>], [<var class="var">propname</var>, <var class="var">propvalue</var>])</code><a class="copiable-link" href="#index-spi-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-spi"><span class="category-def">: </span><span><code class="def-type"><var class="var">spi</var> =</code> <strong class="def-name">spi</strong> <code class="def-code-arguments">([<var class="var">port_path</var>])</code><a class="copiable-link" href="#index-spi"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-spi-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">spi</var> =</code> <strong class="def-name">spi</strong> <code class="def-code-arguments">([<var class="var">port_path</var>], [<var class="var">propname</var>, <var class="var">propvalue</var>])</code><a class="copiable-link" href="#index-spi-1"></a></span></dt>
 <dd> 
 <p>Open a spi interface.
 </p> 

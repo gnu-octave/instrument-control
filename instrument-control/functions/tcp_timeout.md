@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/11_tcptimeout/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - tcp_timeout"
 category: "VXI11"
@@ -90,8 +90,8 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcp_005ftimeout"><span class="category-def">Loadable Function: </span><span><strong class="def-name">tcp_timeout</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">timeout</var>)</code><a class="copiable-link" href="#index-tcp_005ftimeout"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp_005ftimeout-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">tcp_timeout</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code><a class="copiable-link" href="#index-tcp_005ftimeout-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-tcp_005ftimeout"><span class="category-def">: </span><span><strong class="def-name">tcp_timeout</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">timeout</var>)</code><a class="copiable-link" href="#index-tcp_005ftimeout"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp_005ftimeout-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">tcp_timeout</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code><a class="copiable-link" href="#index-tcp_005ftimeout-1"></a></span></dt>
 <dd> 
 <p>Set new or get existing tcp interface timeout parameter used for tcp_read() requests. The timeout value is specified in milliseconds.
 </p> 

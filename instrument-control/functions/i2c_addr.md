@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/8_i2caddr/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - i2c_addr"
 category: "VXI11"
@@ -90,8 +90,8 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-i2c_005faddr"><span class="category-def">Loadable Function: </span><span><strong class="def-name">i2c_addr</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">address</var>)</code><a class="copiable-link" href="#index-i2c_005faddr"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-i2c_005faddr-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">addr</var> =</code> <strong class="def-name">i2c_addr</strong> <code class="def-code-arguments">(<var class="var">i2c</var>)</code><a class="copiable-link" href="#index-i2c_005faddr-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-i2c_005faddr"><span class="category-def">: </span><span><strong class="def-name">i2c_addr</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">address</var>)</code><a class="copiable-link" href="#index-i2c_005faddr"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-i2c_005faddr-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">addr</var> =</code> <strong class="def-name">i2c_addr</strong> <code class="def-code-arguments">(<var class="var">i2c</var>)</code><a class="copiable-link" href="#index-i2c_005faddr-1"></a></span></dt>
 <dd> 
 <p>Set new or get existing i2c slave device address.
 </p> 

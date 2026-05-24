@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/3_tcp/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - tcp"
 category: "VXI11"
@@ -90,12 +90,12 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcp"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-tcp"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>)</code><a class="copiable-link" href="#index-tcp-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-2"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code><a class="copiable-link" href="#index-tcp-2"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-3"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, <var class="var">timeout</var>)</code><a class="copiable-link" href="#index-tcp-3"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-4"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code><a class="copiable-link" href="#index-tcp-4"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-5"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code><a class="copiable-link" href="#index-tcp-5"></a></span></dt>
+<dt class="deftypefn def-line" id="index-tcp"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-tcp"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>)</code><a class="copiable-link" href="#index-tcp-1"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code><a class="copiable-link" href="#index-tcp-2"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-3"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, <var class="var">timeout</var>)</code><a class="copiable-link" href="#index-tcp-3"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-4"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code><a class="copiable-link" href="#index-tcp-4"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-5"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code><a class="copiable-link" href="#index-tcp-5"></a></span></dt>
 <dd> 
 <p>Open tcp interface.
 </p> 

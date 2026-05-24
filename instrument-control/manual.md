@@ -3,7 +3,7 @@ layout: "default"
 permalink: "/manual/"
 title: "Instrument-control Toolkit - Manual"
 pkg_name: "instrument-control"
-version: "0.10.0"
+version: "0.10.1"
 description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 navigation:
 - id: "overview"
@@ -321,9 +321,9 @@ navigation:
 <p>The Instrument Control toolkit must be installed and then loaded to be used.
 </p>
 <p>It can be installed in <abbr class="acronym">GNU</abbr> Octave directly from octave-forge,
-or can be installed in an off-line mode via a downloaded tarball.
+or can be installed in an offline mode via a downloaded tarball.
 </p>
-<p>The toolkit must be then be loaded once per each <abbr class="acronym">GNU</abbr> Octave session in order to use its functionality.
+<p>The toolkit must then be loaded once for each <abbr class="acronym">GNU</abbr> Octave session in order to use its functionality.
 </p>
 <div class="section-level-extent" id="Requirements">
 <h3 class="section">1.1 Requirements</h3>
@@ -352,7 +352,7 @@ unless a newer version is available.
 <div class="section-level-extent" id="Online-Direct-install">
 <h3 class="section">1.3 Online Direct install</h3>
 <a class="index-entry-id" id="index-Online-install"></a>
-<p>With an internet connection available, toolkit can be installed from
+<p>With an internet connection available, the toolkit can be installed from
 octave-forge using the following command within <abbr class="acronym">GNU</abbr> Octave:
 </p>
 <div class="example">
@@ -368,7 +368,7 @@ octave-forge using the following command within <abbr class="acronym">GNU</abbr>
 <abbr class="acronym">GNU</abbr> Octave, the package can be installed using the following command within <abbr class="acronym">GNU</abbr> Octave:
 </p>
 <div class="example">
-<pre class="example-preformatted">pkg install instrument-control-0.10.0.tar.gz
+<pre class="example-preformatted">pkg install instrument-control-0.10.1.tar.gz
 </pre></div>
 </div>
 <div class="section-level-extent" id="Loading">
@@ -435,7 +435,7 @@ the toolkit must be loaded using the pkg load command:
 <p>Most interfaces have two types of functions:
 </p>
 <ul class="itemize mark-bullet">
-<li>somewhat compatible matlab functions such as fread, fwrite
+<li>somewhat compatible MATLAB functions such as fread, fwrite
 </li><li>interface specific lower level functions such as udp_read, udp_write
 </li></ul>
 <hr>
@@ -468,7 +468,7 @@ br = s.baudrate  # also gets the baudrate
 set(s, &quot;baudrate&quot;, 9600) # set the baudrate
 s.baudrate = 9600 # also sets the baudrate
 </pre></div>
-<p>The device can be written and read from using fread, fwrite and srl_read and slr_write functions.
+<p>The device can be written and read from using fread, fwrite and srl_read and srl_write functions.
 </p>
 <div class="example">
 <pre class="example-preformatted">srl_write(s, &quot;hello world&quot;) # write hello world
@@ -533,14 +533,14 @@ val = read(s, 10)
 <div class="example">
 <pre class="example-preformatted">s = tcp(&quot;127.0.0.1&quot;, 80) 
 </pre></div>
-<p>The first parameter is the IP address to connect to. The second parameter is the port number. And optional timeout value can be also be provided.
+<p>The first parameter is the IP address to connect to. The second parameter is the port number. An optional timeout value can be also be provided.
 </p>
-<p>A more matlab compatible function is available as tcpip to also open a tcp port:
+<p>A more MATLAB compatible function is available as tcpip to also open a tcp port:
 </p>
 <div class="example">
 <pre class="example-preformatted">s = tcpip(&quot;gnu.org&quot;, 80) 
 </pre></div>
-<p>The first  parameter is a hostname or ip address, the second the port number. Additional parameter/value pairs can be provided after the port.
+<p>The first parameter is a hostname or ip address, the second the port number. Additional parameter/value pairs can be provided after the port.
 </p>
 <p>After creating the interface object, properties of the device can be set or retrieved using get or set functions or as property access.
 </p>
@@ -564,7 +564,7 @@ val = tcp_read(s, 100, 500) # attempt to read 100 bytes
 </div>
 <div class="subsection-level-extent" id="TCP-Client-1">
 <h4 class="subsection">2.4.2 TCP Client</h4>
-<p>The recommended method of creating a tcp connection is through the tcpclient object.
+<p>The recommended method of creating a TCP connection is through the tcpclient object.
 </p>
 <p>A TCP connection can be opened using the tcpclient function:
 </p>
@@ -682,7 +682,7 @@ val = read(s)
 <div class="example">
 <pre class="example-preformatted">devices = visadevlist()
 </pre></div>
-<p>Devices can creopened using the visadev function.
+<p>Devices can opened using the visadev function.
 </p>
 <p>As an example, using a serial port through VISA.
 </p>
@@ -759,7 +759,7 @@ val = read(s, 10)
 <dt class="deftypefnx def-cmd-deftypefn def-line" id="index-readbinblock-2"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">readbinblock</strong> <code class="def-code-arguments">(<var class="var">dev</var>, <var class="var">datatype</var>)</code></dt>
 <dd><p>read a binblock of data from an instrument device
 </p>
-<p>readbinblock will discard any data before a recognised binblock.
+<p>readbinblock will discard any data before a recognized binblock.
  If no binblock is found or read, an empty <var class="var">data</var> will be returned.
 </p>
 <h4 class="subsubheading" id="Inputs-2">Inputs</h4>
@@ -921,8 +921,8 @@ val = read(s, 10)
 <h4 class="subsection">3.2.2 instrhwinfo</h4>
 <a class="index-entry-id" id="index-instrhwinfo"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-instrhwinfo-1"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">list</var>] =</code> <strong class="def-name">instrhwinfo</strong> <code class="def-code-arguments">()</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-instrhwinfo-2"><span class="category-def">Function File: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">instrhwinfo</strong> <code class="def-code-arguments">(<var class="var">interface</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-instrhwinfo-1"><span class="category-def">: </span><code class="def-type">[<var class="var">list</var>] =</code> <strong class="def-name">instrhwinfo</strong> <code class="def-code-arguments">()</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-instrhwinfo-2"><span class="category-def">: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">instrhwinfo</strong> <code class="def-code-arguments">(<var class="var">interface</var>)</code></dt>
 <dd><p>Query available hardware for instrument-control
 </p>
 <p>When run without any input parameters, instrhwinfo will provide the toolbox
@@ -962,9 +962,9 @@ val = read(s, 10)
 <h4 class="subsection">3.2.3 resolvehost</h4>
 <a class="index-entry-id" id="index-resolvehost"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-resolvehost-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">name</var> =</code> <strong class="def-name">resolvehost</strong> <code class="def-code-arguments">(<var class="var">host</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-resolvehost-2"><span class="category-def">Loadable Function: </span><code class="def-type">[<var class="var">name</var>, <var class="var">address</var>] =</code> <strong class="def-name">resolvehost</strong> <code class="def-code-arguments">(<var class="var">host</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-resolvehost-3"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">out</var> =</code> <strong class="def-name">resolvehost</strong> <code class="def-code-arguments">(<var class="var">host</var>, <var class="var">returntype</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-resolvehost-1"><span class="category-def">: </span><code class="def-type"><var class="var">name</var> =</code> <strong class="def-name">resolvehost</strong> <code class="def-code-arguments">(<var class="var">host</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-resolvehost-2"><span class="category-def">: </span><code class="def-type">[<var class="var">name</var>, <var class="var">address</var>] =</code> <strong class="def-name">resolvehost</strong> <code class="def-code-arguments">(<var class="var">host</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-resolvehost-3"><span class="category-def">: </span><code class="def-type"><var class="var">out</var> =</code> <strong class="def-name">resolvehost</strong> <code class="def-code-arguments">(<var class="var">host</var>, <var class="var">returntype</var>)</code></dt>
 <dd>
 <p>Resolve a network host name or address to network name and address
 </p>
@@ -998,7 +998,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.1 @octave_gpib/fclose</h4>
 <a class="index-entry-id" id="index-fclose"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose-9"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fclose-9"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Closes connection to GPIB device <var class="var">obj</var>
 </p></dd></dl>
 </div>
@@ -1006,7 +1006,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.2 @octave_gpib/fopen</h4>
 <a class="index-entry-id" id="index-fopen"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen-9"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
+<dt class="deftypefn def-line" id="index-fopen-9"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
 <dd><p>Opens connection to GPIB device <var class="var">obj</var>
  This currently is a dummy function to improve compatibility to MATLAB
 </p>
@@ -1016,10 +1016,10 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.3 @octave_gpib/fprintf</h4>
 <a class="index-entry-id" id="index-fprintf"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fprintf-6"><span class="category-def">Function File: </span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">cmd</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-7"><span class="category-def">Function File: </span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">cmd</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-8"><span class="category-def">Function File: </span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">cmd</var>, <var class="var">mode</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-9"><span class="category-def">Function File: </span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">cmd</var>, <var class="var">mode</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fprintf-6"><span class="category-def">: </span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">cmd</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-7"><span class="category-def">: </span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">cmd</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-8"><span class="category-def">: </span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">cmd</var>, <var class="var">mode</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fprintf-9"><span class="category-def">: </span><strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">cmd</var>, <var class="var">mode</var>)</code></dt>
 <dd><p>Writes string <var class="var">cmd</var> to GPIB instrument
 </p>
 <p><var class="var">obj</var> is a GPIB object
@@ -1034,11 +1034,11 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.4 @octave_gpib/fread</h4>
 <a class="index-entry-id" id="index-fread"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-11"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-12"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-13"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-14"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-15"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-11"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-12"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-13"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-14"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-15"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from GPIB instrument
 </p>
 <p><var class="var">obj</var> is a GPIB object
@@ -1055,11 +1055,11 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.5 @octave_gpib/fscanf</h4>
 <a class="index-entry-id" id="index-fscanf"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fscanf-1"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-2"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-3"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-4"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-5"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fscanf-1"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-2"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-3"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">format</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-4"><span class="category-def">: </span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fscanf-5"><span class="category-def">: </span><code class="def-type">[<var class="var">res</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fscanf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads data <var class="var">res</var> from GPIB instrument
 </p>
 <p><var class="var">obj</var> is a GPIB object
@@ -1076,10 +1076,10 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.6 @octave_gpib/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-11"><span class="category-def">Function File: </span><strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-12"><span class="category-def">Function File: </span><strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-13"><span class="category-def">Function File: </span><strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">mode</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-14"><span class="category-def">Function File: </span><strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>, <var class="var">mode</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-11"><span class="category-def">: </span><strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-12"><span class="category-def">: </span><strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-13"><span class="category-def">: </span><strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">mode</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-14"><span class="category-def">: </span><strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>, <var class="var">mode</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to GPIB instrument
 </p>
 <p><var class="var">obj</var> is a GPIB object
@@ -1094,7 +1094,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.7 clrdevice</h4>
 <a class="index-entry-id" id="index-clrdevice"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-clrdevice-1"><span class="category-def">Function File: </span><strong class="def-name">clrdevice</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-clrdevice-1"><span class="category-def">: </span><strong class="def-name">clrdevice</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Send clear command to Clear GPIB instrument.
 </p>
 <p><var class="var">obj</var> is a GPIB object
@@ -1105,7 +1105,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.8 gpib</h4>
 <a class="index-entry-id" id="index-gpib"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-gpib-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">gpib</var> =</code> <strong class="def-name">gpib</strong> <code class="def-code-arguments">([<var class="var">gpibid</var>], [<var class="var">timeout</var>])</code></dt>
+<dt class="deftypefn def-line" id="index-gpib-1"><span class="category-def">: </span><code class="def-type"><var class="var">gpib</var> =</code> <strong class="def-name">gpib</strong> <code class="def-code-arguments">([<var class="var">gpibid</var>], [<var class="var">timeout</var>])</code></dt>
 <dd>
 <p>Open gpib interface.
 </p>
@@ -1119,7 +1119,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.9 gpib_close</h4>
 <a class="index-entry-id" id="index-gpib_005fclose"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-gpib_005fclose-1"><span class="category-def">Loadable Function: </span><strong class="def-name">gpib_close</strong> <code class="def-code-arguments">(<var class="var">gpib</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-gpib_005fclose-1"><span class="category-def">: </span><strong class="def-name">gpib_close</strong> <code class="def-code-arguments">(<var class="var">gpib</var>)</code></dt>
 <dd>
 <p>Close the interface and release a file descriptor.
 </p>
@@ -1130,7 +1130,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.10 gpib_read</h4>
 <a class="index-entry-id" id="index-gpib_005fread"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-gpib_005fread-1"><span class="category-def">Loadable Function: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>, <var class="var">eoi</var>] =</code> <strong class="def-name">gpib_read</strong> <code class="def-code-arguments">(<var class="var">gpib</var>, <var class="var">n</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-gpib_005fread-1"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>, <var class="var">eoi</var>] =</code> <strong class="def-name">gpib_read</strong> <code class="def-code-arguments">(<var class="var">gpib</var>, <var class="var">n</var>)</code></dt>
 <dd>
 <p>Read from gpib interface.
 </p>
@@ -1145,13 +1145,13 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.11 gpib_timeout</h4>
 <a class="index-entry-id" id="index-gpib_005ftimeout"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-gpib_005ftimeout-1"><span class="category-def">Loadable Function: </span><strong class="def-name">gpib_timeout</strong> <code class="def-code-arguments">(<var class="var">gpib</var>, <var class="var">timeout</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-gpib_005ftimeout-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">gpib_timeout</strong> <code class="def-code-arguments">(<var class="var">gpib</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-gpib_005ftimeout-1"><span class="category-def">: </span><strong class="def-name">gpib_timeout</strong> <code class="def-code-arguments">(<var class="var">gpib</var>, <var class="var">timeout</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-gpib_005ftimeout-2"><span class="category-def">: </span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">gpib_timeout</strong> <code class="def-code-arguments">(<var class="var">gpib</var>)</code></dt>
 <dd>
 <p>Set new or get existing gpib interface timeout parameter. The timeout value is valid from 0 to 17.
 </p>
 <p><var class="var">gpib</var> - instance of <var class="var">octave_gpib</var> class.<br>
-<var class="var">timeout</var> - Value of 0 means never timeout, 11 means one second and 17 means 1000 seconds (see GPIB documentation (ibtmo) for further details)
+<var class="var">timeout</var> - A value of 0 means never timeout, 11 means one second and 17 means 1000 seconds (see GPIB documentation (ibtmo) for further details)
 </p>
 <p>If <var class="var">timeout</var> parameter is omitted, the gpib_timeout() shall return current timeout value as the result <var class="var">t</var>.
 </p></dd></dl>
@@ -1160,7 +1160,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.12 gpib_write</h4>
 <a class="index-entry-id" id="index-gpib_005fwrite"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-gpib_005fwrite-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">gpib_write</strong> <code class="def-code-arguments">(<var class="var">gpib</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-gpib_005fwrite-1"><span class="category-def">: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">gpib_write</strong> <code class="def-code-arguments">(<var class="var">gpib</var>, <var class="var">data</var>)</code></dt>
 <dd>
 <p>Write data to a gpib interface.
 </p>
@@ -1174,8 +1174,8 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.13 spoll</h4>
 <a class="index-entry-id" id="index-spoll"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-spoll-1"><span class="category-def">Function File: </span><code class="def-type"><var class="var">out</var> =</code> <strong class="def-name">spoll</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-spoll-2"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">out</var>,<var class="var">statusByte</var>] =</code> <strong class="def-name">spoll</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-spoll-1"><span class="category-def">: </span><code class="def-type"><var class="var">out</var> =</code> <strong class="def-name">spoll</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-spoll-2"><span class="category-def">: </span><code class="def-type">[<var class="var">out</var>,<var class="var">statusByte</var>] =</code> <strong class="def-name">spoll</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Serial polls GPIB instruments.
 </p>
 <p><var class="var">obj</var> is a GPIB object or a cell array of GPIB objects
@@ -1189,7 +1189,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.3.14 trigger</h4>
 <a class="index-entry-id" id="index-trigger"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-trigger-1"><span class="category-def">Function File: </span><strong class="def-name">trigger</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-trigger-1"><span class="category-def">: </span><strong class="def-name">trigger</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Triggers GPIB instrument.
 </p>
 <p><var class="var">obj</var> is a GPIB object
@@ -1205,7 +1205,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.4.1 @octave_i2c/fclose</h4>
 <a class="index-entry-id" id="index-fclose-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose-10"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fclose-10"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Closes I2C connection <var class="var">obj</var>
 </p></dd></dl>
 </div>
@@ -1213,7 +1213,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.4.2 @octave_i2c/fopen</h4>
 <a class="index-entry-id" id="index-fopen-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen-10"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
+<dt class="deftypefn def-line" id="index-fopen-10"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
 <dd><p>Opens I2C connection <var class="var">obj</var>
 </p>
 <p>This currently is a dummy function to improve compatibility to MATLAB
@@ -1224,11 +1224,11 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.4.3 @octave_i2c/fread</h4>
 <a class="index-entry-id" id="index-fread-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-16"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-17"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-18"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-19"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-20"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-16"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-17"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-18"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-19"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-20"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from I2C instrument
 </p>
 <h4 class="subsubheading" id="Inputs-10">Inputs</h4>
@@ -1247,8 +1247,8 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.4.4 @octave_i2c/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-15"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-16"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-15"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-16"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to I2C instrument
 </p>
 <h4 class="subsubheading" id="Inputs-11">Inputs</h4>
@@ -1264,8 +1264,8 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.4.5 @octave_i2c/get</h4>
 <a class="index-entry-id" id="index-get"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-10"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">i2c</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-11"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-10"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">i2c</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-11"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of i2c object.
 </p>
 <h4 class="subsubheading" id="Inputs-12">Inputs</h4>
@@ -1284,8 +1284,8 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.4.6 @octave_i2c/set</h4>
 <a class="index-entry-id" id="index-set"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-1"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-1"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of i2c object.
 </p>
 <h4 class="subsubheading" id="Inputs-13">Inputs</h4>
@@ -1318,7 +1318,7 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.4.7 i2c</h4>
 <a class="index-entry-id" id="index-i2c"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-i2c-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">i2c</var> =</code> <strong class="def-name">i2c</strong> <code class="def-code-arguments">([<var class="var">port_path</var>], [<var class="var">address</var>])</code></dt>
+<dt class="deftypefn def-line" id="index-i2c-1"><span class="category-def">: </span><code class="def-type"><var class="var">i2c</var> =</code> <strong class="def-name">i2c</strong> <code class="def-code-arguments">([<var class="var">port_path</var>], [<var class="var">address</var>])</code></dt>
 <dd>
 <p>Open i2c interface.
 </p>
@@ -1349,8 +1349,8 @@ ipaddress = resolvehost ('www.gnu.org', 'address');
 <h4 class="subsection">3.4.8 i2c_addr</h4>
 <a class="index-entry-id" id="index-i2c_005faddr"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-i2c_005faddr-1"><span class="category-def">Loadable Function: </span><strong class="def-name">i2c_addr</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">address</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-i2c_005faddr-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">addr</var> =</code> <strong class="def-name">i2c_addr</strong> <code class="def-code-arguments">(<var class="var">i2c</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-i2c_005faddr-1"><span class="category-def">: </span><strong class="def-name">i2c_addr</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">address</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-i2c_005faddr-2"><span class="category-def">: </span><code class="def-type"><var class="var">addr</var> =</code> <strong class="def-name">i2c_addr</strong> <code class="def-code-arguments">(<var class="var">i2c</var>)</code></dt>
 <dd>
 <p>Set new or get existing i2c slave device address.
 </p>
@@ -1368,7 +1368,7 @@ current i2c slave device address.
 <h4 class="subsection">3.4.9 i2c_close</h4>
 <a class="index-entry-id" id="index-i2c_005fclose"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-i2c_005fclose-1"><span class="category-def">Loadable Function: </span><strong class="def-name">i2c_close</strong> <code class="def-code-arguments">(<var class="var">i2c</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-i2c_005fclose-1"><span class="category-def">: </span><strong class="def-name">i2c_close</strong> <code class="def-code-arguments">(<var class="var">i2c</var>)</code></dt>
 <dd>
 <p>Close the interface and release a file descriptor.
 </p>
@@ -1383,7 +1383,7 @@ current i2c slave device address.
 <h4 class="subsection">3.4.10 i2c_read</h4>
 <a class="index-entry-id" id="index-i2c_005fread"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-i2c_005fread-1"><span class="category-def">Loadable Function: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">i2c_read</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">n</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-i2c_005fread-1"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">i2c_read</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">n</var>)</code></dt>
 <dd>
 <p>Read from i2c slave device.
 </p>
@@ -1399,7 +1399,7 @@ current i2c slave device address.
 <h4 class="subsection">3.4.11 i2c_write</h4>
 <a class="index-entry-id" id="index-i2c_005fwrite"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-i2c_005fwrite-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">i2c_write</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-i2c_005fwrite-1"><span class="category-def">: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">i2c_write</strong> <code class="def-code-arguments">(<var class="var">i2c</var>, <var class="var">data</var>)</code></dt>
 <dd>
 <p>Write data to a i2c slave device.
 </p>
@@ -1420,8 +1420,8 @@ current i2c slave device address.
 <h4 class="subsection">3.5.1 @octave_modbus/get</h4>
 <a class="index-entry-id" id="index-get-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-12"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">dev</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-13"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">dev</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-12"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">dev</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-13"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">dev</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of modbus object.
 </p>
 <h4 class="subsubheading" id="Inputs-19">Inputs</h4>
@@ -1495,8 +1495,8 @@ current i2c slave device address.
 <h4 class="subsection">3.5.4 @octave_modbus/set</h4>
 <a class="index-entry-id" id="index-set-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c-2"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-3"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c-2"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-3"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of modbus object.
 </p>
 <h4 class="subsubheading" id="Inputs-22">Inputs</h4>
@@ -1605,11 +1605,11 @@ current i2c slave device address.
 <h4 class="subsection">3.5.7 modbus</h4>
 <a class="index-entry-id" id="index-modbus"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-modbus-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>, <var class="var">remoteport</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-3"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>, <var class="var">name</var>, <var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-4"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('serialrtu', <var class="var">serialport</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-5"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('serialrtu', <var class="var">serialport</var>, <var class="var">name</var>, <var class="var">value</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-modbus-1"><span class="category-def">: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-2"><span class="category-def">: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>, <var class="var">remoteport</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-3"><span class="category-def">: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('tcpip', <var class="var">deviceaddress</var>, <var class="var">name</var>, <var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-4"><span class="category-def">: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('serialrtu', <var class="var">serialport</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-modbus-5"><span class="category-def">: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">modbus</strong> <code class="def-code-arguments">('serialrtu', <var class="var">serialport</var>, <var class="var">name</var>, <var class="var">value</var>)</code></dt>
 <dd>
 <p>Open modbus interface using a specified transport of &rsquo;tcpip&rsquo; or &rsquo;serialrtu&rsquo;.
 </p>
@@ -1688,7 +1688,7 @@ current i2c slave device address.
 <h4 class="subsection">3.6.1 @octave_parallel/fclose</h4>
 <a class="index-entry-id" id="index-fclose-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose-11"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fclose-11"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Closes parallel connection <var class="var">obj</var>
 </p></dd></dl>
 </div>
@@ -1696,7 +1696,7 @@ current i2c slave device address.
 <h4 class="subsection">3.6.2 @octave_parallel/fopen</h4>
 <a class="index-entry-id" id="index-fopen-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen-11"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
+<dt class="deftypefn def-line" id="index-fopen-11"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
 <dd><p>Opens parallel interface <var class="var">obj</var>
 </p>
 <p>This currently is a dummy function to improve compatibility to MATLAB
@@ -1707,11 +1707,11 @@ current i2c slave device address.
 <h4 class="subsection">3.6.3 @octave_parallel/fread</h4>
 <a class="index-entry-id" id="index-fread-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-21"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-22"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-23"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-24"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-25"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-21"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-22"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-23"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-24"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-25"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from parallel instrument
 </p>
 <h4 class="subsubheading" id="Inputs-26">Inputs</h4>
@@ -1730,8 +1730,8 @@ current i2c slave device address.
 <h4 class="subsection">3.6.4 @octave_parallel/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-17"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-18"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-17"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-18"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to parallel instrument
 </p>
 <h4 class="subsubheading" id="Inputs-27">Inputs</h4>
@@ -1747,7 +1747,7 @@ current i2c slave device address.
 <h4 class="subsection">3.6.5 parallel</h4>
 <a class="index-entry-id" id="index-parallel"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-parallel-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">parallel</var> =</code> <strong class="def-name">parallel</strong> <code class="def-code-arguments">([<var class="var">path</var>], [<var class="var">direction</var>])</code></dt>
+<dt class="deftypefn def-line" id="index-parallel-1"><span class="category-def">: </span><code class="def-type"><var class="var">parallel</var> =</code> <strong class="def-name">parallel</strong> <code class="def-code-arguments">([<var class="var">path</var>], [<var class="var">direction</var>])</code></dt>
 <dd>
 <p>Open Parallel interface.
 </p>
@@ -1764,7 +1764,7 @@ If omitted defaults to 1 (Input).
 <h4 class="subsection">3.6.6 pp_close</h4>
 <a class="index-entry-id" id="index-pp_005fclose"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-pp_005fclose-1"><span class="category-def">Loadable Function: </span><strong class="def-name">pp_close</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-pp_005fclose-1"><span class="category-def">: </span><strong class="def-name">pp_close</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
 <dd>
 <p>Close the interface and release a file descriptor.
 </p>
@@ -1778,10 +1778,10 @@ If omitted defaults to 1 (Input).
 <h4 class="subsection">3.6.7 pp_ctrl</h4>
 <a class="index-entry-id" id="index-pp_005fctrl"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-pp_005fctrl-1"><span class="category-def">Loadable Function: </span><strong class="def-name">pp_ctrl</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">ctrl</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fctrl-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">c</var> =</code> <strong class="def-name">pp_ctrl</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-pp_005fctrl-1"><span class="category-def">: </span><strong class="def-name">pp_ctrl</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">ctrl</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fctrl-2"><span class="category-def">: </span><code class="def-type"><var class="var">c</var> =</code> <strong class="def-name">pp_ctrl</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
 <dd>
-<p>Sets or Read the Control lines.
+<p>Sets or reads the control lines.
 </p>
 <h4 class="subsubheading" id="Inputs-30">Inputs</h4>
 <p><var class="var">parallel</var> - instance of <var class="var">octave_parallel</var> class.<br>
@@ -1795,10 +1795,10 @@ If omitted defaults to 1 (Input).
 <h4 class="subsection">3.6.8 pp_data</h4>
 <a class="index-entry-id" id="index-pp_005fdata"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-pp_005fdata-1"><span class="category-def">Loadable Function: </span><strong class="def-name">pp_data</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fdata-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">d</var> =</code> <strong class="def-name">pp_data</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-pp_005fdata-1"><span class="category-def">: </span><strong class="def-name">pp_data</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fdata-2"><span class="category-def">: </span><code class="def-type"><var class="var">d</var> =</code> <strong class="def-name">pp_data</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
 <dd>
-<p>Sets or Read the Data lines.
+<p>Sets or reads the data lines.
 </p>
 <h4 class="subsubheading" id="Inputs-31">Inputs</h4>
 <p><var class="var">parallel</var> - instance of <var class="var">octave_parallel</var> class.<br>
@@ -1812,8 +1812,8 @@ If omitted defaults to 1 (Input).
 <h4 class="subsection">3.6.9 pp_datadir</h4>
 <a class="index-entry-id" id="index-pp_005fdatadir"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-pp_005fdatadir-1"><span class="category-def">Loadable Function: </span><strong class="def-name">pp_datadir</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">direction</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fdatadir-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">dir</var> =</code> <strong class="def-name">pp_datadir</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-pp_005fdatadir-1"><span class="category-def">: </span><strong class="def-name">pp_datadir</strong> <code class="def-code-arguments">(<var class="var">parallel</var>, <var class="var">direction</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-pp_005fdatadir-2"><span class="category-def">: </span><code class="def-type"><var class="var">dir</var> =</code> <strong class="def-name">pp_datadir</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
 <dd>
 <p>Controls the Data line drivers.
 </p>
@@ -1835,7 +1835,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.6.10 pp_stat</h4>
 <a class="index-entry-id" id="index-pp_005fstat"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-pp_005fstat-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">stat</var> =</code> <strong class="def-name">pp_stat</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-pp_005fstat-1"><span class="category-def">: </span><code class="def-type"><var class="var">stat</var> =</code> <strong class="def-name">pp_stat</strong> <code class="def-code-arguments">(<var class="var">parallel</var>)</code></dt>
 <dd>
 <p>Reads the Status lines.
 </p>
@@ -1855,7 +1855,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.1 @octave_serial/fclose</h4>
 <a class="index-entry-id" id="index-fclose-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose-12"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fclose-12"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Closes SERIAL connection <var class="var">obj</var>
 </p></dd></dl>
 </div>
@@ -1897,7 +1897,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.4 @octave_serial/fopen</h4>
 <a class="index-entry-id" id="index-fopen-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen-12"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
+<dt class="deftypefn def-line" id="index-fopen-12"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
 <dd><p>Opens SERIAL interface <var class="var">obj</var>
 </p>
 <p>This currently is a dummy function to improve compatibility to MATLAB
@@ -1908,7 +1908,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.5 @octave_serial/fprintf</h4>
 <a class="index-entry-id" id="index-fprintf-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fprintf-10"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fprintf-10"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
 <dd><p>Writes formatted string <var class="var">template</var> using optional parameters to
  serial instrument
 </p>
@@ -1925,11 +1925,11 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.6 @octave_serial/fread</h4>
 <a class="index-entry-id" id="index-fread-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-26"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-27"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-28"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-29"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-30"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-26"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-27"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-28"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-29"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-30"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from serial instrument
 </p>
 <h4 class="subsubheading" id="Inputs-37">Inputs</h4>
@@ -1948,8 +1948,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.7 @octave_serial/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-19"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-20"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-19"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-20"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to serial instrument
 </p>
 <h4 class="subsubheading" id="Inputs-38">Inputs</h4>
@@ -1965,8 +1965,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.8 @octave_serial/get</h4>
 <a class="index-entry-id" id="index-get-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-14"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-15"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-14"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-15"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of serial object.
 </p>
 <h4 class="subsubheading" id="Inputs-39">Inputs</h4>
@@ -1984,8 +1984,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.9 @octave_serial/serialbreak</h4>
 <a class="index-entry-id" id="index-serialbreak"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-serialbreak-2"><span class="category-def">Function File: </span><strong class="def-name">serialbreak</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialbreak-3"><span class="category-def">Function File: </span><strong class="def-name">serialbreak</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">time</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-serialbreak-2"><span class="category-def">: </span><strong class="def-name">serialbreak</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialbreak-3"><span class="category-def">: </span><strong class="def-name">serialbreak</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">time</var>)</code></dt>
 <dd><p>Send a break to the serial port
 </p>
 <h4 class="subsubheading" id="Inputs-40">Inputs</h4>
@@ -2002,8 +2002,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.10 @octave_serial/set</h4>
 <a class="index-entry-id" id="index-set-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c-4"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-5"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c-4"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-5"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of serial object.
 </p>
 <h4 class="subsubheading" id="Inputs-41">Inputs</h4>
@@ -2033,7 +2033,7 @@ on when this happens, the port might be damaged.)
 </p>
 </dd>
 <dt><var class="var">&rsquo;parity&rsquo;</var></dt>
-<dd><p>Set the parity value. Supported values: Even/Odd/None. This Parameter
+<dd><p>Set the parity value. Supported values: Even/Odd/None. This parameter
  must be of type string. It is case insensitive and can be abbreviated
  to the first letter only
 </p>
@@ -2043,8 +2043,8 @@ on when this happens, the port might be damaged.)
 </p>
 </dd>
 <dt><var class="var">&rsquo;timeout&rsquo;</var></dt>
-<dd><p>Set the timeout value in tenths of a second. Value of -1 means a
- blocking call. Maximum value of 255 (i.e. 25.5 seconds).
+<dd><p>Set the timeout value in tenths of a second. A value of -1 means a
+ blocking call. Maximum value is 255 (i.e. 25.5 seconds).
 </p>
 </dd>
 <dt><var class="var">&rsquo;requesttosend&rsquo;</var></dt>
@@ -2222,7 +2222,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.18 serial</h4>
 <a class="index-entry-id" id="index-serial"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-serial-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">serial</var> =</code> <strong class="def-name">serial</strong> <code class="def-code-arguments">([<var class="var">path</var>], [<var class="var">baudrate</var>], [<var class="var">timeout</var>])</code></dt>
+<dt class="deftypefn def-line" id="index-serial-1"><span class="category-def">: </span><code class="def-type"><var class="var">serial</var> =</code> <strong class="def-name">serial</strong> <code class="def-code-arguments">([<var class="var">path</var>], [<var class="var">baudrate</var>], [<var class="var">timeout</var>])</code></dt>
 <dd>
 <p>Open serial interface.
 </p>
@@ -2282,7 +2282,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.19 seriallist</h4>
 <a class="index-entry-id" id="index-seriallist"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-seriallist-1"><span class="category-def">Function File: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">seriallist</strong> <code class="def-code-arguments">()</code></dt>
+<dt class="deftypefn def-line" id="index-seriallist-1"><span class="category-def">: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">seriallist</strong> <code class="def-code-arguments">()</code></dt>
 <dd><p>Returns a list of all serial ports detected in the system.
 </p>
 <h4 class="subsubheading" id="Inputs-50">Inputs</h4>
@@ -2299,7 +2299,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.20 srl_read</h4>
 <a class="index-entry-id" id="index-srl_005fread"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-srl_005fread-1"><span class="category-def">Loadable Function: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">srl_read</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">n</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-srl_005fread-1"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">srl_read</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">n</var>)</code></dt>
 <dd>
 <p>Read from serial interface.
 </p>
@@ -2315,7 +2315,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.7.21 srl_write</h4>
 <a class="index-entry-id" id="index-srl_005fwrite"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-srl_005fwrite-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">srl_write</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-srl_005fwrite-1"><span class="category-def">: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">srl_write</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">data</var>)</code></dt>
 <dd>
 <p>Write data to a serial interface.
 </p>
@@ -2336,8 +2336,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.1 @octave_serialport/configureTerminator</h4>
 <a class="index-entry-id" id="index-configureTerminator"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-configureTerminator-5"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">term</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-6"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-configureTerminator-5"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">term</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-6"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
 <dd><p>Set terminator for ASCII string manipulation
 </p>
 <h4 class="subsubheading" id="Inputs-53">Inputs</h4>
@@ -2379,7 +2379,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.3 @octave_serialport/fprintf</h4>
 <a class="index-entry-id" id="index-fprintf-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fprintf-11"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fprintf-11"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
 <dd><p>Writes formatted string <var class="var">template</var> using optional parameters to
  serialport instrument
 </p>
@@ -2396,11 +2396,11 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.4 @octave_serialport/fread</h4>
 <a class="index-entry-id" id="index-fread-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-31"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-32"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-33"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-34"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-35"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-31"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-32"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-33"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-34"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-35"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from serial port instrument
 </p>
 <h4 class="subsubheading" id="Inputs-56">Inputs</h4>
@@ -2419,8 +2419,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.5 @octave_serialport/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-21"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-22"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-21"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-22"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to serial port instrument
 </p>
 <h4 class="subsubheading" id="Inputs-57">Inputs</h4>
@@ -2436,8 +2436,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.6 @octave_serialport/get</h4>
 <a class="index-entry-id" id="index-get-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-16"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-17"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-16"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-17"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of serialport object.
 </p>
 <h4 class="subsubheading" id="Inputs-58">Inputs</h4>
@@ -2455,7 +2455,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.7 @octave_serialport/getpinstatus</h4>
 <a class="index-entry-id" id="index-getpinstatus"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-getpinstatus-2"><span class="category-def">Function File: </span><code class="def-type"><var class="var">status</var></code> <strong class="def-name">getpinstatus</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-getpinstatus-2"><span class="category-def">: </span><code class="def-type"><var class="var">status</var></code> <strong class="def-name">getpinstatus</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
 <dd><p>Get status of serial pins
 </p>
 <h4 class="subsubheading" id="Inputs-59">Inputs</h4>
@@ -2494,8 +2494,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.9 @octave_serialport/serialbreak</h4>
 <a class="index-entry-id" id="index-serialbreak-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-serialbreak-4"><span class="category-def">Function File: </span><strong class="def-name">serialbreak</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialbreak-5"><span class="category-def">Function File: </span><strong class="def-name">serialbreak</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">time</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-serialbreak-4"><span class="category-def">: </span><strong class="def-name">serialbreak</strong> <code class="def-code-arguments">(<var class="var">serial</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialbreak-5"><span class="category-def">: </span><strong class="def-name">serialbreak</strong> <code class="def-code-arguments">(<var class="var">serial</var>, <var class="var">time</var>)</code></dt>
 <dd><p>Send a break to the serial port
 </p>
 <h4 class="subsubheading" id="Inputs-61">Inputs</h4>
@@ -2512,8 +2512,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.10 @octave_serialport/set</h4>
 <a class="index-entry-id" id="index-set-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c-6"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-7"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c-6"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-7"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of serialport object.
 </p>
 <h4 class="subsubheading" id="Inputs-62">Inputs</h4>
@@ -2543,7 +2543,7 @@ on when this happens, the port might be damaged.)
 </p>
 </dd>
 <dt><var class="var">&rsquo;parity&rsquo;</var></dt>
-<dd><p>Set the parity value. Supported values: Even/Odd/None. This Parameter
+<dd><p>Set the parity value. Supported values: Even/Odd/None. This parameter
  must be of type string. It is case insensitive and can be abbreviated
  to the first letter only
 </p>
@@ -2553,8 +2553,8 @@ on when this happens, the port might be damaged.)
 </p>
 </dd>
 <dt><var class="var">&rsquo;timeout&rsquo;</var></dt>
-<dd><p>Set the timeout value in tenths of a second. Value of -1 means a
- blocking call. Maximum value of 255 (i.e. 25.5 seconds).
+<dd><p>Set the timeout value in tenths of a second. A value of -1 means a
+ blocking call. Maximum value is 255 (i.e. 25.5 seconds).
 </p>
 </dd>
 <dt><var class="var">&rsquo;requesttosend&rsquo;</var></dt>
@@ -2610,8 +2610,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.13 @octave_serialport/write</h4>
 <a class="index-entry-id" id="index-write-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-write-10"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-11"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-write-10"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-11"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to serialport instrument
 </p>
 <h4 class="subsubheading" id="Inputs-65">Inputs</h4>
@@ -2627,8 +2627,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.14 serialport</h4>
 <a class="index-entry-id" id="index-serialport"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-serialport-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">serial</var> =</code> <strong class="def-name">serialport</strong> <code class="def-code-arguments">([<var class="var">path</var>], [<var class="var">baudrate</var>])</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialport-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">serial</var> =</code> <strong class="def-name">serialport</strong> <code class="def-code-arguments">([<var class="var">path</var>], [<var class="var">propname</var>, <var class="var">propvalue</var>])</code></dt>
+<dt class="deftypefn def-line" id="index-serialport-1"><span class="category-def">: </span><code class="def-type"><var class="var">serial</var> =</code> <strong class="def-name">serialport</strong> <code class="def-code-arguments">([<var class="var">path</var>], [<var class="var">baudrate</var>])</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialport-2"><span class="category-def">: </span><code class="def-type"><var class="var">serial</var> =</code> <strong class="def-name">serialport</strong> <code class="def-code-arguments">([<var class="var">path</var>], [<var class="var">propname</var>, <var class="var">propvalue</var>])</code></dt>
 <dd>
 <p>Open serial port interface.
 </p>
@@ -2719,9 +2719,9 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.8.15 serialportlist</h4>
 <a class="index-entry-id" id="index-serialportlist"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-serialportlist-1"><span class="category-def">Function File: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">serialportlist</strong> <code class="def-code-arguments">()</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialportlist-2"><span class="category-def">Function File: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">serialportlist</strong> <code class="def-code-arguments">(&quot;all&quot;)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialportlist-3"><span class="category-def">Function File: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">serialportlist</strong> <code class="def-code-arguments">(&quot;available&quot;)</code></dt>
+<dt class="deftypefn def-line" id="index-serialportlist-1"><span class="category-def">: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">serialportlist</strong> <code class="def-code-arguments">()</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialportlist-2"><span class="category-def">: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">serialportlist</strong> <code class="def-code-arguments">(&quot;all&quot;)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-serialportlist-3"><span class="category-def">: </span><code class="def-type"><var class="var">list</var> =</code> <strong class="def-name">serialportlist</strong> <code class="def-code-arguments">(&quot;available&quot;)</code></dt>
 <dd><p>Returns a list of all serial ports detected in the system.
 </p>
 <h4 class="subsubheading" id="Inputs-67">Inputs</h4>
@@ -2744,7 +2744,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.1 @octave_spi/fclose</h4>
 <a class="index-entry-id" id="index-fclose-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose-13"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fclose-13"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Closes SPI connection <var class="var">obj</var>
 </p></dd></dl>
 </div>
@@ -2752,7 +2752,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.2 @octave_spi/fopen</h4>
 <a class="index-entry-id" id="index-fopen-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen-13"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
+<dt class="deftypefn def-line" id="index-fopen-13"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
 <dd><p>Opens SPI connection <var class="var">obj</var>
 </p>
 <p>This currently is a dummy function to improve compatibility to MATLAB
@@ -2763,11 +2763,11 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.3 @octave_spi/fread</h4>
 <a class="index-entry-id" id="index-fread-5"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-36"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-37"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-38"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-39"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-40"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-36"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-37"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-38"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-39"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-40"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from a SPI instrument
 </p>
 <h4 class="subsubheading" id="Inputs-68">Inputs</h4>
@@ -2786,8 +2786,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.4 @octave_spi/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-5"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-23"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-24"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-23"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-24"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to SPI instrument
 </p>
 <h4 class="subsubheading" id="Inputs-69">Inputs</h4>
@@ -2803,8 +2803,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.5 @octave_spi/get</h4>
 <a class="index-entry-id" id="index-get-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-18"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">spi</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-19"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-18"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">spi</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-19"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of spi object.
 </p>
 <h4 class="subsubheading" id="Inputs-70">Inputs</h4>
@@ -2849,8 +2849,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.6 @octave_spi/read</h4>
 <a class="index-entry-id" id="index-read-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-read-15"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-16"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-read-15"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-16"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
 <dd><p>Reads <var class="var">data</var> from SPI instrument
 </p>
 <h4 class="subsubheading" id="Inputs-71">Inputs</h4>
@@ -2866,8 +2866,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.7 @octave_spi/set</h4>
 <a class="index-entry-id" id="index-set-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c-8"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-9"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c-8"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-9"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of spi object.
 </p>
 <h4 class="subsubheading" id="Inputs-72">Inputs</h4>
@@ -2908,7 +2908,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.8 @octave_spi/write</h4>
 <a class="index-entry-id" id="index-write-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-25"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-25"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to SPI instrument
 </p>
 <h4 class="subsubheading" id="Inputs-73">Inputs</h4>
@@ -2923,7 +2923,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.9 @octave_spi/writeAndRead</h4>
 <a class="index-entry-id" id="index-writeAndRead"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-writeAndRead-1"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">writeAndRead</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">wrdata</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-writeAndRead-1"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">writeAndRead</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">wrdata</var>)</code></dt>
 <dd><p>Writes and reads <var class="var">data</var> from SPI instrument
 </p>
 <h4 class="subsubheading" id="Inputs-74">Inputs</h4>
@@ -2939,8 +2939,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.10 spi</h4>
 <a class="index-entry-id" id="index-spi"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-spi-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">spi</var> =</code> <strong class="def-name">spi</strong> <code class="def-code-arguments">([<var class="var">port_path</var>])</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-spi-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">spi</var> =</code> <strong class="def-name">spi</strong> <code class="def-code-arguments">([<var class="var">port_path</var>], [<var class="var">propname</var>, <var class="var">propvalue</var>])</code></dt>
+<dt class="deftypefn def-line" id="index-spi-1"><span class="category-def">: </span><code class="def-type"><var class="var">spi</var> =</code> <strong class="def-name">spi</strong> <code class="def-code-arguments">([<var class="var">port_path</var>])</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-spi-2"><span class="category-def">: </span><code class="def-type"><var class="var">spi</var> =</code> <strong class="def-name">spi</strong> <code class="def-code-arguments">([<var class="var">port_path</var>], [<var class="var">propname</var>, <var class="var">propvalue</var>])</code></dt>
 <dd>
 <p>Open a spi interface.
 </p>
@@ -2995,7 +2995,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.11 spi_close</h4>
 <a class="index-entry-id" id="index-spi_005fclose"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-spi_005fclose-1"><span class="category-def">Loadable Function: </span><strong class="def-name">spi_close</strong> <code class="def-code-arguments">(<var class="var">spi</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-spi_005fclose-1"><span class="category-def">: </span><strong class="def-name">spi_close</strong> <code class="def-code-arguments">(<var class="var">spi</var>)</code></dt>
 <dd>
 <p>Close the interface and release a file descriptor.
 </p>
@@ -3010,7 +3010,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.12 spi_read</h4>
 <a class="index-entry-id" id="index-spi_005fread"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-spi_005fread-1"><span class="category-def">Loadable Function: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">spi_read</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">n</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-spi_005fread-1"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">spi_read</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">n</var>)</code></dt>
 <dd>
 <p>Read from spi slave device.
 </p>
@@ -3026,7 +3026,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.13 spi_write</h4>
 <a class="index-entry-id" id="index-spi_005fwrite"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-spi_005fwrite-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">spi_write</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-spi_005fwrite-1"><span class="category-def">: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">spi_write</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">data</var>)</code></dt>
 <dd>
 <p>Write data to a spi slave device.
 </p>
@@ -3042,7 +3042,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.9.14 spi_writeAndRead</h4>
 <a class="index-entry-id" id="index-spi_005fwriteAndRead"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-spi_005fwriteAndRead-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">rddata</var> =</code> <strong class="def-name">spi_writeAndRead</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">wrdata</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-spi_005fwriteAndRead-1"><span class="category-def">: </span><code class="def-type"><var class="var">rddata</var> =</code> <strong class="def-name">spi_writeAndRead</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">wrdata</var>)</code></dt>
 <dd>
 <p>Write data to a spi slave device and then read same number of values.
 </p>
@@ -3063,7 +3063,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.1 @octave_tcp/fclose</h4>
 <a class="index-entry-id" id="index-fclose-5"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose-14"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fclose-14"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Closes TCP connection <var class="var">obj</var>
 </p></dd></dl>
 </div>
@@ -3126,7 +3126,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.5 @octave_tcp/fopen</h4>
 <a class="index-entry-id" id="index-fopen-5"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen-14"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
+<dt class="deftypefn def-line" id="index-fopen-14"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
 <dd><p>Opens TCP connection <var class="var">obj</var>
 </p>
 <p>This currently is a dummy function to improve compatibility to MATLAB
@@ -3137,7 +3137,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.6 @octave_tcp/fprintf</h4>
 <a class="index-entry-id" id="index-fprintf-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fprintf-12"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fprintf-12"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
 <dd><p>Writes formatted string <var class="var">template</var> using optional parameters to
  TCP instrument
 </p>
@@ -3154,11 +3154,11 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.7 @octave_tcp/fread</h4>
 <a class="index-entry-id" id="index-fread-6"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-41"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-42"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-43"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-44"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-45"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-41"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-42"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-43"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-44"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-45"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from TCP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-84">Inputs</h4>
@@ -3177,8 +3177,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.8 @octave_tcp/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-6"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-26"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-27"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-26"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-27"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to TCP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-85">Inputs</h4>
@@ -3194,8 +3194,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.9 @octave_tcp/get</h4>
 <a class="index-entry-id" id="index-get-5"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-20"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-21"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-20"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-21"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of tcp object.
 </p>
 <h4 class="subsubheading" id="Inputs-86">Inputs</h4>
@@ -3213,9 +3213,9 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.10 @octave_tcp/read</h4>
 <a class="index-entry-id" id="index-read-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-read-17"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-18"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-19"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-read-17"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-18"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-19"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
 <dd><p>Reads <var class="var">data</var> from TCP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-87">Inputs</h4>
@@ -3232,8 +3232,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.11 @octave_tcp/set</h4>
 <a class="index-entry-id" id="index-set-5"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c-10"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-11"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c-10"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-11"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of tcp object.
 </p>
 <h4 class="subsubheading" id="Inputs-88">Inputs</h4>
@@ -3272,8 +3272,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.12 @octave_tcp/write</h4>
 <a class="index-entry-id" id="index-write-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-write-12"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-13"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-write-12"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-13"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to TCP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-89">Inputs</h4>
@@ -3289,12 +3289,12 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.13 tcp</h4>
 <a class="index-entry-id" id="index-tcp"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcp-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">()</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-3"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-4"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, <var class="var">timeout</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-5"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-6"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code></dt>
+<dt class="deftypefn def-line" id="index-tcp-1"><span class="category-def">: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">()</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-2"><span class="category-def">: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-3"><span class="category-def">: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-4"><span class="category-def">: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, <var class="var">timeout</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-5"><span class="category-def">: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp-6"><span class="category-def">: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcp</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code></dt>
 <dd>
 <p>Open tcp interface.
 </p>
@@ -3349,7 +3349,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.14 tcp_close</h4>
 <a class="index-entry-id" id="index-tcp_005fclose"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcp_005fclose-1"><span class="category-def">Loadable Function: </span><strong class="def-name">tcp_close</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-tcp_005fclose-1"><span class="category-def">: </span><strong class="def-name">tcp_close</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code></dt>
 <dd>
 <p>Close the interface and release a file descriptor.
 </p>
@@ -3364,7 +3364,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.15 tcp_read</h4>
 <a class="index-entry-id" id="index-tcp_005fread"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcp_005fread-1"><span class="category-def">Loadable Function: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">tcp_read</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">n</var>, <var class="var">timeout</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-tcp_005fread-1"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">tcp_read</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">n</var>, <var class="var">timeout</var>)</code></dt>
 <dd>
 <p>Read from tcp interface.
 </p>
@@ -3382,8 +3382,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.16 tcp_timeout</h4>
 <a class="index-entry-id" id="index-tcp_005ftimeout"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcp_005ftimeout-1"><span class="category-def">Loadable Function: </span><strong class="def-name">tcp_timeout</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">timeout</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp_005ftimeout-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">tcp_timeout</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-tcp_005ftimeout-1"><span class="category-def">: </span><strong class="def-name">tcp_timeout</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">timeout</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcp_005ftimeout-2"><span class="category-def">: </span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">tcp_timeout</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code></dt>
 <dd>
 <p>Set new or get existing tcp interface timeout parameter used for tcp_read() requests. The timeout value is specified in milliseconds.
 </p>
@@ -3399,7 +3399,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.17 tcp_write</h4>
 <a class="index-entry-id" id="index-tcp_005fwrite"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcp_005fwrite-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">tcp_write</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-tcp_005fwrite-1"><span class="category-def">: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">tcp_write</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">data</var>)</code></dt>
 <dd>
 <p>Write data to a tcp interface.
 </p>
@@ -3415,7 +3415,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.10.18 tcpip</h4>
 <a class="index-entry-id" id="index-tcpip"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcpip-1"><span class="category-def">Function File: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcpip</strong> <code class="def-code-arguments">(<var class="var">host</var>, [<var class="var">port</var>], [<var class="var">PropertyName</var>, <var class="var">PropertyValue</var>...])</code></dt>
+<dt class="deftypefn def-line" id="index-tcpip-1"><span class="category-def">: </span><code class="def-type"><var class="var">tcp</var> =</code> <strong class="def-name">tcpip</strong> <code class="def-code-arguments">(<var class="var">host</var>, [<var class="var">port</var>], [<var class="var">PropertyName</var>, <var class="var">PropertyValue</var>...])</code></dt>
 <dd><p>Matlab compatible wrapper to the tcp interface.
 </p>
 <p>NOTE: tcpip has been deprecated. Use tcpclient instead
@@ -3441,8 +3441,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.11.1 @octave_tcpclient/configureTerminator</h4>
 <a class="index-entry-id" id="index-configureTerminator-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-configureTerminator-7"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">term</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-8"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-configureTerminator-7"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">term</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-8"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
 <dd><p>Set terminator on a tcpclient object for ASCII string manipulation
 </p>
 <h4 class="subsubheading" id="Inputs-96">Inputs</h4>
@@ -3484,8 +3484,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.11.3 @octave_tcpclient/get</h4>
 <a class="index-entry-id" id="index-get-6"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-22"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcpclient</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-23"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcpclient</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-22"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcpclient</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-23"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcpclient</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of tcpclient object.
 </p>
 <h4 class="subsubheading" id="Inputs-98">Inputs</h4>
@@ -3503,9 +3503,9 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.11.4 @octave_tcpclient/read</h4>
 <a class="index-entry-id" id="index-read-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-read-20"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-21"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-22"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-read-20"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-21"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-22"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
 <dd><p>Reads <var class="var">data</var> from TCP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-99">Inputs</h4>
@@ -3522,8 +3522,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.11.5 @octave_tcpclient/set</h4>
 <a class="index-entry-id" id="index-set-6"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c-12"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-13"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c-12"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-13"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of tcpclient object.
 </p>
 <h4 class="subsubheading" id="Inputs-100">Inputs</h4>
@@ -3562,8 +3562,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.11.6 @octave_tcpclient/write</h4>
 <a class="index-entry-id" id="index-write-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-write-14"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-15"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-write-14"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-15"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to TCP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-101">Inputs</h4>
@@ -3579,8 +3579,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.11.7 tcpclient</h4>
 <a class="index-entry-id" id="index-tcpclient"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcpclient-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcpclient</var> =</code> <strong class="def-name">tcpclient</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpclient-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcpclient</var> =</code> <strong class="def-name">tcpclient</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code></dt>
+<dt class="deftypefn def-line" id="index-tcpclient-1"><span class="category-def">: </span><code class="def-type"><var class="var">tcpclient</var> =</code> <strong class="def-name">tcpclient</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpclient-2"><span class="category-def">: </span><code class="def-type"><var class="var">tcpclient</var> =</code> <strong class="def-name">tcpclient</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code></dt>
 <dd>
 <p>Open tcpclient interface.
 </p>
@@ -3664,8 +3664,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.12.1 @octave_tcpserver/configureTerminator</h4>
 <a class="index-entry-id" id="index-configureTerminator-2"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-configureTerminator-9"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">term</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-10"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-configureTerminator-9"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">term</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-10"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
 <dd><p>Set terminator on a tcpserver object for ASCII string manipulation
 </p>
 <h4 class="subsubheading" id="Inputs-103">Inputs</h4>
@@ -3707,8 +3707,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.12.3 @octave_tcpserver/get</h4>
 <a class="index-entry-id" id="index-get-7"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-24"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcpserver</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-25"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcpserver</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-24"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcpserver</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-25"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcpserver</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of tcpserver object.
 </p>
 <h4 class="subsubheading" id="Inputs-105">Inputs</h4>
@@ -3726,9 +3726,9 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.12.4 @octave_tcpserver/read</h4>
 <a class="index-entry-id" id="index-read-5"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-read-23"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-24"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-25"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-read-23"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-24"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-25"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
 <dd><p>Reads <var class="var">data</var> from TCP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-106">Inputs</h4>
@@ -3745,8 +3745,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.12.5 @octave_tcpserver/set</h4>
 <a class="index-entry-id" id="index-set-7"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c-14"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-15"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c-14"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-15"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of tcpserver object.
 </p>
 <h4 class="subsubheading" id="Inputs-107">Inputs</h4>
@@ -3781,8 +3781,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.12.6 @octave_tcpserver/write</h4>
 <a class="index-entry-id" id="index-write-5"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-write-16"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-17"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-write-16"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-17"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to TCP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-108">Inputs</h4>
@@ -3798,9 +3798,9 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.12.7 tcpserver</h4>
 <a class="index-entry-id" id="index-tcpserver"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcpserver-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpserver-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(<var class="var">port</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpserver-3"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(&hellip;, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code></dt>
+<dt class="deftypefn def-line" id="index-tcpserver-1"><span class="category-def">: </span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpserver-2"><span class="category-def">: </span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(<var class="var">port</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpserver-3"><span class="category-def">: </span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(&hellip;, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code></dt>
 <dd>
 <p>Open tcpserver interface.
 </p>
@@ -3881,7 +3881,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.1 @octave_udp/fclose</h4>
 <a class="index-entry-id" id="index-fclose-6"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose-15"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fclose-15"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Closes UDP connection <var class="var">obj</var>
 </p></dd></dl>
 </div>
@@ -3944,7 +3944,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.5 @octave_udp/fopen</h4>
 <a class="index-entry-id" id="index-fopen-6"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen-15"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
+<dt class="deftypefn def-line" id="index-fopen-15"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
 <dd><p>Opens UDP connection <var class="var">obj</var>
  This currently is a dummy function to improve compatibility to MATLAB
 </p>
@@ -3954,7 +3954,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.6 @octave_udp/fprintf</h4>
 <a class="index-entry-id" id="index-fprintf-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fprintf-13"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fprintf-13"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
 <dd><p>Writes formatted string <var class="var">template</var> using optional parameters to
  UDP instrument
 </p>
@@ -3970,11 +3970,11 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.7 @octave_udp/fread</h4>
 <a class="index-entry-id" id="index-fread-7"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-46"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-47"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-48"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-49"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-50"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-46"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-47"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-48"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-49"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-50"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from UDP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-114">Inputs</h4>
@@ -3993,8 +3993,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.8 @octave_udp/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-7"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-28"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-29"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-28"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-29"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to UDP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-115">Inputs</h4>
@@ -4010,8 +4010,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.9 @octave_udp/get</h4>
 <a class="index-entry-id" id="index-get-8"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-26"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">udp</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-27"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-26"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">udp</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-27"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of udp object.
 </p>
 <h4 class="subsubheading" id="Inputs-116">Inputs</h4>
@@ -4030,9 +4030,9 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.10 @octave_udp/read</h4>
 <a class="index-entry-id" id="index-read-6"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-read-26"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-27"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-28"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-read-26"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-27"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-28"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
 <dd><p>Reads <var class="var">data</var> from UDP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-117">Inputs</h4>
@@ -4049,8 +4049,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.11 @octave_udp/set</h4>
 <a class="index-entry-id" id="index-set-8"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c-16"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-17"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c-16"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-17"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of udp object.
 </p>
 <h4 class="subsubheading" id="Inputs-118">Inputs</h4>
@@ -4092,10 +4092,10 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.12 @octave_udp/write</h4>
 <a class="index-entry-id" id="index-write-6"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-write-18"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-19"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">destinationAddress</var>, <var class="var">destinationPort</var>))</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-20"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-21"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>, <var class="var">destinationAddress</var>, <var class="var">destinationPort</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-write-18"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-19"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">destinationAddress</var>, <var class="var">destinationPort</var>))</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-20"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-21"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>, <var class="var">destinationAddress</var>, <var class="var">destinationPort</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to UDP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-119">Inputs</h4>
@@ -4113,9 +4113,9 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.13 udp</h4>
 <a class="index-entry-id" id="index-udp"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udp-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">()</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">(<var class="var">remoteipaddress</var>, <var class="var">remoteport</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp-3"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">(<var class="var">remoteipaddress</var>, <var class="var">remoteport</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var> ...])</code></dt>
+<dt class="deftypefn def-line" id="index-udp-1"><span class="category-def">: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">()</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp-2"><span class="category-def">: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">(<var class="var">remoteipaddress</var>, <var class="var">remoteport</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp-3"><span class="category-def">: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udp</strong> <code class="def-code-arguments">(<var class="var">remoteipaddress</var>, <var class="var">remoteport</var>, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var> ...])</code></dt>
 <dd>
 <p>Open udp interface.
 </p>
@@ -4165,7 +4165,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.14 udp_close</h4>
 <a class="index-entry-id" id="index-udp_005fclose"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udp_005fclose-1"><span class="category-def">Loadable Function: </span><strong class="def-name">udp_close</strong> <code class="def-code-arguments">(<var class="var">udp</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-udp_005fclose-1"><span class="category-def">: </span><strong class="def-name">udp_close</strong> <code class="def-code-arguments">(<var class="var">udp</var>)</code></dt>
 <dd>
 <p>Close the interface and release a file descriptor.
 </p>
@@ -4180,7 +4180,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.15 udp_demo</h4>
 <a class="index-entry-id" id="index-udp_005fdemo"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udp_005fdemo-1"><span class="category-def">Function File: </span><code class="def-type"><var class="var">result</var> =</code> <strong class="def-name">udp_demo</strong> <code class="def-code-arguments">()</code></dt>
+<dt class="deftypefn def-line" id="index-udp_005fdemo-1"><span class="category-def">: </span><code class="def-type"><var class="var">result</var> =</code> <strong class="def-name">udp_demo</strong> <code class="def-code-arguments">()</code></dt>
 <dd><p>Run test SNTP demonstration for udp class
 </p>
 <p><strong class="strong">See also:</strong> udp.
@@ -4190,7 +4190,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.16 udp_read</h4>
 <a class="index-entry-id" id="index-udp_005fread"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udp_005fread-1"><span class="category-def">Loadable Function: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">udp_read</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">n</var>, <var class="var">timeout</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-udp_005fread-1"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">udp_read</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">n</var>, <var class="var">timeout</var>)</code></dt>
 <dd>
 <p>Read from udp interface.
 </p>
@@ -4207,8 +4207,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.17 udp_timeout</h4>
 <a class="index-entry-id" id="index-udp_005ftimeout"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udp_005ftimeout-1"><span class="category-def">Loadable Function: </span><strong class="def-name">udp_timeout</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">timeout</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp_005ftimeout-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">udp_timeout</strong> <code class="def-code-arguments">(<var class="var">udp</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-udp_005ftimeout-1"><span class="category-def">: </span><strong class="def-name">udp_timeout</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">timeout</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udp_005ftimeout-2"><span class="category-def">: </span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">udp_timeout</strong> <code class="def-code-arguments">(<var class="var">udp</var>)</code></dt>
 <dd>
 <p>Set new or get existing udp interface timeout parameter used for udp_read() requests. The timeout value is specified in milliseconds.
 </p>
@@ -4224,7 +4224,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.13.18 udp_write</h4>
 <a class="index-entry-id" id="index-udp_005fwrite"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udp_005fwrite-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">udp_write</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-udp_005fwrite-1"><span class="category-def">: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">udp_write</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">data</var>)</code></dt>
 <dd>
 <p>Write data to a udp interface.
 </p>
@@ -4264,8 +4264,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.14.2 @octave_udpport/configureTerminator</h4>
 <a class="index-entry-id" id="index-configureTerminator-3"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-configureTerminator-11"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">term</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-12"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-configureTerminator-11"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">term</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-12"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">udp</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
 <dd><p>Set terminator for ASCII string manipulation
 </p>
 <h4 class="subsubheading" id="Inputs-127">Inputs</h4>
@@ -4307,7 +4307,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.14.4 @octave_udpport/fprintf</h4>
 <a class="index-entry-id" id="index-fprintf-5"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fprintf-14"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fprintf-14"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fprintf</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">template</var> ...)</code></dt>
 <dd><p>Writes formatted string <var class="var">template</var> using optional parameters to
  UDP instrument
 </p>
@@ -4323,11 +4323,11 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.14.5 @octave_udpport/fread</h4>
 <a class="index-entry-id" id="index-fread-8"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-51"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-52"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-53"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-54"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-55"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-51"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-52"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-53"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-54"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-55"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from UDP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-130">Inputs</h4>
@@ -4346,8 +4346,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.14.6 @octave_udpport/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-8"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-30"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-31"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-30"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-31"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to UDP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-131">Inputs</h4>
@@ -4363,8 +4363,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.14.7 @octave_udpport/get</h4>
 <a class="index-entry-id" id="index-get-9"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get-28"><span class="category-def">Function File: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">udpport</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-29"><span class="category-def">Function File: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">udpport</var>, <var class="var">property</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-get-28"><span class="category-def">: </span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">udpport</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-29"><span class="category-def">: </span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">udpport</var>, <var class="var">property</var>)</code></dt>
 <dd><p>Get the properties of udpport object.
 </p>
 <h4 class="subsubheading" id="Inputs-132">Inputs</h4>
@@ -4383,13 +4383,13 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.14.8 @octave_udpport/read</h4>
 <a class="index-entry-id" id="index-read-7"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-read-29"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-30"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-31"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-read-29"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-30"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-31"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code></dt>
 <dd><p>Reads <var class="var">data</var> from UDP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-133">Inputs</h4>
-<p><var class="var">obj</var> is a UDP object.<br>
+<p><var class="var">obj</var> is a udpport object.<br>
 <var class="var">size</var> Number of values to read. (Default: BytesAvailable).<br>
 <var class="var">datatype</var> datatype of data.<br>
 </p>
@@ -4402,8 +4402,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.14.9 @octave_udpport/set</h4>
 <a class="index-entry-id" id="index-set-9"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-_0028obj_002c-18"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-19"><span class="category-def">Function File: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
+<dt class="deftypefn def-line" id="index-_0028obj_002c-18"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-_0028obj_002c-19"><span class="category-def">: </span><code class="def-type">set</code> <strong class="def-name">(<var class="var">obj</var>,</strong> <code class="def-code-arguments"><var class="var">property</var>,<var class="var">value</var>,&hellip;)</code></dt>
 <dd><p>Set the properties of udpport object.
 </p>
 <h4 class="subsubheading" id="Inputs-134">Inputs</h4>
@@ -4445,10 +4445,10 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.14.10 @octave_udpport/write</h4>
 <a class="index-entry-id" id="index-write-7"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-write-22"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-23"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">destinationAddress</var>, <var class="var">destinationPort</var>))</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-24"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-25"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>, <var class="var">destinationAddress</var>, <var class="var">destinationPort</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-write-22"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-23"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">destinationAddress</var>, <var class="var">destinationPort</var>))</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-24"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-25"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">datatype</var>, <var class="var">destinationAddress</var>, <var class="var">destinationPort</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to UDP instrument
 </p>
 <h4 class="subsubheading" id="Inputs-135">Inputs</h4>
@@ -4491,8 +4491,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.14.12 udpport</h4>
 <a class="index-entry-id" id="index-udpport"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udpport-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udpport</strong> <code class="def-code-arguments">()</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udpport-2"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udpport</strong> <code class="def-code-arguments">(<var class="var">propertyname</var>, <var class="var">propertyvalue</var> ...)</code></dt>
+<dt class="deftypefn def-line" id="index-udpport-1"><span class="category-def">: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udpport</strong> <code class="def-code-arguments">()</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udpport-2"><span class="category-def">: </span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udpport</strong> <code class="def-code-arguments">(<var class="var">propertyname</var>, <var class="var">propertyvalue</var> ...)</code></dt>
 <dd>
 <p>Open udpport interface.
 </p>
@@ -4550,7 +4550,7 @@ on when this happens, the port might be damaged.)
 <dt>MulticastGroup</dt>
 <dd><p>multicast group socket  is subscribed to (readonly)
 </p></dd>
-<dt>EnableMultcast</dt>
+<dt>EnableMulticast</dt>
 <dd><p>Boolean if the socket has any multicast group it is subscribed to (readonly)
 </p></dd>
 <dt>EnablePortSharing</dt>
@@ -4571,7 +4571,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.15.1 @octave_usbtmc/fclose</h4>
 <a class="index-entry-id" id="index-fclose-7"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose-16"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fclose-16"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Closes USBTMC connection <var class="var">obj</var>
 </p>
 <h4 class="subsubheading" id="Inputs-138">Inputs</h4>
@@ -4582,7 +4582,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.15.2 @octave_usbtmc/fopen</h4>
 <a class="index-entry-id" id="index-fopen-7"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen-16"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
+<dt class="deftypefn def-line" id="index-fopen-16"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
 <dd><p>Opens USBTMC connection <var class="var">obj</var>
  This currently is a dummy function to improve compatibility to MATLAB
 </p>
@@ -4592,11 +4592,11 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.15.3 @octave_usbtmc/fread</h4>
 <a class="index-entry-id" id="index-fread-9"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-56"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-57"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-58"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-59"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-60"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-56"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-57"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-58"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-59"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-60"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from usbtmc instrument
 </p>
 <h4 class="subsubheading" id="Inputs-139">Inputs</h4>
@@ -4615,8 +4615,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.15.4 @octave_usbtmc/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-9"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-32"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-33"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-32"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-33"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to an usbtmc instrument
 </p>
 <h4 class="subsubheading" id="Inputs-140">Inputs</h4>
@@ -4632,7 +4632,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.15.5 usbtmc</h4>
 <a class="index-entry-id" id="index-usbtmc"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-usbtmc-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">usbtmc</var> =</code> <strong class="def-name">usbtmc</strong> <code class="def-code-arguments">(<var class="var">path</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-usbtmc-1"><span class="category-def">: </span><code class="def-type"><var class="var">usbtmc</var> =</code> <strong class="def-name">usbtmc</strong> <code class="def-code-arguments">(<var class="var">path</var>)</code></dt>
 <dd>
 <p>Open usbtmc interface.
 </p>
@@ -4647,7 +4647,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.15.6 usbtmc_close</h4>
 <a class="index-entry-id" id="index-usbtmc_005fclose"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-usbtmc_005fclose-1"><span class="category-def">Loadable Function: </span><strong class="def-name">usbtmc_close</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-usbtmc_005fclose-1"><span class="category-def">: </span><strong class="def-name">usbtmc_close</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>)</code></dt>
 <dd>
 <p>Close the interface and release a file descriptor.
 </p>
@@ -4661,7 +4661,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.15.7 usbtmc_read</h4>
 <a class="index-entry-id" id="index-usbtmc_005fread"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-usbtmc_005fread-1"><span class="category-def">Loadable Function: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">usbtmc_read</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>, <var class="var">n</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-usbtmc_005fread-1"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">usbtmc_read</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>, <var class="var">n</var>)</code></dt>
 <dd>
 <p>Read from usbtmc slave device.
 </p>
@@ -4678,7 +4678,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.15.8 usbtmc_write</h4>
 <a class="index-entry-id" id="index-usbtmc_005fwrite"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-usbtmc_005fwrite-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">usbtmc_write</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-usbtmc_005fwrite-1"><span class="category-def">: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">usbtmc_write</strong> <code class="def-code-arguments">(<var class="var">usbtmc</var>, <var class="var">data</var>)</code></dt>
 <dd>
 <p>Write data to a usbtmc slave device.
 </p>
@@ -4699,8 +4699,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.16.1 @octave_visadev/configureTerminator</h4>
 <a class="index-entry-id" id="index-configureTerminator-4"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-configureTerminator-13"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">dev</var>, <var class="var">term</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-14"><span class="category-def">Function File: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">dev</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-configureTerminator-13"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">dev</var>, <var class="var">term</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-configureTerminator-14"><span class="category-def">: </span><strong class="def-name">configureTerminator</strong> <code class="def-code-arguments">(<var class="var">dev</var>, <var class="var">readterm</var>, <var class="var">writeterm</var>)</code></dt>
 <dd><p>Set terminator for ASCII string manipulation
 </p>
 <h4 class="subsubheading" id="Inputs-145">Inputs</h4>
@@ -4724,7 +4724,7 @@ on when this happens, the port might be damaged.)
 <dt class="deftypefn def-line" id="index-flush-25"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">flush</strong> <code class="def-code-arguments">(<var class="var">dev</var>)</code></dt>
 <dt class="deftypefnx def-cmd-deftypefn def-line" id="index-flush-26"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">flush</strong> <code class="def-code-arguments">(<var class="var">dev</var>, &quot;input&quot;)</code></dt>
 <dt class="deftypefnx def-cmd-deftypefn def-line" id="index-flush-27"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">flush</strong> <code class="def-code-arguments">(<var class="var">dev</var>, &quot;output&quot;)</code></dt>
-<dd><p>Flush the serial port buffers
+<dd><p>Flush the visadev buffers
 </p>
 <h4 class="subsubheading" id="Inputs-146">Inputs</h4>
 <p><var class="var">dev</var> - connected visadev device
@@ -4742,7 +4742,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.16.3 @octave_visadev/getpinstatus</h4>
 <a class="index-entry-id" id="index-getpinstatus-1"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-getpinstatus-3"><span class="category-def">Function File: </span><code class="def-type"><var class="var">status</var></code> <strong class="def-name">getpinstatus</strong> <code class="def-code-arguments">(<var class="var">dev</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-getpinstatus-3"><span class="category-def">: </span><code class="def-type"><var class="var">status</var></code> <strong class="def-name">getpinstatus</strong> <code class="def-code-arguments">(<var class="var">dev</var>)</code></dt>
 <dd><p>Get status of visadev serial pins
 </p>
 <h4 class="subsubheading" id="Inputs-147">Inputs</h4>
@@ -4751,7 +4751,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsubheading" id="Outputs-144">Outputs</h4>
 <p><var class="var">status</var> - a structure with the logic names of ClearToSend, DataSetReady, CarrierDetect, and RingIndicator
 </p>
-<p><strong class="strong">See also:</strong> serialport.
+<p><strong class="strong">See also:</strong> visadev.
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="g_t_0040octave_005fvisadev_002fread">
@@ -4774,7 +4774,7 @@ on when this happens, the port might be damaged.)
 <h4 class="subsubheading" id="Outputs-145">Outputs</h4>
 <p><var class="var">data</var> - data read from the device
 </p>
-<p><strong class="strong">See also:</strong> serialport.
+<p><strong class="strong">See also:</strong> visadev.
 </p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="g_t_0040octave_005fvisadev_002fsetDTR">
@@ -4834,8 +4834,8 @@ on when this happens, the port might be damaged.)
 <dt class="deftypefn def-line" id="index-visatrigger-1"><span class="category-def">: </span><strong class="def-name">visatrigger</strong> <code class="def-code-arguments">(<var class="var">dev</var>)</code></dt>
 <dd><p>Trigger a GPIB or VXI visa device.
 </p>
-<p>Ths is ewquivalent to the viAssertTrigger
- VISA sepcification function.
+<p>This is equivalent to the viAssertTrigger
+ VISA specification function.
 </p>
 <h4 class="subsubheading" id="Inputs-152">Inputs</h4>
 <p><var class="var">dev</var> - connected visadev device
@@ -4850,8 +4850,8 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.16.9 @octave_visadev/write</h4>
 <a class="index-entry-id" id="index-write-8"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-write-26"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-27"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-write-26"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-write-27"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">write</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to visadev instrument
 </p>
 <h4 class="subsubheading" id="Inputs-153">Inputs</h4>
@@ -4867,51 +4867,36 @@ on when this happens, the port might be damaged.)
 <h4 class="subsection">3.16.10 visadev</h4>
 <a class="index-entry-id" id="index-visadev"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-visadev-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">visadev</strong> <code class="def-code-arguments">(<var class="var">resourcename</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-visadev-1"><span class="category-def">: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">visadev</strong> <code class="def-code-arguments">(<var class="var">resourcename</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-visadev-2"><span class="category-def">: </span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">visadev</strong> <code class="def-code-arguments">(<var class="var">resourcename</var>, <var class="var">propertyname</var>, <var class="var">propertyvalue</var> &hellip;)</code></dt>
 <dd>
 <p>Open visadev interface.
 </p>
 <h4 class="subsubheading" id="Inputs-154">Inputs</h4>
+<p><var class="var">resourcename</var> - name of visadev device to open.
+</p>
 <p><var class="var">propertyname</var>, <var class="var">propertyvalue</var> - property name/value pair
 </p>
 <p>Known input properties:
 </p><dl class="table">
-<dt>Name</dt>
-<dd><p>name assigned to the udp object
-</p></dd>
-<dt>LocalPort</dt>
-<dd><p>local port number
-</p></dd>
-<dt>LocalHost</dt>
-<dd><p>local host address
+<dt>Tag</dt>
+<dd><p>tag value assigned to the visadev object
 </p></dd>
 <dt>Timeout</dt>
 <dd><p>timeout value in seconds used for waiting for data
 </p></dd>
-<dt>EnablePortSharing</dt>
-<dd><p>Boolean if the socket has port sharing enabled (readonly)
-</p></dd>
 </dl>
 <h4 class="subsubheading" id="Outputs-151">Outputs</h4>
-<p>The udpport() shall return instance of <var class="var">octave_udp</var> class as the result <var class="var">udp</var>.
+<p>visadev() shall return instance of <var class="var">octave_visadev</var> class as the result <var class="var">dev</var>.
 </p>
 <h4 class="subsubheading" id="Properties-22">Properties</h4>
-<p>The udp object has the following public properties:
+<p>The visadev object has the following public properties:
 </p><dl class="table">
-<dt>Name</dt>
-<dd><p>name assigned to the udp object
-</p></dd>
 <dt>Tag</dt>
-<dd><p>user tag assigned to the udp object
+<dd><p>user tag assigned to the visadev object
 </p></dd>
 <dt>Type</dt>
-<dd><p>instrument type &rsquo;udpport&rsquo; (readonly)
-</p></dd>
-<dt>LocalPort</dt>
-<dd><p>local port number (readonly)
-</p></dd>
-<dt>LocalHost</dt>
-<dd><p>local host address (readonly)
+<dd><p>instrument type (readonly)
 </p></dd>
 <dt>Status</dt>
 <dd><p>status of the object &rsquo;open&rsquo; or &rsquo;closed&rsquo; (readonly)
@@ -4925,23 +4910,21 @@ on when this happens, the port might be damaged.)
 <dt>MulticastGroup</dt>
 <dd><p>multicast group socket  is subscribed to (readonly)
 </p></dd>
-<dt>EnableMultcast</dt>
-<dd><p>Boolean if the socket has any multicast group it is subscribed to (readonly)
-</p></dd>
-<dt>EnablePortSharing</dt>
-<dd><p>Boolean if the socket has port sharing enabled (readonly)
-</p></dd>
 <dt>Terminator</dt>
-<dd><p>Terminator value used for string data (currently not used)
+<dd><p>Terminator value used for string data (readonly)
 </p></dd>
 </dl>
-</dd></dl>
+<p>Other properties are available depending on the visadev type and can 
+be retrieved using te properties function.
+</p>
+<p><strong class="strong">See also:</strong> properties, visadevlist.
+</p></dd></dl>
 </div>
 <div class="subsection-level-extent" id="visadevlist">
 <h4 class="subsection">3.16.11 visadevlist</h4>
 <a class="index-entry-id" id="index-visadevlist"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-visadevlist-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">resourcelist</var> =</code> <strong class="def-name">visadevlist</strong> <code class="def-code-arguments">()</code></dt>
+<dt class="deftypefn def-line" id="index-visadevlist-1"><span class="category-def">: </span><code class="def-type"><var class="var">resourcelist</var> =</code> <strong class="def-name">visadevlist</strong> <code class="def-code-arguments">()</code></dt>
 <dd>
 <p>List available visadev resources.
 </p>
@@ -4951,7 +4934,7 @@ on when this happens, the port might be damaged.)
 <p>Known input properties:
 </p>
 <h4 class="subsubheading" id="Outputs-152">Outputs</h4>
-<p>The visdevlist function shall return struct array of available resoures.
+<p>The visdevlist function shall return struct array of available resources.
 Struct properties:
 </p>
 </dd></dl>
@@ -4965,7 +4948,7 @@ Struct properties:
 <h4 class="subsection">3.17.1 @octave_vxi11/fclose</h4>
 <a class="index-entry-id" id="index-fclose-8"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fclose-17"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fclose-17"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fclose</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
 <dd><p>Closes VXI11 connection <var class="var">obj</var>
 </p></dd></dl>
 </div>
@@ -4973,7 +4956,7 @@ Struct properties:
 <h4 class="subsection">3.17.2 @octave_vxi11/fopen</h4>
 <a class="index-entry-id" id="index-fopen-8"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fopen-17"><span class="category-def">Function File: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
+<dt class="deftypefn def-line" id="index-fopen-17"><span class="category-def">: </span><code class="def-type"><var class="var">res</var> =</code> <strong class="def-name">fopen</strong> <code class="def-code-arguments">(<var class="var">obj</var>) (dummy)</code></dt>
 <dd><p>Opens VXI11 connection <var class="var">obj</var>
  This currently is a dummy function to improve compatibility to MATLAB
 </p>
@@ -4983,11 +4966,11 @@ Struct properties:
 <h4 class="subsection">3.17.3 @octave_vxi11/fread</h4>
 <a class="index-entry-id" id="index-fread-10"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread-61"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-62"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-63"><span class="category-def">Function File: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-64"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-65"><span class="category-def">Function File: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefn def-line" id="index-fread-61"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-62"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-63"><span class="category-def">: </span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-64"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-65"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code></dt>
 <dd><p>Reads <var class="var">data</var> from vxi11 instrument
 </p>
 <h4 class="subsubheading" id="Inputs-156">Inputs</h4>
@@ -5006,8 +4989,8 @@ Struct properties:
 <h4 class="subsection">3.17.4 @octave_vxi11/fwrite</h4>
 <a class="index-entry-id" id="index-fwrite-10"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite-34"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-35"><span class="category-def">Function File: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-fwrite-34"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-35"><span class="category-def">: </span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code></dt>
 <dd><p>Writes <var class="var">data</var> to vxi11 instrument
 </p>
 <h4 class="subsubheading" id="Inputs-157">Inputs</h4>
@@ -5023,7 +5006,7 @@ Struct properties:
 <h4 class="subsection">3.17.5 vxi11</h4>
 <a class="index-entry-id" id="index-vxi11"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-vxi11-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">vxi11</var> =</code> <strong class="def-name">vxi11</strong> <code class="def-code-arguments">(<var class="var">ip</var>,<var class="var">instr</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-vxi11-1"><span class="category-def">: </span><code class="def-type"><var class="var">vxi11</var> =</code> <strong class="def-name">vxi11</strong> <code class="def-code-arguments">(<var class="var">ip</var>,<var class="var">instr</var>)</code></dt>
 <dd>
 <p>Open vxi11 interface.
 </p>
@@ -5037,7 +5020,7 @@ Struct properties:
 <h4 class="subsection">3.17.6 vxi11_close</h4>
 <a class="index-entry-id" id="index-vxi11_005fclose"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-vxi11_005fclose-1"><span class="category-def">Loadable Function: </span><strong class="def-name">vxi11_close</strong> <code class="def-code-arguments">(<var class="var">vxi11</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-vxi11_005fclose-1"><span class="category-def">: </span><strong class="def-name">vxi11_close</strong> <code class="def-code-arguments">(<var class="var">vxi11</var>)</code></dt>
 <dd>
 <p>Close the interface and release a file descriptor.
 </p>
@@ -5048,7 +5031,7 @@ Struct properties:
 <h4 class="subsection">3.17.7 vxi11_read</h4>
 <a class="index-entry-id" id="index-vxi11_005fread"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-vxi11_005fread-1"><span class="category-def">Loadable Function: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">vxi11_read</strong> <code class="def-code-arguments">(<var class="var">vxi11</var>, <var class="var">n</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-vxi11_005fread-1"><span class="category-def">: </span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">vxi11_read</strong> <code class="def-code-arguments">(<var class="var">vxi11</var>, <var class="var">n</var>)</code></dt>
 <dd>
 <p>Read from vxi11 slave device.
 </p>
@@ -5062,7 +5045,7 @@ Struct properties:
 <h4 class="subsection">3.17.8 vxi11_write</h4>
 <a class="index-entry-id" id="index-vxi11_005fwrite"></a>
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-vxi11_005fwrite-1"><span class="category-def">Loadable Function: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">vxi11_write</strong> <code class="def-code-arguments">(<var class="var">vxi11</var>, <var class="var">data</var>)</code></dt>
+<dt class="deftypefn def-line" id="index-vxi11_005fwrite-1"><span class="category-def">: </span><code class="def-type"><var class="var">n</var> =</code> <strong class="def-name">vxi11_write</strong> <code class="def-code-arguments">(<var class="var">vxi11</var>, <var class="var">data</var>)</code></dt>
 <dd>
 <p>Write data to a vxi11 slave device.
 </p>

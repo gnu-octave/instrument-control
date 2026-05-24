@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/12_gpibtimeout/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - gpib_timeout"
 category: "VXI11"
@@ -90,12 +90,12 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-gpib_005ftimeout"><span class="category-def">Loadable Function: </span><span><strong class="def-name">gpib_timeout</strong> <code class="def-code-arguments">(<var class="var">gpib</var>, <var class="var">timeout</var>)</code><a class="copiable-link" href="#index-gpib_005ftimeout"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-gpib_005ftimeout-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">gpib_timeout</strong> <code class="def-code-arguments">(<var class="var">gpib</var>)</code><a class="copiable-link" href="#index-gpib_005ftimeout-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-gpib_005ftimeout"><span class="category-def">: </span><span><strong class="def-name">gpib_timeout</strong> <code class="def-code-arguments">(<var class="var">gpib</var>, <var class="var">timeout</var>)</code><a class="copiable-link" href="#index-gpib_005ftimeout"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-gpib_005ftimeout-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">t</var> =</code> <strong class="def-name">gpib_timeout</strong> <code class="def-code-arguments">(<var class="var">gpib</var>)</code><a class="copiable-link" href="#index-gpib_005ftimeout-1"></a></span></dt>
 <dd> 
 <p>Set new or get existing gpib interface timeout parameter. The timeout value is valid from 0 to 17.
 </p> 
-<p><var class="var">gpib</var> - instance of <var class="var">octave_gpib</var> class.<br> <var class="var">timeout</var> - Value of 0 means never timeout, 11 means one second and 17 means 1000 seconds (see GPIB documentation (ibtmo) for further details)
+<p><var class="var">gpib</var> - instance of <var class="var">octave_gpib</var> class.<br> <var class="var">timeout</var> - A value of 0 means never timeout, 11 means one second and 17 means 1000 seconds (see GPIB documentation (ibtmo) for further details)
 </p> 
 <p>If <var class="var">timeout</var> parameter is omitted, the gpib_timeout() shall return current timeout value as the result <var class="var">t</var>.
  </p></dd></dl>

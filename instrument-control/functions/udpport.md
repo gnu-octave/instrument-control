@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/7_udpport/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - udpport"
 category: "VXI11"
@@ -90,8 +90,8 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udpport"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udpport</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-udpport"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udpport-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udpport</strong> <code class="def-code-arguments">(<var class="var">propertyname</var>, <var class="var">propertyvalue</var> ...)</code><a class="copiable-link" href="#index-udpport-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-udpport"><span class="category-def">: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udpport</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-udpport"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-udpport-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">udp</var> =</code> <strong class="def-name">udpport</strong> <code class="def-code-arguments">(<var class="var">propertyname</var>, <var class="var">propertyvalue</var> ...)</code><a class="copiable-link" href="#index-udpport-1"></a></span></dt>
 <dd> 
 <p>Open udpport interface.
 </p> 
@@ -150,7 +150,7 @@ navigation:
 <dt>MulticastGroup</dt>
 <dd><p>multicast group socket  is subscribed to (readonly)
  </p></dd>
-<dt>EnableMultcast</dt>
+<dt>EnableMulticast</dt>
 <dd><p>Boolean if the socket has any multicast group it is subscribed to (readonly)
  </p></dd>
 <dt>EnablePortSharing</dt>

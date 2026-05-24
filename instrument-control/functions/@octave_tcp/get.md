@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_tcp/15_octavetcpget/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_tcp/get"
 category: "VXI11"
@@ -90,8 +90,8 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-get"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code><a class="copiable-link" href="#index-get"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-1"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">property</var>)</code><a class="copiable-link" href="#index-get-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-get"><span class="category-def">: </span><span><code class="def-type"><var class="var">struct</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcp</var>)</code><a class="copiable-link" href="#index-get"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-get-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">field</var> =</code> <strong class="def-name">get</strong> <code class="def-code-arguments">(<var class="var">tcp</var>, <var class="var">property</var>)</code><a class="copiable-link" href="#index-get-1"></a></span></dt>
 <dd><p>Get the properties of tcp object.
 </p>
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>

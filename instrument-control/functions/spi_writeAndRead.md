@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/16_spiwriteAndRead/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - spi_writeAndRead"
 category: "VXI11"
@@ -90,7 +90,7 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-spi_005fwriteAndRead"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">rddata</var> =</code> <strong class="def-name">spi_writeAndRead</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">wrdata</var>)</code><a class="copiable-link" href="#index-spi_005fwriteAndRead"></a></span></dt>
+<dt class="deftypefn def-line" id="index-spi_005fwriteAndRead"><span class="category-def">: </span><span><code class="def-type"><var class="var">rddata</var> =</code> <strong class="def-name">spi_writeAndRead</strong> <code class="def-code-arguments">(<var class="var">spi</var>, <var class="var">wrdata</var>)</code><a class="copiable-link" href="#index-spi_005fwriteAndRead"></a></span></dt>
 <dd> 
 <p>Write data to a spi slave device and then read same number of values.
 </p> 

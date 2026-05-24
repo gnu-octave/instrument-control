@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_gpib/18_octavegpibfread/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_gpib/fread"
 category: "VXI11"
@@ -90,11 +90,11 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fread"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-fread"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-1"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code><a class="copiable-link" href="#index-fread-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-2"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code><a class="copiable-link" href="#index-fread-2"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-3"><span class="category-def">Function File: </span><span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fread-3"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-4"><span class="category-def">Function File: </span><span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fread-4"></a></span></dt>
+<dt class="deftypefn def-line" id="index-fread"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-fread"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code><a class="copiable-link" href="#index-fread-1"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">precision</var>)</code><a class="copiable-link" href="#index-fread-2"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-3"><span class="category-def">: </span><span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fread-3"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fread-4"><span class="category-def">: </span><span><code class="def-type">[<var class="var">data</var>,<var class="var">count</var>,<var class="var">errmsg</var>] =</code> <strong class="def-name">fread</strong> <code class="def-code-arguments">(<var class="var">obj</var>, ...)</code><a class="copiable-link" href="#index-fread-4"></a></span></dt>
 <dd><p>Reads <var class="var">data</var> from GPIB instrument
 </p>
 <p><var class="var">obj</var> is a GPIB object

@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/9_tcpserver/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - tcpserver"
 category: "VXI11"
@@ -90,9 +90,9 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-tcpserver"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code><a class="copiable-link" href="#index-tcpserver"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpserver-1"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(<var class="var">port</var>)</code><a class="copiable-link" href="#index-tcpserver-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpserver-2"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(&hellip;, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code><a class="copiable-link" href="#index-tcpserver-2"></a></span></dt>
+<dt class="deftypefn def-line" id="index-tcpserver"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(<var class="var">ipaddress</var>, <var class="var">port</var>)</code><a class="copiable-link" href="#index-tcpserver"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpserver-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(<var class="var">port</var>)</code><a class="copiable-link" href="#index-tcpserver-1"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-tcpserver-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">tcpserver</var> =</code> <strong class="def-name">tcpserver</strong> <code class="def-code-arguments">(&hellip;, [<var class="var">propertyname</var>, <var class="var">propertyvalue</var>])</code><a class="copiable-link" href="#index-tcpserver-2"></a></span></dt>
 <dd> 
 <p>Open tcpserver interface.
 </p> 

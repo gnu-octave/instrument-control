@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_spi/24_octavespiwriteAndRead/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_spi/writeAndRead"
 category: "VXI11"
@@ -90,7 +90,7 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-writeAndRead"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">writeAndRead</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">wrdata</var>)</code><a class="copiable-link" href="#index-writeAndRead"></a></span></dt>
+<dt class="deftypefn def-line" id="index-writeAndRead"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">writeAndRead</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">wrdata</var>)</code><a class="copiable-link" href="#index-writeAndRead"></a></span></dt>
 <dd><p>Writes and reads <var class="var">data</var> from SPI instrument
 </p>
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>

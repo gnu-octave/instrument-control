@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/7_visadev/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - visadev"
 category: "VXI11"
@@ -90,52 +90,37 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-visadev"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">visadev</strong> <code class="def-code-arguments">(<var class="var">resourcename</var>)</code><a class="copiable-link" href="#index-visadev"></a></span></dt>
+<dt class="deftypefn def-line" id="index-visadev"><span class="category-def">: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">visadev</strong> <code class="def-code-arguments">(<var class="var">resourcename</var>)</code><a class="copiable-link" href="#index-visadev"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-visadev-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">dev</var> =</code> <strong class="def-name">visadev</strong> <code class="def-code-arguments">(<var class="var">resourcename</var>, <var class="var">propertyname</var>, <var class="var">propertyvalue</var> &hellip;)</code><a class="copiable-link" href="#index-visadev-1"></a></span></dt>
 <dd> 
 <p>Open visadev interface.
 </p> 
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>
+<p><var class="var">resourcename</var> - name of visadev device to open.
+</p>
 <p><var class="var">propertyname</var>, <var class="var">propertyvalue</var> - property name/value pair
 </p> 
 <p>Known input properties:
  </p><dl class="table">
-<dt>Name</dt>
-<dd><p>name assigned to the udp object
- </p></dd>
-<dt>LocalPort</dt>
-<dd><p>local port number
- </p></dd>
-<dt>LocalHost</dt>
-<dd><p>local host address
+<dt>Tag</dt>
+<dd><p>tag value assigned to the visadev object
  </p></dd>
 <dt>Timeout</dt>
 <dd><p>timeout value in seconds used for waiting for data
  </p></dd>
-<dt>EnablePortSharing</dt>
-<dd><p>Boolean if the socket has port sharing enabled (readonly)
- </p></dd>
 </dl>
  
 <h4 class="subsubheading" id="Outputs"><span>Outputs<a class="copiable-link" href="#Outputs"></a></span></h4>
-<p>The udpport() shall return instance of <var class="var">octave_udp</var> class as the result <var class="var">udp</var>.
+<p>visadev() shall return instance of <var class="var">octave_visadev</var> class as the result <var class="var">dev</var>.
 </p> 
 <h4 class="subsubheading" id="Properties"><span>Properties<a class="copiable-link" href="#Properties"></a></span></h4>
-<p>The udp object has the following public properties:
+<p>The visadev object has the following public properties:
  </p><dl class="table">
-<dt>Name</dt>
-<dd><p>name assigned to the udp object
- </p></dd>
 <dt>Tag</dt>
-<dd><p>user tag assigned to the udp object
+<dd><p>user tag assigned to the visadev object
  </p></dd>
 <dt>Type</dt>
-<dd><p>instrument type &rsquo;udpport&rsquo; (readonly)
- </p></dd>
-<dt>LocalPort</dt>
-<dd><p>local port number (readonly)
- </p></dd>
-<dt>LocalHost</dt>
-<dd><p>local host address (readonly)
+<dd><p>instrument type (readonly)
  </p></dd>
 <dt>Status</dt>
 <dd><p>status of the object &rsquo;open&rsquo; or &rsquo;closed&rsquo; (readonly)
@@ -149,14 +134,14 @@ navigation:
 <dt>MulticastGroup</dt>
 <dd><p>multicast group socket  is subscribed to (readonly)
  </p></dd>
-<dt>EnableMultcast</dt>
-<dd><p>Boolean if the socket has any multicast group it is subscribed to (readonly)
- </p></dd>
-<dt>EnablePortSharing</dt>
-<dd><p>Boolean if the socket has port sharing enabled (readonly)
- </p></dd>
 <dt>Terminator</dt>
-<dd><p>Terminator value used for string data (currently not used)
+<dd><p>Terminator value used for string data (readonly)
  </p></dd>
 </dl>
-</dd></dl>
+ 
+<p>Other properties are available depending on the visadev type and can 
+ be retrieved using te properties function.
+</p> 
+
+<p><strong class="strong">See also:</strong> properties, visadevlist.
+ </p></dd></dl>

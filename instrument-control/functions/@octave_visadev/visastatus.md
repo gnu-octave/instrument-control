@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_visadev/26_octavevisadevvisastatus/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_visadev/visastatus"
 category: "VXI11"

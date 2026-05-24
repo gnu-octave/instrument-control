@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/9_udpclose/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - udp_close"
 category: "VXI11"
@@ -90,7 +90,7 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-udp_005fclose"><span class="category-def">Loadable Function: </span><span><strong class="def-name">udp_close</strong> <code class="def-code-arguments">(<var class="var">udp</var>)</code><a class="copiable-link" href="#index-udp_005fclose"></a></span></dt>
+<dt class="deftypefn def-line" id="index-udp_005fclose"><span class="category-def">: </span><span><strong class="def-name">udp_close</strong> <code class="def-code-arguments">(<var class="var">udp</var>)</code><a class="copiable-link" href="#index-udp_005fclose"></a></span></dt>
 <dd> 
 <p>Close the interface and release a file descriptor.
 </p> 

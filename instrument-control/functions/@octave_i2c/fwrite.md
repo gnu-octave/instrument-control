@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_i2c/18_octavei2cfwrite/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_i2c/fwrite"
 category: "VXI11"
@@ -90,8 +90,8 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-fwrite"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code><a class="copiable-link" href="#index-fwrite"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-1"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code><a class="copiable-link" href="#index-fwrite-1"></a></span></dt>
+<dt class="deftypefn def-line" id="index-fwrite"><span class="category-def">: </span><span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>)</code><a class="copiable-link" href="#index-fwrite"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-fwrite-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">numbytes</var> =</code> <strong class="def-name">fwrite</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">data</var>, <var class="var">precision</var>)</code><a class="copiable-link" href="#index-fwrite-1"></a></span></dt>
 <dd><p>Writes <var class="var">data</var> to I2C instrument
 </p>
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>

@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/10_vxi11read/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - vxi11_read"
 category: "VXI11"
@@ -90,7 +90,7 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-vxi11_005fread"><span class="category-def">Loadable Function: </span><span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">vxi11_read</strong> <code class="def-code-arguments">(<var class="var">vxi11</var>, <var class="var">n</var>)</code><a class="copiable-link" href="#index-vxi11_005fread"></a></span></dt>
+<dt class="deftypefn def-line" id="index-vxi11_005fread"><span class="category-def">: </span><span><code class="def-type">[<var class="var">data</var>, <var class="var">count</var>] =</code> <strong class="def-name">vxi11_read</strong> <code class="def-code-arguments">(<var class="var">vxi11</var>, <var class="var">n</var>)</code><a class="copiable-link" href="#index-vxi11_005fread"></a></span></dt>
 <dd> 
 <p>Read from vxi11 slave device.
 </p> 

@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/11_visadevlist/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - visadevlist"
 category: "VXI11"
@@ -90,7 +90,7 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-visadevlist"><span class="category-def">Loadable Function: </span><span><code class="def-type"><var class="var">resourcelist</var> =</code> <strong class="def-name">visadevlist</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-visadevlist"></a></span></dt>
+<dt class="deftypefn def-line" id="index-visadevlist"><span class="category-def">: </span><span><code class="def-type"><var class="var">resourcelist</var> =</code> <strong class="def-name">visadevlist</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href="#index-visadevlist"></a></span></dt>
 <dd> 
 <p>List available visadev resources.
 </p> 
@@ -100,7 +100,7 @@ navigation:
 <p>Known input properties:
  </p> 
 <h4 class="subsubheading" id="Outputs"><span>Outputs<a class="copiable-link" href="#Outputs"></a></span></h4>
-<p>The visdevlist function shall return struct array of available resoures.
+<p>The visdevlist function shall return struct array of available resources.
  Struct properties:
  </p> 
 </dd></dl>

@@ -3,7 +3,7 @@ layout: "default"
 permalink: "/news/"
 title: "Instrument-control Toolkit - News"
 pkg_name: "instrument-control"
-version: "0.10.0"
+version: "0.10.1"
 description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 navigation:
 - id: "overview"
@@ -19,6 +19,17 @@ navigation:
   url: "/manual"
 ---
 <pre>
+Summary of important user-visible changes for instrument-control 0.10.1
+-------------------------------------------------------------------
+
+  ** Minor doc updates
+
+  ** Updates for Octave 12+ compatibility
+
+  ** Update binread/write and device read/write functions for endian compatibility
+
+  ** Add qt6 doc generation support
+
 Summary of important user-visible changes for instrument-control 0.10.0
 -------------------------------------------------------------------
 

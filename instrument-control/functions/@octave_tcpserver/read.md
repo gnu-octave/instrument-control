@@ -2,7 +2,7 @@
 layout: "default"
 permalink: "/functions/@octave_tcpserver/22_octavetcpserverread/"
 pkg_name: "instrument-control"
-pkg_version: "0.10.0"
+pkg_version: "0.10.1"
 pkg_description: "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, modbus, visa, vxi11, udp and usbtmc interfaces."
 title: "Instrument-control Toolkit - @octave_tcpserver/read"
 category: "VXI11"
@@ -90,9 +90,9 @@ navigation:
   url: "/manual"
 ---
 <dl class="first-deftypefn def-block">
-<dt class="deftypefn def-line" id="index-read"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-read"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-1"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code><a class="copiable-link" href="#index-read-1"></a></span></dt>
-<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-2"><span class="category-def">Function File: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code><a class="copiable-link" href="#index-read-2"></a></span></dt>
+<dt class="deftypefn def-line" id="index-read"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>)</code><a class="copiable-link" href="#index-read"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-1"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>)</code><a class="copiable-link" href="#index-read-1"></a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn def-line" id="index-read-2"><span class="category-def">: </span><span><code class="def-type"><var class="var">data</var> =</code> <strong class="def-name">read</strong> <code class="def-code-arguments">(<var class="var">obj</var>, <var class="var">size</var>, <var class="var">datatype</var>)</code><a class="copiable-link" href="#index-read-2"></a></span></dt>
 <dd><p>Reads <var class="var">data</var> from TCP instrument
 </p>
 <h4 class="subsubheading" id="Inputs"><span>Inputs<a class="copiable-link" href="#Inputs"></a></span></h4>
