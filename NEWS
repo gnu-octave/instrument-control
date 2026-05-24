@@ -1,3 +1,14 @@
+Summary of important user-visible changes for instrument-control 0.10.1
+-------------------------------------------------------------------
+
+  ** Minor doc updates
+
+  ** Updates for Octave 12+ compatibility
+
+  ** Update binread/write and device read/write functions for endian compatibility
+
+  ** Add qt6 doc generation support
+
 Summary of important user-visible changes for instrument-control 0.10.0
 -------------------------------------------------------------------
 
