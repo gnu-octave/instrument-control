@@ -163,12 +163,7 @@ endfunction
 %! # using default byte order
 %! writebinblock(a, "hello", "uint16");
 %! x = read(a);
-%! [comp, maxsize, endian] = computer ();
-%! if endian == "L"
-%!   expected = "#210h\0e\0l\0l\0o\0\n";
-%! else
-%!   expected = "#210\0h\0e\0l\0l\0o\n";
-%! endif
+%! expected = "#210h\0e\0l\0l\0o\0\n";
 %! assert(char(x), expected);
 %!
 %! # little endian
